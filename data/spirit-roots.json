@@ -1,0 +1,94 @@
+{
+  "spirit_roots": {
+    "kim": {
+      "name": "Kim Linh Căn",
+      "emoji": "⚔️",
+      "description": "Linh căn kim thuộc tính, chuyên về công kích sắc bén và phòng thủ cứng cáp",
+      "attributes": {
+        "attack_bonus": 1.2,
+        "defense_bonus": 1.1,
+        "speed_bonus": 0.9,
+        "magic_bonus": 0.8
+      },
+      "special_abilities": [
+        "Kim Kiếm Vô Song",
+        "Thép Thân Bất Hoại",
+        "Phong Lôi Kiếm Pháp"
+      ],
+      "weakness": "hỏa",
+      "strength": "mộc"
+    },
+    "moc": {
+      "name": "Mộc Linh Căn",
+      "emoji": "🌳",
+      "description": "Linh căn mộc thuộc tính, chuyên về sinh trưởng và hồi phục",
+      "attributes": {
+        "attack_bonus": 0.9,
+        "defense_bonus": 1.0,
+        "speed_bonus": 1.1,
+        "magic_bonus": 1.3
+      },
+      "special_abilities": [
+        "Mộc Linh Hồi Phục",
+        "Thảo Mộc Trường Sinh",
+        "Thiên Mộc Vạn Thọ"
+      ],
+      "weakness": "kim",
+      "strength": "thổ"
+    },
+    "thuy": {
+      "name": "Thủy Linh Căn",
+      "emoji": "💧",
+      "description": "Linh căn thủy thuộc tính, chuyên về linh hoạt và biến hóa",
+      "attributes": {
+        "attack_bonus": 1.0,
+        "defense_bonus": 1.2,
+        "speed_bonus": 1.3,
+        "magic_bonus": 1.1
+      },
+      "special_abilities": [
+        "Thủy Nguyệt Vô Biên",
+        "Hải Triều Bất Tận",
+        "Băng Sương Thiên Hạ"
+      ],
+      "weakness": "thổ",
+      "strength": "hỏa"
+    },
+    "hoa": {
+      "name": "Hỏa Linh Căn",
+      "emoji": "🔥",
+      "description": "Linh căn hỏa thuộc tính, chuyên về công kích mãnh liệt và phá hủy",
+      "attributes": {
+        "attack_bonus": 1.4,
+        "defense_bonus": 0.8,
+        "speed_bonus": 1.2,
+        "magic_bonus": 1.0
+      },
+      "special_abilities": [
+        "Hỏa Long Phá Thiên",
+        "Thiên Hỏa Vạn Trượng",
+        "Hỏa Phượng Tái Sinh"
+      ],
+      "weakness": "thủy",
+      "strength": "kim"
+    },
+    "tho": {
+      "name": "Thổ Linh Căn",
+      "emoji": "🏔️",
+      "description": "Linh căn thổ thuộc tính, chuyên về phòng thủ và ổn định",
+      "attributes": {
+        "attack_bonus": 0.8,
+        "defense_bonus": 1.4,
+        "speed_bonus": 0.9,
+        "magic_bonus": 1.2
+      },
+      "special_abilities": [
+        "Thổ Địa Bất Động",
+        "Sơn Nhạc Vạn Cổ",
+        "Đại Địa Vô Biên"
+      ],
+      "weakness": "mộc",
+      "strength": "thủy"
+    }
+  }
+} 

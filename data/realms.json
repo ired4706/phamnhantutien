@@ -1,0 +1,82 @@
+{
+  "realms": {
+    "luyen_khi": {
+      "name": "Luyện Khí Kỳ",
+      "emoji": "💨",
+      "description": "Cảnh giới đầu tiên của tu tiên, luyện khí trong cơ thể",
+      "levels": [
+        "Tầng 1", "Tầng 2", "Tầng 3", "Tầng 4", "Tầng 5",
+        "Tầng 6", "Tầng 7", "Tầng 8", "Tầng 9", "Tầng 10",
+        "Tầng 11", "Tầng 12", "Tầng 13"
+      ],
+      "maxLevel": 13,
+      "experienceMultiplier": 1.0,
+      "breakthroughDifficulty": 1.0,
+      "statsBonus": {
+        "hp": 20,
+        "mp": 10,
+        "attack": 2,
+        "defense": 1,
+        "speed": 1,
+        "magic": 1
+      }
+    },
+    "truc_co": {
+      "name": "Trúc Cơ Kỳ",
+      "emoji": "🌱",
+      "description": "Cảnh giới thứ hai, xây dựng nền tảng tu luyện vững chắc",
+      "levels": [
+        "Sơ Kỳ", "Trung Kỳ", "Hậu Kỳ"
+      ],
+      "maxLevel": 3,
+      "experienceMultiplier": 2.0,
+      "breakthroughDifficulty": 2.5,
+      "statsBonus": {
+        "hp": 50,
+        "mp": 25,
+        "attack": 5,
+        "defense": 3,
+        "speed": 2,
+        "magic": 3
+      }
+    },
+    "ket_dan": {
+      "name": "Kết Đan Kỳ",
+      "emoji": "🔮",
+      "description": "Cảnh giới thứ ba, kết tinh tu vi thành đan",
+      "levels": [
+        "Sơ Kỳ", "Trung Kỳ", "Hậu Kỳ"
+      ],
+      "maxLevel": 3,
+      "experienceMultiplier": 4.0,
+      "breakthroughDifficulty": 5.0,
+      "statsBonus": {
+        "hp": 100,
+        "mp": 50,
+        "attack": 10,
+        "defense": 6,
+        "speed": 4,
+        "magic": 6
+      }
+    },
+    "nguyen_anh": {
+      "name": "Nguyên Anh Kỳ",
+      "emoji": "👶",
+      "description": "Cảnh giới thứ tư, tu luyện nguyên thần",
+      "levels": [
+        "Sơ Kỳ", "Trung Kỳ", "Hậu Kỳ"
+      ],
+      "maxLevel": 3,
+      "experienceMultiplier": 8.0,
+      "breakthroughDifficulty": 10.0,
+      "statsBonus": {
+        "hp": 200,
+        "mp": 100,
+        "attack": 20,
+        "defense": 12,
+        "speed": 8,
+        "magic": 12
+      }
+    }
+  }
+} 

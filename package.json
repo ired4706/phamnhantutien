@@ -1,0 +1,20 @@
+{
+  "name": "tu-tien-bot",
+  "version": "1.0.0",
+  "description": "Discord RPG bot với phong cách phàm nhân tu tiên",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "keywords": ["discord", "bot", "rpg", "tu-tien", "cultivation"],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "^14.14.1",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
+} 
