@@ -1,6 +1,6 @@
 /**
- * EXP Calculator - Hệ thống tính toán linh khí (EXP) nhận được
- * Công thức: EXP = Base EXP × Tu vi Level Scale × Difficulty × Sự kiện × Random Variance
+ * Linh khí Calculator - Hệ thống tính toán linh khí nhận được
+ * Công thức: Linh khí = Base Linh khí × Linh khí Level Scale × Difficulty × Sự kiện × Random Variance
  */
 
 class ExpCalculator {
@@ -41,7 +41,7 @@ class ExpCalculator {
       'enabled': true       // Bật/tắt random variance
     };
 
-    // Base EXP và thời gian chờ cho từng command
+    // Base Linh khí và thời gian chờ cho từng command
     this.commandConfigs = {
       'meditate': {
         baseExp: 600,
@@ -81,33 +81,33 @@ class ExpCalculator {
       'mine': {
         baseExp: 0,
         cooldown: 3600000,  // 1h = 3600000ms
-        description: 'Khai thác khoáng sản (không có EXP)'
+        description: 'Khai thác khoáng sản (không có Linh khí)'
       },
       'pick': {
         baseExp: 45,         // Trung bình 40-50
         cooldown: 300000,   // 5m = 300000ms
         description: 'Thu thập thảo dược',
-        randomRange: { min: 40, max: 50 } // EXP ngẫu nhiên từ 40-50
+        randomRange: { min: 40, max: 50 } // Linh khí ngẫu nhiên từ 40-50
       },
       'explore': {
         baseExp: 135,        // Trung bình 120-150
         cooldown: 600000,   // 10m = 600000ms
         description: 'Khám phá thế giới',
-        randomRange: { min: 120, max: 150 } // EXP ngẫu nhiên từ 120-150
+        randomRange: { min: 120, max: 150 } // Linh khí ngẫu nhiên từ 120-150
       }
     };
   }
 
   /**
-   * Tính toán EXP nhận được theo công thức
+   * Tính toán Linh khí nhận được theo công thức
    * @param {Object} params - Tham số tính toán
-   * @param {number} params.baseExp - Base EXP cơ bản
+   * @param {number} params.baseExp - Base Linh khí cơ bản
    * @param {string} params.realm - Cảnh giới tu vi (luyen_khi, truc_co, ket_dan, nguyen_anh)
    * @param {number} params.realmLevel - Cấp độ trong cảnh giới (1-13 cho Luyện Khí, 1-3 cho các kỳ khác)
    * @param {string} params.difficulty - Loại độ khó (domain, domain_easy, domain_hard, domain_boss, hoặc tùy chỉnh)
    * @param {string} params.event - Loại sự kiện (none, double_exp, triple_exp, etc.)
    * @param {boolean} params.enableRandom - Bật/tắt random variance
-   * @returns {Object} Kết quả tính toán EXP
+   * @returns {Object} Kết quả tính toán Linh khí
    */
   calculateExp(params) {
     const {
@@ -119,10 +119,10 @@ class ExpCalculator {
       enableRandom = true
     } = params;
 
-    // 1. Base EXP
+    // 1. Base Linh khí
     const baseExpValue = baseExp;
 
-    // 2. Tu vi Level Scale
+    // 2. Linh khí Level Scale
     const realmScale = this.getRealmScale(realm, realmLevel);
 
     // 3. Difficulty - Chỉ áp dụng cho command domain, còn lại = 1
@@ -134,7 +134,7 @@ class ExpCalculator {
     // 5. Random Variance
     const randomVariance = enableRandom ? this.getRandomVariance() : 1.0;
 
-    // Tính toán EXP cuối cùng
+    // Tính toán Linh khí cuối cùng
     const finalExp = Math.round(
       baseExpValue *
       realmScale *

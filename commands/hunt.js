@@ -58,8 +58,8 @@ module.exports = {
       .setDescription(`**${username}** đã săn được yêu thú.`)
       .addFields(
         {
-          name: '📊 Kinh nghiệm nhận được',
-          value: `**+${expGained} EXP**`,
+          name: '📊 Linh khí nhận được',
+          value: `**+${expGained} Linh khí**`,
           inline: true
         },
         {
@@ -73,11 +73,11 @@ module.exports = {
           inline: true
         }
       )
-      .addFields({
-        name: '🔍 Chi tiết tính toán EXP',
-        value: expResult.breakdown.calculation,
-        inline: false
-      })
+      .addFields(        {
+          name: '🔍 Chi tiết tính toán Linh khí',
+          value: expResult.breakdown.calculation,
+          inline: false
+        })
       .setFooter({ text: 'Săn yêu thú có thể thực hiện sau 30 giây' })
       .setTimestamp();
 

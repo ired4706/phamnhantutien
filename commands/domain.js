@@ -58,7 +58,7 @@ module.exports = {
       .addFields(
         {
           name: '📊 Kinh nghiệm nhận được',
-          value: `**+${expGained} EXP**`,
+          value: `**+${expGained} Linh khí**`,
           inline: true
         },
         {

@@ -31,7 +31,7 @@ module.exports = {
       return;
     }
 
-    // Tính toán EXP theo hệ thống mới (explore có EXP random 120-150)
+    // Tính toán Linh khí theo hệ thống mới (explore có Linh khí random 120-150)
     const expResult = expCalculator.calculateExploreExp(player, 'none');
     const expGained = expResult.finalExp;
 
@@ -57,8 +57,8 @@ module.exports = {
       .setDescription(`**${username}** đã khám phá được những điều mới lạ.`)
       .addFields(
         {
-          name: '📊 Kinh nghiệm nhận được',
-          value: `**+${expGained} EXP** (Random 120-150)`,
+          name: '📊 Linh khí nhận được',
+          value: `**+${expGained} Linh khí** (Random 120-150)`,
           inline: true
         },
         {
@@ -72,11 +72,11 @@ module.exports = {
           inline: true
         }
       )
-      .addFields({
-        name: '🔍 Chi tiết tính toán EXP',
-        value: expResult.breakdown.calculation,
-        inline: false
-      })
+      .addFields(        {
+          name: '🔍 Chi tiết tính toán Linh khí',
+          value: expResult.breakdown.calculation,
+          inline: false
+        })
       .setFooter({ text: 'Khám phá có thể thực hiện sau 10 phút' })
       .setTimestamp();
 

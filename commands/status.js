@@ -6,6 +6,17 @@ module.exports = {
   aliases: ['s', 'trangthai', 'info'],
   description: 'Xem trạng thái tu luyện và linh căn',
 
+  // Tạo progress bar cho tiến độ đột phá
+  createProgressBar(percentage) {
+    const filledBlocks = Math.floor(percentage / 10);
+    const emptyBlocks = 10 - filledBlocks;
+    
+    const filled = '█'.repeat(filledBlocks);
+    const empty = '░'.repeat(emptyBlocks);
+    
+    return `${filled}${empty}`;
+  },
+
   async execute(interaction, args) {
     const userId = interaction.user.id;
     const username = interaction.user.username;
@@ -22,6 +33,7 @@ module.exports = {
     const playerInfo = playerManager.formatPlayerInfo(player);
     const spiritRoot = playerManager.getSpiritRootInfo(player.spiritRoot);
     const realmInfo = playerManager.getRealmInfo(player.realm);
+    const breakthroughInfo = playerManager.getBreakthroughExpRequired(player);
 
     // Tạo embed hiển thị thông tin
     const statusEmbed = new EmbedBuilder()
@@ -40,8 +52,8 @@ module.exports = {
           inline: true
         },
         {
-          name: '⭐ Cấp Độ',
-          value: `**${playerInfo.level}** (${playerInfo.experience})`,
+          name: '⭐ Linh Khí',
+          value: `**${playerInfo.experience} Linh khí**`,
           inline: true
         },
         {
@@ -56,6 +68,24 @@ module.exports = {
       statusEmbed.addFields({
         name: '🎯 Thông Tin Cảnh Giới',
         value: `**${realmInfo.name}**\n${realmInfo.description}\n\n**Tầng hiện tại**: ${realmInfo.levels[player.realmLevel - 1]}\n**Tầng tối đa**: ${realmInfo.maxLevel}\n**Độ khó đột phá**: ${realmInfo.breakthroughDifficulty}x`,
+        inline: false
+      });
+    }
+
+    // Thêm thông tin Linh khí để đột phá
+    if (breakthroughInfo.canBreakthrough) {
+      const nextRealmName = playerManager.getRealmInfo(breakthroughInfo.nextRealm)?.name || 'Cảnh giới tiếp theo';
+      const progressBar = this.createProgressBar(breakthroughInfo.progress);
+      
+      statusEmbed.addFields({
+        name: '🚀 Tiến Độ Đột Phá',
+        value: `**${nextRealmName} - ${breakthroughInfo.nextRealmLevel === 1 ? 'Sơ Kỳ' : breakthroughInfo.nextRealmLevel === 2 ? 'Trung Kỳ' : 'Hậu Kỳ'}**\n\n${progressBar}\n**${breakthroughInfo.progress.toFixed(1)}%** (${breakthroughInfo.currentLinhKhi}/${breakthroughInfo.linhKhiRequired} Linh khí)\n\n**Còn thiếu**: ${breakthroughInfo.linhKhiNeeded} Linh khí`,
+        inline: false
+      });
+    } else if (breakthroughInfo.reason) {
+      statusEmbed.addFields({
+        name: '🏆 Trạng Thái Đột Phá',
+        value: `**${breakthroughInfo.reason}**\n**Linh khí hiện tại**: ${breakthroughInfo.currentLinhKhi} Linh khí`,
         inline: false
       });
     }
@@ -133,13 +163,13 @@ module.exports = {
           inline: true
         },
         {
-          name: '🔥 Khắc Chế',
+          name: '🔥 Bị Khắc',
           value: `**${spiritRoot.weakness.toUpperCase()}** - Yếu điểm`,
           inline: false
         },
         {
-          name: '🌱 Tương Sinh',
-          value: `**${spiritRoot.strength.toUpperCase()}** - Hỗ trợ`,
+          name: '🌱 Khắc chế',
+          value: `**${spiritRoot.strength.toUpperCase()}** - Thế mạnh`,
           inline: true
         }
       );

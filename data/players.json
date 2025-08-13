@@ -1,16 +1,14 @@
 {
-  "558528163244802089": {
-    "userId": "558528163244802089",
-    "username": "just_archer",
+  "761604505665929236": {
+    "userId": "761604505665929236",
+    "username": "merry_19",
     "spiritRoot": "thuy",
-    "level": 9,
-    "experience": 2115,
-    "experienceToNext": 2553,
+    "experience": 0,
     "realm": "luyen_khi",
     "realmLevel": 1,
     "totalTiers": 0,
     "inventory": {
-      "spiritStones": 411,
+      "spiritStones": 100,
       "items": [],
       "weapons": [],
       "armors": []
@@ -19,11 +17,21 @@
       "lastCultivate": 0,
       "cultivateCooldown": 300000,
       "breakthroughAttempts": 0,
-      "lastBreakthrough": 0
+      "lastBreakthrough": 0,
+      "lastMeditate": 0,
+      "lastHunt": 0,
+      "lastChallenge": 0,
+      "lastDomain": 0,
+      "lastDailyQuest": 0,
+      "lastWeeklyQuest": 0,
+      "lastDungeon": 0,
+      "lastMine": 0,
+      "lastPick": 0,
+      "lastExplore": 0
     },
     "achievements": [],
-    "joinDate": 1755077636192,
-    "lastActive": 1755077906205,
+    "joinDate": 1755105352557,
+    "lastActive": 1755105352557,
     "stats": {
       "attack": 9,
       "defense": 9,
@@ -37,63 +45,6 @@
       "evasion": 6,
       "reputation": 0,
       "karma": 0
-    },
-    "cultivation.lastHunt": 1755077906205,
-    "inventory.spiritStones": 411,
-    "cultivation.lastDailyQuest": 1755077699030,
-    "stats.reputation": 9,
-    "cultivation.lastCultivate": 1755077735853,
-    "cultivation.lastMine": 1755077756761,
-    "cultivation.lastExplore": 1755077794321,
-    "cultivation.lastDomain": 1755077827119,
-    "cultivation.lastChallenge": 1755077877907
-  },
-  "504705413682298891": {
-    "userId": "504705413682298891",
-    "username": "ired0806",
-    "spiritRoot": "tho",
-    "level": 16,
-    "experience": 3572,
-    "experienceToNext": 43606,
-    "realm": "luyen_khi",
-    "realmLevel": 1,
-    "totalTiers": 0,
-    "inventory": {
-      "spiritStones": 5132,
-      "items": [],
-      "weapons": [],
-      "armors": []
-    },
-    "cultivation": {
-      "lastCultivate": 0,
-      "cultivateCooldown": 300000,
-      "breakthroughAttempts": 0,
-      "lastBreakthrough": 0,
-      "lastSimpletest": 1755080177488,
-      "lastHunt": 1755081815657,
-      "lastDomain": 1755080196723
-    },
-    "achievements": [],
-    "joinDate": 1755078586670,
-    "lastActive": 1755081815659,
-    "stats": {
-      "attack": 11,
-      "defense": 14,
-      "hp": 140,
-      "maxHp": 140,
-      "mp": 40,
-      "maxMp": 40,
-      "speed": 7,
-      "critical": 4,
-      "regen": 3,
-      "evasion": 2,
-      "reputation": 257,
-      "karma": 0
-    },
-    "cultivation.lastHunt": 1755079927507,
-    "inventory.spiritStones": 4546,
-    "cultivation.lastDomain": 1755079663680,
-    "stats.reputation": 225,
-    "cultivation.lastTestCooldown": 1755079964376
+    }
   }
 }

@@ -54,16 +54,17 @@ npm start
 ### Commands có sẵn:
 - `fhelp` - Hiển thị hướng dẫn tu luyện
 - `fping` - Kiểm tra độ trễ bot
-- `fstatus` - Xem trạng thái tu luyện
+- `fstatus` - Xem trạng thái tu luyện và tiến độ đột phá
 - `fspiritroot` - Xem thông tin linh căn
-- `fcultivate` - Tu luyện để tăng tu vi
-- `fbreakthrough` - Đột phá cảnh giới
+- `fcultivation` - Xem thông tin hệ thống tu vi
+- `fbreakthrough` - Xem chi tiết tiến độ đột phá
 - `fhunt` - Săn yêu thú lấy tài nguyên
 
 ### Hệ thống tu luyện:
 1. Sử dụng `fcultivate` để tu luyện
 2. Khi đủ tu vi, dùng `fbreakthrough` để đột phá
-3. Cảnh giới: Luyện khí → Trúc cơ → Kim đan → Nguyên anh → Hóa thần → Phản hư → Hợp đạo
+3. Cảnh giới: Luyện Khí (13 tầng) → Trúc Cơ (3 kỳ) → Kết Đan (3 kỳ) → Nguyên Anh (3 kỳ)
+4. Linh khí được tích lũy qua các hoạt động và hiển thị Linh khí cần thiết để đột phá
 
 ### Hệ thống linh căn:
 - Mỗi player có 1 linh căn ngẫu nhiên trong 5 loại: Kim ⚔️, Mộc 🌳, Thủy 💧, Hỏa 🔥, Thổ 🏔️
@@ -78,11 +79,29 @@ tu-tien-bot/
 │   ├── help.js
 │   ├── ping.js
 │   ├── status.js
-│   └── spiritroot.js
+│   ├── spiritroot.js
+│   ├── cultivation.js
+│   ├── breakthrough.js
+│   ├── hunt.js
+│   ├── meditate.js
+│   ├── challenge.js
+│   ├── domain.js
+│   ├── daily.js
+│   ├── weekly.js
+│   ├── dungeon.js
+│   ├── mine.js
+│   ├── pick.js
+│   └── explore.js
 ├── systems/           # Hệ thống game
-│   └── player.js      # Quản lý người chơi
+│   ├── player.js      # Quản lý người chơi
+│   ├── exp-calculator.js # Tính toán EXP
+│   └── level-requirements.js # Yêu cầu tu vi
 ├── data/              # Dữ liệu game
-│   └── spirit-roots.json # Thông tin linh căn
+│   ├── spirit-roots.json # Thông tin linh căn
+│   ├── realms.json    # Thông tin cảnh giới
+│   └── players.json   # Dữ liệu người chơi
+├── utils/             # Tiện ích
+│   └── cooldown.js    # Quản lý cooldown
 ├── index.js           # File chính của bot
 ├── package.json
 └── README.md

@@ -174,7 +174,7 @@ class LevelRequirements {
 
     return {
       canBreakthrough: expNeeded <= 0,
-      reason: expNeeded <= 0 ? 'Đủ EXP để đột phá' : 'Thiếu EXP để đột phá',
+      reason: expNeeded <= 0 ? 'Đủ Linh khí để đột phá' : 'Thiếu Linh khí để đột phá',
       nextLevel: nextLevel,
       expRequired: expRequired,
       expNeeded: expNeeded > 0 ? expNeeded : 0,

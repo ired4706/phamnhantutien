@@ -31,7 +31,7 @@ module.exports = {
       return;
     }
 
-    // Tính toán EXP theo hệ thống mới (pick có EXP random 40-50)
+    // Tính toán Linh khí theo hệ thống mới (pick có Linh khí random 40-50)
     const expResult = expCalculator.calculatePickExp(player, 'none');
     const expGained = expResult.finalExp;
 
@@ -57,8 +57,8 @@ module.exports = {
       .setDescription(`**${username}** đã thu thập được thảo dược.`)
       .addFields(
         {
-          name: '📊 Kinh nghiệm nhận được',
-          value: `**+${expGained} EXP** (Random 40-50)`,
+          name: '📊 Linh khí nhận được',
+          value: `**+${expGained} Linh khí** (Random 40-50)`,
           inline: true
         },
         {
@@ -72,11 +72,11 @@ module.exports = {
           inline: true
         }
       )
-      .addFields({
-        name: '🔍 Chi tiết tính toán EXP',
-        value: expResult.breakdown.calculation,
-        inline: false
-      })
+      .addFields(        {
+          name: '🔍 Chi tiết tính toán Linh khí',
+          value: expResult.breakdown.calculation,
+          inline: false
+        })
       .setFooter({ text: 'Thu thập thảo dược có thể thực hiện sau 5 phút' })
       .setTimestamp();
 

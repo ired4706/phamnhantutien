@@ -56,8 +56,8 @@ module.exports = {
       .setDescription(`**${username}** đã hoàn thành buổi thiền định.`)
       .addFields(
         {
-          name: '📊 Kinh nghiệm nhận được',
-          value: `**+${expGained} EXP**`,
+          name: '📊 Linh khí nhận được',
+          value: `**+${expGained} Linh khí**`,
           inline: true
         },
         {
@@ -72,7 +72,7 @@ module.exports = {
         }
       )
       .addFields({
-        name: '🔍 Chi tiết tính toán EXP',
+        name: '🔍 Chi tiết tính toán Linh khí',
         value: expResult.breakdown.calculation,
         inline: false
       })

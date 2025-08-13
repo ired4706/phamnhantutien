@@ -52,7 +52,7 @@ module.exports = {
         },
         {
           name: '🎯 Yêu Cầu',
-          value: '**Tu vi**: 100-1000\n**Độ khó**: 1.0x\n**Thời gian**: 1-3 ngày/tầng',
+          value: '**Linh khí**: 100-1000\n**Độ khó**: 1.0x\n**Thời gian**: 1-3 ngày/tầng',
           inline: true
         },
         {
@@ -74,7 +74,7 @@ module.exports = {
         },
         {
           name: '🎯 Yêu Cầu',
-          value: '**Tu vi**: 1000-5000\n**Độ khó**: 2.5x\n**Thời gian**: 3-7 ngày/kỳ',
+          value: '**Linh khí**: 1000-5000\n**Độ khó**: 2.5x\n**Thời gian**: 3-7 ngày/kỳ',
           inline: true
         },
         {
@@ -96,7 +96,7 @@ module.exports = {
         },
         {
           name: '🎯 Yêu Cầu',
-          value: '**Tu vi**: 5000-20000\n**Độ khó**: 5.0x\n**Thời gian**: 7-15 ngày/kỳ',
+          value: '**Linh khí**: 5000-20000\n**Độ khó**: 5.0x\n**Thời gian**: 7-15 ngày/kỳ',
           inline: true
         },
         {
@@ -118,7 +118,7 @@ module.exports = {
         },
         {
           name: '🎯 Yêu Cầu',
-          value: '**Tu vi**: 20000-100000\n**Độ khó**: 10.0x\n**Thời gian**: 15-30 ngày/kỳ',
+          value: '**Linh khí**: 20000-100000\n**Độ khó**: 10.0x\n**Thời gian**: 15-30 ngày/kỳ',
           inline: true
         },
         {

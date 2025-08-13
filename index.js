@@ -163,8 +163,8 @@ async function handleButtonInteraction(interaction) {
             inline: true
           },
           {
-            name: '⭐ Cấp Độ',
-            value: '1 (0/100)',
+            name: '⭐ Linh Khí',
+            value: '0 Linh khí',
             inline: true
           },
           {
@@ -230,13 +230,13 @@ async function handleButtonInteraction(interaction) {
           inline: true
         },
         {
-          name: '🔥 Khắc Chế',
+          name: '🔥 Bị Khắc Bởi',
           value: `**${spiritRoot.weakness.toUpperCase()}** - Yếu điểm chính`,
           inline: false
         },
         {
-          name: '🌱 Tương Sinh',
-          value: `**${spiritRoot.strength.toUpperCase()}** - Hỗ trợ tốt`,
+          name: '🌱 Khắc Chế Tốt',
+          value: `**${spiritRoot.strength.toUpperCase()}** - Đối đầu tốt`,
           inline: false
         },
         {

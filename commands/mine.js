@@ -6,7 +6,7 @@ const expCalculator = require('../systems/exp-calculator.js');
 module.exports = {
   name: 'mine',
   aliases: ['mi', 'dao', 'mining'],
-  description: 'Khai thác khoáng sản để lấy tài nguyên (không có EXP)',
+  description: 'Khai thác khoáng sản để lấy tài nguyên (không có Linh khí)',
   cooldown: 3600000, // 1h = 3600000ms
 
   async execute(interaction, args) {
@@ -31,7 +31,7 @@ module.exports = {
       return;
     }
 
-    // Tính toán EXP theo hệ thống mới (mine = 0 EXP)
+    // Tính toán Linh khí theo hệ thống mới (mine = 0 Linh khí)
     const expResult = expCalculator.calculateMineExp(player, 'none');
     const expGained = expResult.finalExp; // Sẽ luôn = 0
 
@@ -57,8 +57,8 @@ module.exports = {
       .setDescription(`**${username}** đã hoàn thành buổi khai thác.`)
       .addFields(
         {
-          name: '📊 Kinh nghiệm nhận được',
-          value: `**+${expGained} EXP** (Khai thác không có EXP)`,
+          name: '📊 Linh khí nhận được',
+          value: `**+${expGained} Linh khí** (Khai thác không có Linh khí)`,
           inline: true
         },
         {
@@ -72,11 +72,11 @@ module.exports = {
           inline: true
         }
       )
-      .addFields({
-        name: '🔍 Chi tiết tính toán EXP',
-        value: expResult.breakdown.calculation,
-        inline: false
-      })
+      .addFields(        {
+          name: '🔍 Chi tiết tính toán Linh khí',
+          value: expResult.breakdown.calculation,
+          inline: false
+        })
       .setFooter({ text: 'Khai thác có thể thực hiện sau 1 giờ' })
       .setTimestamp();
 

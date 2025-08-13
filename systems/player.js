@@ -79,9 +79,7 @@ class PlayerManager {
       userId: userId,
       username: username,
       spiritRoot: spiritRoot,
-      level: 1,
       experience: 0,
-      experienceToNext: 100,
       realm: 'luyen_khi',
       realmLevel: 1,
       totalTiers: 0, // Tổng số tầng đã qua
@@ -314,18 +312,15 @@ class PlayerManager {
 
     player.experience += exp;
 
-    // Kiểm tra level up
-    while (player.experience >= player.experienceToNext) {
-      player.experience -= player.experienceToNext;
-      player.level += 1;
-      player.experienceToNext = Math.floor(player.experienceToNext * 1.5);
+    // Tính toán lại stats dựa trên EXP mới
+    this.calculatePlayerStats(player);
 
-      // Tính toán lại stats dựa trên level mới
-      this.calculatePlayerStats(player);
-
-      // Khôi phục HP/MP
-      player.stats.hp = player.stats.maxHp;
-      player.stats.mp = player.stats.maxMp;
+    // Khôi phục HP/MP nếu cần
+    if (player.stats.hp < player.stats.maxHp) {
+      player.stats.hp = Math.min(player.stats.hp + Math.floor(exp * 0.1), player.stats.maxHp);
+    }
+    if (player.stats.mp < player.stats.maxMp) {
+      player.stats.mp = Math.min(player.stats.mp + Math.floor(exp * 0.1), player.stats.maxMp);
     }
 
     this.savePlayers();
@@ -334,6 +329,94 @@ class PlayerManager {
 
   getSpiritRootInfo(spiritRootType) {
     return this.spiritRoots[spiritRootType];
+  }
+
+  // Lấy Linh khí cần thiết để đột phá cảnh giới
+  getBreakthroughExpRequired(player) {
+    const currentRealm = player.realm;
+    const currentRealmLevel = player.realmLevel;
+    
+    // Bảng Linh khí cần thiết cho từng cảnh giới
+    const breakthroughExpTable = {
+      'luyen_khi': {
+        1: 200, 2: 280, 3: 392, 4: 549, 5: 769, 6: 1077, 7: 1508,
+        8: 2111, 9: 2955, 10: 4137, 11: 5792, 12: 8109, 13: 11353
+      },
+      'truc_co': {
+        1: 18165, 2: 29064, 3: 46502
+      },
+      'ket_dan': {
+        1: 83703, 2: 150667, 3: 271201
+      },
+      'nguyen_anh': {
+        1: 542402, 2: 1084804, 3: 2169608
+      }
+    };
+
+    // Kiểm tra xem có thể đột phá không
+    if (currentRealm === 'luyen_khi' && currentRealmLevel >= 13) {
+      // Đã đạt tầng cuối Luyện Khí, cần đột phá lên Trúc Cơ
+      return {
+        canBreakthrough: true,
+        nextRealm: 'truc_co',
+        nextRealmLevel: 1,
+        linhKhiRequired: 18165,
+        linhKhiNeeded: Math.max(0, 18165 - player.experience),
+        currentLinhKhi: player.experience,
+        progress: Math.min(100, (player.experience / 18165) * 100)
+      };
+    } else if (currentRealm === 'truc_co' && currentRealmLevel >= 3) {
+      // Đã đạt tầng cuối Trúc Cơ, cần đột phá lên Kết Đan
+      return {
+        canBreakthrough: true,
+        nextRealm: 'ket_dan',
+        nextRealmLevel: 1,
+        linhKhiRequired: 83703,
+        linhKhiNeeded: Math.max(0, 83703 - player.experience),
+        currentLinhKhi: player.experience,
+        progress: Math.min(100, (player.experience / 83703) * 100)
+      };
+    } else if (currentRealm === 'ket_dan' && currentRealmLevel >= 3) {
+      // Đã đạt tầng cuối Kết Đan, cần đột phá lên Nguyên Anh
+      return {
+        canBreakthrough: true,
+        nextRealm: 'nguyen_anh',
+        nextRealmLevel: 1,
+        linhKhiRequired: 542402,
+        linhKhiNeeded: Math.max(0, 542402 - player.experience),
+        currentLinhKhi: player.experience,
+        progress: Math.min(100, (player.experience / 542402) * 100)
+      };
+    } else if (currentRealm === 'nguyen_anh' && currentRealmLevel >= 3) {
+      // Đã đạt tầng cuối Nguyên Anh
+      return {
+        canBreakthrough: false,
+        reason: 'Đã đạt cảnh giới tối đa',
+        currentLinhKhi: player.experience,
+        progress: 100
+      };
+    } else {
+      // Có thể đột phá trong cùng cảnh giới
+      const currentExpTable = breakthroughExpTable[currentRealm];
+      if (currentExpTable && currentExpTable[currentRealmLevel + 1]) {
+        const linhKhiRequired = currentExpTable[currentRealmLevel + 1];
+        return {
+          canBreakthrough: true,
+          nextRealm: currentRealm,
+          nextRealmLevel: currentRealmLevel + 1,
+          linhKhiRequired: linhKhiRequired,
+          linhKhiNeeded: Math.max(0, linhKhiRequired - player.experience),
+          currentLinhKhi: player.experience,
+          progress: Math.min(100, (player.experience / linhKhiRequired) * 100)
+        };
+      }
+    }
+
+    return {
+      canBreakthrough: false,
+      reason: 'Không thể xác định yêu cầu đột phá',
+      currentLinhKhi: player.experience
+    };
   }
 
   getAllSpiritRoots() {
@@ -359,11 +442,10 @@ class PlayerManager {
 
     return {
       username: player.username,
-      level: player.level,
       realm: realmDisplayName,
       realmLevel: player.realmLevel,
       spiritRoot: spiritRoot ? `${spiritRoot.emoji} ${spiritRoot.name}` : 'Không xác định',
-      experience: `${player.experience}/${player.experienceToNext}`,
+      experience: player.experience,
       stats: player.stats
     };
   }

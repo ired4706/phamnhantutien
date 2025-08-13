@@ -69,17 +69,17 @@ module.exports = {
       .addComponents(
         new ButtonBuilder()
           .setCustomId('choose_kim')
-          .setLabel('⚔️ Kim Linh Căn')
+          .setLabel('Kim Linh Căn')
           .setStyle(ButtonStyle.Primary)
           .setEmoji('⚔️'),
         new ButtonBuilder()
           .setCustomId('choose_moc')
-          .setLabel('🌳 Mộc Linh Căn')
+          .setLabel('Mộc Linh Căn')
           .setStyle(ButtonStyle.Success)
           .setEmoji('🌳'),
         new ButtonBuilder()
           .setCustomId('choose_thuy')
-          .setLabel('💧 Thủy Linh Căn')
+          .setLabel('Thủy Linh Căn')
           .setStyle(ButtonStyle.Secondary)
           .setEmoji('💧')
       );
@@ -88,12 +88,12 @@ module.exports = {
       .addComponents(
         new ButtonBuilder()
           .setCustomId('choose_hoa')
-          .setLabel('🔥 Hỏa Linh Căn')
+          .setLabel('Hỏa Linh Căn')
           .setStyle(ButtonStyle.Danger)
           .setEmoji('🔥'),
         new ButtonBuilder()
           .setCustomId('choose_tho')
-          .setLabel('🏔️ Thổ Linh Căn')
+          .setLabel('Thổ Linh Căn')
           .setStyle(ButtonStyle.Secondary)
           .setEmoji('🏔️')
       );
