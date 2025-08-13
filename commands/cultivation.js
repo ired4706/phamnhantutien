@@ -56,8 +56,8 @@ module.exports = {
           inline: false
         },
         {
-          name: '💪 Bonus Stats',
-          value: '**HP**: +20/tầng\n**MP**: +10/tầng\n**Attack**: +2/tầng\n**Defense**: +1/tầng',
+          name: '💪 Realm Bonus',
+          value: '**Luyện Khí**: Không có bonus\n**Trúc Cơ Sơ**: +10% toàn bộ stats\n**Trúc Cơ Trung**: +15% toàn bộ stats\n**Trúc Cơ Hậu**: +20% toàn bộ stats',
           inline: false
         }
       );
@@ -78,8 +78,8 @@ module.exports = {
           inline: false
         },
         {
-          name: '💪 Bonus Stats',
-          value: '**HP**: +50/kỳ\n**MP**: +25/kỳ\n**Attack**: +5/kỳ\n**Defense**: +3/kỳ',
+          name: '💪 Realm Bonus',
+          value: '**Trúc Cơ Sơ**: +10% toàn bộ stats\n**Trúc Cơ Trung**: +15% toàn bộ stats\n**Trúc Cơ Hậu**: +20% toàn bộ stats',
           inline: false
         }
       );
@@ -100,8 +100,8 @@ module.exports = {
           inline: false
         },
         {
-          name: '💪 Bonus Stats',
-          value: '**HP**: +100/kỳ\n**MP**: +50/kỳ\n**Attack**: +10/kỳ\n**Defense**: +6/kỳ',
+          name: '💪 Realm Bonus',
+          value: '**Kết Đan Sơ**: +25% toàn bộ stats\n**Kết Đan Trung**: +30% toàn bộ stats\n**Kết Đan Hậu**: +35% toàn bộ stats',
           inline: false
         }
       );
@@ -122,8 +122,8 @@ module.exports = {
           inline: false
         },
         {
-          name: '💪 Bonus Stats',
-          value: '**HP**: +200/kỳ\n**MP**: +100/kỳ\n**Attack**: +20/kỳ\n**Defense**: +12/kỳ',
+          name: '💪 Realm Bonus',
+          value: '**Nguyên Anh Sơ**: +40% toàn bộ stats\n**Nguyên Anh Trung**: +50% toàn bộ stats\n**Nguyên Anh Hậu**: +60% toàn bộ stats',
           inline: false
         }
       );

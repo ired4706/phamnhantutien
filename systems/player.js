@@ -84,16 +84,7 @@ class PlayerManager {
       experienceToNext: 100,
       realm: 'luyen_khi',
       realmLevel: 1,
-      stats: {
-        hp: 100,
-        maxHp: 100,
-        mp: 50,
-        maxMp: 50,
-        attack: 10,
-        defense: 5,
-        speed: 8,
-        magic: 6
-      },
+      totalTiers: 0, // Tổng số tầng đã qua
       inventory: {
         spiritStones: 100,
         items: [],
@@ -111,8 +102,8 @@ class PlayerManager {
       lastActive: Date.now()
     };
 
-    // Áp dụng bonus từ linh căn
-    this.applySpiritRootBonus(player);
+    // Tính toán stats dựa trên công thức mới
+    this.calculatePlayerStats(player);
 
     this.players.set(userId, player);
     this.savePlayers();
@@ -144,16 +135,61 @@ class PlayerManager {
     };
   }
 
-  applySpiritRootBonus(player) {
+  calculatePlayerStats(player) {
     const spiritRoot = this.spiritRoots[player.spiritRoot];
     if (!spiritRoot) return;
 
-    const { attack_bonus, defense_bonus, speed_bonus, magic_bonus } = spiritRoot.attributes;
+    const { basic_stats, growth_rates } = spiritRoot;
+    
+    // Tính tổng số tầng đã qua
+    let totalTiers = 0;
+    if (player.realm === 'luyen_khi') {
+      totalTiers = player.realmLevel - 1; // Từ 0 đến 12
+    } else if (player.realm === 'truc_co') {
+      totalTiers = 13 + (player.realmLevel - 1); // 13 + (0,1,2)
+    } else if (player.realm === 'ket_dan') {
+      totalTiers = 16 + (player.realmLevel - 1); // 16 + (0,1,2)
+    } else if (player.realm === 'nguyen_anh') {
+      totalTiers = 19 + (player.realmLevel - 1); // 19 + (0,1,2)
+    }
 
-    player.stats.attack = Math.floor(player.stats.attack * attack_bonus);
-    player.stats.defense = Math.floor(player.stats.defense * defense_bonus);
-    player.stats.speed = Math.floor(player.stats.speed * speed_bonus);
-    player.stats.magic = Math.floor(player.stats.magic * magic_bonus);
+    // Tính bonus mốc tu vi
+    let realmBonus = 0;
+    if (player.realm === 'truc_co') {
+      const realmInfo = this.realms[player.realm];
+      if (player.realmLevel === 1) realmBonus = realmInfo.realmBonus.so_ky;
+      else if (player.realmLevel === 2) realmBonus = realmInfo.realmBonus.trung_ky;
+      else if (player.realmLevel === 3) realmBonus = realmInfo.realmBonus.hau_ky;
+    } else if (player.realm === 'ket_dan') {
+      const realmInfo = this.realms[player.realm];
+      if (player.realmLevel === 1) realmBonus = realmInfo.realmBonus.so_ky;
+      else if (player.realmLevel === 2) realmBonus = realmInfo.realmBonus.trung_ky;
+      else if (player.realmLevel === 3) realmBonus = realmInfo.realmBonus.hau_ky;
+    } else if (player.realm === 'nguyen_anh') {
+      const realmInfo = this.realms[player.realm];
+      if (player.realmLevel === 1) realmBonus = realmInfo.realmBonus.so_ky;
+      else if (player.realmLevel === 2) realmBonus = realmInfo.realmBonus.trung_ky;
+      else if (player.realmLevel === 3) realmBonus = realmInfo.realmBonus.hau_ky;
+    }
+
+    // Công thức: Stat = (Basic + Growth × Tiers) × (1 + Realm Bonus)
+    const stats = {
+      attack: Math.floor((basic_stats.attack + growth_rates.attack * totalTiers) * (1 + realmBonus)),
+      defense: Math.floor((basic_stats.defense + growth_rates.defense * totalTiers) * (1 + realmBonus)),
+      hp: Math.floor((basic_stats.hp + growth_rates.hp * totalTiers) * (1 + realmBonus)),
+      maxHp: Math.floor((basic_stats.hp + growth_rates.hp * totalTiers) * (1 + realmBonus)),
+      mp: Math.floor((basic_stats.mana + growth_rates.mana * totalTiers) * (1 + realmBonus)),
+      maxMp: Math.floor((basic_stats.mana + growth_rates.mana * totalTiers) * (1 + realmBonus)),
+      speed: Math.floor((basic_stats.speed + growth_rates.speed * totalTiers) * (1 + realmBonus)),
+      critical: Math.floor((basic_stats.critical + growth_rates.critical * totalTiers) * (1 + realmBonus)),
+      regen: Math.floor((basic_stats.regen + growth_rates.regen * totalTiers) * (1 + realmBonus)),
+      evasion: Math.floor((basic_stats.evasion + growth_rates.evasion * totalTiers) * (1 + realmBonus)),
+      reputation: Math.floor((basic_stats.reputation + growth_rates.reputation * totalTiers) * (1 + realmBonus)),
+      karma: Math.floor((basic_stats.karma + growth_rates.karma * totalTiers) * (1 + realmBonus))
+    };
+
+    player.stats = stats;
+    player.totalTiers = totalTiers;
   }
 
   getPlayer(userId) {
@@ -248,13 +284,8 @@ class PlayerManager {
       player.level += 1;
       player.experienceToNext = Math.floor(player.experienceToNext * 1.5);
 
-      // Tăng stats khi level up
-      player.stats.maxHp += 20;
-      player.stats.maxMp += 10;
-      player.stats.attack += 2;
-      player.stats.defense += 1;
-      player.stats.speed += 1;
-      player.stats.magic += 1;
+      // Tính toán lại stats dựa trên level mới
+      this.calculatePlayerStats(player);
 
       // Khôi phục HP/MP
       player.stats.hp = player.stats.maxHp;

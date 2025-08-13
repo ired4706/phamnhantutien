@@ -1,3 +1,78 @@
 {
-
+  "504705413682298891": {
+    "userId": "504705413682298891",
+    "username": "ired0806",
+    "spiritRoot": "hoa",
+    "level": 1,
+    "experience": 0,
+    "experienceToNext": 100,
+    "realm": "luyen_khi",
+    "realmLevel": 1,
+    "totalTiers": 0,
+    "inventory": {
+      "spiritStones": 100,
+      "items": [],
+      "weapons": [],
+      "armors": []
+    },
+    "cultivation": {
+      "lastCultivate": 0,
+      "cultivateCooldown": 300000,
+      "breakthroughAttempts": 0,
+      "lastBreakthrough": 0
+    },
+    "achievements": [],
+    "joinDate": 1755011175574,
+    "lastActive": 1755011175574,
+    "stats": {
+      "attack": 14,
+      "defense": 8,
+      "hp": 95,
+      "maxHp": 95,
+      "mp": 60,
+      "maxMp": 60,
+      "speed": 11,
+      "critical": 10,
+      "regen": 2,
+      "evasion": 5
+    }
+  },
+  "761604505665929236": {
+    "userId": "761604505665929236",
+    "username": "merry_19",
+    "spiritRoot": "thuy",
+    "level": 1,
+    "experience": 0,
+    "experienceToNext": 100,
+    "realm": "luyen_khi",
+    "realmLevel": 1,
+    "totalTiers": 0,
+    "inventory": {
+      "spiritStones": 100,
+      "items": [],
+      "weapons": [],
+      "armors": []
+    },
+    "cultivation": {
+      "lastCultivate": 0,
+      "cultivateCooldown": 300000,
+      "breakthroughAttempts": 0,
+      "lastBreakthrough": 0
+    },
+    "achievements": [],
+    "joinDate": 1755016243006,
+    "lastActive": 1755016243006,
+    "stats": {
+      "attack": 9,
+      "defense": 9,
+      "hp": 90,
+      "maxHp": 90,
+      "mp": 90,
+      "maxMp": 90,
+      "speed": 10,
+      "critical": 6,
+      "regen": 3,
+      "evasion": 6
+    }
+  }
 }

@@ -29,22 +29,22 @@ module.exports = {
         },
         {
           name: '🌳 Mộc Linh Căn',
-          value: 'Chuyên về sinh trưởng và hồi phục',
+          value: 'Chuyên về hồi phục và né tránh',
           inline: true
         },
         {
           name: '💧 Thủy Linh Căn',
-          value: 'Chuyên về linh hoạt và biến hóa',
+          value: 'Chuyên về tốc độ và né tránh',
           inline: true
         },
         {
           name: '🔥 Hỏa Linh Căn',
-          value: 'Chuyên về công kích mãnh liệt và phá hủy',
+          value: 'Chuyên về công kích mãnh liệt và chí mạng',
           inline: true
         },
         {
           name: '🏔️ Thổ Linh Căn',
-          value: 'Chuyên về phòng thủ và ổn định',
+          value: 'Chuyên về phòng thủ và hồi phục',
           inline: true
         }
       );

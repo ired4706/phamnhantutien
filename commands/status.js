@@ -66,33 +66,53 @@ module.exports = {
       .setTitle('⚔️ Thuộc Tính Chiến Đấu')
       .addFields(
         {
-          name: '❤️ Sinh Mệnh',
+          name: '❤️ Sinh Mệnh (HP)',
           value: `${player.stats.hp}/${player.stats.maxHp}`,
           inline: true
         },
         {
-          name: '🔮 Linh Lực',
+          name: '🔮 Linh Lực (MP)',
           value: `${player.stats.mp}/${player.stats.maxMp}`,
           inline: true
         },
         {
-          name: '⚔️ Công Kích',
+          name: '⚔️ Công Kích (ATK)',
           value: `**${player.stats.attack}**`,
           inline: true
         },
         {
-          name: '🛡️ Phòng Thủ',
+          name: '🛡️ Phòng Thủ (DEF)',
           value: `**${player.stats.defense}**`,
           inline: true
         },
         {
-          name: '⚡ Tốc Độ',
+          name: '⚡ Tốc Độ (SPD)',
           value: `**${player.stats.speed}**`,
           inline: true
         },
         {
-          name: '✨ Pháp Lực',
-          value: `**${player.stats.magic}**`,
+          name: '🎯 Chí Mạng (CRT)',
+          value: `**${player.stats.critical}%**`,
+          inline: true
+        },
+        {
+          name: '💚 Hồi Phục (RGN)',
+          value: `**${player.stats.regen}**`,
+          inline: true
+        },
+        {
+          name: '🦅 Né Tránh (EVA)',
+          value: `**${player.stats.evasion}%**`,
+          inline: true
+        },
+        {
+          name: '⭐ Danh Tiếng (REP)',
+          value: `**${player.stats.reputation}**`,
+          inline: true
+        },
+        {
+          name: '🌟 Nghiệp Lực (KAR)',
+          value: `**${player.stats.karma}**`,
           inline: true
         }
       );
@@ -103,8 +123,13 @@ module.exports = {
       .setTitle(`${spiritRoot.emoji} ${spiritRoot.name} - Chi Tiết`)
       .addFields(
         {
-          name: '🎯 Ưu Thế',
-          value: `**${spiritRoot.attributes.attack_bonus}x** Công Kích\n**${spiritRoot.attributes.defense_bonus}x** Phòng Thủ\n**${spiritRoot.attributes.speed_bonus}x** Tốc Độ\n**${spiritRoot.attributes.magic_bonus}x** Pháp Lực`,
+          name: '🎯 Basic Stats (Level 0)',
+          value: `**ATK**: ${spiritRoot.basic_stats.attack}\n**DEF**: ${spiritRoot.basic_stats.defense}\n**HP**: ${spiritRoot.basic_stats.hp}\n**MP**: ${spiritRoot.basic_stats.mana}\n**SPD**: ${spiritRoot.basic_stats.speed}\n**CRT**: ${spiritRoot.basic_stats.critical}%\n**RGN**: ${spiritRoot.basic_stats.regen}\n**EVA**: ${spiritRoot.basic_stats.evasion}%\n**REP**: ${spiritRoot.basic_stats.reputation}\n**KAR**: ${spiritRoot.basic_stats.karma}`,
+          inline: false
+        },
+        {
+          name: '📈 Growth Rates (per tier)',
+          value: `**ATK**: +${spiritRoot.growth_rates.attack}\n**DEF**: +${spiritRoot.growth_rates.defense}\n**HP**: +${spiritRoot.growth_rates.hp}\n**MP**: +${spiritRoot.growth_rates.mana}\n**SPD**: +${spiritRoot.growth_rates.speed}\n**CRT**: +${spiritRoot.growth_rates.critical}%\n**RGN**: +${spiritRoot.growth_rates.regen}\n**EVA**: +${spiritRoot.growth_rates.evasion}%\n**REP**: +${spiritRoot.growth_rates.reputation}\n**KAR**: +${spiritRoot.growth_rates.karma}`,
           inline: false
         },
         {

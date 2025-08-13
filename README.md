@@ -30,13 +30,19 @@ npm install
 ```
 
 ### 3. Cấu hình
-1. Copy file `env.example` thành `.env`
+1. Copy file `env-template.txt` thành `.env`
 2. Điền thông tin vào file `.env`:
 ```env
-DISCORD_TOKEN=your_bot_token_here
-CLIENT_ID=your_client_id_here
-GUILD_ID=your_guild_id_here
+BOT_TOKEN=your_discord_bot_token_here
+CLIENT_ID=your_discord_client_id_here
+GUILD_ID=your_discord_guild_id_here
 ```
+
+**Lưu ý quan trọng:**
+- `BOT_TOKEN`: Token bot Discord từ Discord Developer Portal
+- `CLIENT_ID`: ID ứng dụng Discord của bạn
+- `GUILD_ID`: ID server Discord (nếu muốn bot chỉ hoạt động trong 1 server)
+- Các biến khác có thể để mặc định hoặc điều chỉnh theo ý muốn
 
 ### 4. Chạy bot
 ```bash
@@ -95,6 +101,23 @@ tu-tien-bot/
 - Bot cần quyền `Send Messages`, `Read Message History`
 - Hệ thống tu luyện có cooldown để cân bằng game
 - Dữ liệu player được lưu tự động vào file JSON
+
+## 🔧 Biến môi trường (.env)
+
+### Biến bắt buộc:
+- `BOT_TOKEN`: Token bot Discord (bắt buộc)
+- `CLIENT_ID`: ID ứng dụng Discord
+- `GUILD_ID`: ID server Discord
+
+### Biến tùy chọn:
+- `PREFIX`: Prefix lệnh (mặc định: `f`)
+- `GAME_NAME`: Tên bot (mặc định: `Tu Tiên Bot`)
+- `GAME_VERSION`: Phiên bản bot (mặc định: `1.0.0`)
+- `ENABLE_ECONOMY`: Bật/tắt hệ thống kinh tế
+- `ENABLE_LEVELING`: Bật/tắt hệ thống cấp độ
+- `ENABLE_CULTIVATION`: Bật/tắt hệ thống tu luyện
+- `ENABLE_SPIRIT_ROOTS`: Bật/tắt hệ thống linh căn
+- `COMMAND_COOLDOWN`: Cooldown giữa các lệnh (ms)
 
 ## 🤝 Đóng góp
 

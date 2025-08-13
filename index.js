@@ -3,6 +3,12 @@ const fs = require('fs');
 const path = require('path');
 require('dotenv').config();
 
+// Kiểm tra các biến môi trường bắt buộc
+if (!process.env.BOT_TOKEN) {
+  console.error('❌ BOT_TOKEN không được tìm thấy trong file .env');
+  process.exit(1);
+}
+
 const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
@@ -10,6 +16,19 @@ const client = new Client({
     GatewayIntentBits.MessageContent
   ]
 });
+
+// Cấu hình từ biến môi trường
+const config = {
+  prefix: process.env.PREFIX || 'f',
+  gameName: process.env.GAME_NAME || 'Tu Tiên Bot',
+  gameVersion: process.env.GAME_VERSION || '1.0.0',
+  logLevel: process.env.LOG_LEVEL || 'info',
+  commandCooldown: parseInt(process.env.COMMAND_COOLDOWN) || 3000,
+  enableEconomy: process.env.ENABLE_ECONOMY === 'true',
+  enableLeveling: process.env.ENABLE_LEVELING === 'true',
+  enableCultivation: process.env.ENABLE_CULTIVATION === 'true',
+  enableSpiritRoots: process.env.ENABLE_SPIRIT_ROOTS === 'true'
+};
 
 // Collection để lưu trữ commands
 client.commands = new Collection();
@@ -32,16 +51,24 @@ for (const file of commandFiles) {
 
 // Event handler
 client.once('ready', () => {
-  console.log(`🌿 Tu Tiên Bot is ready! Logged in as ${client.user.tag}`);
-  client.user.setActivity('🌿 Tu luyện cùng fhelp', { type: 'PLAYING' });
+  console.log(`🌿 ${config.gameName} v${config.gameVersion} is ready! Logged in as ${client.user.tag}`);
+  client.user.setActivity(`🌿 Tu luyện cùng ${config.prefix}help`, { type: 'PLAYING' });
+  
+  // Log cấu hình
+  console.log('📋 Bot Configuration:');
+  console.log(`   Prefix: ${config.prefix}`);
+  console.log(`   Economy: ${config.enableEconomy ? '✅' : '❌'}`);
+  console.log(`   Leveling: ${config.enableLeveling ? '✅' : '❌'}`);
+  console.log(`   Cultivation: ${config.enableCultivation ? '✅' : '❌'}`);
+  console.log(`   Spirit Roots: ${config.enableSpiritRoots ? '✅' : '❌'}`);
 });
 
 // Message handler for prefix commands
 client.on('messageCreate', async message => {
   if (message.author.bot) return;
-  if (!message.content.startsWith('f')) return;
+  if (!message.content.startsWith(config.prefix)) return;
 
-  const args = message.content.slice(1).trim().split(/ +/);
+  const args = message.content.slice(config.prefix.length).trim().split(/ +/);
   const commandName = args.shift().toLowerCase();
 
   const command = client.commands.get(commandName) ||
@@ -146,10 +173,15 @@ async function handleButtonInteraction(interaction) {
             inline: true
           },
           {
-            name: '🎯 Ưu Thế',
-            value: `**${spiritRoot.attributes.attack_bonus}x** Công Kích\n**${spiritRoot.attributes.defense_bonus}x** Phòng Thủ\n**${spiritRoot.attributes.speed_bonus}x** Tốc Độ\n**${spiritRoot.attributes.magic_bonus}x** Pháp Lực`,
+            name: '🎯 Basic Stats (Level 0)',
+            value: `**ATK**: ${spiritRoot.basic_stats.attack}\n**DEF**: ${spiritRoot.basic_stats.defense}\n**HP**: ${spiritRoot.basic_stats.hp}\n**MP**: ${spiritRoot.basic_stats.mana}\n**SPD**: ${spiritRoot.basic_stats.speed}\n**CRT**: ${spiritRoot.basic_stats.critical}%\n**RGN**: ${spiritRoot.basic_stats.regen}\n**EVA**: ${spiritRoot.basic_stats.evasion}%\n**REP**: ${spiritRoot.basic_stats.reputation}\n**KAR**: ${spiritRoot.basic_stats.karma}`,
             inline: false
-          }
+          },
+          {
+            name: '📈 Growth Rates (per tier)',
+            value: `**ATK**: +${spiritRoot.growth_rates.attack}\n**DEF**: +${spiritRoot.growth_rates.defense}\n**HP**: +${spiritRoot.growth_rates.hp}\n**MP**: +${spiritRoot.growth_rates.mana}\n**SPD**: +${spiritRoot.growth_rates.speed}\n**CRT**: +${spiritRoot.growth_rates.critical}%\n**RGN**: +${spiritRoot.growth_rates.regen}\n**EVA**: +${spiritRoot.growth_rates.evasion}%\n**REP**: +${spiritRoot.growth_rates.reputation}\n**KAR**: +${spiritRoot.growth_rates.karma}`,
+            inline: false
+          },
         )
         .setFooter({ text: 'Bây giờ bạn có thể sử dụng fstatus để xem thông tin chi tiết!' })
         .setTimestamp();
@@ -188,8 +220,13 @@ async function handleButtonInteraction(interaction) {
       .setDescription(spiritRoot.description)
       .addFields(
         {
-          name: '🎯 Thuộc Tính',
-          value: `**Công Kích**: ${spiritRoot.attributes.attack_bonus}x\n**Phòng Thủ**: ${spiritRoot.attributes.defense_bonus}x\n**Tốc Độ**: ${spiritRoot.attributes.speed_bonus}x\n**Pháp Lực**: ${spiritRoot.attributes.magic_bonus}x`,
+          name: '🎯 Basic Stats (Level 0)',
+          value: `**ATK**: ${spiritRoot.basic_stats.attack}\n**DEF**: ${spiritRoot.basic_stats.defense}\n**HP**: ${spiritRoot.basic_stats.hp}\n**MP**: ${spiritRoot.basic_stats.mana}\n**SPD**: ${spiritRoot.basic_stats.speed}\n**CRT**: ${spiritRoot.basic_stats.critical}%\n**RGN**: ${spiritRoot.basic_stats.regen}\n**EVA**: ${spiritRoot.basic_stats.evasion}%\n**REP**: ${spiritRoot.basic_stats.reputation}\n**KAR**: ${spiritRoot.basic_stats.karma}`,
+          inline: false
+        },
+        {
+          name: '📈 Growth Rates (per tier)',
+          value: `**ATK**: +${spiritRoot.growth_rates.attack}\n**DEF**: +${spiritRoot.growth_rates.defense}\n**HP**: +${spiritRoot.growth_rates.hp}\n**MP**: +${spiritRoot.growth_rates.mana}\n**SPD**: +${spiritRoot.growth_rates.speed}\n**CRT**: +${spiritRoot.growth_rates.critical}%\n**RGN**: +${spiritRoot.growth_rates.regen}\n**EVA**: +${spiritRoot.growth_rates.evasion}%\n**REP**: +${spiritRoot.growth_rates.reputation}\n**KAR**: +${spiritRoot.growth_rates.karma}`,
           inline: false
         },
         {
@@ -228,4 +265,4 @@ process.on('unhandledRejection', error => {
 });
 
 // Login bot
-client.login(process.env.DISCORD_TOKEN); 
+client.login(process.env.BOT_TOKEN); 

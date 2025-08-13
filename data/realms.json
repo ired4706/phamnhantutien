@@ -12,13 +12,20 @@
       "maxLevel": 13,
       "experienceMultiplier": 1.0,
       "breakthroughDifficulty": 1.0,
-      "statsBonus": {
-        "hp": 20,
-        "mp": 10,
-        "attack": 2,
-        "defense": 1,
-        "speed": 1,
-        "magic": 1
+      "realmBonus": {
+        "tier_1": 0.0,
+        "tier_2": 0.0,
+        "tier_3": 0.0,
+        "tier_4": 0.0,
+        "tier_5": 0.0,
+        "tier_6": 0.0,
+        "tier_7": 0.0,
+        "tier_8": 0.0,
+        "tier_9": 0.0,
+        "tier_10": 0.0,
+        "tier_11": 0.0,
+        "tier_12": 0.0,
+        "tier_13": 0.0
       }
     },
     "truc_co": {
@@ -31,13 +38,10 @@
       "maxLevel": 3,
       "experienceMultiplier": 2.0,
       "breakthroughDifficulty": 2.5,
-      "statsBonus": {
-        "hp": 50,
-        "mp": 25,
-        "attack": 5,
-        "defense": 3,
-        "speed": 2,
-        "magic": 3
+      "realmBonus": {
+        "so_ky": 0.10,
+        "trung_ky": 0.15,
+        "hau_ky": 0.20
       }
     },
     "ket_dan": {
@@ -50,13 +54,10 @@
       "maxLevel": 3,
       "experienceMultiplier": 4.0,
       "breakthroughDifficulty": 5.0,
-      "statsBonus": {
-        "hp": 100,
-        "mp": 50,
-        "attack": 10,
-        "defense": 6,
-        "speed": 4,
-        "magic": 6
+      "realmBonus": {
+        "so_ky": 0.25,
+        "trung_ky": 0.30,
+        "hau_ky": 0.35
       }
     },
     "nguyen_anh": {
@@ -69,13 +70,10 @@
       "maxLevel": 3,
       "experienceMultiplier": 8.0,
       "breakthroughDifficulty": 10.0,
-      "statsBonus": {
-        "hp": 200,
-        "mp": 100,
-        "attack": 20,
-        "defense": 12,
-        "speed": 8,
-        "magic": 12
+      "realmBonus": {
+        "so_ky": 0.40,
+        "trung_ky": 0.50,
+        "hau_ky": 0.60
       }
     }
   }
