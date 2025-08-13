@@ -3,10 +3,10 @@ const playerManager = require('../systems/player.js');
 const expCalculator = require('../systems/exp-calculator.js');
 
 module.exports = {
-  name: 'dungeon',
-  aliases: ['dg', 'thiluyen', 'dungeon'],
-  description: 'Thí luyện trong dungeon để tăng tu vi',
-  cooldown: 21600000, // 6h = 21600000ms
+  name: 'weekly',
+  aliases: ['w', 'nhiemvutuan', 'weeklyquest'],
+  description: 'Nhận và hoàn thành nhiệm vụ hàng tuần để nhận phần thưởng lớn',
+  cooldown: 604800000, // 1 tuần = 604800000ms
 
   async execute(interaction, args) {
     const userId = interaction.user.id;
@@ -22,22 +22,22 @@ module.exports = {
     const player = playerManager.getPlayer(userId);
     const now = Date.now();
 
-    // Kiểm tra cooldown
-    if (player.cultivation && player.cultivation.lastDungeon &&
-      (now - player.cultivation.lastDungeon) < this.cooldown) {
-      const remainingTime = this.cooldown - (now - player.cultivation.lastDungeon);
-      const remainingHours = Math.ceil(remainingTime / 3600000);
+    // Kiểm tra cooldown hàng tuần
+    if (player.cultivation && player.cultivation.lastWeeklyQuest &&
+      (now - player.cultivation.lastWeeklyQuest) < this.cooldown) {
+      const remainingTime = this.cooldown - (now - player.cultivation.lastWeeklyQuest);
+      const remainingDays = Math.ceil(remainingTime / 86400000);
 
       const cooldownEmbed = new EmbedBuilder()
         .setColor('#FF6B6B')
-        .setTitle('⏰ Đang trong thời gian hồi phục!')
-        .setDescription('Bạn cần nghỉ ngơi để tiếp tục thí luyện trong dungeon.')
+        .setTitle('⏰ Nhiệm vụ tuần đang trong thời gian hồi phục!')
+        .setDescription('Bạn cần chờ để nhận nhiệm vụ tuần mới.')
         .addFields({
           name: '⏳ Thời gian còn lại',
-          value: `**${remainingHours} giờ**`,
+          value: `**${remainingDays} ngày**`,
           inline: true
         })
-        .setFooter({ text: 'Dungeon có thể thí luyện sau 6 giờ' })
+        .setFooter({ text: 'Nhiệm vụ tuần có thể nhận sau 7 ngày' })
         .setTimestamp();
 
       await interaction.reply({ embeds: [cooldownEmbed] });
@@ -45,30 +45,29 @@ module.exports = {
     }
 
     // Tính toán EXP theo hệ thống mới
-    const expResult = expCalculator.calculateDungeonExp(player, 'none');
+    const expResult = expCalculator.calculateWeeklyExp(player, 'none');
     const expGained = expResult.finalExp;
 
-    // Tính toán phần thưởng khác
-    const spiritStones = 200 + Math.floor(Math.random() * 400); // 200-600
+    // Tính toán phần thưởng khác (nhiệm vụ tuần có phần thưởng lớn hơn)
+    const spiritStones = 300 + Math.floor(Math.random() * 400); // 300-700
     const reputationGain = 50 + Math.floor(Math.random() * 100); // 50-150
-    const dungeonMaterials = this.getDungeonMaterials();
 
     // Cập nhật player
     playerManager.addExperience(userId, expGained);
     player.inventory.spiritStones += spiritStones;
 
-    // Cập nhật thời gian dungeon cuối và danh tiếng
+    // Cập nhật thời gian nhiệm vụ tuần cuối và danh tiếng
     playerManager.updatePlayer(userId, {
-      'cultivation.lastDungeon': now,
+      'cultivation.lastWeeklyQuest': now,
       'inventory.spiritStones': player.inventory.spiritStones,
       'stats.reputation': (player.stats.reputation || 0) + reputationGain
     });
 
     // Tạo embed thông báo thành công
     const successEmbed = new EmbedBuilder()
-      .setColor('#FF8C00')
-      .setTitle('🏰 Thí luyện dungeon thành công!')
-      .setDescription(`**${username}** đã hoàn thành thí luyện trong dungeon.`)
+      .setColor('#FFD700')
+      .setTitle('🏆 Hoàn thành nhiệm vụ tuần thành công!')
+      .setDescription(`**${username}** đã hoàn thành nhiệm vụ tuần quan trọng.`)
       .addFields(
         {
           name: '📊 Kinh nghiệm nhận được',
@@ -87,41 +86,13 @@ module.exports = {
         }
       )
       .addFields({
-        name: '🗡️ Vật phẩm dungeon',
-        value: dungeonMaterials.join(', '),
-        inline: false
-      })
-      .addFields({
         name: '🔍 Chi tiết tính toán EXP',
         value: expResult.breakdown.calculation,
         inline: false
       })
-      .setFooter({ text: 'Dungeon có thể thí luyện sau 6 giờ' })
+      .setFooter({ text: 'Nhiệm vụ tuần có thể nhận sau 7 ngày' })
       .setTimestamp();
 
     await interaction.reply({ embeds: [successEmbed] });
   },
-
-  /**
-   * Lấy vật phẩm từ dungeon
-   * @returns {Array} Danh sách vật phẩm
-   */
-  getDungeonMaterials() {
-    const materials = [
-      '🗡️ Vũ khí dungeon', '🛡️ Giáp trụ dungeon', '💊 Thuốc hồi phục',
-      '📜 Bí kíp chiến đấu', '💎 Linh thạch dungeon', '🌿 Thảo dược dungeon'
-    ];
-
-    const count = Math.floor(Math.random() * 2) + 2; // 2-3 vật phẩm
-    const selected = [];
-
-    for (let i = 0; i < count; i++) {
-      const material = materials[Math.floor(Math.random() * materials.length)];
-      if (!selected.includes(material)) {
-        selected.push(material);
-      }
-    }
-
-    return selected;
-  }
-};
+}; 

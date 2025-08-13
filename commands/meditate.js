@@ -1,11 +1,12 @@
 const { EmbedBuilder } = require('discord.js');
 const playerManager = require('../systems/player.js');
+const expCalculator = require('../systems/exp-calculator.js');
 
 module.exports = {
   name: 'meditate',
-  aliases: ['med', 'tu', 'tuvi'],
-  description: 'Tu luyện để tăng kinh nghiệm và đột phá',
-  cooldown: 3600000, // 1 giờ = 3600000ms
+  aliases: ['m', 'thien', 'meditation'],
+  description: 'Thiền định tu luyện để tăng tu vi',
+  cooldown: 3600000, // 1h = 3600000ms
 
   async execute(interaction, args) {
     const userId = interaction.user.id;
@@ -22,45 +23,49 @@ module.exports = {
     const now = Date.now();
 
     // Kiểm tra cooldown
-    if (player.cultivation && player.cultivation.lastCultivate && 
-        (now - player.cultivation.lastCultivate) < this.cooldown) {
-      const remainingTime = this.cooldown - (now - player.cultivation.lastCultivate);
+    if (player.cultivation && player.cultivation.lastMeditate &&
+      (now - player.cultivation.lastMeditate) < this.cooldown) {
+      const remainingTime = this.cooldown - (now - player.cultivation.lastMeditate);
       const remainingMinutes = Math.ceil(remainingTime / 60000);
-      
+
       const cooldownEmbed = new EmbedBuilder()
         .setColor('#FF6B6B')
         .setTitle('⏰ Đang trong thời gian hồi phục!')
-        .setDescription('Bạn cần nghỉ ngơi để tiếp tục tu luyện.')
+        .setDescription('Bạn cần nghỉ ngơi để tiếp tục thiền định.')
         .addFields({
           name: '⏳ Thời gian còn lại',
           value: `**${remainingMinutes} phút**`,
           inline: true
         })
-        .setFooter({ text: 'Tu luyện quá sức sẽ gây tổn thương cơ thể' })
+        .setFooter({ text: 'Thiền định có thể thực hiện sau 1 giờ' })
         .setTimestamp();
 
       await interaction.reply({ embeds: [cooldownEmbed] });
       return;
     }
 
-    // Tính toán kinh nghiệm nhận được
-    const baseExp = 50 + Math.floor(player.level * 1.5);
-    const realmMultiplier = playerManager.getRealmInfo(player.realm)?.experienceMultiplier || 1.0;
-    const expGained = Math.floor(baseExp * realmMultiplier);
+    // Tính toán EXP theo hệ thống mới
+    const expResult = expCalculator.calculateMeditateExp(player, 'none');
+    const expGained = expResult.finalExp;
+
+    // Tính toán phần thưởng khác
+    const spiritStones = 50 + Math.floor(Math.random() * 100); // 50-150
 
     // Cập nhật player
     playerManager.addExperience(userId, expGained);
-    
-    // Cập nhật thời gian tu luyện cuối
+    player.inventory.spiritStones += spiritStones;
+
+    // Cập nhật thời gian thiền định cuối
     playerManager.updatePlayer(userId, {
-      'cultivation.lastCultivate': now
+      'cultivation.lastMeditate': now,
+      'inventory.spiritStones': player.inventory.spiritStones
     });
 
     // Tạo embed thông báo thành công
     const successEmbed = new EmbedBuilder()
-      .setColor('#00FF00')
-      .setTitle('🧘 Tu luyện thành công!')
-      .setDescription(`**${username}** đã hoàn thành một phiên tu luyện.`)
+      .setColor('#87CEEB')
+      .setTitle('🧘 Thiền định tu luyện thành công!')
+      .setDescription(`**${username}** đã hoàn thành buổi thiền định.`)
       .addFields(
         {
           name: '📊 Kinh nghiệm nhận được',
@@ -68,17 +73,22 @@ module.exports = {
           inline: true
         },
         {
-          name: '🏮 Cảnh giới hiện tại',
-          value: `**${playerManager.getRealmDisplayName(player.realm, player.realmLevel)}**`,
+          name: '💎 Linh thạch thu được',
+          value: `**+${spiritStones}**`,
           inline: true
         },
         {
-          name: '⭐ Cấp độ',
-          value: `**${player.level}** (${player.experience}/${player.experienceToNext})`,
+          name: '🌿 Cảnh giới hiện tại',
+          value: `**${playerManager.getRealmDisplayName(player.realm, player.realmLevel)}**`,
           inline: true
         }
       )
-      .setFooter({ text: 'Tu luyện đều đặn sẽ giúp bạn tiến bộ nhanh chóng' })
+      .addFields({
+        name: '🔍 Chi tiết tính toán EXP',
+        value: expResult.breakdown.calculation,
+        inline: false
+      })
+      .setFooter({ text: 'Thiền định có thể thực hiện sau 1 giờ' })
       .setTimestamp();
 
     await interaction.reply({ embeds: [successEmbed] });

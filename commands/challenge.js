@@ -1,11 +1,12 @@
 const { EmbedBuilder } = require('discord.js');
 const playerManager = require('../systems/player.js');
+const expCalculator = require('../systems/exp-calculator.js');
 
 module.exports = {
   name: 'challenge',
-  aliases: ['chal', 'thách', 'thachdau'],
-  description: 'Thách đấu với tu sĩ khác để tăng kinh nghiệm và danh tiếng',
-  cooldown: 3600000, // 1 giờ = 3600000ms
+  aliases: ['c', 'thachdau', 'duel'],
+  description: 'Thách đấu tu sĩ khác để tăng tu vi',
+  cooldown: 3600000, // 1h = 3600000ms
 
   async execute(interaction, args) {
     const userId = interaction.user.id;
@@ -22,11 +23,11 @@ module.exports = {
     const now = Date.now();
 
     // Kiểm tra cooldown
-    if (player.cultivation && player.cultivation.lastChallenge && 
-        (now - player.cultivation.lastChallenge) < this.cooldown) {
+    if (player.cultivation && player.cultivation.lastChallenge &&
+      (now - player.cultivation.lastChallenge) < this.cooldown) {
       const remainingTime = this.cooldown - (now - player.cultivation.lastChallenge);
       const remainingMinutes = Math.ceil(remainingTime / 60000);
-      
+
       const cooldownEmbed = new EmbedBuilder()
         .setColor('#FF6B6B')
         .setTitle('⏰ Đang trong thời gian hồi phục!')
@@ -36,30 +37,35 @@ module.exports = {
           value: `**${remainingMinutes} phút**`,
           inline: true
         })
-        .setFooter({ text: 'Thách đấu liên tục sẽ làm tổn thương cơ thể' })
+        .setFooter({ text: 'Thách đấu có thể thực hiện sau 1 giờ' })
         .setTimestamp();
 
       await interaction.reply({ embeds: [cooldownEmbed] });
       return;
     }
 
-    // Tính toán kết quả thách đấu
-    const baseExp = 80 + Math.floor(player.level * 2.0);
-    const reputationGain = 5 + Math.floor(Math.random() * 10);
-    const expGained = Math.floor(baseExp * (0.9 + Math.random() * 0.2)); // ±10% random
+    // Tính toán EXP theo hệ thống mới
+    const expResult = expCalculator.calculateChallengeExp(player, 'none');
+    const expGained = expResult.finalExp;
+
+    // Tính toán phần thưởng khác
+    const spiritStones = 100 + Math.floor(Math.random() * 200); // 100-300
+    const reputationGain = 20 + Math.floor(Math.random() * 30); // 20-50
 
     // Cập nhật player
     playerManager.addExperience(userId, expGained);
-    
+    player.inventory.spiritStones += spiritStones;
+
     // Cập nhật thời gian thách đấu cuối và danh tiếng
     playerManager.updatePlayer(userId, {
       'cultivation.lastChallenge': now,
+      'inventory.spiritStones': player.inventory.spiritStones,
       'stats.reputation': (player.stats.reputation || 0) + reputationGain
     });
 
     // Tạo embed thông báo thành công
     const successEmbed = new EmbedBuilder()
-      .setColor('#00FF00')
+      .setColor('#FF4500')
       .setTitle('⚔️ Thách đấu thành công!')
       .setDescription(`**${username}** đã hoàn thành một trận thách đấu.`)
       .addFields(
@@ -69,17 +75,22 @@ module.exports = {
           inline: true
         },
         {
-          name: '⭐ Danh tiếng tăng',
-          value: `**+${reputationGain} REP**`,
+          name: '💎 Linh thạch thu được',
+          value: `**+${spiritStones}**`,
           inline: true
         },
         {
-          name: '🏮 Cảnh giới hiện tại',
-          value: `**${playerManager.getRealmDisplayName(player.realm, player.realmLevel)}**`,
+          name: '⭐ Danh tiếng tăng',
+          value: `**+${reputationGain}**`,
           inline: true
         }
       )
-      .setFooter({ text: 'Thách đấu giúp rèn luyện kỹ năng chiến đấu' })
+      .addFields({
+        name: '🔍 Chi tiết tính toán EXP',
+        value: expResult.breakdown.calculation,
+        inline: false
+      })
+      .setFooter({ text: 'Thách đấu có thể thực hiện sau 1 giờ' })
       .setTimestamp();
 
     await interaction.reply({ embeds: [successEmbed] });

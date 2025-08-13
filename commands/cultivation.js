@@ -48,12 +48,12 @@ module.exports = {
         {
           name: '📊 Thông Tin',
           value: '**Tổng tầng**: 13\n**Mô tả**: Luyện khí trong cơ thể, tăng cường thể chất',
-          inline: false
+          inline: true
         },
         {
           name: '🎯 Yêu Cầu',
           value: '**Tu vi**: 100-1000\n**Độ khó**: 1.0x\n**Thời gian**: 1-3 ngày/tầng',
-          inline: false
+          inline: true
         },
         {
           name: '💪 Realm Bonus',
@@ -70,12 +70,12 @@ module.exports = {
         {
           name: '📊 Thông Tin',
           value: '**Tổng kỳ**: 3 (Sơ, Trung, Hậu)\n**Mô tả**: Xây dựng nền tảng tu luyện vững chắc',
-          inline: false
+          inline: true
         },
         {
           name: '🎯 Yêu Cầu',
           value: '**Tu vi**: 1000-5000\n**Độ khó**: 2.5x\n**Thời gian**: 3-7 ngày/kỳ',
-          inline: false
+          inline: true
         },
         {
           name: '💪 Realm Bonus',
@@ -92,12 +92,12 @@ module.exports = {
         {
           name: '📊 Thông Tin',
           value: '**Tổng kỳ**: 3 (Sơ, Trung, Hậu)\n**Mô tả**: Kết tinh tu vi thành đan',
-          inline: false
+          inline: true
         },
         {
           name: '🎯 Yêu Cầu',
           value: '**Tu vi**: 5000-20000\n**Độ khó**: 5.0x\n**Thời gian**: 7-15 ngày/kỳ',
-          inline: false
+          inline: true
         },
         {
           name: '💪 Realm Bonus',
@@ -114,12 +114,12 @@ module.exports = {
         {
           name: '📊 Thông Tin',
           value: '**Tổng kỳ**: 3 (Sơ, Trung, Hậu)\n**Mô tả**: Tu luyện nguyên thần',
-          inline: false
+          inline: true
         },
         {
           name: '🎯 Yêu Cầu',
           value: '**Tu vi**: 20000-100000\n**Độ khó**: 10.0x\n**Thời gian**: 15-30 ngày/kỳ',
-          inline: false
+          inline: true
         },
         {
           name: '💪 Realm Bonus',

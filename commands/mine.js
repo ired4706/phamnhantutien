@@ -1,11 +1,12 @@
 const { EmbedBuilder } = require('discord.js');
 const playerManager = require('../systems/player.js');
+const expCalculator = require('../systems/exp-calculator.js');
 
 module.exports = {
   name: 'mine',
-  aliases: ['m', 'đào', 'dao'],
-  description: 'Đào quặng để lấy linh thạch và khoáng sản quý',
-  cooldown: 3600000, // 1 giờ = 3600000ms
+  aliases: ['mi', 'dao', 'mining'],
+  description: 'Khai thác khoáng sản để lấy tài nguyên (không có EXP)',
+  cooldown: 3600000, // 1h = 3600000ms
 
   async execute(interaction, args) {
     const userId = interaction.user.id;
@@ -22,37 +23,40 @@ module.exports = {
     const now = Date.now();
 
     // Kiểm tra cooldown
-    if (player.cultivation && player.cultivation.lastMine && 
-        (now - player.cultivation.lastMine) < this.cooldown) {
+    if (player.cultivation && player.cultivation.lastMine &&
+      (now - player.cultivation.lastMine) < this.cooldown) {
       const remainingTime = this.cooldown - (now - player.cultivation.lastMine);
       const remainingMinutes = Math.ceil(remainingTime / 60000);
-      
+
       const cooldownEmbed = new EmbedBuilder()
         .setColor('#FF6B6B')
         .setTitle('⏰ Đang trong thời gian hồi phục!')
-        .setDescription('Bạn cần nghỉ ngơi để tiếp tục đào quặng.')
+        .setDescription('Bạn cần nghỉ ngơi để tiếp tục khai thác.')
         .addFields({
           name: '⏳ Thời gian còn lại',
           value: `**${remainingMinutes} phút**`,
           inline: true
         })
-        .setFooter({ text: 'Đào quặng liên tục sẽ làm tổn thương cơ thể' })
+        .setFooter({ text: 'Khai thác có thể thực hiện sau 1 giờ' })
         .setTimestamp();
 
       await interaction.reply({ embeds: [cooldownEmbed] });
       return;
     }
 
-    // Tính toán kết quả đào quặng
-    const baseExp = 30 + Math.floor(player.level * 1.0);
-    const spiritStones = 25 + Math.floor(Math.random() * 50);
-    const expGained = Math.floor(baseExp * (0.8 + Math.random() * 0.4)); // ±20% random
+    // Tính toán EXP theo hệ thống mới (mine = 0 EXP)
+    const expResult = expCalculator.calculateMineExp(player, 'none');
+    const expGained = expResult.finalExp; // Sẽ luôn = 0
+
+    // Tính toán phần thưởng khác
+    const spiritStones = 100 + Math.floor(Math.random() * 200); // 100-300
+    const minerals = this.getMinerals();
 
     // Cập nhật player
     playerManager.addExperience(userId, expGained);
     player.inventory.spiritStones += spiritStones;
-    
-    // Cập nhật thời gian đào quặng cuối
+
+    // Cập nhật thời gian khai thác cuối
     playerManager.updatePlayer(userId, {
       'cultivation.lastMine': now,
       'inventory.spiritStones': player.inventory.spiritStones
@@ -60,13 +64,13 @@ module.exports = {
 
     // Tạo embed thông báo thành công
     const successEmbed = new EmbedBuilder()
-      .setColor('#00FF00')
-      .setTitle('⛏️ Đào quặng thành công!')
-      .setDescription(`**${username}** đã đào được linh thạch và khoáng sản.`)
+      .setColor('#8B4513')
+      .setTitle('⛏️ Khai thác khoáng sản thành công!')
+      .setDescription(`**${username}** đã hoàn thành buổi khai thác.`)
       .addFields(
         {
           name: '📊 Kinh nghiệm nhận được',
-          value: `**+${expGained} EXP**`,
+          value: `**+${expGained} EXP** (Khai thác không có EXP)`,
           inline: true
         },
         {
@@ -75,19 +79,43 @@ module.exports = {
           inline: true
         },
         {
-          name: '💎 Tổng linh thạch',
-          value: `**${player.inventory.spiritStones}**`,
-          inline: true
-        },
-        {
-          name: '🏮 Cảnh giới hiện tại',
-          value: `**${playerManager.getRealmDisplayName(player.realm, player.realmLevel)}**`,
+          name: '🌿 Khoáng sản thu được',
+          value: minerals.join(', '),
           inline: true
         }
       )
-      .setFooter({ text: 'Đào quặng giúp tích lũy tài nguyên cơ bản' })
+      .addFields({
+        name: '🔍 Chi tiết tính toán EXP',
+        value: expResult.breakdown.calculation,
+        inline: false
+      })
+      .setFooter({ text: 'Khai thác có thể thực hiện sau 1 giờ' })
       .setTimestamp();
 
     await interaction.reply({ embeds: [successEmbed] });
   },
+
+  /**
+   * Lấy khoáng sản từ khai thác
+   * @returns {Array} Danh sách khoáng sản
+   */
+  getMinerals() {
+    const minerals = [
+      '🪨 Đá thường', '💎 Đá quý', '🟡 Vàng',
+      '⚫ Than đá', '🔴 Quặng sắt', '🔵 Quặng đồng',
+      '🟢 Ngọc lục bảo', '🟣 Ngọc tím', '⚪ Bạc'
+    ];
+
+    const count = Math.floor(Math.random() * 3) + 2; // 2-4 khoáng sản
+    const selected = [];
+
+    for (let i = 0; i < count; i++) {
+      const mineral = minerals[Math.floor(Math.random() * minerals.length)];
+      if (!selected.includes(mineral)) {
+        selected.push(mineral);
+      }
+    }
+
+    return selected;
+  }
 };

@@ -140,7 +140,7 @@ class PlayerManager {
     if (!spiritRoot) return;
 
     const { basic_stats, growth_rates } = spiritRoot;
-    
+
     // Tính tổng số tầng đã qua
     let totalTiers = 0;
     if (player.realm === 'luyen_khi') {

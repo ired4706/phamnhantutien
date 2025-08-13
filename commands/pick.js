@@ -1,11 +1,12 @@
 const { EmbedBuilder } = require('discord.js');
 const playerManager = require('../systems/player.js');
+const expCalculator = require('../systems/exp-calculator.js');
 
 module.exports = {
   name: 'pick',
-  aliases: ['p', 'hái', 'hai'],
-  description: 'Hái thuốc và tài nguyên từ thiên nhiên',
-  cooldown: 300000, // 5 phút = 300000ms
+  aliases: ['p', 'hai', 'thuoc'],
+  description: 'Thu thập thảo dược để lấy tài nguyên và kinh nghiệm',
+  cooldown: 300000, // 5m = 300000ms
 
   async execute(interaction, args) {
     const userId = interaction.user.id;
@@ -22,37 +23,40 @@ module.exports = {
     const now = Date.now();
 
     // Kiểm tra cooldown
-    if (player.cultivation && player.cultivation.lastPick && 
-        (now - player.cultivation.lastPick) < this.cooldown) {
+    if (player.cultivation && player.cultivation.lastPick &&
+      (now - player.cultivation.lastPick) < this.cooldown) {
       const remainingTime = this.cooldown - (now - player.cultivation.lastPick);
       const remainingMinutes = Math.ceil(remainingTime / 60000);
-      
+
       const cooldownEmbed = new EmbedBuilder()
         .setColor('#FF6B6B')
         .setTitle('⏰ Đang trong thời gian hồi phục!')
-        .setDescription('Bạn cần chờ để thiên nhiên phục hồi.')
+        .setDescription('Bạn cần nghỉ ngơi để tiếp tục thu thập thảo dược.')
         .addFields({
           name: '⏳ Thời gian còn lại',
           value: `**${remainingMinutes} phút**`,
           inline: true
         })
-        .setFooter({ text: 'Hái thuốc quá thường xuyên sẽ làm cạn kiệt tài nguyên' })
+        .setFooter({ text: 'Thu thập thảo dược có thể thực hiện sau 5 phút' })
         .setTimestamp();
 
       await interaction.reply({ embeds: [cooldownEmbed] });
       return;
     }
 
-    // Tính toán kết quả hái thuốc
-    const baseExp = 15 + Math.floor(player.level * 0.5);
-    const spiritStones = 5 + Math.floor(Math.random() * 15);
-    const expGained = Math.floor(baseExp * (0.9 + Math.random() * 0.2)); // ±10% random
+    // Tính toán EXP theo hệ thống mới (pick có EXP random 40-50)
+    const expResult = expCalculator.calculatePickExp(player, 'none');
+    const expGained = expResult.finalExp;
+
+    // Tính toán phần thưởng khác
+    const spiritStones = 20 + Math.floor(Math.random() * 30); // 20-50
+    const herbs = this.getHerbs();
 
     // Cập nhật player
     playerManager.addExperience(userId, expGained);
     player.inventory.spiritStones += spiritStones;
-    
-    // Cập nhật thời gian hái thuốc cuối
+
+    // Cập nhật thời gian thu thập cuối
     playerManager.updatePlayer(userId, {
       'cultivation.lastPick': now,
       'inventory.spiritStones': player.inventory.spiritStones
@@ -60,13 +64,13 @@ module.exports = {
 
     // Tạo embed thông báo thành công
     const successEmbed = new EmbedBuilder()
-      .setColor('#00FF00')
-      .setTitle('🌿 Hái thuốc thành công!')
-      .setDescription(`**${username}** đã hái được dược liệu và tài nguyên.`)
+      .setColor('#228B22')
+      .setTitle('🌿 Thu thập thảo dược thành công!')
+      .setDescription(`**${username}** đã thu thập được thảo dược.`)
       .addFields(
         {
           name: '📊 Kinh nghiệm nhận được',
-          value: `**+${expGained} EXP**`,
+          value: `**+${expGained} EXP** (Random 40-50)`,
           inline: true
         },
         {
@@ -75,19 +79,43 @@ module.exports = {
           inline: true
         },
         {
-          name: '💎 Tổng linh thạch',
-          value: `**${player.inventory.spiritStones}**`,
-          inline: true
-        },
-        {
-          name: '🏮 Cảnh giới hiện tại',
-          value: `**${playerManager.getRealmDisplayName(player.realm, player.realmLevel)}**`,
+          name: '🌿 Thảo dược thu được',
+          value: herbs.join(', '),
           inline: true
         }
       )
-      .setFooter({ text: 'Thiên nhiên cung cấp dược liệu quý giá' })
+      .addFields({
+        name: '🔍 Chi tiết tính toán EXP',
+        value: expResult.breakdown.calculation,
+        inline: false
+      })
+      .setFooter({ text: 'Thu thập thảo dược có thể thực hiện sau 5 phút' })
       .setTimestamp();
 
     await interaction.reply({ embeds: [successEmbed] });
   },
+
+  /**
+   * Lấy thảo dược từ thu thập
+   * @returns {Array} Danh sách thảo dược
+   */
+  getHerbs() {
+    const herbs = [
+      '🌱 Cỏ thuốc', '🌸 Hoa dược', '🌿 Lá thuốc',
+      '🍄 Nấm dược', '🌺 Hoa sen', '🌻 Hoa hướng dương',
+      '🌼 Hoa cúc', '🌷 Hoa hồng', '🌹 Hoa hồng dại'
+    ];
+
+    const count = Math.floor(Math.random() * 3) + 2; // 2-4 thảo dược
+    const selected = [];
+
+    for (let i = 0; i < count; i++) {
+      const herb = herbs[Math.floor(Math.random() * herbs.length)];
+      if (!selected.includes(herb)) {
+        selected.push(herb);
+      }
+    }
+
+    return selected;
+  }
 };

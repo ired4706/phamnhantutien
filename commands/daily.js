@@ -3,10 +3,10 @@ const playerManager = require('../systems/player.js');
 const expCalculator = require('../systems/exp-calculator.js');
 
 module.exports = {
-  name: 'domain',
-  aliases: ['d', 'bicanh', 'bicảnh'],
-  description: 'Khám phá bí cảnh domain để nhận phần thưởng lớn',
-  cooldown: 28800000, // 8h = 28800000ms
+  name: 'daily',
+  aliases: ['d', 'nhiemvungay', 'dailyquest'],
+  description: 'Nhận và hoàn thành nhiệm vụ hàng ngày để nhận phần thưởng lớn',
+  cooldown: 86400000, // 1 ngày = 86400000ms
 
   async execute(interaction, args) {
     const userId = interaction.user.id;
@@ -22,22 +22,22 @@ module.exports = {
     const player = playerManager.getPlayer(userId);
     const now = Date.now();
 
-    // Kiểm tra cooldown
-    if (player.cultivation && player.cultivation.lastDomain &&
-      (now - player.cultivation.lastDomain) < this.cooldown) {
-      const remainingTime = this.cooldown - (now - player.cultivation.lastDomain);
+    // Kiểm tra cooldown hàng ngày
+    if (player.cultivation && player.cultivation.lastDailyQuest &&
+      (now - player.cultivation.lastDailyQuest) < this.cooldown) {
+      const remainingTime = this.cooldown - (now - player.cultivation.lastDailyQuest);
       const remainingHours = Math.ceil(remainingTime / 3600000);
 
       const cooldownEmbed = new EmbedBuilder()
         .setColor('#FF6B6B')
         .setTitle('⏰ Đang trong thời gian hồi phục!')
-        .setDescription('Bạn cần nghỉ ngơi để tiếp tục khám phá domain.')
+        .setDescription('Bạn cần nghỉ ngơi để tiếp tục nhận nhiệm vụ hàng ngày.')
         .addFields({
           name: '⏳ Thời gian còn lại',
           value: `**${remainingHours} giờ**`,
           inline: true
         })
-        .setFooter({ text: 'Domain có thể khám phá sau 8 giờ' })
+        .setFooter({ text: 'Nhiệm vụ hàng ngày có thể nhận sau 24 giờ' })
         .setTimestamp();
 
       await interaction.reply({ embeds: [cooldownEmbed] });
@@ -45,30 +45,29 @@ module.exports = {
     }
 
     // Tính toán EXP theo hệ thống mới
-    const expResult = expCalculator.calculateDomainExp(player, 'domain', 'none');
+    const expResult = expCalculator.calculateDailyExp(player, 'none');
     const expGained = expResult.finalExp;
 
-    // Tính toán phần thưởng khác (domain có phần thưởng lớn)
-    const spiritStones = 500 + Math.floor(Math.random() * 1000); // 500-1500
-    const reputationGain = 100 + Math.floor(Math.random() * 200); // 100-300
-    const rareMaterials = this.getRareMaterials();
+    // Tính toán phần thưởng khác
+    const spiritStones = 100 + Math.floor(Math.random() * 200);
+    const reputationGain = 15 + Math.floor(Math.random() * 25);
 
     // Cập nhật player
     playerManager.addExperience(userId, expGained);
     player.inventory.spiritStones += spiritStones;
 
-    // Cập nhật thời gian domain cuối và danh tiếng
+    // Cập nhật thời gian nhiệm vụ hàng ngày cuối và danh tiếng
     playerManager.updatePlayer(userId, {
-      'cultivation.lastDomain': now,
+      'cultivation.lastDailyQuest': now,
       'inventory.spiritStones': player.inventory.spiritStones,
       'stats.reputation': (player.stats.reputation || 0) + reputationGain
     });
 
     // Tạo embed thông báo thành công
     const successEmbed = new EmbedBuilder()
-      .setColor('#8A2BE2')
-      .setTitle('🏛️ Khám phá domain thành công!')
-      .setDescription(`**${username}** đã khám phá được bí cảnh domain.`)
+      .setColor('#00FF00')
+      .setTitle('📜 Hoàn thành nhiệm vụ hàng ngày thành công!')
+      .setDescription(`**${username}** đã hoàn thành nhiệm vụ hàng ngày quan trọng.`)
       .addFields(
         {
           name: '📊 Kinh nghiệm nhận được',
@@ -87,41 +86,13 @@ module.exports = {
         }
       )
       .addFields({
-        name: '🌿 Tài nguyên quý hiếm',
-        value: rareMaterials.join(', '),
-        inline: false
-      })
-      .addFields({
         name: '🔍 Chi tiết tính toán EXP',
         value: expResult.breakdown.calculation,
         inline: false
       })
-      .setFooter({ text: 'Domain có thể khám phá sau 8 giờ' })
+      .setFooter({ text: 'Nhiệm vụ hàng ngày có thể nhận sau 24 giờ' })
       .setTimestamp();
 
     await interaction.reply({ embeds: [successEmbed] });
   },
-
-  /**
-   * Lấy tài nguyên quý hiếm từ domain
-   * @returns {Array} Danh sách tài nguyên quý hiếm
-   */
-  getRareMaterials() {
-    const materials = [
-      '🔮 Linh đan', '⚔️ Pháp bảo', '📜 Công pháp',
-      '💎 Linh thạch tinh khiết', '🌿 Thảo dược quý', '🪨 Khoáng sản hiếm'
-    ];
-
-    const count = Math.floor(Math.random() * 2) + 2; // 2-3 tài nguyên quý hiếm
-    const selected = [];
-
-    for (let i = 0; i < count; i++) {
-      const material = materials[Math.floor(Math.random() * materials.length)];
-      if (!selected.includes(material)) {
-        selected.push(material);
-      }
-    }
-
-    return selected;
-  }
-};
+}; 

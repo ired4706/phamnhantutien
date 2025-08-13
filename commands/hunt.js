@@ -1,11 +1,12 @@
 const { EmbedBuilder } = require('discord.js');
 const playerManager = require('../systems/player.js');
+const expCalculator = require('../systems/exp-calculator.js');
 
 module.exports = {
   name: 'hunt',
-  aliases: ['h', 'săn', 'sănbắt'],
-  description: 'Săn bắt yêu thú để lấy tài nguyên và kinh nghiệm',
-  cooldown: 30000, // 30 giây = 30000ms
+  aliases: ['h', 'san', 'hunting'],
+  description: 'Săn yêu thú lấy tài nguyên và kinh nghiệm',
+  cooldown: 30000, // 30s = 30000ms
 
   async execute(interaction, args) {
     const userId = interaction.user.id;
@@ -22,37 +23,40 @@ module.exports = {
     const now = Date.now();
 
     // Kiểm tra cooldown
-    if (player.cultivation && player.cultivation.lastHunt && 
-        (now - player.cultivation.lastHunt) < this.cooldown) {
+    if (player.cultivation && player.cultivation.lastHunt &&
+      (now - player.cultivation.lastHunt) < this.cooldown) {
       const remainingTime = this.cooldown - (now - player.cultivation.lastHunt);
       const remainingSeconds = Math.ceil(remainingTime / 1000);
-      
+
       const cooldownEmbed = new EmbedBuilder()
         .setColor('#FF6B6B')
         .setTitle('⏰ Đang trong thời gian hồi phục!')
-        .setDescription('Bạn cần nghỉ ngơi để tiếp tục săn bắt.')
+        .setDescription('Bạn cần nghỉ ngơi để tiếp tục săn yêu thú.')
         .addFields({
           name: '⏳ Thời gian còn lại',
           value: `**${remainingSeconds} giây**`,
           inline: true
         })
-        .setFooter({ text: 'Săn bắt liên tục sẽ làm yêu thú cảnh giác' })
+        .setFooter({ text: 'Săn yêu thú có thể thực hiện sau 30 giây' })
         .setTimestamp();
 
       await interaction.reply({ embeds: [cooldownEmbed] });
       return;
     }
 
-    // Tính toán kết quả săn bắt
-    const baseExp = 20 + Math.floor(player.level * 0.8);
-    const spiritStones = 10 + Math.floor(Math.random() * 20);
-    const expGained = Math.floor(baseExp * (0.8 + Math.random() * 0.4)); // ±20% random
+    // Tính toán EXP theo hệ thống mới
+    const expResult = expCalculator.calculateHuntExp(player, 'none');
+    const expGained = expResult.finalExp;
+
+    // Tính toán phần thưởng khác
+    const spiritStones = 10 + Math.floor(Math.random() * 20); // 10-30
+    const materials = this.getRandomMaterials();
 
     // Cập nhật player
     playerManager.addExperience(userId, expGained);
     player.inventory.spiritStones += spiritStones;
-    
-    // Cập nhật thời gian săn bắt cuối
+
+    // Cập nhật thời gian săn cuối
     playerManager.updatePlayer(userId, {
       'cultivation.lastHunt': now,
       'inventory.spiritStones': player.inventory.spiritStones
@@ -60,9 +64,9 @@ module.exports = {
 
     // Tạo embed thông báo thành công
     const successEmbed = new EmbedBuilder()
-      .setColor('#00FF00')
-      .setTitle('🏹 Săn bắt thành công!')
-      .setDescription(`**${username}** đã săn bắt được yêu thú.`)
+      .setColor('#90EE90')
+      .setTitle('🏹 Săn yêu thú thành công!')
+      .setDescription(`**${username}** đã săn được yêu thú.`)
       .addFields(
         {
           name: '📊 Kinh nghiệm nhận được',
@@ -75,14 +79,42 @@ module.exports = {
           inline: true
         },
         {
-          name: '💎 Tổng linh thạch',
-          value: `**${player.inventory.spiritStones}**`,
+          name: '🌿 Tài nguyên thu được',
+          value: materials.join(', '),
           inline: true
         }
       )
-      .setFooter({ text: 'Săn bắt thường xuyên để tích lũy tài nguyên' })
+      .addFields({
+        name: '🔍 Chi tiết tính toán EXP',
+        value: expResult.breakdown.calculation,
+        inline: false
+      })
+      .setFooter({ text: 'Săn yêu thú có thể thực hiện sau 30 giây' })
       .setTimestamp();
 
     await interaction.reply({ embeds: [successEmbed] });
   },
+
+  /**
+   * Lấy tài nguyên ngẫu nhiên từ săn yêu thú
+   * @returns {Array} Danh sách tài nguyên
+   */
+  getRandomMaterials() {
+    const materials = [
+      '🐺 Da yêu thú', '🦷 Nanh yêu thú', '🩸 Máu yêu thú',
+      '🦴 Xương yêu thú', '🪶 Lông yêu thú', '💎 Linh thạch thô'
+    ];
+
+    const count = Math.floor(Math.random() * 3) + 1; // 1-3 tài nguyên
+    const selected = [];
+
+    for (let i = 0; i < count; i++) {
+      const material = materials[Math.floor(Math.random() * materials.length)];
+      if (!selected.includes(material)) {
+        selected.push(material);
+      }
+    }
+
+    return selected;
+  }
 };

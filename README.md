@@ -7,7 +7,7 @@ Bot Discord RPG với phong cách phàm nhân tu tiên được viết bằng Di
 - **Hệ thống tu luyện**: Cảnh giới, tu vi, đột phá, linh căn
 - **Hệ thống chiến đấu**: Săn yêu thú, đấu tu sĩ, bí cảnh
 - **Hệ thống inventory**: Pháp bảo, đan dược, linh thạch, công pháp
-- **Hệ thống nhiệm vụ**: Daily quests, bounty hunting
+- **Hệ thống nhiệm vụ**: Daily quests, weekly quests, bounty hunting
 - **Hệ thống sơn môn**: Tham gia các môn phái tu tiên
 
 ## 📋 Yêu cầu
