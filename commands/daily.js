@@ -1,6 +1,7 @@
 const { EmbedBuilder } = require('discord.js');
 const playerManager = require('../systems/player.js');
 const expCalculator = require('../systems/exp-calculator.js');
+const cooldownManager = require('../utils/cooldown.js');
 
 module.exports = {
   name: 'daily',
@@ -22,24 +23,10 @@ module.exports = {
     const player = playerManager.getPlayer(userId);
     const now = Date.now();
 
-    // Kiểm tra cooldown hàng ngày
-    if (player.cultivation && player.cultivation.lastDailyQuest &&
-      (now - player.cultivation.lastDailyQuest) < this.cooldown) {
-      const remainingTime = this.cooldown - (now - player.cultivation.lastDailyQuest);
-      const remainingHours = Math.ceil(remainingTime / 3600000);
-
-      const cooldownEmbed = new EmbedBuilder()
-        .setColor('#FF6B6B')
-        .setTitle('⏰ Đang trong thời gian hồi phục!')
-        .setDescription('Bạn cần nghỉ ngơi để tiếp tục nhận nhiệm vụ hàng ngày.')
-        .addFields({
-          name: '⏳ Thời gian còn lại',
-          value: `**${remainingHours} giờ**`,
-          inline: true
-        })
-        .setFooter({ text: 'Nhiệm vụ hàng ngày có thể nhận sau 24 giờ' })
-        .setTimestamp();
-
+    // Kiểm tra cooldown sử dụng common manager
+    const cooldownCheck = cooldownManager.checkCooldown(player, 'daily', this.cooldown);
+    if (cooldownCheck.isOnCooldown) {
+      const cooldownEmbed = cooldownManager.createCooldownEmbed('daily', cooldownCheck.remainingText);
       await interaction.reply({ embeds: [cooldownEmbed] });
       return;
     }
@@ -49,18 +36,17 @@ module.exports = {
     const expGained = expResult.finalExp;
 
     // Tính toán phần thưởng khác
-    const spiritStones = 100 + Math.floor(Math.random() * 200);
-    const reputationGain = 15 + Math.floor(Math.random() * 25);
+    const spiritStones = 100 + Math.floor(Math.random() * 200); // 100-300
 
     // Cập nhật player
     playerManager.addExperience(userId, expGained);
     player.inventory.spiritStones += spiritStones;
 
-    // Cập nhật thời gian nhiệm vụ hàng ngày cuối và danh tiếng
+    // Cập nhật thời gian daily quest cuối
+    const lastCommandField = cooldownManager.getLastCommandField('daily');
     playerManager.updatePlayer(userId, {
-      'cultivation.lastDailyQuest': now,
-      'inventory.spiritStones': player.inventory.spiritStones,
-      'stats.reputation': (player.stats.reputation || 0) + reputationGain
+      [lastCommandField]: now,
+      'inventory.spiritStones': player.inventory.spiritStones
     });
 
     // Tạo embed thông báo thành công
@@ -77,11 +63,6 @@ module.exports = {
         {
           name: '💎 Linh thạch thu được',
           value: `**+${spiritStones}**`,
-          inline: true
-        },
-        {
-          name: '⭐ Danh tiếng tăng',
-          value: `**+${reputationGain}**`,
           inline: true
         }
       )

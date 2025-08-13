@@ -53,7 +53,7 @@ for (const file of commandFiles) {
 client.once('ready', () => {
   console.log(`🌿 ${config.gameName} v${config.gameVersion} is ready! Logged in as ${client.user.tag}`);
   client.user.setActivity(`🌿 Tu luyện cùng ${config.prefix}help`, { type: 'PLAYING' });
-  
+
   // Log cấu hình
   console.log('📋 Bot Configuration:');
   console.log(`   Prefix: ${config.prefix}`);
@@ -175,12 +175,12 @@ async function handleButtonInteraction(interaction) {
           {
             name: '🎯 Basic Stats (Level 0)',
             value: `**ATK**: ${spiritRoot.basic_stats.attack}\n**DEF**: ${spiritRoot.basic_stats.defense}\n**HP**: ${spiritRoot.basic_stats.hp}\n**MP**: ${spiritRoot.basic_stats.mana}\n**SPD**: ${spiritRoot.basic_stats.speed}\n**CRT**: ${spiritRoot.basic_stats.critical}%\n**RGN**: ${spiritRoot.basic_stats.regen}\n**EVA**: ${spiritRoot.basic_stats.evasion}%\n**REP**: ${spiritRoot.basic_stats.reputation}\n**KAR**: ${spiritRoot.basic_stats.karma}`,
-            inline: false
+            inline: true
           },
           {
-            name: '📈 Growth Rates (per tier)',
+            name: '📈 Growth Rates',
             value: `**ATK**: +${spiritRoot.growth_rates.attack}\n**DEF**: +${spiritRoot.growth_rates.defense}\n**HP**: +${spiritRoot.growth_rates.hp}\n**MP**: +${spiritRoot.growth_rates.mana}\n**SPD**: +${spiritRoot.growth_rates.speed}\n**CRT**: +${spiritRoot.growth_rates.critical}%\n**RGN**: +${spiritRoot.growth_rates.regen}\n**EVA**: +${spiritRoot.growth_rates.evasion}%\n**REP**: +${spiritRoot.growth_rates.reputation}\n**KAR**: +${spiritRoot.growth_rates.karma}`,
-            inline: false
+            inline: true
           },
         )
         .setFooter({ text: 'Bây giờ bạn có thể sử dụng fstatus để xem thông tin chi tiết!' })
@@ -222,22 +222,22 @@ async function handleButtonInteraction(interaction) {
         {
           name: '🎯 Basic Stats (Level 0)',
           value: `**ATK**: ${spiritRoot.basic_stats.attack}\n**DEF**: ${spiritRoot.basic_stats.defense}\n**HP**: ${spiritRoot.basic_stats.hp}\n**MP**: ${spiritRoot.basic_stats.mana}\n**SPD**: ${spiritRoot.basic_stats.speed}\n**CRT**: ${spiritRoot.basic_stats.critical}%\n**RGN**: ${spiritRoot.basic_stats.regen}\n**EVA**: ${spiritRoot.basic_stats.evasion}%\n**REP**: ${spiritRoot.basic_stats.reputation}\n**KAR**: ${spiritRoot.basic_stats.karma}`,
-          inline: false
+          inline: true
         },
         {
-          name: '📈 Growth Rates (per tier)',
+          name: '📈 Growth Rates',
           value: `**ATK**: +${spiritRoot.growth_rates.attack}\n**DEF**: +${spiritRoot.growth_rates.defense}\n**HP**: +${spiritRoot.growth_rates.hp}\n**MP**: +${spiritRoot.growth_rates.mana}\n**SPD**: +${spiritRoot.growth_rates.speed}\n**CRT**: +${spiritRoot.growth_rates.critical}%\n**RGN**: +${spiritRoot.growth_rates.regen}\n**EVA**: +${spiritRoot.growth_rates.evasion}%\n**REP**: +${spiritRoot.growth_rates.reputation}\n**KAR**: +${spiritRoot.growth_rates.karma}`,
-          inline: false
+          inline: true
         },
         {
           name: '🔥 Khắc Chế',
           value: `**${spiritRoot.weakness.toUpperCase()}** - Yếu điểm chính`,
-          inline: true
+          inline: false
         },
         {
           name: '🌱 Tương Sinh',
           value: `**${spiritRoot.strength.toUpperCase()}** - Hỗ trợ tốt`,
-          inline: true
+          inline: false
         },
         {
           name: '✨ Kỹ Năng Đặc Biệt',

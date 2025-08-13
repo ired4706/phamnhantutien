@@ -52,14 +52,14 @@
     "userId": "504705413682298891",
     "username": "ired0806",
     "spiritRoot": "tho",
-    "level": 14,
-    "experience": 6027,
-    "experienceToNext": 19381,
+    "level": 16,
+    "experience": 3572,
+    "experienceToNext": 43606,
     "realm": "luyen_khi",
     "realmLevel": 1,
     "totalTiers": 0,
     "inventory": {
-      "spiritStones": 3014,
+      "spiritStones": 5132,
       "items": [],
       "weapons": [],
       "armors": []
@@ -68,11 +68,14 @@
       "lastCultivate": 0,
       "cultivateCooldown": 300000,
       "breakthroughAttempts": 0,
-      "lastBreakthrough": 0
+      "lastBreakthrough": 0,
+      "lastSimpletest": 1755080177488,
+      "lastHunt": 1755081815657,
+      "lastDomain": 1755080196723
     },
     "achievements": [],
     "joinDate": 1755078586670,
-    "lastActive": 1755078676083,
+    "lastActive": 1755081815659,
     "stats": {
       "attack": 11,
       "defense": 14,
@@ -84,12 +87,13 @@
       "critical": 4,
       "regen": 3,
       "evasion": 2,
-      "reputation": 0,
+      "reputation": 257,
       "karma": 0
     },
-    "cultivation.lastHunt": 1755078596177,
-    "inventory.spiritStones": 3014,
-    "cultivation.lastDomain": 1755078676083,
-    "stats.reputation": 232
+    "cultivation.lastHunt": 1755079927507,
+    "inventory.spiritStones": 4546,
+    "cultivation.lastDomain": 1755079663680,
+    "stats.reputation": 225,
+    "cultivation.lastTestCooldown": 1755079964376
   }
 }

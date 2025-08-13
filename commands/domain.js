@@ -1,5 +1,6 @@
 const { EmbedBuilder } = require('discord.js');
 const playerManager = require('../systems/player.js');
+const cooldownManager = require('../utils/cooldown.js');
 const expCalculator = require('../systems/exp-calculator.js');
 
 module.exports = {
@@ -22,24 +23,10 @@ module.exports = {
     const player = playerManager.getPlayer(userId);
     const now = Date.now();
 
-    // Kiểm tra cooldown
-    if (player.cultivation && player.cultivation.lastDomain &&
-      (now - player.cultivation.lastDomain) < this.cooldown) {
-      const remainingTime = this.cooldown - (now - player.cultivation.lastDomain);
-      const remainingHours = Math.ceil(remainingTime / 3600000);
-
-      const cooldownEmbed = new EmbedBuilder()
-        .setColor('#FF6B6B')
-        .setTitle('⏰ Đang trong thời gian hồi phục!')
-        .setDescription('Bạn cần nghỉ ngơi để tiếp tục khám phá domain.')
-        .addFields({
-          name: '⏳ Thời gian còn lại',
-          value: `**${remainingHours} giờ**`,
-          inline: true
-        })
-        .setFooter({ text: 'Domain có thể khám phá sau 8 giờ' })
-        .setTimestamp();
-
+    // Kiểm tra cooldown sử dụng common manager
+    const cooldownCheck = cooldownManager.checkCooldown(player, 'domain', this.cooldown);
+    if (cooldownCheck.isOnCooldown) {
+      const cooldownEmbed = cooldownManager.createCooldownEmbed('domain', cooldownCheck.remainingText);
       await interaction.reply({ embeds: [cooldownEmbed] });
       return;
     }
@@ -50,18 +37,17 @@ module.exports = {
 
     // Tính toán phần thưởng khác (domain có phần thưởng lớn)
     const spiritStones = 500 + Math.floor(Math.random() * 1000); // 500-1500
-    const reputationGain = 100 + Math.floor(Math.random() * 200); // 100-300
     const rareMaterials = this.getRareMaterials();
 
     // Cập nhật player
     playerManager.addExperience(userId, expGained);
     player.inventory.spiritStones += spiritStones;
 
-    // Cập nhật thời gian domain cuối và danh tiếng
+    // Cập nhật thời gian command cuối
+    const lastCommandField = cooldownManager.getLastCommandField('domain');
     playerManager.updatePlayer(userId, {
-      'cultivation.lastDomain': now,
-      'inventory.spiritStones': player.inventory.spiritStones,
-      'stats.reputation': (player.stats.reputation || 0) + reputationGain
+      [lastCommandField]: now,
+      'inventory.spiritStones': player.inventory.spiritStones
     });
 
     // Tạo embed thông báo thành công
@@ -78,11 +64,6 @@ module.exports = {
         {
           name: '💎 Linh thạch thu được',
           value: `**+${spiritStones}**`,
-          inline: true
-        },
-        {
-          name: '⭐ Danh tiếng tăng',
-          value: `**+${reputationGain}**`,
           inline: true
         }
       )

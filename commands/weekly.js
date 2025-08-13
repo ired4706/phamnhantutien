@@ -1,5 +1,6 @@
 const { EmbedBuilder } = require('discord.js');
 const playerManager = require('../systems/player.js');
+const cooldownManager = require('../utils/cooldown.js');
 const expCalculator = require('../systems/exp-calculator.js');
 
 module.exports = {
@@ -22,24 +23,10 @@ module.exports = {
     const player = playerManager.getPlayer(userId);
     const now = Date.now();
 
-    // Kiểm tra cooldown hàng tuần
-    if (player.cultivation && player.cultivation.lastWeeklyQuest &&
-      (now - player.cultivation.lastWeeklyQuest) < this.cooldown) {
-      const remainingTime = this.cooldown - (now - player.cultivation.lastWeeklyQuest);
-      const remainingDays = Math.ceil(remainingTime / 86400000);
-
-      const cooldownEmbed = new EmbedBuilder()
-        .setColor('#FF6B6B')
-        .setTitle('⏰ Nhiệm vụ tuần đang trong thời gian hồi phục!')
-        .setDescription('Bạn cần chờ để nhận nhiệm vụ tuần mới.')
-        .addFields({
-          name: '⏳ Thời gian còn lại',
-          value: `**${remainingDays} ngày**`,
-          inline: true
-        })
-        .setFooter({ text: 'Nhiệm vụ tuần có thể nhận sau 7 ngày' })
-        .setTimestamp();
-
+    // Kiểm tra cooldown sử dụng common manager
+    const cooldownCheck = cooldownManager.checkCooldown(player, 'weekly', this.cooldown);
+    if (cooldownCheck.isOnCooldown) {
+      const cooldownEmbed = cooldownManager.createCooldownEmbed('weekly', cooldownCheck.remainingText);
       await interaction.reply({ embeds: [cooldownEmbed] });
       return;
     }
@@ -48,19 +35,18 @@ module.exports = {
     const expResult = expCalculator.calculateWeeklyExp(player, 'none');
     const expGained = expResult.finalExp;
 
-    // Tính toán phần thưởng khác (nhiệm vụ tuần có phần thưởng lớn hơn)
+    // Tính toán phần thưởng khác
     const spiritStones = 300 + Math.floor(Math.random() * 400); // 300-700
-    const reputationGain = 50 + Math.floor(Math.random() * 100); // 50-150
 
     // Cập nhật player
     playerManager.addExperience(userId, expGained);
     player.inventory.spiritStones += spiritStones;
 
-    // Cập nhật thời gian nhiệm vụ tuần cuối và danh tiếng
+    // Cập nhật thời gian weekly quest cuối
+    const lastCommandField = cooldownManager.getLastCommandField('weekly');
     playerManager.updatePlayer(userId, {
-      'cultivation.lastWeeklyQuest': now,
-      'inventory.spiritStones': player.inventory.spiritStones,
-      'stats.reputation': (player.stats.reputation || 0) + reputationGain
+      [lastCommandField]: now,
+      'inventory.spiritStones': player.inventory.spiritStones
     });
 
     // Tạo embed thông báo thành công
@@ -77,11 +63,6 @@ module.exports = {
         {
           name: '💎 Linh thạch thu được',
           value: `**+${spiritStones}**`,
-          inline: true
-        },
-        {
-          name: '⭐ Danh tiếng tăng',
-          value: `**+${reputationGain}**`,
           inline: true
         }
       )

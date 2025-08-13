@@ -1,6 +1,7 @@
 const { EmbedBuilder } = require('discord.js');
 const playerManager = require('../systems/player.js');
 const expCalculator = require('../systems/exp-calculator.js');
+const cooldownManager = require('../utils/cooldown.js');
 
 module.exports = {
   name: 'challenge',
@@ -22,24 +23,10 @@ module.exports = {
     const player = playerManager.getPlayer(userId);
     const now = Date.now();
 
-    // Kiểm tra cooldown
-    if (player.cultivation && player.cultivation.lastChallenge &&
-      (now - player.cultivation.lastChallenge) < this.cooldown) {
-      const remainingTime = this.cooldown - (now - player.cultivation.lastChallenge);
-      const remainingMinutes = Math.ceil(remainingTime / 60000);
-
-      const cooldownEmbed = new EmbedBuilder()
-        .setColor('#FF6B6B')
-        .setTitle('⏰ Đang trong thời gian hồi phục!')
-        .setDescription('Bạn cần nghỉ ngơi để tiếp tục thách đấu.')
-        .addFields({
-          name: '⏳ Thời gian còn lại',
-          value: `**${remainingMinutes} phút**`,
-          inline: true
-        })
-        .setFooter({ text: 'Thách đấu có thể thực hiện sau 1 giờ' })
-        .setTimestamp();
-
+    // Kiểm tra cooldown sử dụng common manager
+    const cooldownCheck = cooldownManager.checkCooldown(player, 'challenge', this.cooldown);
+    if (cooldownCheck.isOnCooldown) {
+      const cooldownEmbed = cooldownManager.createCooldownEmbed('challenge', cooldownCheck.remainingText);
       await interaction.reply({ embeds: [cooldownEmbed] });
       return;
     }
@@ -48,26 +35,46 @@ module.exports = {
     const expResult = expCalculator.calculateChallengeExp(player, 'none');
     const expGained = expResult.finalExp;
 
-    // Tính toán phần thưởng khác
+    // Tính toán kết quả thách đấu (thắng/thua)
+    const isVictory = Math.random() > 0.4; // 60% cơ hội thắng
     const spiritStones = 100 + Math.floor(Math.random() * 200); // 100-300
-    const reputationGain = 20 + Math.floor(Math.random() * 30); // 20-50
+
+    // Cập nhật danh tiếng và karma dựa trên kết quả
+    let reputationChange = 0;
+    let karmaChange = 0;
+
+    if (isVictory) {
+      reputationChange = 1; // +1 danh tiếng khi thắng
+      karmaChange = 0;
+    } else {
+      reputationChange = 0;
+      karmaChange = 1; // +1 karma khi thua
+    }
 
     // Cập nhật player
     playerManager.addExperience(userId, expGained);
     player.inventory.spiritStones += spiritStones;
 
-    // Cập nhật thời gian thách đấu cuối và danh tiếng
+    // Cập nhật thời gian command cuối
+    const lastCommandField = cooldownManager.getLastCommandField('challenge');
     playerManager.updatePlayer(userId, {
-      'cultivation.lastChallenge': now,
+      [lastCommandField]: now,
       'inventory.spiritStones': player.inventory.spiritStones,
-      'stats.reputation': (player.stats.reputation || 0) + reputationGain
+      'stats.reputation': (player.stats.reputation || 0) + reputationChange,
+      'stats.karma': (player.stats.karma || 0) + karmaChange
     });
 
-    // Tạo embed thông báo thành công
+    // Tạo embed thông báo kết quả
+    const resultColor = isVictory ? '#00FF00' : '#FF4500';
+    const resultTitle = isVictory ? '🏆 Thách đấu thắng lợi!' : '💀 Thách đấu thất bại!';
+    const resultDescription = isVictory
+      ? `**${username}** đã chiến thắng trong trận thách đấu!`
+      : `**${username}** đã thất bại trong trận thách đấu.`;
+
     const successEmbed = new EmbedBuilder()
-      .setColor('#FF4500')
-      .setTitle('⚔️ Thách đấu thành công!')
-      .setDescription(`**${username}** đã hoàn thành một trận thách đấu.`)
+      .setColor(resultColor)
+      .setTitle(resultTitle)
+      .setDescription(resultDescription)
       .addFields(
         {
           name: '📊 Kinh nghiệm nhận được',
@@ -80,8 +87,20 @@ module.exports = {
           inline: true
         },
         {
-          name: '⭐ Danh tiếng tăng',
-          value: `**+${reputationGain}**`,
+          name: '⚔️ Kết quả thách đấu',
+          value: isVictory ? '**Chiến thắng** 🏆' : '**Thất bại** 💀',
+          inline: true
+        }
+      )
+      .addFields(
+        {
+          name: '⭐ Thay đổi danh tiếng',
+          value: reputationChange > 0 ? `**+${reputationChange}**` : '**Không thay đổi**',
+          inline: true
+        },
+        {
+          name: '🌙 Thay đổi karma',
+          value: karmaChange > 0 ? `**+${karmaChange}**` : '**Không thay đổi**',
           inline: true
         }
       )

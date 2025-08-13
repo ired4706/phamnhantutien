@@ -1,6 +1,7 @@
 const { EmbedBuilder } = require('discord.js');
 const playerManager = require('../systems/player.js');
 const expCalculator = require('../systems/exp-calculator.js');
+const cooldownManager = require('../utils/cooldown.js');
 
 module.exports = {
   name: 'meditate',
@@ -22,24 +23,10 @@ module.exports = {
     const player = playerManager.getPlayer(userId);
     const now = Date.now();
 
-    // Kiểm tra cooldown
-    if (player.cultivation && player.cultivation.lastMeditate &&
-      (now - player.cultivation.lastMeditate) < this.cooldown) {
-      const remainingTime = this.cooldown - (now - player.cultivation.lastMeditate);
-      const remainingMinutes = Math.ceil(remainingTime / 60000);
-
-      const cooldownEmbed = new EmbedBuilder()
-        .setColor('#FF6B6B')
-        .setTitle('⏰ Đang trong thời gian hồi phục!')
-        .setDescription('Bạn cần nghỉ ngơi để tiếp tục thiền định.')
-        .addFields({
-          name: '⏳ Thời gian còn lại',
-          value: `**${remainingMinutes} phút**`,
-          inline: true
-        })
-        .setFooter({ text: 'Thiền định có thể thực hiện sau 1 giờ' })
-        .setTimestamp();
-
+    // Kiểm tra cooldown sử dụng common manager
+    const cooldownCheck = cooldownManager.checkCooldown(player, 'meditate', this.cooldown);
+    if (cooldownCheck.isOnCooldown) {
+      const cooldownEmbed = cooldownManager.createCooldownEmbed('meditate', cooldownCheck.remainingText);
       await interaction.reply({ embeds: [cooldownEmbed] });
       return;
     }
@@ -56,8 +43,9 @@ module.exports = {
     player.inventory.spiritStones += spiritStones;
 
     // Cập nhật thời gian thiền định cuối
+    const lastCommandField = cooldownManager.getLastCommandField('meditate');
     playerManager.updatePlayer(userId, {
-      'cultivation.lastMeditate': now,
+      [lastCommandField]: now,
       'inventory.spiritStones': player.inventory.spiritStones
     });
 

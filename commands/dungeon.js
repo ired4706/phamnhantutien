@@ -1,6 +1,7 @@
 const { EmbedBuilder } = require('discord.js');
 const playerManager = require('../systems/player.js');
 const expCalculator = require('../systems/exp-calculator.js');
+const cooldownManager = require('../utils/cooldown.js');
 
 module.exports = {
   name: 'dungeon',
@@ -49,19 +50,18 @@ module.exports = {
     const expGained = expResult.finalExp;
 
     // Tính toán phần thưởng khác
-    const spiritStones = 200 + Math.floor(Math.random() * 400); // 200-600
-    const reputationGain = 50 + Math.floor(Math.random() * 100); // 50-150
+    const spiritStones = 200 + Math.floor(Math.random() * 300); // 200-500
     const dungeonMaterials = this.getDungeonMaterials();
 
     // Cập nhật player
     playerManager.addExperience(userId, expGained);
     player.inventory.spiritStones += spiritStones;
 
-    // Cập nhật thời gian dungeon cuối và danh tiếng
+    // Cập nhật thời gian command cuối
+    const lastCommandField = cooldownManager.getLastCommandField('dungeon');
     playerManager.updatePlayer(userId, {
-      'cultivation.lastDungeon': now,
-      'inventory.spiritStones': player.inventory.spiritStones,
-      'stats.reputation': (player.stats.reputation || 0) + reputationGain
+      [lastCommandField]: now,
+      'inventory.spiritStones': player.inventory.spiritStones
     });
 
     // Tạo embed thông báo thành công
@@ -78,11 +78,6 @@ module.exports = {
         {
           name: '💎 Linh thạch thu được',
           value: `**+${spiritStones}**`,
-          inline: true
-        },
-        {
-          name: '⭐ Danh tiếng tăng',
-          value: `**+${reputationGain}**`,
           inline: true
         }
       )

@@ -95,7 +95,18 @@ class PlayerManager {
         lastCultivate: 0,
         cultivateCooldown: 300000, // 5 phút
         breakthroughAttempts: 0,
-        lastBreakthrough: 0
+        lastBreakthrough: 0,
+        // Thêm các field cooldown mới
+        lastMeditate: 0,
+        lastHunt: 0,
+        lastChallenge: 0,
+        lastDomain: 0,
+        lastDailyQuest: 0,
+        lastWeeklyQuest: 0,
+        lastDungeon: 0,
+        lastMine: 0,
+        lastPick: 0,
+        lastExplore: 0
       },
       achievements: [],
       joinDate: Date.now(),
@@ -265,7 +276,32 @@ class PlayerManager {
     const player = this.getPlayer(userId);
     if (!player) return false;
 
-    Object.assign(player, updates);
+    // Hàm helper để update nested fields
+    const updateNestedFields = (obj, updates) => {
+      for (const [key, value] of Object.entries(updates)) {
+        if (key.includes('.')) {
+          // Nested field như 'cultivation.lastMeditate'
+          const keys = key.split('.');
+          let current = obj;
+
+          // Navigate to the parent object
+          for (let i = 0; i < keys.length - 1; i++) {
+            if (!current[keys[i]]) {
+              current[keys[i]] = {};
+            }
+            current = current[keys[i]];
+          }
+
+          // Set the final value
+          current[keys[keys.length - 1]] = value;
+        } else {
+          // Regular field
+          obj[key] = value;
+        }
+      }
+    };
+
+    updateNestedFields(player, updates);
     player.lastActive = Date.now();
 
     this.savePlayers();

@@ -1,11 +1,12 @@
 const { EmbedBuilder } = require('discord.js');
 const playerManager = require('../systems/player.js');
 const expCalculator = require('../systems/exp-calculator.js');
+const cooldownManager = require('../utils/cooldown.js');
 
 module.exports = {
   name: 'hunt',
-  aliases: ['h', 'san', 'hunting'],
-  description: 'Săn yêu thú lấy tài nguyên và kinh nghiệm',
+  aliases: ['h', 'sanyeu', 'hunting'],
+  description: 'Săn yêu thú lấy tài nguyên',
   cooldown: 30000, // 30s = 30000ms
 
   async execute(interaction, args) {
@@ -22,24 +23,10 @@ module.exports = {
     const player = playerManager.getPlayer(userId);
     const now = Date.now();
 
-    // Kiểm tra cooldown
-    if (player.cultivation && player.cultivation.lastHunt &&
-      (now - player.cultivation.lastHunt) < this.cooldown) {
-      const remainingTime = this.cooldown - (now - player.cultivation.lastHunt);
-      const remainingSeconds = Math.ceil(remainingTime / 1000);
-
-      const cooldownEmbed = new EmbedBuilder()
-        .setColor('#FF6B6B')
-        .setTitle('⏰ Đang trong thời gian hồi phục!')
-        .setDescription('Bạn cần nghỉ ngơi để tiếp tục săn yêu thú.')
-        .addFields({
-          name: '⏳ Thời gian còn lại',
-          value: `**${remainingSeconds} giây**`,
-          inline: true
-        })
-        .setFooter({ text: 'Săn yêu thú có thể thực hiện sau 30 giây' })
-        .setTimestamp();
-
+    // Kiểm tra cooldown sử dụng common manager
+    const cooldownCheck = cooldownManager.checkCooldown(player, 'hunt', this.cooldown);
+    if (cooldownCheck.isOnCooldown) {
+      const cooldownEmbed = cooldownManager.createCooldownEmbed('hunt', cooldownCheck.remainingText);
       await interaction.reply({ embeds: [cooldownEmbed] });
       return;
     }
@@ -50,21 +37,23 @@ module.exports = {
 
     // Tính toán phần thưởng khác
     const spiritStones = 10 + Math.floor(Math.random() * 20); // 10-30
-    const materials = this.getRandomMaterials();
+    const materials = ['Da yêu thú', 'Xương yêu thú', 'Máu yêu thú', 'Lông yêu thú'];
+    const randomMaterial = materials[Math.floor(Math.random() * materials.length)];
 
     // Cập nhật player
     playerManager.addExperience(userId, expGained);
     player.inventory.spiritStones += spiritStones;
 
     // Cập nhật thời gian săn cuối
+    const lastCommandField = cooldownManager.getLastCommandField('hunt');
     playerManager.updatePlayer(userId, {
-      'cultivation.lastHunt': now,
+      [lastCommandField]: now,
       'inventory.spiritStones': player.inventory.spiritStones
     });
 
     // Tạo embed thông báo thành công
     const successEmbed = new EmbedBuilder()
-      .setColor('#90EE90')
+      .setColor('#8B4513')
       .setTitle('🏹 Săn yêu thú thành công!')
       .setDescription(`**${username}** đã săn được yêu thú.`)
       .addFields(
@@ -79,8 +68,8 @@ module.exports = {
           inline: true
         },
         {
-          name: '🌿 Tài nguyên thu được',
-          value: materials.join(', '),
+          name: '🦴 Vật liệu thu được',
+          value: `**${randomMaterial}**`,
           inline: true
         }
       )
@@ -94,27 +83,4 @@ module.exports = {
 
     await interaction.reply({ embeds: [successEmbed] });
   },
-
-  /**
-   * Lấy tài nguyên ngẫu nhiên từ săn yêu thú
-   * @returns {Array} Danh sách tài nguyên
-   */
-  getRandomMaterials() {
-    const materials = [
-      '🐺 Da yêu thú', '🦷 Nanh yêu thú', '🩸 Máu yêu thú',
-      '🦴 Xương yêu thú', '🪶 Lông yêu thú', '💎 Linh thạch thô'
-    ];
-
-    const count = Math.floor(Math.random() * 3) + 1; // 1-3 tài nguyên
-    const selected = [];
-
-    for (let i = 0; i < count; i++) {
-      const material = materials[Math.floor(Math.random() * materials.length)];
-      if (!selected.includes(material)) {
-        selected.push(material);
-      }
-    }
-
-    return selected;
-  }
 };
