@@ -77,9 +77,27 @@ module.exports = {
       const nextRealmName = playerManager.getRealmInfo(breakthroughInfo.nextRealm)?.name || 'Cảnh giới tiếp theo';
       const progressBar = this.createProgressBar(breakthroughInfo.progress);
       
+      // Kiểm tra điều kiện đột phá
+      const hasEnoughLinhKhi = breakthroughInfo.linhKhiNeeded <= 0;
+      const linhKhiStatus = hasEnoughLinhKhi ? '✅' : '❌';
+      
+      let breakthroughValue = `**${nextRealmName} - ${breakthroughInfo.nextRealmLevel === 1 ? 'Sơ Kỳ' : breakthroughInfo.nextRealmLevel === 2 ? 'Trung Kỳ' : 'Hậu Kỳ'}**\n\n${progressBar}\n**${breakthroughInfo.progress.toFixed(1)}%** (${breakthroughInfo.currentLinhKhi}/${breakthroughInfo.linhKhiRequired} Linh khí)\n\n**Còn thiếu**: ${linhKhiStatus} ${breakthroughInfo.linhKhiNeeded} Linh khí`;
+      
+      // Thêm thông tin items cần thiết nếu có
+      if (breakthroughInfo.requiredItems) {
+        const itemStatus = playerManager.checkBreakthroughItems(player, breakthroughInfo.requiredItems);
+        
+        if (itemStatus) {
+          const itemsList = Object.entries(itemStatus.items)
+            .map(([itemName, status]) => `${status.status} ${itemName}: ${status.current}/${status.required}`)
+            .join('\n');
+          breakthroughValue += `\n\n**🎒 Vật phẩm cần thiết:**\n${itemsList}`;
+        }
+      }
+      
       statusEmbed.addFields({
         name: '🚀 Tiến Độ Đột Phá',
-        value: `**${nextRealmName} - ${breakthroughInfo.nextRealmLevel === 1 ? 'Sơ Kỳ' : breakthroughInfo.nextRealmLevel === 2 ? 'Trung Kỳ' : 'Hậu Kỳ'}**\n\n${progressBar}\n**${breakthroughInfo.progress.toFixed(1)}%** (${breakthroughInfo.currentLinhKhi}/${breakthroughInfo.linhKhiRequired} Linh khí)\n\n**Còn thiếu**: ${breakthroughInfo.linhKhiNeeded} Linh khí`,
+        value: breakthroughValue,
         inline: false
       });
     } else if (breakthroughInfo.reason) {

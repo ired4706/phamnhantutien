@@ -57,14 +57,17 @@ npm start
 - `fstatus` - Xem trạng thái tu luyện và tiến độ đột phá
 - `fspiritroot` - Xem thông tin linh căn
 - `fcultivation` - Xem thông tin hệ thống tu vi
-- `fbreakthrough` - Xem chi tiết tiến độ đột phá
+- `fbreakthrough` - Xem chi tiết tiến độ đột phá và thực hiện đột phá
+
 - `fhunt` - Săn yêu thú lấy tài nguyên
 
 ### Hệ thống tu luyện:
 1. Sử dụng `fcultivate` để tu luyện
-2. Khi đủ tu vi, dùng `fbreakthrough` để đột phá
+2. Khi đủ tu vi và vật phẩm, dùng `fbreakthrough` để đột phá
 3. Cảnh giới: Luyện Khí (13 tầng) → Trúc Cơ (3 kỳ) → Kết Đan (3 kỳ) → Nguyên Anh (3 kỳ)
 4. Linh khí được tích lũy qua các hoạt động và hiển thị Linh khí cần thiết để đột phá
+5. Mỗi lần đột phá cần Linh khí và các vật phẩm đặc biệt (Linh thạch, Thảo dược, Đan dược, Pháp bảo)
+6. Hệ thống hiển thị ✅/❌ để biết điều kiện đủ/thiếu và button đột phá tự động disable khi chưa đủ điều kiện
 
 ### Hệ thống linh căn:
 - Mỗi player có 1 linh căn ngẫu nhiên trong 5 loại: Kim ⚔️, Mộc 🌳, Thủy 💧, Hỏa 🔥, Thổ 🏔️

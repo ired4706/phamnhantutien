@@ -85,7 +85,11 @@ class PlayerManager {
       totalTiers: 0, // Tổng số tầng đã qua
       inventory: {
         spiritStones: 100,
-        items: [],
+        items: [
+          // Khởi tạo với một số vật phẩm cơ bản để test
+          { name: 'Linh Thạch Hạ Phẩm', quantity: 50, type: 'material' },
+          { name: 'Thảo Dược Cơ Bản', quantity: 20, type: 'herb' }
+        ],
         weapons: [],
         armors: []
       },
@@ -331,7 +335,7 @@ class PlayerManager {
     return this.spiritRoots[spiritRootType];
   }
 
-  // Lấy Linh khí cần thiết để đột phá cảnh giới
+  // Lấy Linh khí và item cần thiết để đột phá cảnh giới
   getBreakthroughExpRequired(player) {
     const currentRealm = player.realm;
     const currentRealmLevel = player.realmLevel;
@@ -353,9 +357,44 @@ class PlayerManager {
       }
     };
 
+    // Bảng item cần thiết để đột phá
+    const breakthroughItemsTable = {
+      'luyen_khi': {
+        1: { 'Linh Thạch Hạ Phẩm': 50, 'Thảo Dược Cơ Bản': 10 },
+        2: { 'Linh Thạch Hạ Phẩm': 75, 'Thảo Dược Cơ Bản': 15 },
+        3: { 'Linh Thạch Hạ Phẩm': 100, 'Thảo Dược Cơ Bản': 20 },
+        4: { 'Linh Thạch Hạ Phẩm': 150, 'Thảo Dược Cơ Bản': 25 },
+        5: { 'Linh Thạch Hạ Phẩm': 200, 'Thảo Dược Cơ Bản': 30 },
+        6: { 'Linh Thạch Hạ Phẩm': 300, 'Thảo Dược Cơ Bản': 40 },
+        7: { 'Linh Thạch Hạ Phẩm': 400, 'Thảo Dược Cơ Bản': 50 },
+        8: { 'Linh Thạch Hạ Phẩm': 500, 'Thảo Dược Cơ Bản': 60 },
+        9: { 'Linh Thạch Hạ Phẩm': 600, 'Thảo Dược Cơ Bản': 70 },
+        10: { 'Linh Thạch Hạ Phẩm': 750, 'Thảo Dược Cơ Bản': 80 },
+        11: { 'Linh Thạch Hạ Phẩm': 900, 'Thảo Dược Cơ Bản': 90 },
+        12: { 'Linh Thạch Hạ Phẩm': 1100, 'Thảo Dược Cơ Bản': 100 },
+        13: { 'Linh Thạch Trung Phẩm': 100, 'Thảo Dược Trung Cấp': 20, 'Đan Dược Đột Phá': 1 }
+      },
+      'truc_co': {
+        1: { 'Linh Thạch Trung Phẩm': 200, 'Thảo Dược Trung Cấp': 30, 'Đan Dược Đột Phá': 2 },
+        2: { 'Linh Thạch Trung Phẩm': 300, 'Thảo Dược Trung Cấp': 40, 'Đan Dược Đột Phá': 3 },
+        3: { 'Linh Thạch Trung Phẩm': 500, 'Thảo Dược Trung Cấp': 50, 'Đan Dược Đột Phá': 5, 'Pháp Bảo Hộ Thân': 1 }
+      },
+      'ket_dan': {
+        1: { 'Linh Thạch Thượng Phẩm': 1000, 'Thảo Dược Thượng Cấp': 100, 'Đan Dược Đột Phá': 10, 'Pháp Bảo Hộ Thân': 2 },
+        2: { 'Linh Thạch Thượng Phẩm': 1500, 'Thảo Dược Thượng Cấp': 150, 'Đan Dược Đột Phá': 15, 'Pháp Bảo Hộ Thân': 3 },
+        3: { 'Linh Thạch Thượng Phẩm': 2500, 'Thảo Dược Thượng Cấp': 200, 'Đan Dược Đột Phá': 25, 'Pháp Bảo Hộ Thân': 5, 'Linh Khí Tinh Hoa': 1 }
+      },
+      'nguyen_anh': {
+        1: { 'Linh Thạch Cực Phẩm': 5000, 'Thảo Dược Cực Cấp': 500, 'Đan Dược Đột Phá': 50, 'Pháp Bảo Hộ Thân': 10, 'Linh Khí Tinh Hoa': 3 },
+        2: { 'Linh Thạch Cực Phẩm': 7500, 'Thảo Dược Cực Cấp': 750, 'Đan Dược Đột Phá': 75, 'Pháp Bảo Hộ Thân': 15, 'Linh Khí Tinh Hoa': 5 },
+        3: { 'Linh Thạch Cực Phẩm': 10000, 'Thảo Dược Cực Cấp': 1000, 'Đan Dược Đột Phá': 100, 'Pháp Bảo Hộ Thân': 20, 'Linh Khí Tinh Hoa': 10, 'Thiên Đạo Chứng Minh': 1 }
+      }
+    };
+
     // Kiểm tra xem có thể đột phá không
     if (currentRealm === 'luyen_khi' && currentRealmLevel >= 13) {
       // Đã đạt tầng cuối Luyện Khí, cần đột phá lên Trúc Cơ
+      const requiredItems = breakthroughItemsTable['truc_co'][1];
       return {
         canBreakthrough: true,
         nextRealm: 'truc_co',
@@ -363,10 +402,12 @@ class PlayerManager {
         linhKhiRequired: 18165,
         linhKhiNeeded: Math.max(0, 18165 - player.experience),
         currentLinhKhi: player.experience,
-        progress: Math.min(100, (player.experience / 18165) * 100)
+        progress: Math.min(100, (player.experience / 18165) * 100),
+        requiredItems: requiredItems
       };
     } else if (currentRealm === 'truc_co' && currentRealmLevel >= 3) {
       // Đã đạt tầng cuối Trúc Cơ, cần đột phá lên Kết Đan
+      const requiredItems = breakthroughItemsTable['ket_dan'][1];
       return {
         canBreakthrough: true,
         nextRealm: 'ket_dan',
@@ -374,10 +415,12 @@ class PlayerManager {
         linhKhiRequired: 83703,
         linhKhiNeeded: Math.max(0, 83703 - player.experience),
         currentLinhKhi: player.experience,
-        progress: Math.min(100, (player.experience / 83703) * 100)
+        progress: Math.min(100, (player.experience / 83703) * 100),
+        requiredItems: requiredItems
       };
     } else if (currentRealm === 'ket_dan' && currentRealmLevel >= 3) {
       // Đã đạt tầng cuối Kết Đan, cần đột phá lên Nguyên Anh
+      const requiredItems = breakthroughItemsTable['nguyen_anh'][1];
       return {
         canBreakthrough: true,
         nextRealm: 'nguyen_anh',
@@ -385,7 +428,8 @@ class PlayerManager {
         linhKhiRequired: 542402,
         linhKhiNeeded: Math.max(0, 542402 - player.experience),
         currentLinhKhi: player.experience,
-        progress: Math.min(100, (player.experience / 542402) * 100)
+        progress: Math.min(100, (player.experience / 542402) * 100),
+        requiredItems: requiredItems
       };
     } else if (currentRealm === 'nguyen_anh' && currentRealmLevel >= 3) {
       // Đã đạt tầng cuối Nguyên Anh
@@ -400,6 +444,7 @@ class PlayerManager {
       const currentExpTable = breakthroughExpTable[currentRealm];
       if (currentExpTable && currentExpTable[currentRealmLevel + 1]) {
         const linhKhiRequired = currentExpTable[currentRealmLevel + 1];
+        const requiredItems = breakthroughItemsTable[currentRealm][currentRealmLevel + 1];
         return {
           canBreakthrough: true,
           nextRealm: currentRealm,
@@ -407,7 +452,8 @@ class PlayerManager {
           linhKhiRequired: linhKhiRequired,
           linhKhiNeeded: Math.max(0, linhKhiRequired - player.experience),
           currentLinhKhi: player.experience,
-          progress: Math.min(100, (player.experience / linhKhiRequired) * 100)
+          progress: Math.min(100, (player.experience / linhKhiRequired) * 100),
+          requiredItems: requiredItems
         };
       }
     }
@@ -448,6 +494,107 @@ class PlayerManager {
       experience: player.experience,
       stats: player.stats
     };
+  }
+
+  // Kiểm tra vật phẩm cần thiết cho đột phá
+  checkBreakthroughItems(player, requiredItems) {
+    if (!requiredItems) return null;
+
+    const itemStatus = {};
+    let allItemsReady = true;
+
+    for (const [itemName, requiredQuantity] of Object.entries(requiredItems)) {
+      // Lấy số lượng hiện tại từ inventory (mặc định 0 nếu chưa có)
+      const currentQuantity = this.getItemQuantity(player, itemName);
+      const hasEnough = currentQuantity >= requiredQuantity;
+      
+      itemStatus[itemName] = {
+        required: requiredQuantity,
+        current: currentQuantity,
+        hasEnough: hasEnough,
+        status: hasEnough ? '✅' : '❌'
+      };
+
+      if (!hasEnough) {
+        allItemsReady = false;
+      }
+    }
+
+    return {
+      items: itemStatus,
+      allReady: allItemsReady
+    };
+  }
+
+  // Lấy số lượng vật phẩm từ inventory
+  getItemQuantity(player, itemName) {
+    // Kiểm tra inventory của player
+    if (!player.inventory || !player.inventory.items) {
+      return 0;
+    }
+
+    // Tìm vật phẩm trong inventory
+    const item = player.inventory.items.find(item => item.name === itemName);
+    return item ? item.quantity : 0;
+  }
+
+  // Thêm vật phẩm vào inventory
+  addItemToInventory(player, itemName, quantity = 1) {
+    if (!player.inventory || !player.inventory.items) {
+      player.inventory = { items: [], spiritStones: 100, weapons: [], armors: [] };
+    }
+
+    const existingItem = player.inventory.items.find(item => item.name === itemName);
+    
+    if (existingItem) {
+      existingItem.quantity += quantity;
+    } else {
+      player.inventory.items.push({
+        name: itemName,
+        quantity: quantity,
+        type: this.getItemType(itemName)
+      });
+    }
+
+    this.savePlayers();
+    return true;
+  }
+
+  // Xóa vật phẩm khỏi inventory (khi đột phá)
+  removeItemFromInventory(player, itemName, quantity = 1) {
+    if (!player.inventory || !player.inventory.items) {
+      return false;
+    }
+
+    const existingItem = player.inventory.items.find(item => item.name === itemName);
+    
+    if (!existingItem || existingItem.quantity < quantity) {
+      return false;
+    }
+
+    existingItem.quantity -= quantity;
+    
+    // Xóa item nếu số lượng = 0
+    if (existingItem.quantity <= 0) {
+      const index = player.inventory.items.findIndex(item => item.name === itemName);
+      if (index > -1) {
+        player.inventory.items.splice(index, 1);
+      }
+    }
+
+    this.savePlayers();
+    return true;
+  }
+
+  // Xác định loại vật phẩm
+  getItemType(itemName) {
+    if (itemName.includes('Linh Thạch')) return 'material';
+    if (itemName.includes('Thảo Dược')) return 'herb';
+    if (itemName.includes('Đan Dược')) return 'potion';
+    if (itemName.includes('Pháp Bảo')) return 'artifact';
+    if (itemName.includes('Linh Khí Tinh Hoa')) return 'essence';
+    if (itemName.includes('Thiên Đạo Chứng Minh')) return 'legendary';
+    return 'misc';
   }
 }
 
