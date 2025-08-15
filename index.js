@@ -163,7 +163,7 @@ async function handleButtonInteraction(interaction) {
             inline: true
           },
           {
-            name: '⭐ Linh Khí',
+            name: '✨ Linh Khí',
             value: '0 Linh khí',
             inline: true
           },
@@ -173,7 +173,7 @@ async function handleButtonInteraction(interaction) {
             inline: true
           },
           {
-            name: '🎯 Basic Stats (Level 0)',
+            name: '🎯 Basic Stats',
             value: `**ATK**: ${spiritRoot.basic_stats.attack}\n**DEF**: ${spiritRoot.basic_stats.defense}\n**HP**: ${spiritRoot.basic_stats.hp}\n**MP**: ${spiritRoot.basic_stats.mana}\n**SPD**: ${spiritRoot.basic_stats.speed}\n**CRT**: ${spiritRoot.basic_stats.critical}%\n**RGN**: ${spiritRoot.basic_stats.regen}\n**EVA**: ${spiritRoot.basic_stats.evasion}%\n**REP**: ${spiritRoot.basic_stats.reputation}\n**KAR**: ${spiritRoot.basic_stats.karma}`,
             inline: true
           },
@@ -220,7 +220,7 @@ async function handleButtonInteraction(interaction) {
       .setDescription(spiritRoot.description)
       .addFields(
         {
-          name: '🎯 Basic Stats (Level 0)',
+          name: '🎯 Basic Stats',
           value: `**ATK**: ${spiritRoot.basic_stats.attack}\n**DEF**: ${spiritRoot.basic_stats.defense}\n**HP**: ${spiritRoot.basic_stats.hp}\n**MP**: ${spiritRoot.basic_stats.mana}\n**SPD**: ${spiritRoot.basic_stats.speed}\n**CRT**: ${spiritRoot.basic_stats.critical}%\n**RGN**: ${spiritRoot.basic_stats.regen}\n**EVA**: ${spiritRoot.basic_stats.evasion}%\n**REP**: ${spiritRoot.basic_stats.reputation}\n**KAR**: ${spiritRoot.basic_stats.karma}`,
           inline: true
         },

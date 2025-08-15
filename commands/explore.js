@@ -72,11 +72,11 @@ module.exports = {
           inline: true
         }
       )
-      .addFields(        {
-          name: '🔍 Chi tiết tính toán Linh khí',
-          value: expResult.breakdown.calculation,
-          inline: false
-        })
+      .addFields({
+        name: '🔍 Chi tiết tính toán Linh khí',
+        value: expResult.breakdown.calculation,
+        inline: false
+      })
       .setFooter({ text: 'Khám phá có thể thực hiện sau 10 phút' })
       .setTimestamp();
 

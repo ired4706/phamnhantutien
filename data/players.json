@@ -1,24 +1,27 @@
 {
-  "761604505665929236": {
-    "userId": "761604505665929236",
-    "username": "merry_19",
+  "504705413682298891": {
+    "userId": "504705413682298891",
+    "username": "ired0806",
     "spiritRoot": "thuy",
-    "experience": 0,
+    "experience": 13937,
     "realm": "luyen_khi",
-    "realmLevel": 1,
-    "totalTiers": 0,
+    "realmLevel": 2,
+    "totalTiers": 1,
     "inventory": {
-      "spiritStones": 100,
+      "spiritStones": {
+        "ha_pham": 115,
+        "trung_pham": 0,
+        "thuong_pham": 0,
+        "cuc_pham": 0
+      },
       "items": [
         {
-          "name": "Linh Thạch Hạ Phẩm",
-          "quantity": 150,
-          "type": "material"
+          "id": "herb_co_ban",
+          "quantity": 20
         },
         {
-          "name": "Thảo Dược Cơ Bản",
-          "quantity": 25,
-          "type": "herb"
+          "id": "herb_trung_cap",
+          "quantity": 5
         }
       ],
       "weapons": [],
@@ -32,24 +35,24 @@
       "lastMeditate": 0,
       "lastHunt": 0,
       "lastChallenge": 0,
-      "lastDomain": 0,
+      "lastDomain": 1755158260312,
       "lastDailyQuest": 0,
       "lastWeeklyQuest": 0,
       "lastDungeon": 0,
-      "lastMine": 0,
+      "lastMine": 1755159032832,
       "lastPick": 0,
       "lastExplore": 0
     },
     "achievements": [],
-    "joinDate": 1755105352557,
-    "lastActive": 1755105352557,
+    "joinDate": 1755158238141,
+    "lastActive": 1755159032834,
     "stats": {
-      "attack": 9,
-      "defense": 9,
-      "hp": 90,
-      "maxHp": 90,
-      "mp": 90,
-      "maxMp": 90,
+      "attack": 10,
+      "defense": 10,
+      "hp": 100,
+      "maxHp": 100,
+      "mp": 99,
+      "maxMp": 99,
       "speed": 10,
       "critical": 6,
       "regen": 3,
@@ -58,31 +61,24 @@
       "karma": 0
     }
   },
-  "504705413682298891": {
-    "userId": "504705413682298891",
-    "username": "ired0806",
-    "spiritRoot": "kim",
-    "experience": 11612,
+  "1131449923792031754": {
+    "userId": "1131449923792031754",
+    "username": "cerroxtto",
+    "spiritRoot": "hoa",
+    "experience": 16348,
     "realm": "luyen_khi",
-    "realmLevel": 3,
-    "totalTiers": 2,
+    "realmLevel": 2,
+    "totalTiers": 1,
     "inventory": {
-      "spiritStones": 534,
+      "spiritStones": "[object Object]27029275925",
       "items": [
         {
-          "name": "Linh Thạch Hạ Phẩm",
-          "quantity": 25,
-          "type": "material"
+          "id": "herb_co_ban",
+          "quantity": 20
         },
         {
-          "name": "Thảo Dược Cơ Bản",
-          "quantity": 10,
-          "type": "herb"
-        },
-        {
-          "name": "Đan Dược Đột Phá",
-          "quantity": 2,
-          "type": "potion"
+          "id": "herb_trung_cap",
+          "quantity": 5
         }
       ],
       "weapons": [],
@@ -94,31 +90,88 @@
       "breakthroughAttempts": 0,
       "lastBreakthrough": 0,
       "lastMeditate": 0,
-      "lastHunt": 0,
-      "lastChallenge": 0,
-      "lastDomain": 0,
+      "lastHunt": 1755158276788,
+      "lastChallenge": 1755161399232,
+      "lastDomain": 1755162035933,
       "lastDailyQuest": 0,
       "lastWeeklyQuest": 0,
       "lastDungeon": 0,
-      "lastMine": 0,
-      "lastPick": 0,
-      "lastExplore": 0,
-      "lastWeekly": 1755108643979
+      "lastMine": 1755161391650,
+      "lastPick": 1755161393072,
+      "lastExplore": 0
     },
     "achievements": [],
-    "joinDate": 1755106803989,
-    "lastActive": 1755108643981,
+    "joinDate": 1755158272549,
+    "lastActive": 1755162035935,
     "stats": {
-      "attack": 15,
-      "defense": 19,
-      "hp": 150,
-      "maxHp": 150,
-      "mp": 60,
-      "maxMp": 60,
-      "speed": 8,
-      "critical": 5,
+      "attack": 16,
+      "defense": 9,
+      "hp": 106,
+      "maxHp": 106,
+      "mp": 66,
+      "maxMp": 66,
+      "speed": 11,
+      "critical": 10,
       "regen": 2,
-      "evasion": 3,
+      "evasion": 5,
+      "reputation": 0,
+      "karma": 0
+    }
+  },
+  "558528163244802089": {
+    "userId": "558528163244802089",
+    "username": "just_archer",
+    "spiritRoot": "tho",
+    "experience": 21574,
+    "realm": "luyen_khi",
+    "realmLevel": 1,
+    "totalTiers": 0,
+    "inventory": {
+      "spiritStones": "[object Object]128624130148",
+      "items": [
+        {
+          "id": "herb_co_ban",
+          "quantity": 20
+        },
+        {
+          "id": "herb_trung_cap",
+          "quantity": 5
+        }
+      ],
+      "weapons": [],
+      "armors": []
+    },
+    "cultivation": {
+      "lastCultivate": 0,
+      "cultivateCooldown": 300000,
+      "breakthroughAttempts": 0,
+      "lastBreakthrough": 0,
+      "lastMeditate": 0,
+      "lastHunt": 1755161114032,
+      "lastChallenge": 0,
+      "lastDomain": 1755161102757,
+      "lastDailyQuest": 0,
+      "lastWeeklyQuest": 0,
+      "lastDungeon": 0,
+      "lastMine": 1755161256760,
+      "lastPick": 0,
+      "lastExplore": 0,
+      "lastDaily": 1755161117420
+    },
+    "achievements": [],
+    "joinDate": 1755160845871,
+    "lastActive": 1755161256761,
+    "stats": {
+      "attack": 11,
+      "defense": 14,
+      "hp": 140,
+      "maxHp": 140,
+      "mp": 40,
+      "maxMp": 40,
+      "speed": 7,
+      "critical": 4,
+      "regen": 3,
+      "evasion": 2,
       "reputation": 0,
       "karma": 0
     }

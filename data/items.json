@@ -1,0 +1,206 @@
+{
+  "rarity_levels": {
+    "common": {
+      "name": "Phàm cấp",
+      "color": "#FFFFFF",
+      "emoji": "⚪",
+      "description": "Vật phẩm phổ thông, dễ kiếm"
+    },
+    "uncommon": {
+      "name": "Huyền cấp",
+      "color": "#4169E1",
+      "emoji": "🔵",
+      "description": "Vật phẩm huyền bí, có giá trị"
+    },
+    "rare": {
+      "name": "Địa cấp",
+      "color": "#9370DB",
+      "emoji": "🟣",
+      "description": "Vật phẩm địa cấp, quý hiếm"
+    },
+    "epic": {
+      "name": "Thiên cấp",
+      "color": "#FF8C00",
+      "emoji": "🟠",
+      "description": "Vật phẩm thiên cấp, cực kỳ quý hiếm"
+    },
+    "legendary": {
+      "name": "Thần cấp",
+      "color": "#FF0000",
+      "emoji": "🔴",
+      "description": "Vật phẩm thần cấp, thần thoại"
+    }
+  },
+  "currency": {
+    "spirit_stone_ha_pham": {
+      "name": "Linh Thạch Hạ Phẩm",
+      "emoji": "🪙",
+      "description": "Đơn vị tiền tệ cơ bản trong tu tiên giới",
+      "value": 1,
+      "rarity": "common",
+      "exchange_rate": {
+        "to_trung_pham": 100,
+        "to_thuong_pham": 10000,
+        "to_cuc_pham": 1000000
+      }
+    },
+    "spirit_stone_trung_pham": {
+      "name": "Linh Thạch Trung Phẩm",
+      "emoji": "✨",
+      "description": "Đơn vị tiền tệ trung cấp, giá trị cao hơn hạ phẩm",
+      "value": 100,
+      "rarity": "uncommon",
+      "exchange_rate": {
+        "to_ha_pham": 100,
+        "to_thuong_pham": 100,
+        "to_cuc_pham": 10000
+      }
+    },
+    "spirit_stone_thuong_pham": {
+      "name": "Linh Thạch Thượng Phẩm",
+      "emoji": "🔮",
+      "description": "Đơn vị tiền tệ cao cấp, giá trị lớn",
+      "value": 10000,
+      "rarity": "rare",
+      "exchange_rate": {
+        "to_ha_pham": 10000,
+        "to_trung_pham": 100,
+        "to_cuc_pham": 100
+      }
+    },
+    "spirit_stone_cuc_pham": {
+      "name": "Linh Thạch Cực Phẩm",
+      "emoji": "💎",
+      "description": "Đơn vị tiền tệ thần thoại, giá trị cao nhất",
+      "value": 1000000,
+      "rarity": "epic",
+      "exchange_rate": {
+        "to_ha_pham": 1000000,
+        "to_trung_pham": 10000,
+        "to_thuong_pham": 100
+      }
+    }
+  },
+  "herbs": {
+    "herb_co_ban": {
+      "name": "Thảo Dược Cơ Bản",
+      "emoji": "🌿",
+      "description": "Thảo dược cơ bản dùng để tu luyện và đột phá",
+      "type": "herb",
+      "rarity": "common",
+      "value": 10
+    },
+    "herb_trung_cap": {
+      "name": "Thảo Dược Trung Cấp",
+      "emoji": "🌿",
+      "description": "Thảo dược trung cấp có dược tính cao hơn",
+      "type": "herb",
+      "rarity": "uncommon",
+      "value": 100
+    },
+    "herb_thuong_cap": {
+      "name": "Thảo Dược Thượng Cấp",
+      "emoji": "🌿",
+      "description": "Thảo dược thượng cấp quý hiếm",
+      "type": "herb",
+      "rarity": "rare",
+      "value": 1000
+    },
+    "herb_cuc_cap": {
+      "name": "Thảo Dược Cực Cấp",
+      "emoji": "🌿",
+      "description": "Thảo dược cực cấp thần thoại",
+      "type": "herb",
+      "rarity": "epic",
+      "value": 10000
+    }
+  },
+  "elixirs": {
+    "elixir_co_ban": {
+      "name": "Đan Dược Cơ Bản",
+      "emoji": "🔮",
+      "description": "Đan dược cơ bản hỗ trợ đột phá",
+      "type": "elixir",
+      "rarity": "common",
+      "value": 50
+    },
+    "elixir_trung_cap": {
+      "name": "Đan Dược Trung Cấp",
+      "emoji": "🔮",
+      "description": "Đan dược trung cấp hiệu quả cao",
+      "type": "elixir",
+      "rarity": "uncommon",
+      "value": 500
+    },
+    "elixir_thuong_cap": {
+      "name": "Đan Dược Thượng Cấp",
+      "emoji": "🔮",
+      "description": "Đan dược thượng cấp quý hiếm",
+      "type": "elixir",
+      "rarity": "rare",
+      "value": 5000
+    },
+    "elixir_cuc_cap": {
+      "name": "Đan Dược Cực Cấp",
+      "emoji": "🔮",
+      "description": "Đan dược cực cấp thần thoại",
+      "type": "elixir",
+      "rarity": "epic",
+      "value": 50000
+    }
+  },
+  "artifacts": {
+    "artifact_co_ban": {
+      "name": "Pháp Bảo Cơ Bản",
+      "emoji": "⚔️",
+      "description": "Pháp bảo cơ bản bảo vệ tu luyện",
+      "type": "artifact",
+      "rarity": "common",
+      "value": 200
+    },
+    "artifact_trung_cap": {
+      "name": "Pháp Bảo Trung Cấp",
+      "emoji": "⚔️",
+      "description": "Pháp bảo trung cấp mạnh mẽ",
+      "type": "artifact",
+      "rarity": "uncommon",
+      "value": 2000
+    },
+    "artifact_thuong_cap": {
+      "name": "Pháp Bảo Thượng Cấp",
+      "emoji": "⚔️",
+      "description": "Pháp bảo thượng cấp quý hiếm",
+      "type": "artifact",
+      "rarity": "rare",
+      "value": 20000
+    }
+  },
+  "essences": {
+    "essence_co_ban": {
+      "name": "Linh Khí Tinh Hoa",
+      "emoji": "✨",
+      "description": "Tinh hoa linh khí thuần khiết",
+      "type": "essence",
+      "rarity": "rare",
+      "value": 10000
+    },
+    "essence_trung_cap": {
+      "name": "Linh Khí Tinh Hoa Trung Cấp",
+      "emoji": "✨",
+      "description": "Tinh hoa linh khí trung cấp",
+      "type": "essence",
+      "rarity": "epic",
+      "value": 100000
+    }
+  },
+  "special_items": {
+    "thien_dao_chung_minh": {
+      "name": "Thiên Đạo Chứng Minh",
+      "emoji": "🌟",
+      "description": "Vật phẩm thần thoại chứng minh thiên đạo",
+      "type": "legendary",
+      "rarity": "legendary",
+      "value": 1000000
+    }
+  }
+} 

@@ -6,15 +6,62 @@ module.exports = {
   aliases: ['s', 'trangthai', 'info'],
   description: 'Xem trạng thái tu luyện và linh căn',
 
-  // Tạo progress bar cho tiến độ đột phá
-  createProgressBar(percentage) {
+  // Tạo progress bar đẹp mắt với emoji và màu sắc
+  createProgressBar(percentage, realm = 'luyen_khi') {
     const filledBlocks = Math.floor(percentage / 10);
     const emptyBlocks = 10 - filledBlocks;
-    
-    const filled = '█'.repeat(filledBlocks);
-    const empty = '░'.repeat(emptyBlocks);
-    
+
+    // Emoji và màu sắc theo cảnh giới
+    const realmEmojis = {
+      'luyen_khi': { filled: '🟢', empty: '⚪' },
+      'truc_co': { filled: '🟡', empty: '⚪' },
+      'ket_dan': { filled: '🟠', empty: '⚪' },
+      'nguyen_anh': { filled: '🔴', empty: '⚪' }
+    };
+
+    const emojis = realmEmojis[realm] || realmEmojis['luyen_khi'];
+    const filled = emojis.filled.repeat(filledBlocks);
+    const empty = emojis.empty.repeat(emptyBlocks);
+
     return `${filled}${empty}`;
+  },
+
+  // Tạo separator đẹp mắt
+  createSeparator() {
+    return '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━';
+  },
+
+  // Tạo header với style đẹp
+  createHeader(username, realm, realmLevel) {
+    const realmInfo = playerManager.getRealmInfo(realm);
+    const realmEmoji = realmInfo?.emoji || '🌿';
+    const realmName = realmInfo?.name || 'Unknown';
+    const levelName = realmInfo?.levels?.[realmLevel - 1] || `Tầng ${realmLevel}`;
+
+    return `${realmEmoji} **${username}** - ${realmName} ${levelName}`;
+  },
+
+  // Format inventory items để hiển thị tên và emoji
+  formatInventoryItems(items) {
+    if (!items || items.length === 0) {
+      return 'Không có vật phẩm nào';
+    }
+
+    const formattedItems = items.map(item => {
+      const itemInfo = playerManager.getItemInfo(item.id);
+      const itemName = itemInfo ? itemInfo.name : item.id;
+      const itemEmoji = itemInfo ? itemInfo.emoji : '📦';
+      const rarityInfo = playerManager.getItemRarity(item.id);
+
+      if (rarityInfo) {
+        const rarityEmoji = rarityInfo.emoji;
+        return `${itemEmoji} **${itemName}** x${item.quantity} ${rarityEmoji}`;
+      } else {
+        return `${itemEmoji} **${itemName}** x${item.quantity}`;
+      }
+    });
+
+    return formattedItems.join('\n');
   },
 
   async execute(interaction, args) {
@@ -35,169 +82,174 @@ module.exports = {
     const realmInfo = playerManager.getRealmInfo(player.realm);
     const breakthroughInfo = playerManager.getBreakthroughExpRequired(player);
 
-    // Tạo embed hiển thị thông tin
-    const statusEmbed = new EmbedBuilder()
-      .setColor('#8B0000')
-      .setTitle(`🌿 ${playerInfo.username} - Tu Tiên Trạng Thái`)
+    // Tạo embed chính với layout tối ưu
+    const mainEmbed = new EmbedBuilder()
+      .setColor(this.getRealmColor(player.realm))
+      .setTitle(this.createHeader(username, player.realm, player.realmLevel))
       .setThumbnail(interaction.user.displayAvatarURL())
-      .addFields(
-        {
-          name: '🏮 Linh Căn',
-          value: `${playerInfo.spiritRoot}\n${spiritRoot.description}`,
-          inline: false
-        },
-        {
-          name: '📊 Cảnh Giới',
-          value: `**${playerInfo.realm}**`,
-          inline: true
-        },
-        {
-          name: '⭐ Linh Khí',
-          value: `**${playerInfo.experience} Linh khí**`,
-          inline: true
-        },
-        {
-          name: '💎 Linh Thạch',
-          value: `**${player.inventory.spiritStones}**`,
-          inline: true
-        }
-      );
+      .setDescription(`${this.createSeparator()}\n**Tu Tiên Trạng Thái**`);
 
-    // Thêm thông tin cảnh giới chi tiết
-    if (realmInfo) {
-      statusEmbed.addFields({
-        name: '🎯 Thông Tin Cảnh Giới',
-        value: `**${realmInfo.name}**\n${realmInfo.description}\n\n**Tầng hiện tại**: ${realmInfo.levels[player.realmLevel - 1]}\n**Tầng tối đa**: ${realmInfo.maxLevel}\n**Độ khó đột phá**: ${realmInfo.breakthroughDifficulty}x`,
+    // Thông tin cơ bản - 3 cột
+    mainEmbed.addFields(
+      {
+        name: '🏮 **Linh Căn**',
+        value: `${spiritRoot.emoji} **${spiritRoot.name}**\n${spiritRoot.description}`,
         inline: false
-      });
-    }
-
-    // Thêm thông tin Linh khí để đột phá
-    if (breakthroughInfo.canBreakthrough) {
-      const nextRealmName = playerManager.getRealmInfo(breakthroughInfo.nextRealm)?.name || 'Cảnh giới tiếp theo';
-      const progressBar = this.createProgressBar(breakthroughInfo.progress);
-      
-      // Kiểm tra điều kiện đột phá
-      const hasEnoughLinhKhi = breakthroughInfo.linhKhiNeeded <= 0;
-      const linhKhiStatus = hasEnoughLinhKhi ? '✅' : '❌';
-      
-      let breakthroughValue = `**${nextRealmName} - ${breakthroughInfo.nextRealmLevel === 1 ? 'Sơ Kỳ' : breakthroughInfo.nextRealmLevel === 2 ? 'Trung Kỳ' : 'Hậu Kỳ'}**\n\n${progressBar}\n**${breakthroughInfo.progress.toFixed(1)}%** (${breakthroughInfo.currentLinhKhi}/${breakthroughInfo.linhKhiRequired} Linh khí)\n\n**Còn thiếu**: ${linhKhiStatus} ${breakthroughInfo.linhKhiNeeded} Linh khí`;
-      
-      // Thêm thông tin items cần thiết nếu có
-      if (breakthroughInfo.requiredItems) {
-        const itemStatus = playerManager.checkBreakthroughItems(player, breakthroughInfo.requiredItems);
-        
-        if (itemStatus) {
-          const itemsList = Object.entries(itemStatus.items)
-            .map(([itemName, status]) => `${status.status} ${itemName}: ${status.current}/${status.required}`)
-            .join('\n');
-          breakthroughValue += `\n\n**🎒 Vật phẩm cần thiết:**\n${itemsList}`;
-        }
+      },
+      {
+        name: '📊 **Cảnh Giới**',
+        value: `${realmInfo.emoji} **${realmInfo.name}**\n**Tầng**: ${realmInfo.levels[player.realmLevel - 1]}`,
+        inline: true
+      },
+      {
+        name: '✨ **Linh Khí**',
+        value: `**${player.experience.toLocaleString()}** Linh khí\n**Tỷ lệ**: ${realmInfo.experienceMultiplier}x`,
+        inline: true
       }
-      
-      statusEmbed.addFields({
-        name: '🚀 Tiến Độ Đột Phá',
-        value: breakthroughValue,
-        inline: false
-      });
-    } else if (breakthroughInfo.reason) {
-      statusEmbed.addFields({
-        name: '🏆 Trạng Thái Đột Phá',
-        value: `**${breakthroughInfo.reason}**\n**Linh khí hiện tại**: ${breakthroughInfo.currentLinhKhi} Linh khí`,
-        inline: false
-      });
-    }
-
-    // Thêm stats
-    const statsEmbed = new EmbedBuilder()
-      .setColor('#006400')
-      .setTitle('⚔️ Thuộc Tính Chiến Đấu')
-      .addFields(
-        {
-          name: '❤️ Sinh Mệnh (HP)',
-          value: `${player.stats.hp}/${player.stats.maxHp}`,
-          inline: true
-        },
-        {
-          name: '🔮 Linh Lực (MP)',
-          value: `${player.stats.mp}/${player.stats.maxMp}`,
-          inline: true
-        },
-        {
-          name: '⚔️ Công Kích (ATK)',
-          value: `**${player.stats.attack}**`,
-          inline: true
-        },
-        {
-          name: '🛡️ Phòng Thủ (DEF)',
-          value: `**${player.stats.defense}**`,
-          inline: true
-        },
-        {
-          name: '⚡ Tốc Độ (SPD)',
-          value: `**${player.stats.speed}**`,
-          inline: true
-        },
-        {
-          name: '🎯 Chí Mạng (CRT)',
-          value: `**${player.stats.critical}%**`,
-          inline: true
-        },
-        {
-          name: '💚 Hồi Phục (RGN)',
-          value: `**${player.stats.regen}**`,
-          inline: true
-        },
-        {
-          name: '🦅 Né Tránh (EVA)',
-          value: `**${player.stats.evasion}%**`,
-          inline: true
-        },
-        {
-          name: '⭐ Danh Tiếng (REP)',
-          value: `**${player.stats.reputation}**`,
-          inline: true
-        },
-        {
-          name: '🌟 Nghiệp Lực (KAR)',
-          value: `**${player.stats.karma}**`,
-          inline: true
-        }
-      );
-
-    // Thêm thông tin linh căn chi tiết
-    const spiritRootEmbed = new EmbedBuilder()
-      .setColor('#FF8C00')
-      .setTitle(`${spiritRoot.emoji} ${spiritRoot.name} - Chi Tiết`)
-      .addFields(
-        {
-          name: '🎯 Basic Stats (Level 0)',
-          value: `**ATK**: ${spiritRoot.basic_stats.attack}\n**DEF**: ${spiritRoot.basic_stats.defense}\n**HP**: ${spiritRoot.basic_stats.hp}\n**MP**: ${spiritRoot.basic_stats.mana}\n**SPD**: ${spiritRoot.basic_stats.speed}\n**CRT**: ${spiritRoot.basic_stats.critical}%\n**RGN**: ${spiritRoot.basic_stats.regen}\n**EVA**: ${spiritRoot.basic_stats.evasion}%\n**REP**: ${spiritRoot.basic_stats.reputation}\n**KAR**: ${spiritRoot.basic_stats.karma}`,
-          inline: true
-        },
-        {
-          name: '📈 Growth Rates',
-          value: `**ATK**: +${spiritRoot.growth_rates.attack}\n**DEF**: +${spiritRoot.growth_rates.defense}\n**HP**: +${spiritRoot.growth_rates.hp}\n**MP**: +${spiritRoot.growth_rates.mana}\n**SPD**: +${spiritRoot.growth_rates.speed}\n**CRT**: +${spiritRoot.growth_rates.critical}%\n**RGN**: +${spiritRoot.growth_rates.regen}\n**EVA**: +${spiritRoot.growth_rates.evasion}%\n**REP**: +${spiritRoot.growth_rates.reputation}\n**KAR**: +${spiritRoot.growth_rates.karma}`,
-          inline: true
-        },
-        {
-          name: '🔥 Bị Khắc',
-          value: `**${spiritRoot.weakness.toUpperCase()}** - Yếu điểm`,
-          inline: false
-        },
-        {
-          name: '🌱 Khắc chế',
-          value: `**${spiritRoot.strength.toUpperCase()}** - Thế mạnh`,
-          inline: true
-        }
-      );
+    );
 
     // Thêm footer
-    statusEmbed.setFooter({ text: `Tham gia từ ${new Date(player.joinDate).toLocaleDateString('vi-VN')}` });
-    statusEmbed.setTimestamp();
+    mainEmbed.setFooter({
+      text: `Tham gia từ ${new Date(player.joinDate).toLocaleDateString('vi-VN')} • Sử dụng fbreakthrough để đột phá`
+    });
+    mainEmbed.setTimestamp();
 
+    // Tạo embed thứ hai cho stats chi tiết
+    const statsEmbed = new EmbedBuilder()
+      .setColor(this.getRealmColor(player.realm))
+      .setTitle('⚔️ **Thuộc Tính Chiến Đấu**')
+      .setDescription(`${this.createSeparator()}\n**Thông số chi tiết của tu sĩ**`);
+
+    // Nhóm stats theo chức năng
+    const combatStats = [
+      { name: '❤️ **Sinh Mệnh**', value: `${player.stats.hp.toLocaleString()}/${player.stats.maxHp.toLocaleString()}`, inline: true },
+      { name: '🔮 **Linh Lực**', value: `${player.stats.mp.toLocaleString()}/${player.stats.maxMp.toLocaleString()}`, inline: true },
+      { name: '⚔️ **Công Kích**', value: `**${player.stats.attack.toLocaleString()}**`, inline: true }
+    ];
+
+    const defenseStats = [
+      { name: '🛡️ **Phòng Thủ**', value: `**${player.stats.defense.toLocaleString()}**`, inline: true },
+      { name: '⚡ **Tốc Độ**', value: `**${player.stats.speed.toLocaleString()}**`, inline: true },
+      { name: '🎯 **Chí Mạng**', value: `**${player.stats.critical}%**`, inline: true }
+    ];
+
+    const utilityStats = [
+      { name: '💚 **Hồi Phục**', value: `**${player.stats.regen.toLocaleString()}**`, inline: true },
+      { name: '🦅 **Né Tránh**', value: `**${player.stats.evasion}%**`, inline: true },
+      { name: '✨ **Danh Tiếng**', value: `**${player.stats.reputation.toLocaleString()}**`, inline: true }
+    ];
+
+    statsEmbed.addFields(...combatStats, ...defenseStats, ...utilityStats);
+
+    // Tạo embed thứ ba cho linh căn chi tiết
+    const spiritRootEmbed = new EmbedBuilder()
+      .setColor(this.getSpiritRootColor(player.spiritRoot))
+      .setTitle(`${spiritRoot.emoji} **${spiritRoot.name} - Chi Tiết**`)
+      .setDescription(`${this.createSeparator()}\n**Thông tin chi tiết về linh căn**`);
+
+    // Nhóm thông tin linh căn
+    const basicStats = [
+      { name: '🎯 **Basic Stats**', value: this.formatSpiritRootStats(spiritRoot.basic_stats), inline: true },
+      { name: '📈 **Growth Rates**', value: this.formatSpiritRootGrowth(spiritRoot.growth_rates), inline: true }
+    ];
+
+    const elementalInfo = [
+      { name: '⚔️ **Tương Khắc**', value: `⚠️ **${spiritRoot.weakness.toUpperCase()}** - Yếu điểm | 💪 **${spiritRoot.strength.toUpperCase()}** - Thế mạnh`, inline: false }
+    ];
+
+    spiritRootEmbed.addFields(...basicStats, ...elementalInfo);
+
+    // Gửi tất cả embeds
     await interaction.reply({
-      embeds: [statusEmbed, statsEmbed, spiritRootEmbed]
+      embeds: [mainEmbed, statsEmbed, spiritRootEmbed]
     });
   },
+
+  // Lấy màu sắc theo cảnh giới
+  getRealmColor(realm) {
+    const colors = {
+      'luyen_khi': '#00FF00', // Xanh lá
+      'truc_co': '#FFFF00',   // Vàng
+      'ket_dan': '#FF8C00',   // Cam
+      'nguyen_anh': '#FF0000' // Đỏ
+    };
+    return colors[realm] || '#8B0000';
+  },
+
+  // Lấy màu sắc theo linh căn
+  getSpiritRootColor(spiritRoot) {
+    const colors = {
+      'kim': '#FFD700',   // Vàng
+      'moc': '#228B22',   // Xanh lá
+      'thuy': '#4169E1',  // Xanh dương
+      'hoa': '#FF4500',   // Đỏ cam
+      'tho': '#8B4513'    // Nâu
+    };
+    return colors[spiritRoot] || '#FF8C00';
+  },
+
+  // Lấy tên cấp độ cảnh giới
+  getRealmLevelName(realmLevel) {
+    if (realmLevel === 1) return 'Sơ Kỳ';
+    if (realmLevel === 2) return 'Trung Kỳ';
+    if (realmLevel === 3) return 'Hậu Kỳ';
+    return `Tầng ${realmLevel}`;
+  },
+
+  // Format stats linh căn
+  formatSpiritRootStats(stats) {
+    return `**ATK**: ${stats.attack}\n**DEF**: ${stats.defense}\n**HP**: ${stats.hp}\n**MP**: ${stats.mana}\n**SPD**: ${stats.speed}\n**CRIT**: ${stats.critical}%\n**REGEN**: ${stats.regen}\n**EVASION**: ${stats.evasion}%\n**REP**: ${stats.reputation}\n**KARMA**: ${stats.karma}`;
+  },
+
+  // Format growth rates linh căn
+  formatSpiritRootGrowth(growth) {
+    return `**ATK**: +${growth.attack}\n**DEF**: +${growth.defense}\n**HP**: +${growth.hp}\n**MP**: +${growth.mana}\n**SPD**: +${growth.speed}\n**CRIT**: +${growth.critical}%\n**REGEN**: +${growth.regen}\n**EVASION**: +${growth.evasion}%\n**REP**: +${growth.reputation}\n**KARMA**: +${growth.karma}`;
+  },
+
+  // Format hiển thị linh thạch
+  formatSpiritStones(spiritStones) {
+    // Xử lý dữ liệu bị lỗi
+    if (!spiritStones) {
+      return '0 hạ phẩm';
+    }
+
+    // Nếu là string bị lỗi như "[object Object]903"
+    if (typeof spiritStones === 'string') {
+      const match = spiritStones.match(/(\d+)$/);
+      if (match) {
+        const amount = parseInt(match[1]);
+        return `${amount.toLocaleString()} hạ phẩm (dữ liệu cũ)`;
+      }
+      return '0 hạ phẩm (dữ liệu lỗi)';
+    }
+
+    // Nếu là number (dữ liệu cũ)
+    if (typeof spiritStones === 'number') {
+      return `${spiritStones.toLocaleString()} hạ phẩm (dữ liệu cũ)`;
+    }
+
+    // Nếu là object hợp lệ
+    if (typeof spiritStones === 'object' && spiritStones.ha_pham !== undefined) {
+      const parts = [];
+      if (spiritStones.cuc_pham > 0) parts.push(`💎${spiritStones.cuc_pham}`);
+      if (spiritStones.thuong_pham > 0) parts.push(`🔮${spiritStones.thuong_pham}`);
+      if (spiritStones.trung_pham > 0) parts.push(`✨${spiritStones.trung_pham}`);
+      if (spiritStones.ha_pham > 0) parts.push(`🪙${spiritStones.ha_pham}`);
+
+      if (parts.length === 0) {
+        return '0 hạ phẩm';
+      }
+
+      // Tính tổng giá trị
+      const totalValue = (spiritStones.cuc_pham * 1000000) +
+        (spiritStones.thuong_pham * 10000) +
+        (spiritStones.trung_pham * 100) +
+        spiritStones.ha_pham;
+
+      return `${parts.join(' ')} (Tổng: ${totalValue.toLocaleString()} hạ phẩm)`;
+    }
+
+    // Fallback
+    return '0 hạ phẩm (dữ liệu không hợp lệ)';
+  }
 }; 

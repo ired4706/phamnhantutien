@@ -94,7 +94,7 @@ module.exports = {
       )
       .addFields(
         {
-          name: '⭐ Thay đổi danh tiếng',
+          name: '✨ Thay đổi danh tiếng',
           value: reputationChange > 0 ? `**+${reputationChange}**` : '**Không thay đổi**',
           inline: true
         },

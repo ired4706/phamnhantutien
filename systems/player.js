@@ -7,9 +7,14 @@ class PlayerManager {
     this.dataPath = path.join(__dirname, '../data/players.json');
     this.spiritRootsPath = path.join(__dirname, '../data/spirit-roots.json');
     this.realmsPath = path.join(__dirname, '../data/realms.json');
+    this.itemsPath = path.join(__dirname, '../data/items.json');
     this.loadPlayers();
     this.loadSpiritRoots();
     this.loadRealms();
+    this.loadItems();
+
+    // Fix any existing spiritStones data issues
+    this.fixAllSpiritStones();
   }
 
   loadSpiritRoots() {
@@ -39,6 +44,11 @@ class PlayerManager {
         const playersData = JSON.parse(data);
 
         for (const [userId, playerData] of Object.entries(playersData)) {
+          // Migrate old spiritStones format
+          if (playerData.inventory && playerData.inventory.spiritStones) {
+            playerData.inventory.spiritStones = this.migrateSpiritStones(playerData.inventory.spiritStones);
+          }
+
           this.players.set(userId, playerData);
         }
         console.log(`✅ Loaded ${this.players.size} players`);
@@ -46,6 +56,74 @@ class PlayerManager {
     } catch (error) {
       console.error('Error loading players:', error);
     }
+  }
+
+  // Migrate old spiritStones format to new format
+  migrateSpiritStones(oldSpiritStones) {
+    // If already in new format, return as is
+    if (typeof oldSpiritStones === 'object' && oldSpiritStones.ha_pham !== undefined) {
+      return oldSpiritStones;
+    }
+
+    // If it's a string like "[object Object]903", extract the number
+    if (typeof oldSpiritStones === 'string') {
+      const match = oldSpiritStones.match(/(\d+)$/);
+      if (match) {
+        const amount = parseInt(match[1]);
+        return {
+          ha_pham: amount,
+          trung_pham: 0,
+          thuong_pham: 0,
+          cuc_pham: 0
+        };
+      }
+    }
+
+    // If it's a number, convert to new format
+    if (typeof oldSpiritStones === 'number') {
+      return {
+        ha_pham: oldSpiritStones,
+        trung_pham: 0,
+        thuong_pham: 0,
+        cuc_pham: 0
+      };
+    }
+
+    // Default fallback
+    return {
+      ha_pham: 100,
+      trung_pham: 0,
+      thuong_pham: 0,
+      cuc_pham: 0
+    };
+  }
+
+  // Fix all existing players' spiritStones data
+  fixAllSpiritStones() {
+    console.log('🔧 Fixing spiritStones data for all players...');
+    let fixedCount = 0;
+
+    for (const [userId, player] of this.players.entries()) {
+      if (player.inventory && player.inventory.spiritStones) {
+        const oldFormat = player.inventory.spiritStones;
+        const newFormat = this.migrateSpiritStones(oldFormat);
+
+        if (JSON.stringify(oldFormat) !== JSON.stringify(newFormat)) {
+          player.inventory.spiritStones = newFormat;
+          fixedCount++;
+          console.log(`✅ Fixed player ${player.username}: ${JSON.stringify(oldFormat)} → ${JSON.stringify(newFormat)}`);
+        }
+      }
+    }
+
+    if (fixedCount > 0) {
+      this.savePlayers();
+      console.log(`🎉 Fixed ${fixedCount} players' spiritStones data`);
+    } else {
+      console.log('✅ No players need fixing');
+    }
+
+    return fixedCount;
   }
 
   savePlayers() {
@@ -84,11 +162,16 @@ class PlayerManager {
       realmLevel: 1,
       totalTiers: 0, // Tổng số tầng đã qua
       inventory: {
-        spiritStones: 100,
+        spiritStones: {
+          ha_pham: 1000,
+          trung_pham: 50,
+          thuong_pham: 10,
+          cuc_pham: 2
+        },
         items: [
           // Khởi tạo với một số vật phẩm cơ bản để test
-          { name: 'Linh Thạch Hạ Phẩm', quantity: 50, type: 'material' },
-          { name: 'Thảo Dược Cơ Bản', quantity: 20, type: 'herb' }
+          { id: 'herb_co_ban', quantity: 20 },
+          { id: 'herb_trung_cap', quantity: 5 }
         ],
         weapons: [],
         armors: []
@@ -339,7 +422,7 @@ class PlayerManager {
   getBreakthroughExpRequired(player) {
     const currentRealm = player.realm;
     const currentRealmLevel = player.realmLevel;
-    
+
     // Bảng Linh khí cần thiết cho từng cảnh giới
     const breakthroughExpTable = {
       'luyen_khi': {
@@ -357,44 +440,11 @@ class PlayerManager {
       }
     };
 
-    // Bảng item cần thiết để đột phá
-    const breakthroughItemsTable = {
-      'luyen_khi': {
-        1: { 'Linh Thạch Hạ Phẩm': 50, 'Thảo Dược Cơ Bản': 10 },
-        2: { 'Linh Thạch Hạ Phẩm': 75, 'Thảo Dược Cơ Bản': 15 },
-        3: { 'Linh Thạch Hạ Phẩm': 100, 'Thảo Dược Cơ Bản': 20 },
-        4: { 'Linh Thạch Hạ Phẩm': 150, 'Thảo Dược Cơ Bản': 25 },
-        5: { 'Linh Thạch Hạ Phẩm': 200, 'Thảo Dược Cơ Bản': 30 },
-        6: { 'Linh Thạch Hạ Phẩm': 300, 'Thảo Dược Cơ Bản': 40 },
-        7: { 'Linh Thạch Hạ Phẩm': 400, 'Thảo Dược Cơ Bản': 50 },
-        8: { 'Linh Thạch Hạ Phẩm': 500, 'Thảo Dược Cơ Bản': 60 },
-        9: { 'Linh Thạch Hạ Phẩm': 600, 'Thảo Dược Cơ Bản': 70 },
-        10: { 'Linh Thạch Hạ Phẩm': 750, 'Thảo Dược Cơ Bản': 80 },
-        11: { 'Linh Thạch Hạ Phẩm': 900, 'Thảo Dược Cơ Bản': 90 },
-        12: { 'Linh Thạch Hạ Phẩm': 1100, 'Thảo Dược Cơ Bản': 100 },
-        13: { 'Linh Thạch Trung Phẩm': 100, 'Thảo Dược Trung Cấp': 20, 'Đan Dược Đột Phá': 1 }
-      },
-      'truc_co': {
-        1: { 'Linh Thạch Trung Phẩm': 200, 'Thảo Dược Trung Cấp': 30, 'Đan Dược Đột Phá': 2 },
-        2: { 'Linh Thạch Trung Phẩm': 300, 'Thảo Dược Trung Cấp': 40, 'Đan Dược Đột Phá': 3 },
-        3: { 'Linh Thạch Trung Phẩm': 500, 'Thảo Dược Trung Cấp': 50, 'Đan Dược Đột Phá': 5, 'Pháp Bảo Hộ Thân': 1 }
-      },
-      'ket_dan': {
-        1: { 'Linh Thạch Thượng Phẩm': 1000, 'Thảo Dược Thượng Cấp': 100, 'Đan Dược Đột Phá': 10, 'Pháp Bảo Hộ Thân': 2 },
-        2: { 'Linh Thạch Thượng Phẩm': 1500, 'Thảo Dược Thượng Cấp': 150, 'Đan Dược Đột Phá': 15, 'Pháp Bảo Hộ Thân': 3 },
-        3: { 'Linh Thạch Thượng Phẩm': 2500, 'Thảo Dược Thượng Cấp': 200, 'Đan Dược Đột Phá': 25, 'Pháp Bảo Hộ Thân': 5, 'Linh Khí Tinh Hoa': 1 }
-      },
-      'nguyen_anh': {
-        1: { 'Linh Thạch Cực Phẩm': 5000, 'Thảo Dược Cực Cấp': 500, 'Đan Dược Đột Phá': 50, 'Pháp Bảo Hộ Thân': 10, 'Linh Khí Tinh Hoa': 3 },
-        2: { 'Linh Thạch Cực Phẩm': 7500, 'Thảo Dược Cực Cấp': 750, 'Đan Dược Đột Phá': 75, 'Pháp Bảo Hộ Thân': 15, 'Linh Khí Tinh Hoa': 5 },
-        3: { 'Linh Thạch Cực Phẩm': 10000, 'Thảo Dược Cực Cấp': 1000, 'Đan Dược Đột Phá': 100, 'Pháp Bảo Hộ Thân': 20, 'Linh Khí Tinh Hoa': 10, 'Thiên Đạo Chứng Minh': 1 }
-      }
-    };
-
     // Kiểm tra xem có thể đột phá không
     if (currentRealm === 'luyen_khi' && currentRealmLevel >= 13) {
       // Đã đạt tầng cuối Luyện Khí, cần đột phá lên Trúc Cơ
-      const requiredItems = breakthroughItemsTable['truc_co'][1];
+      const realmInfo = this.realms['luyen_khi'];
+      const requiredItems = realmInfo.breakthroughRequirements['truc_co_so_ky'];
       return {
         canBreakthrough: true,
         nextRealm: 'truc_co',
@@ -407,7 +457,8 @@ class PlayerManager {
       };
     } else if (currentRealm === 'truc_co' && currentRealmLevel >= 3) {
       // Đã đạt tầng cuối Trúc Cơ, cần đột phá lên Kết Đan
-      const requiredItems = breakthroughItemsTable['ket_dan'][1];
+      const realmInfo = this.realms['truc_co'];
+      const requiredItems = realmInfo.breakthroughRequirements['ket_dan_so_ky'];
       return {
         canBreakthrough: true,
         nextRealm: 'ket_dan',
@@ -420,7 +471,8 @@ class PlayerManager {
       };
     } else if (currentRealm === 'ket_dan' && currentRealmLevel >= 3) {
       // Đã đạt tầng cuối Kết Đan, cần đột phá lên Nguyên Anh
-      const requiredItems = breakthroughItemsTable['nguyen_anh'][1];
+      const realmInfo = this.realms['ket_dan'];
+      const requiredItems = realmInfo.breakthroughRequirements['nguyen_anh_so_ky'];
       return {
         canBreakthrough: true,
         nextRealm: 'nguyen_anh',
@@ -435,34 +487,50 @@ class PlayerManager {
       // Đã đạt tầng cuối Nguyên Anh
       return {
         canBreakthrough: false,
-        reason: 'Đã đạt cảnh giới tối đa',
-        currentLinhKhi: player.experience,
-        progress: 100
+        reason: 'Bạn đã đạt đến cảnh giới tối đa!',
+        currentLinhKhi: player.experience
       };
     } else {
-      // Có thể đột phá trong cùng cảnh giới
-      const currentExpTable = breakthroughExpTable[currentRealm];
-      if (currentExpTable && currentExpTable[currentRealmLevel + 1]) {
-        const linhKhiRequired = currentExpTable[currentRealmLevel + 1];
-        const requiredItems = breakthroughItemsTable[currentRealm][currentRealmLevel + 1];
+      // Đột phá trong cùng cảnh giới
+      const nextLevel = currentRealmLevel + 1;
+      const requiredExp = breakthroughExpTable[currentRealm][nextLevel];
+
+      if (!requiredExp) {
         return {
-          canBreakthrough: true,
-          nextRealm: currentRealm,
-          nextRealmLevel: currentRealmLevel + 1,
-          linhKhiRequired: linhKhiRequired,
-          linhKhiNeeded: Math.max(0, linhKhiRequired - player.experience),
-          currentLinhKhi: player.experience,
-          progress: Math.min(100, (player.experience / linhKhiRequired) * 100),
-          requiredItems: requiredItems
+          canBreakthrough: false,
+          reason: 'Không thể xác định yêu cầu đột phá!',
+          currentLinhKhi: player.experience
         };
       }
-    }
 
-    return {
-      canBreakthrough: false,
-      reason: 'Không thể xác định yêu cầu đột phá',
-      currentLinhKhi: player.experience
-    };
+      // Lấy items cần thiết từ realms.json
+      const realmInfo = this.realms[currentRealm];
+      let requiredItems = null;
+
+      if (currentRealm === 'luyen_khi') {
+        requiredItems = realmInfo.breakthroughRequirements[`tier_${nextLevel}`];
+      } else if (currentRealm === 'truc_co') {
+        const levelNames = ['so_ky', 'trung_ky', 'hau_ky'];
+        requiredItems = realmInfo.breakthroughRequirements[levelNames[nextLevel - 1]];
+      } else if (currentRealm === 'ket_dan') {
+        const levelNames = ['so_ky', 'trung_ky', 'hau_ky'];
+        requiredItems = realmInfo.breakthroughRequirements[levelNames[nextLevel - 1]];
+      } else if (currentRealm === 'nguyen_anh') {
+        const levelNames = ['so_ky', 'trung_ky', 'hau_ky'];
+        requiredItems = realmInfo.breakthroughRequirements[levelNames[nextLevel - 1]];
+      }
+
+      return {
+        canBreakthrough: true,
+        nextRealm: currentRealm,
+        nextRealmLevel: nextLevel,
+        linhKhiRequired: requiredExp,
+        linhKhiNeeded: Math.max(0, requiredExp - player.experience),
+        currentLinhKhi: player.experience,
+        progress: Math.min(100, (player.experience / requiredExp) * 100),
+        requiredItems: requiredItems
+      };
+    }
   }
 
   getAllSpiritRoots() {
@@ -498,17 +566,15 @@ class PlayerManager {
 
   // Kiểm tra vật phẩm cần thiết cho đột phá
   checkBreakthroughItems(player, requiredItems) {
-    if (!requiredItems) return null;
-
     const itemStatus = {};
     let allItemsReady = true;
 
-    for (const [itemName, requiredQuantity] of Object.entries(requiredItems)) {
+    for (const [itemId, requiredQuantity] of Object.entries(requiredItems)) {
       // Lấy số lượng hiện tại từ inventory (mặc định 0 nếu chưa có)
-      const currentQuantity = this.getItemQuantity(player, itemName);
+      const currentQuantity = this.getItemQuantity(player, itemId);
       const hasEnough = currentQuantity >= requiredQuantity;
-      
-      itemStatus[itemName] = {
+
+      itemStatus[itemId] = {
         required: requiredQuantity,
         current: currentQuantity,
         hasEnough: hasEnough,
@@ -527,32 +593,31 @@ class PlayerManager {
   }
 
   // Lấy số lượng vật phẩm từ inventory
-  getItemQuantity(player, itemName) {
+  getItemQuantity(player, itemId) {
     // Kiểm tra inventory của player
     if (!player.inventory || !player.inventory.items) {
       return 0;
     }
 
     // Tìm vật phẩm trong inventory
-    const item = player.inventory.items.find(item => item.name === itemName);
+    const item = player.inventory.items.find(item => item.id === itemId);
     return item ? item.quantity : 0;
   }
 
   // Thêm vật phẩm vào inventory
-  addItemToInventory(player, itemName, quantity = 1) {
+  addItemToInventory(player, itemId, quantity = 1) {
     if (!player.inventory || !player.inventory.items) {
-      player.inventory = { items: [], spiritStones: 100, weapons: [], armors: [] };
+      player.inventory = { items: [], spiritStones: { ha_pham: 100 }, weapons: [], armors: [] };
     }
 
-    const existingItem = player.inventory.items.find(item => item.name === itemName);
-    
+    const existingItem = player.inventory.items.find(item => item.id === itemId);
+
     if (existingItem) {
       existingItem.quantity += quantity;
     } else {
       player.inventory.items.push({
-        name: itemName,
-        quantity: quantity,
-        type: this.getItemType(itemName)
+        id: itemId,
+        quantity: quantity
       });
     }
 
@@ -561,24 +626,22 @@ class PlayerManager {
   }
 
   // Xóa vật phẩm khỏi inventory (khi đột phá)
-  removeItemFromInventory(player, itemName, quantity = 1) {
+  removeItemFromInventory(player, itemId, quantity = 1) {
     if (!player.inventory || !player.inventory.items) {
       return false;
     }
 
-    const existingItem = player.inventory.items.find(item => item.name === itemName);
-    
-    if (!existingItem || existingItem.quantity < quantity) {
-      return false;
-    }
+    const existingItem = player.inventory.items.find(item => item.id === itemId);
 
-    existingItem.quantity -= quantity;
-    
-    // Xóa item nếu số lượng = 0
-    if (existingItem.quantity <= 0) {
-      const index = player.inventory.items.findIndex(item => item.name === itemName);
-      if (index > -1) {
-        player.inventory.items.splice(index, 1);
+    if (!existingItem || existingItem.quantity < quantity) {
+      existingItem.quantity -= quantity;
+
+      // Xóa item nếu số lượng = 0
+      if (existingItem.quantity <= 0) {
+        const index = player.inventory.items.findIndex(item => item.id === itemId);
+        if (index > -1) {
+          player.inventory.items.splice(index, 1);
+        }
       }
     }
 
@@ -586,15 +649,114 @@ class PlayerManager {
     return true;
   }
 
-  // Xác định loại vật phẩm
-  getItemType(itemName) {
-    if (itemName.includes('Linh Thạch')) return 'material';
-    if (itemName.includes('Thảo Dược')) return 'herb';
-    if (itemName.includes('Đan Dược')) return 'potion';
-    if (itemName.includes('Pháp Bảo')) return 'artifact';
-    if (itemName.includes('Linh Khí Tinh Hoa')) return 'essence';
-    if (itemName.includes('Thiên Đạo Chứng Minh')) return 'legendary';
-    return 'misc';
+  // Thêm linh thạch vào inventory
+  addSpiritStones(player, type, quantity = 1) {
+    if (!player.inventory) {
+      player.inventory = { items: [], spiritStones: { ha_pham: 0, trung_pham: 0, thuong_pham: 0, cuc_pham: 0 }, weapons: [], armors: [] };
+    }
+
+    if (!player.inventory.spiritStones) {
+      player.inventory.spiritStones = { ha_pham: 0, trung_pham: 0, thuong_pham: 0, cuc_pham: 0 };
+    }
+
+    // Ensure spiritStones is in correct format
+    if (typeof player.inventory.spiritStones === 'object' && player.inventory.spiritStones.ha_pham !== undefined) {
+      if (player.inventory.spiritStones[type] !== undefined) {
+        player.inventory.spiritStones[type] += quantity;
+      }
+    } else {
+      // Fallback: convert to new format
+      player.inventory.spiritStones = this.migrateSpiritStones(player.inventory.spiritStones);
+      if (player.inventory.spiritStones[type] !== undefined) {
+        player.inventory.spiritStones[type] += quantity;
+      }
+    }
+
+    this.savePlayers();
+    return true;
+  }
+
+  // Lấy số lượng linh thạch theo loại
+  getSpiritStoneQuantity(player, type) {
+    if (!player.inventory || !player.inventory.spiritStones) {
+      return 0;
+    }
+
+    // Ensure spiritStones is in correct format
+    if (typeof player.inventory.spiritStones === 'object' && player.inventory.spiritStones.ha_pham !== undefined) {
+      return player.inventory.spiritStones[type] || 0;
+    } else {
+      // Fallback: convert to new format
+      player.inventory.spiritStones = this.migrateSpiritStones(player.inventory.spiritStones);
+      return player.inventory.spiritStones[type] || 0;
+    }
+  }
+
+  loadItems() {
+    try {
+      const data = fs.readFileSync(this.itemsPath, 'utf8');
+      this.items = JSON.parse(data);
+    } catch (error) {
+      console.error('Error loading items:', error);
+      this.items = {};
+    }
+  }
+
+  getItemInfo(itemId) {
+    // Tìm item trong tất cả categories
+    for (const category of Object.values(this.items)) {
+      if (category[itemId]) {
+        return category[itemId];
+      }
+    }
+    return null;
+  }
+
+  getItemName(itemId) {
+    const itemInfo = this.getItemInfo(itemId);
+    return itemInfo ? itemInfo.name : itemId;
+  }
+
+  getItemEmoji(itemId) {
+    const itemInfo = this.getItemInfo(itemId);
+    return itemInfo ? itemInfo.emoji : '📦';
+  }
+
+  getItemType(itemId) {
+    const itemInfo = this.getItemInfo(itemId);
+    return itemInfo ? itemInfo.type || 'unknown' : 'unknown';
+  }
+
+  // Lấy thông tin độ hiếm của item
+  getItemRarity(itemId) {
+    const itemInfo = this.getItemInfo(itemId);
+    if (!itemInfo || !itemInfo.rarity) return null;
+
+    return this.items.rarity_levels[itemInfo.rarity] || null;
+  }
+
+  // Lấy màu sắc theo độ hiếm
+  getRarityColor(rarity) {
+    if (!this.items.rarity_levels || !this.items.rarity_levels[rarity]) {
+      return '#808080'; // Màu xám mặc định
+    }
+    return this.items.rarity_levels[rarity].color;
+  }
+
+  // Lấy emoji theo độ hiếm
+  getRarityEmoji(rarity) {
+    if (!this.items.rarity_levels || !this.items.rarity_levels[rarity]) {
+      return '❓'; // Emoji mặc định
+    }
+    return this.items.rarity_levels[rarity].emoji;
+  }
+
+  // Lấy tên độ hiếm
+  getRarityName(rarity) {
+    if (!this.items.rarity_levels || !this.items.rarity_levels[rarity]) {
+      return 'Không xác định';
+    }
+    return this.items.rarity_levels[rarity].name;
   }
 }
 
