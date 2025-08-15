@@ -1,0 +1,75 @@
+{
+  "discord_emojis": {
+    "rarity": {
+      "common": "<:pham_cap:1404686744149823498>",
+      "uncommon": "<:huyen_cap:EMOJI_ID_HERE>",
+      "rare": "<:dia_cap:EMOJI_ID_HERE>",
+      "epic": "<:thien_cap:EMOJI_ID_HERE>",
+      "legendary": "<:than_cap:EMOJI_ID_HERE>"
+    },
+    "currency": {
+      "ha_pham": "<:ha_pham:1405844404857475134>",
+      "trung_pham": "<:trung_pham:EMOJI_ID_HERE>",
+      "thuong_pham": "<:thuong_pham:EMOJI_ID_HERE>",
+      "cuc_pham": "<:cuc_pham:EMOJI_ID_HERE>"
+    },
+    "items": {
+      "herbs": "<:herbs:EMOJI_ID_HERE>",
+      "minerals": "<:minerals:EMOJI_ID_HERE>",
+      "equipment": "<:equipment:EMOJI_ID_HERE>",
+      "artifacts": "<:artifacts:EMOJI_ID_HERE>"
+    },
+    "actions": {
+      "hunt": "<:hunt:EMOJI_ID_HERE>",
+      "mine": "<:mine:EMOJI_ID_HERE>",
+      "cultivate": "<:cultivate:EMOJI_ID_HERE>",
+      "meditate": "<:meditate:EMOJI_ID_HERE>",
+      "breakthrough": "<:breakthrough:EMOJI_ID_HERE>"
+    },
+    "status": {
+      "health": "<:health:EMOJI_ID_HERE>",
+      "mana": "<:mana:EMOJI_ID_HERE>",
+      "experience": "<:experience:EMOJI_ID_HERE>",
+      "level": "<:level:EMOJI_ID_HERE>"
+    }
+  },
+  "fallback_emojis": {
+    "rarity": {
+      "common": "⚪",
+      "uncommon": "🔵",
+      "rare": "🟣",
+      "epic": "🟠",
+      "legendary": "🔴"
+    },
+    "currency": {
+      "ha_pham": "🪙",
+      "trung_pham": "✨",
+      "thuong_pham": "🔮",
+      "cuc_pham": "💎"
+    },
+    "items": {
+      "herbs": "🌿",
+      "minerals": "🪨",
+      "equipment": "⚔️",
+      "artifacts": "🔮"
+    },
+    "actions": {
+      "hunt": "🏹",
+      "mine": "⛏️",
+      "cultivate": "🧘",
+      "meditate": "🕯️",
+      "breakthrough": "💥"
+    },
+    "status": {
+      "health": "❤️",
+      "mana": "🔮",
+      "experience": "⭐",
+      "level": "📊"
+    }
+  },
+  "instructions": {
+    "how_to_add": "1. Upload emoji vào Discord Server của bạn\n2. Copy emoji ID từ Developer Portal\n3. Thay thế EMOJI_ID_HERE bằng ID thực tế\n4. Đảm bảo bot có quyền truy cập vào server chứa emoji",
+    "emoji_format": "<:emoji_name:emoji_id>",
+    "example": "Nếu emoji có tên 'pham_cap' và ID '1404686744149823498', sử dụng: <:pham_cap:1404686744149823498>"
+  }
+} 

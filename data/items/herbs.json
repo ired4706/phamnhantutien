@@ -1,0 +1,276 @@
+{
+  "herbs": {
+    "ngu_nien_sam": {
+      "name": "Ngũ Niên Sâm",
+      "emoji": "🥕",
+      "description": "Nhân sâm 5 năm tuổi, có dược tính cơ bản hỗ trợ tu luyện",
+      "type": "herb",
+      "rarity": "common",
+      "value": 15
+    },
+    "thanh_diep_thao": {
+      "name": "Thanh Diệp Thảo",
+      "emoji": "🍃",
+      "description": "Lá cây xanh tươi, chứa linh khí tự nhiên",
+      "type": "herb",
+      "rarity": "common",
+      "value": 12
+    },
+    "tieu_long_lan_qua": {
+      "name": "Tiểu Long Lân Quả",
+      "emoji": "🫐",
+      "description": "Quả nhỏ có hình dáng như vảy rồng, dược tính nhẹ",
+      "type": "herb",
+      "rarity": "common",
+      "value": 18
+    },
+    "huyet_diep_thao": {
+      "name": "Huyết Diệp Thảo",
+      "emoji": "🍂",
+      "description": "Lá cây có màu đỏ như máu, chứa huyết khí",
+      "type": "herb",
+      "rarity": "common",
+      "value": 20
+    },
+    "thanh_tam_thao": {
+      "name": "Thanh Tâm Thảo",
+      "emoji": "💚",
+      "description": "Thảo dược giúp tĩnh tâm, ổn định tinh thần",
+      "type": "herb",
+      "rarity": "common",
+      "value": 16
+    },
+    "thach_can_thao": {
+      "name": "Thạch Căn Thảo",
+      "emoji": "🪨",
+      "description": "Thảo dược mọc trên đá, rễ cứng cáp",
+      "type": "herb",
+      "rarity": "common",
+      "value": 14
+    },
+    "liet_hoa_hoa": {
+      "name": "Liệt Hỏa Hoa",
+      "emoji": "🔥",
+      "description": "Hoa có tính hỏa, chứa linh khí nóng bỏng",
+      "type": "herb",
+      "rarity": "common",
+      "value": 22
+    },
+    "ho_luc_qua": {
+      "name": "Hổ Lực Quả",
+      "emoji": "🍊",
+      "description": "Quả có hình dáng như móng hổ, tăng cường sức mạnh",
+      "type": "herb",
+      "rarity": "common",
+      "value": 25
+    },
+    "phong_linh_thao": {
+      "name": "Phong Linh Thảo",
+      "emoji": "🎐",
+      "description": "Thảo dược phát ra âm thanh như chuông gió",
+      "type": "herb",
+      "rarity": "common",
+      "value": 19
+    },
+    "sinh_mach_thao": {
+      "name": "Sinh Mạch Thảo",
+      "emoji": "💓",
+      "description": "Thảo dược giúp khôi phục sinh lực và mạch máu",
+      "type": "herb",
+      "rarity": "common",
+      "value": 21
+    },
+    "anh_diep_thao": {
+      "name": "Ảnh Diệp Thảo",
+      "emoji": "🪞",
+      "description": "Lá cây có khả năng phản chiếu ánh sáng",
+      "type": "herb",
+      "rarity": "common",
+      "value": 17
+    },
+    "thap_nien_sam": {
+      "name": "Thập Niên Sâm",
+      "emoji": "🥕",
+      "description": "Nhân sâm 10 năm tuổi, dược tính cao hơn ngũ niên sâm",
+      "type": "herb",
+      "rarity": "uncommon",
+      "value": 150
+    },
+    "tu_van_thao": {
+      "name": "Tử Vân Thảo",
+      "emoji": "☁️",
+      "description": "Thảo dược có màu tím như mây, chứa linh khí huyền bí",
+      "type": "herb",
+      "rarity": "uncommon",
+      "value": 180
+    },
+    "thanh_lan_qua": {
+      "name": "Thanh Lân Quả",
+      "emoji": "🫐",
+      "description": "Quả có vảy xanh như vảy rồng, dược tính mạnh",
+      "type": "herb",
+      "rarity": "uncommon",
+      "value": 200
+    },
+    "hong_tinh_thao": {
+      "name": "Hồng Tinh Thảo",
+      "emoji": "💎",
+      "description": "Thảo dược có tinh thể hồng, chứa linh khí tinh khiết",
+      "type": "herb",
+      "rarity": "uncommon",
+      "value": 220
+    },
+    "tu_hau_hoa": {
+      "name": "Tử Hầu Hoa",
+      "emoji": "🌸",
+      "description": "Hoa có màu tím, hình dáng như đầu khỉ",
+      "type": "herb",
+      "rarity": "uncommon",
+      "value": 190
+    },
+    "bach_nien_sam": {
+      "name": "Bách Niên Sâm",
+      "emoji": "🥕",
+      "description": "Nhân sâm 100 năm tuổi, dược tính quý hiếm",
+      "type": "herb",
+      "rarity": "rare",
+      "value": 1500
+    },
+    "ngoc_diep_thao": {
+      "name": "Ngọc Diệp Thảo",
+      "emoji": "💎",
+      "description": "Lá cây có độ trong suốt như ngọc, chứa linh khí địa cấp",
+      "type": "herb",
+      "rarity": "rare",
+      "value": 1800
+    },
+    "long_lan_qua": {
+      "name": "Long Lân Quả",
+      "emoji": "🐉",
+      "description": "Quả có vảy rồng thật sự, dược tính cực mạnh",
+      "type": "herb",
+      "rarity": "rare",
+      "value": 2000
+    },
+    "xich_van_thao": {
+      "name": "Xích Vân Thảo",
+      "emoji": "☁️",
+      "description": "Thảo dược có màu đỏ như mây chiều, linh khí nồng nàn",
+      "type": "herb",
+      "rarity": "rare",
+      "value": 2200
+    },
+    "that_ha_lien": {
+      "name": "Thất Hà Liên",
+      "emoji": "🌺",
+      "description": "Hoa sen có 7 cánh, mọc ở đáy sông sâu",
+      "type": "herb",
+      "rarity": "rare",
+      "value": 2500
+    },
+    "thien_nien_sam": {
+      "name": "Thiên Niên Sâm",
+      "emoji": "🥕",
+      "description": "Nhân sâm 1000 năm tuổi, dược tính thiên cấp",
+      "type": "herb",
+      "rarity": "epic",
+      "value": 15000
+    },
+    "bich_quang_thao": {
+      "name": "Bích Quang Thảo",
+      "emoji": "💚",
+      "description": "Thảo dược phát ra ánh sáng xanh như ngọc bích",
+      "type": "herb",
+      "rarity": "epic",
+      "value": 18000
+    },
+    "thien_linh_qua": {
+      "name": "Thiên Linh Quả",
+      "emoji": "🍎",
+      "description": "Quả có linh khí thiên cấp, giúp đột phá cảnh giới",
+      "type": "herb",
+      "rarity": "epic",
+      "value": 20000
+    },
+    "chu_thien_huyet_diep": {
+      "name": "Chu Thiên Huyết Diệp",
+      "emoji": "🍁",
+      "description": "Lá cây có màu đỏ như máu, chứa linh khí thiên cấp",
+      "type": "herb",
+      "rarity": "epic",
+      "value": 22000
+    },
+    "thien_tam_lien": {
+      "name": "Thiên Tâm Liên",
+      "emoji": "🌺",
+      "description": "Hoa sen thiên cấp, giúp tĩnh tâm và tu luyện",
+      "type": "herb",
+      "rarity": "epic",
+      "value": 25000
+    },
+    "ngoc_huyen_chi": {
+      "name": "Ngọc Huyền Chi",
+      "emoji": "🌿",
+      "description": "Cành cây có độ trong suốt như ngọc huyền",
+      "type": "herb",
+      "rarity": "epic",
+      "value": 28000
+    },
+    "thien_van_hoa": {
+      "name": "Thiên Vận Hoa",
+      "emoji": "🌸",
+      "description": "Hoa có khả năng thay đổi vận mệnh",
+      "type": "herb",
+      "rarity": "epic",
+      "value": 30000
+    },
+    "van_nien_sam": {
+      "name": "Vạn Niên Sâm",
+      "emoji": "🥕",
+      "description": "Nhân sâm 10000 năm tuổi, dược tính thần cấp",
+      "type": "herb",
+      "rarity": "legendary",
+      "value": 150000
+    },
+    "kim_tam_thao": {
+      "name": "Kim Tâm Thảo",
+      "emoji": "💛",
+      "description": "Thảo dược có tâm màu vàng như kim, linh khí thần cấp",
+      "type": "herb",
+      "rarity": "legendary",
+      "value": 180000
+    },
+    "long_tuy_qua": {
+      "name": "Long Tủy Quả",
+      "emoji": "🐉",
+      "description": "Quả chứa tủy rồng thật sự, dược tính thần thoại",
+      "type": "herb",
+      "rarity": "legendary",
+      "value": 200000
+    },
+    "thanh_huyet_linh_thao": {
+      "name": "Thánh Huyết Linh Thảo",
+      "emoji": "🩸",
+      "description": "Thảo dược chứa huyết thánh, linh khí thần cấp",
+      "type": "herb",
+      "rarity": "legendary",
+      "value": 250000
+    },
+    "hon_nguyen_qua": {
+      "name": "Hỗn Nguyên Quả",
+      "emoji": "🌌",
+      "description": "Quả chứa linh khí hỗn nguyên, giúp đột phá cảnh giới cao",
+      "type": "herb",
+      "rarity": "legendary",
+      "value": 300000
+    },
+    "tien_huyet_chi_lan": {
+      "name": "Tiên Huyết Chi Lan",
+      "emoji": "🌺",
+      "description": "Hoa lan chứa huyết tiên, vật phẩm thần thoại",
+      "type": "herb",
+      "rarity": "legendary",
+      "value": 500000
+    }
+  }
+} 

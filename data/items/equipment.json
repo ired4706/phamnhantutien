@@ -1,0 +1,110 @@
+{
+  "weapons": {
+    "sword_co_ban": {
+      "name": "Kiếm Sắt Cơ Bản",
+      "emoji": "🗡️",
+      "description": "Kiếm sắt cơ bản, tăng sức tấn công",
+      "type": "weapon",
+      "rarity": "common",
+      "value": 100,
+      "stats": {
+        "ATK": 15,
+        "CRIT": 5
+      }
+    },
+    "sword_trung_cap": {
+      "name": "Kiếm Bạc Trung Cấp",
+      "emoji": "⚔️",
+      "description": "Kiếm bạc trung cấp, sức tấn công mạnh",
+      "type": "weapon",
+      "rarity": "uncommon",
+      "value": 1000,
+      "stats": {
+        "ATK": 35,
+        "CRIT": 12,
+        "SPD": 8
+      }
+    }
+  },
+  "armors": {
+    "armor_co_ban": {
+      "name": "Áo Giáp Da Cơ Bản",
+      "emoji": "🛡️",
+      "description": "Áo giáp da cơ bản, tăng phòng thủ",
+      "type": "armor",
+      "rarity": "common",
+      "value": 80,
+      "stats": {
+        "DEF": 12,
+        "HP": 20
+      }
+    },
+    "armor_trung_cap": {
+      "name": "Áo Giáp Sắt Trung Cấp",
+      "emoji": "🛡️",
+      "description": "Áo giáp sắt trung cấp, phòng thủ tốt",
+      "type": "armor",
+      "rarity": "uncommon",
+      "value": 800,
+      "stats": {
+        "DEF": 28,
+        "HP": 45,
+        "EVASION": 5
+      }
+    }
+  },
+  "accessories": {
+    "ring_co_ban": {
+      "name": "Nhẫn Đồng Cơ Bản",
+      "emoji": "💍",
+      "description": "Nhẫn đồng cơ bản, tăng chỉ số",
+      "type": "accessory",
+      "rarity": "common",
+      "value": 60,
+      "stats": {
+        "MP": 15,
+        "REGEN": 3
+      }
+    },
+    "necklace_trung_cap": {
+      "name": "Vòng Cổ Bạc Trung Cấp",
+      "emoji": "📿",
+      "description": "Vòng cổ bạc trung cấp, tăng linh khí",
+      "type": "accessory",
+      "rarity": "uncommon",
+      "value": 600,
+      "stats": {
+        "MP": 35,
+        "REGEN": 8,
+        "KARMA": 5
+      }
+    }
+  },
+  "shoes": {
+    "shoes_co_ban": {
+      "name": "Giày Vải Cơ Bản",
+      "emoji": "👟",
+      "description": "Giày vải cơ bản, tăng tốc độ",
+      "type": "shoes",
+      "rarity": "common",
+      "value": 50,
+      "stats": {
+        "SPD": 10,
+        "EVASION": 3
+      }
+    },
+    "boots_trung_cap": {
+      "name": "Ủng Da Trung Cấp",
+      "emoji": "👢",
+      "description": "Ủng da trung cấp, tốc độ và né tránh tốt",
+      "type": "shoes",
+      "rarity": "uncommon",
+      "value": 500,
+      "stats": {
+        "SPD": 25,
+        "EVASION": 8,
+        "HP": 15
+      }
+    }
+  }
+} 

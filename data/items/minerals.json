@@ -1,0 +1,500 @@
+{
+  "minerals": {
+    "thiet_tinh_tho": {
+      "name": "Thiết Tinh Thô",
+      "emoji": "🪨",
+      "description": "Thiết tinh thô, chứa linh khí kim loại cơ bản",
+      "type": "mineral",
+      "rarity": "common",
+      "value": 25
+    },
+    "kim_thiet_thuong": {
+      "name": "Kim Thiết Thường",
+      "emoji": "🪨",
+      "description": "Kim thiết thường, chứa linh khí sắt cơ bản",
+      "type": "mineral",
+      "rarity": "common",
+      "value": 30
+    },
+    "thanh_moc_tinh": {
+      "name": "Thanh Mộc Tinh",
+      "emoji": "🪨",
+      "description": "Thanh mộc tinh, chứa linh khí gỗ tự nhiên",
+      "type": "mineral",
+      "rarity": "common",
+      "value": 28
+    },
+    "thuy_tinh_thach": {
+      "name": "Thủy Tinh Thạch",
+      "emoji": "💎",
+      "description": "Thủy tinh thạch, chứa linh khí nước tinh khiết",
+      "type": "mineral",
+      "rarity": "common",
+      "value": 35
+    },
+    "hoa_thach_nhiet_tam": {
+      "name": "Hỏa Thạch Nhiệt Tâm",
+      "emoji": "🔥",
+      "description": "Hỏa thạch nhiệt tâm, chứa linh khí lửa nóng bỏng",
+      "type": "mineral",
+      "rarity": "common",
+      "value": 40
+    },
+    "hoang_tho_ket": {
+      "name": "Hoàng Thổ Kết",
+      "emoji": "🟡",
+      "description": "Hoàng thổ kết, chứa linh khí đất vàng",
+      "type": "mineral",
+      "rarity": "common",
+      "value": 22
+    },
+    "dong_tinh_luyen": {
+      "name": "Đồng Tinh Luyện",
+      "emoji": "🟠",
+      "description": "Đồng tinh luyện, chứa linh khí đồng tinh khiết",
+      "type": "mineral",
+      "rarity": "uncommon",
+      "value": 150
+    },
+    "ngoc_thach_thanh_khiet": {
+      "name": "Ngọc Thạch Thanh Khiết",
+      "emoji": "💎",
+      "description": "Ngọc thạch thanh khiết, chứa linh khí ngọc tinh khiết",
+      "type": "mineral",
+      "rarity": "uncommon",
+      "value": 180
+    },
+    "huyet_viem_tuy_ket": {
+      "name": "Huyết Viêm Tủy Kết",
+      "emoji": "🩸",
+      "description": "Huyết viêm tủy kết, chứa linh khí huyết và lửa",
+      "type": "mineral",
+      "rarity": "uncommon",
+      "value": 200
+    },
+    "ho_linh_tam_ket": {
+      "name": "Hộ Linh Tâm Kết",
+      "emoji": "🛡️",
+      "description": "Hộ linh tâm kết, chứa linh khí bảo vệ",
+      "type": "mineral",
+      "rarity": "uncommon",
+      "value": 220
+    },
+    "hu_anh_linh_ket": {
+      "name": "Hư Ảnh Linh Kết",
+      "emoji": "👻",
+      "description": "Hư ảnh linh kết, chứa linh khí huyền ảo",
+      "type": "mineral",
+      "rarity": "uncommon",
+      "value": 250
+    },
+    "kim_thiet_tinh": {
+      "name": "Kim Thiết Tinh",
+      "emoji": "🟠",
+      "description": "Kim thiết tinh, chứa linh khí sắt tinh khiết",
+      "type": "mineral",
+      "rarity": "uncommon",
+      "value": 280
+    },
+    "thanh_moc_linh": {
+      "name": "Thanh Mộc Linh",
+      "emoji": "🟢",
+      "description": "Thanh mộc linh, chứa linh khí gỗ linh thiêng",
+      "type": "mineral",
+      "rarity": "uncommon",
+      "value": 300
+    },
+    "thuy_tinh_huyen": {
+      "name": "Thủy Tinh Huyền",
+      "emoji": "💎",
+      "description": "Thủy tinh huyền, chứa linh khí nước huyền bí",
+      "type": "mineral",
+      "rarity": "uncommon",
+      "value": 320
+    },
+    "hoa_thach_linh_tam": {
+      "name": "Hỏa Thạch Linh Tâm",
+      "emoji": "🔥",
+      "description": "Hỏa thạch linh tâm, chứa linh khí lửa linh thiêng",
+      "type": "mineral",
+      "rarity": "uncommon",
+      "value": 350
+    },
+    "hoang_tho_tam_ket": {
+      "name": "Hoàng Thổ Tâm Kết",
+      "emoji": "🟡",
+      "description": "Hoàng thổ tâm kết, chứa linh khí đất vàng tinh khiết",
+      "type": "mineral",
+      "rarity": "uncommon",
+      "value": 380
+    },
+    "huyen_tinh_dia_tam": {
+      "name": "Huyền Tinh Địa Tâm",
+      "emoji": "🟣",
+      "description": "Huyền tinh địa tâm, chứa linh khí địa cấp",
+      "type": "mineral",
+      "rarity": "rare",
+      "value": 1500
+    },
+    "lam_thach_bang_tam": {
+      "name": "Lam Thạch Băng Tâm",
+      "emoji": "❄️",
+      "description": "Lam thạch băng tâm, chứa linh khí băng lạnh",
+      "type": "mineral",
+      "rarity": "rare",
+      "value": 1800
+    },
+    "tinh_hon_thach": {
+      "name": "Tinh Hồn Thạch",
+      "emoji": "💫",
+      "description": "Tinh hồn thạch, chứa linh khí linh hồn",
+      "type": "mineral",
+      "rarity": "rare",
+      "value": 2000
+    },
+    "hong_ngoc_dia": {
+      "name": "Hồng Ngọc Địa",
+      "emoji": "🔴",
+      "description": "Hồng ngọc địa, chứa linh khí địa cấp",
+      "type": "mineral",
+      "rarity": "rare",
+      "value": 2200
+    },
+    "luc_ngoc_dia": {
+      "name": "Lục Ngọc Địa",
+      "emoji": "🟢",
+      "description": "Lục ngọc địa, chứa linh khí địa cấp",
+      "type": "mineral",
+      "rarity": "rare",
+      "value": 2200
+    },
+    "hoang_thach_dia": {
+      "name": "Hoàng Thạch Địa",
+      "emoji": "🟡",
+      "description": "Hoàng thạch địa, chứa linh khí địa cấp",
+      "type": "mineral",
+      "rarity": "rare",
+      "value": 2200
+    },
+    "lam_thach_dia": {
+      "name": "Lam Thạch Địa",
+      "emoji": "🔵",
+      "description": "Lam thạch địa, chứa linh khí địa cấp",
+      "type": "mineral",
+      "rarity": "rare",
+      "value": 2200
+    },
+    "tinh_toc_thach_dia": {
+      "name": "Tinh Tốc Thạch Địa",
+      "emoji": "⚡",
+      "description": "Tinh tốc thạch địa, chứa linh khí tốc độ địa cấp",
+      "type": "mineral",
+      "rarity": "rare",
+      "value": 2500
+    },
+    "hac_thach_dia": {
+      "name": "Hắc Thạch Địa",
+      "emoji": "⚫",
+      "description": "Hắc thạch địa, chứa linh khí địa cấp",
+      "type": "mineral",
+      "rarity": "rare",
+      "value": 2200
+    },
+    "tran_van_thach": {
+      "name": "Trận Văn Thạch",
+      "emoji": "🔮",
+      "description": "Trận văn thạch, chứa linh khí trận pháp địa cấp",
+      "type": "mineral",
+      "rarity": "rare",
+      "value": 3000
+    },
+    "huyen_kim_thiet": {
+      "name": "Huyền Kim Thiết",
+      "emoji": "🟠",
+      "description": "Huyền kim thiết, chứa linh khí sắt huyền bí địa cấp",
+      "type": "mineral",
+      "rarity": "rare",
+      "value": 3200
+    },
+    "huyen_thanh_moc": {
+      "name": "Huyền Thanh Mộc",
+      "emoji": "🟢",
+      "description": "Huyền thanh mộc, chứa linh khí gỗ huyền bí địa cấp",
+      "type": "mineral",
+      "rarity": "rare",
+      "value": 3200
+    },
+    "huyen_thuy_tinh": {
+      "name": "Huyền Thủy Tinh",
+      "emoji": "💎",
+      "description": "Huyền thủy tinh, chứa linh khí nước huyền bí địa cấp",
+      "type": "mineral",
+      "rarity": "rare",
+      "value": 3200
+    },
+    "huyen_hoa_thach": {
+      "name": "Huyền Hỏa Thạch",
+      "emoji": "🔥",
+      "description": "Huyền hỏa thạch, chứa linh khí lửa huyền bí địa cấp",
+      "type": "mineral",
+      "rarity": "rare",
+      "value": 3200
+    },
+    "huyen_hoang_tho": {
+      "name": "Huyền Hoàng Thổ",
+      "emoji": "🟡",
+      "description": "Huyền hoàng thổ, chứa linh khí đất vàng huyền bí địa cấp",
+      "type": "mineral",
+      "rarity": "rare",
+      "value": 3200
+    },
+    "ngan_tinh_thien_khoi": {
+      "name": "Ngân Tinh Thiên Khôi",
+      "emoji": "✨",
+      "description": "Ngân tinh thiên khôi, chứa linh khí thiên cấp",
+      "type": "mineral",
+      "rarity": "epic",
+      "value": 15000
+    },
+    "huyet_thach_thien_tam": {
+      "name": "Huyết Thạch Thiên Tâm",
+      "emoji": "🩸",
+      "description": "Huyết thạch thiên tâm, chứa linh khí huyết thiên cấp",
+      "type": "mineral",
+      "rarity": "epic",
+      "value": 18000
+    },
+    "huyet_chau_linh": {
+      "name": "Huyết Châu Linh",
+      "emoji": "💎",
+      "description": "Huyết châu linh, chứa linh khí huyết linh thiêng",
+      "type": "mineral",
+      "rarity": "epic",
+      "value": 20000
+    },
+    "hong_ngoc_thanh": {
+      "name": "Hồng Ngọc Thánh",
+      "emoji": "🔴",
+      "description": "Hồng ngọc thánh, chứa linh khí thánh cấp",
+      "type": "mineral",
+      "rarity": "epic",
+      "value": 22000
+    },
+    "luc_ngoc_thanh": {
+      "name": "Lục Ngọc Thánh",
+      "emoji": "🟢",
+      "description": "Lục ngọc thánh, chứa linh khí thánh cấp",
+      "type": "mineral",
+      "rarity": "epic",
+      "value": 22000
+    },
+    "hoang_thach_thanh": {
+      "name": "Hoàng Thạch Thánh",
+      "emoji": "🟡",
+      "description": "Hoàng thạch thánh, chứa linh khí thánh cấp",
+      "type": "mineral",
+      "rarity": "epic",
+      "value": 22000
+    },
+    "lam_thach_thanh": {
+      "name": "Lam Thạch Thánh",
+      "emoji": "🔵",
+      "description": "Lam thạch thánh, chứa linh khí thánh cấp",
+      "type": "mineral",
+      "rarity": "epic",
+      "value": 22000
+    },
+    "tinh_toc_thach_thanh": {
+      "name": "Tinh Tốc Thạch Thánh",
+      "emoji": "⚡",
+      "description": "Tinh tốc thạch thánh, chứa linh khí tốc độ thánh cấp",
+      "type": "mineral",
+      "rarity": "epic",
+      "value": 25000
+    },
+    "hac_thach_thanh": {
+      "name": "Hắc Thạch Thánh",
+      "emoji": "⚫",
+      "description": "Hắc thạch thánh, chứa linh khí thánh cấp",
+      "type": "mineral",
+      "rarity": "epic",
+      "value": 22000
+    },
+    "tinh_van_thach": {
+      "name": "Tinh Vân Thạch",
+      "emoji": "☁️",
+      "description": "Tinh vân thạch, chứa linh khí vân khí thiên cấp",
+      "type": "mineral",
+      "rarity": "epic",
+      "value": 30000
+    },
+    "thanh_kim_thiet": {
+      "name": "Thánh Kim Thiết",
+      "emoji": "🟠",
+      "description": "Thánh kim thiết, chứa linh khí sắt thánh cấp",
+      "type": "mineral",
+      "rarity": "epic",
+      "value": 32000
+    },
+    "thanh_thanh_moc": {
+      "name": "Thánh Thanh Mộc",
+      "emoji": "🟢",
+      "description": "Thánh thanh mộc, chứa linh khí gỗ thánh cấp",
+      "type": "mineral",
+      "rarity": "epic",
+      "value": 32000
+    },
+    "thanh_thuy_tinh": {
+      "name": "Thánh Thủy Tinh",
+      "emoji": "💎",
+      "description": "Thánh thủy tinh, chứa linh khí nước thánh cấp",
+      "type": "mineral",
+      "rarity": "epic",
+      "value": 32000
+    },
+    "thanh_hoa_thach": {
+      "name": "Thánh Hỏa Thạch",
+      "emoji": "🔥",
+      "description": "Thánh hỏa thạch, chứa linh khí lửa thánh cấp",
+      "type": "mineral",
+      "rarity": "epic",
+      "value": 32000
+    },
+    "thanh_hoang_tho": {
+      "name": "Thánh Hoàng Thổ",
+      "emoji": "🟡",
+      "description": "Thánh hoàng thổ, chứa linh khí đất vàng thánh cấp",
+      "type": "mineral",
+      "rarity": "epic",
+      "value": 32000
+    },
+    "thien_tinh_than_khi": {
+      "name": "Thiên Tinh Thần Khí",
+      "emoji": "🌟",
+      "description": "Thiên tinh thần khí, chứa linh khí thần cấp",
+      "type": "mineral",
+      "rarity": "legendary",
+      "value": 150000
+    },
+    "than_ngoc_tinh_tam": {
+      "name": "Thần Ngọc Tịnh Tâm",
+      "emoji": "💎",
+      "description": "Thần ngọc tịnh tâm, chứa linh khí thần cấp",
+      "type": "mineral",
+      "rarity": "legendary",
+      "value": 180000
+    },
+    "hon_thach_nguyen": {
+      "name": "Hỗn Thạch Nguyên",
+      "emoji": "🌌",
+      "description": "Hỗn thạch nguyên, chứa linh khí hỗn nguyên thần cấp",
+      "type": "mineral",
+      "rarity": "legendary",
+      "value": 200000
+    },
+    "ngoc_thanh_hon": {
+      "name": "Ngọc Thánh Hồn",
+      "emoji": "💎",
+      "description": "Ngọc thánh hồn, chứa linh khí thánh hồn thần cấp",
+      "type": "mineral",
+      "rarity": "legendary",
+      "value": 250000
+    },
+    "hong_ngoc_than": {
+      "name": "Hồng Ngọc Thần",
+      "emoji": "🔴",
+      "description": "Hồng ngọc thần, chứa linh khí thần cấp",
+      "type": "mineral",
+      "rarity": "legendary",
+      "value": 220000
+    },
+    "luc_ngoc_than": {
+      "name": "Lục Ngọc Thần",
+      "emoji": "🟢",
+      "description": "Lục ngọc thần, chứa linh khí thần cấp",
+      "type": "mineral",
+      "rarity": "legendary",
+      "value": 220000
+    },
+    "hoang_thach_than": {
+      "name": "Hoàng Thạch Thần",
+      "emoji": "🟡",
+      "description": "Hoàng thạch thần, chứa linh khí thần cấp",
+      "type": "mineral",
+      "rarity": "legendary",
+      "value": 220000
+    },
+    "lam_thach_than": {
+      "name": "Lam Thạch Thần",
+      "emoji": "🔵",
+      "description": "Lam thạch thần, chứa linh khí thần cấp",
+      "type": "mineral",
+      "rarity": "legendary",
+      "value": 220000
+    },
+    "tinh_toc_thach_than": {
+      "name": "Tinh Tốc Thạch Thần",
+      "emoji": "⚡",
+      "description": "Tinh tốc thạch thần, chứa linh khí tốc độ thần cấp",
+      "type": "mineral",
+      "rarity": "legendary",
+      "value": 250000
+    },
+    "hac_thach_than": {
+      "name": "Hắc Thạch Thần",
+      "emoji": "⚫",
+      "description": "Hắc thạch thần, chứa linh khí thần cấp",
+      "type": "mineral",
+      "rarity": "legendary",
+      "value": 220000
+    },
+    "than_ngoc_tam": {
+      "name": "Thần Ngọc Tâm",
+      "emoji": "💎",
+      "description": "Thần ngọc tâm, chứa linh khí thần cấp",
+      "type": "mineral",
+      "rarity": "legendary",
+      "value": 300000
+    },
+    "than_kim_thiet": {
+      "name": "Thần Kim Thiết",
+      "emoji": "🟠",
+      "description": "Thần kim thiết, chứa linh khí sắt thần cấp",
+      "type": "mineral",
+      "rarity": "legendary",
+      "value": 320000
+    },
+    "than_thanh_moc": {
+      "name": "Thần Thanh Mộc",
+      "emoji": "🟢",
+      "description": "Thần thanh mộc, chứa linh khí gỗ thần cấp",
+      "type": "mineral",
+      "rarity": "legendary",
+      "value": 320000
+    },
+    "than_thuy_tinh": {
+      "name": "Thần Thủy Tinh",
+      "emoji": "💎",
+      "description": "Thần thủy tinh, chứa linh khí nước thần cấp",
+      "type": "mineral",
+      "rarity": "legendary",
+      "value": 320000
+    },
+    "than_hoa_thach": {
+      "name": "Thần Hỏa Thạch",
+      "emoji": "🔥",
+      "description": "Thần hỏa thạch, chứa linh khí lửa thần cấp",
+      "type": "mineral",
+      "rarity": "legendary",
+      "value": 320000
+    },
+    "than_hoang_tho": {
+      "name": "Thần Hoàng Thổ",
+      "emoji": "🟡",
+      "description": "Thần hoàng thổ, chứa linh khí đất vàng thần cấp",
+      "type": "mineral",
+      "rarity": "legendary",
+      "value": 320000
+    }
+  }
+} 

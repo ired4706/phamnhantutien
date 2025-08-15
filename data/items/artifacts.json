@@ -1,0 +1,64 @@
+{
+  "artifacts": {
+    "artifact_co_ban": {
+      "name": "Pháp Bảo Cơ Bản",
+      "emoji": "🔮",
+      "description": "Pháp bảo cơ bản bảo vệ tu luyện",
+      "type": "artifact",
+      "rarity": "common",
+      "value": 200,
+      "stats": {
+        "DEF": 8,
+        "MP": 20,
+        "REP": 5
+      }
+    },
+    "artifact_trung_cap": {
+      "name": "Pháp Bảo Trung Cấp",
+      "emoji": "🔮",
+      "description": "Pháp bảo trung cấp mạnh mẽ",
+      "type": "artifact",
+      "rarity": "uncommon",
+      "value": 2000,
+      "stats": {
+        "DEF": 20,
+        "MP": 45,
+        "REP": 12,
+        "KARMA": 8
+      }
+    },
+    "artifact_thuong_cap": {
+      "name": "Pháp Bảo Thượng Cấp",
+      "emoji": "🔮",
+      "description": "Pháp bảo thượng cấp quý hiếm",
+      "type": "artifact",
+      "rarity": "rare",
+      "value": 20000,
+      "stats": {
+        "DEF": 45,
+        "MP": 100,
+        "REP": 25,
+        "KARMA": 20,
+        "HP": 30
+      }
+    }
+  },
+  "essences": {
+    "essence_co_ban": {
+      "name": "Linh Khí Tinh Hoa",
+      "emoji": "✨",
+      "description": "Tinh hoa linh khí thuần khiết",
+      "type": "essence",
+      "rarity": "rare",
+      "value": 10000
+    },
+    "essence_trung_cap": {
+      "name": "Linh Khí Tinh Hoa Trung Cấp",
+      "emoji": "✨",
+      "description": "Tinh hoa linh khí trung cấp",
+      "type": "essence",
+      "rarity": "epic",
+      "value": 100000
+    }
+  }
+} 

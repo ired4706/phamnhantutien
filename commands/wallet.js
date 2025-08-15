@@ -1,5 +1,6 @@
 const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 const playerManager = require('../systems/player.js');
+const emojiLoader = require('../utils/emoji-loader.js');
 
 module.exports = {
   name: 'wallet',
@@ -210,16 +211,16 @@ module.exports = {
       const stoneDetails = [];
 
       if (spiritStones.cuc_pham > 0) {
-        stoneDetails.push(`💎 **Cực Phẩm**: ${spiritStones.cuc_pham.toLocaleString()} (${(spiritStones.cuc_pham * 100).toLocaleString()} Thượng Phẩm)`);
+        stoneDetails.push(`${emojiLoader.getCurrencyEmoji('cuc_pham')} **Cực Phẩm**: ${spiritStones.cuc_pham.toLocaleString()} (${(spiritStones.cuc_pham * 100).toLocaleString()} Thượng Phẩm)`);
       }
       if (spiritStones.thuong_pham > 0) {
-        stoneDetails.push(`🔮 **Thượng Phẩm**: ${spiritStones.thuong_pham.toLocaleString()} (${(spiritStones.thuong_pham * 100).toLocaleString()} Trung Phẩm)`);
+        stoneDetails.push(`${emojiLoader.getCurrencyEmoji('thuong_pham')} **Thượng Phẩm**: ${spiritStones.thuong_pham.toLocaleString()} (${(spiritStones.thuong_pham * 100).toLocaleString()} Trung Phẩm)`);
       }
       if (spiritStones.trung_pham > 0) {
-        stoneDetails.push(`✨ **Trung Phẩm**: ${spiritStones.trung_pham.toLocaleString()} (${(spiritStones.trung_pham * 100).toLocaleString()} Hạ Phẩm)`);
+        stoneDetails.push(`${emojiLoader.getCurrencyEmoji('trung_pham')} **Trung Phẩm**: ${spiritStones.trung_pham.toLocaleString()} (${(spiritStones.trung_pham * 100).toLocaleString()} Hạ Phẩm)`);
       }
       if (spiritStones.ha_pham > 0) {
-        stoneDetails.push(`🪙 **Hạ Phẩm**: ${spiritStones.ha_pham.toLocaleString()}`);
+        stoneDetails.push(`${emojiLoader.getCurrencyEmoji('ha_pham')} **Hạ Phẩm**: ${spiritStones.ha_pham.toLocaleString()}`);
       }
 
       if (stoneDetails.length > 0) {

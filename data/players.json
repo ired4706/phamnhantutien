@@ -2,26 +2,25 @@
   "504705413682298891": {
     "userId": "504705413682298891",
     "username": "ired0806",
-    "spiritRoot": "thuy",
-    "experience": 13937,
+    "spiritRoot": "kim",
+    "experience": 0,
     "realm": "luyen_khi",
-    "realmLevel": 2,
-    "totalTiers": 1,
+    "realmLevel": 1,
+    "totalTiers": 0,
     "inventory": {
-      "spiritStones": {
-        "ha_pham": 115,
-        "trung_pham": 0,
-        "thuong_pham": 0,
-        "cuc_pham": 0
-      },
+      "spiritStones": "[object Object]191",
       "items": [
         {
-          "id": "herb_co_ban",
-          "quantity": 20
+          "id": "ngu_nien_sam",
+          "quantity": 3
         },
         {
-          "id": "herb_trung_cap",
-          "quantity": 5
+          "id": "thanh_diep_thao",
+          "quantity": 3
+        },
+        {
+          "id": "tieu_long_lan_qua",
+          "quantity": 3
         }
       ],
       "weapons": [],
@@ -35,145 +34,38 @@
       "lastMeditate": 0,
       "lastHunt": 0,
       "lastChallenge": 0,
-      "lastDomain": 1755158260312,
+      "lastDomain": 0,
       "lastDailyQuest": 0,
       "lastWeeklyQuest": 0,
       "lastDungeon": 0,
-      "lastMine": 1755159032832,
+      "lastMine": 1755251800117,
       "lastPick": 0,
       "lastExplore": 0
     },
     "achievements": [],
-    "joinDate": 1755158238141,
-    "lastActive": 1755159032834,
+    "joinDate": 1755249145308,
+    "lastActive": 1755251800120,
     "stats": {
-      "attack": 10,
-      "defense": 10,
-      "hp": 100,
-      "maxHp": 100,
-      "mp": 99,
-      "maxMp": 99,
-      "speed": 10,
-      "critical": 6,
-      "regen": 3,
-      "evasion": 6,
-      "reputation": 0,
-      "karma": 0
-    }
-  },
-  "1131449923792031754": {
-    "userId": "1131449923792031754",
-    "username": "cerroxtto",
-    "spiritRoot": "hoa",
-    "experience": 16348,
-    "realm": "luyen_khi",
-    "realmLevel": 2,
-    "totalTiers": 1,
-    "inventory": {
-      "spiritStones": "[object Object]27029275925",
-      "items": [
-        {
-          "id": "herb_co_ban",
-          "quantity": 20
-        },
-        {
-          "id": "herb_trung_cap",
-          "quantity": 5
-        }
-      ],
-      "weapons": [],
-      "armors": []
-    },
-    "cultivation": {
-      "lastCultivate": 0,
-      "cultivateCooldown": 300000,
-      "breakthroughAttempts": 0,
-      "lastBreakthrough": 0,
-      "lastMeditate": 0,
-      "lastHunt": 1755158276788,
-      "lastChallenge": 1755161399232,
-      "lastDomain": 1755162035933,
-      "lastDailyQuest": 0,
-      "lastWeeklyQuest": 0,
-      "lastDungeon": 0,
-      "lastMine": 1755161391650,
-      "lastPick": 1755161393072,
-      "lastExplore": 0
-    },
-    "achievements": [],
-    "joinDate": 1755158272549,
-    "lastActive": 1755162035935,
-    "stats": {
-      "attack": 16,
-      "defense": 9,
-      "hp": 106,
-      "maxHp": 106,
-      "mp": 66,
-      "maxMp": 66,
-      "speed": 11,
-      "critical": 10,
+      "attack": 12,
+      "defense": 15,
+      "hp": 120,
+      "maxHp": 120,
+      "mp": 50,
+      "maxMp": 50,
+      "speed": 8,
+      "critical": 5,
       "regen": 2,
-      "evasion": 5,
+      "evasion": 3,
       "reputation": 0,
       "karma": 0
-    }
-  },
-  "558528163244802089": {
-    "userId": "558528163244802089",
-    "username": "just_archer",
-    "spiritRoot": "tho",
-    "experience": 21574,
-    "realm": "luyen_khi",
-    "realmLevel": 1,
-    "totalTiers": 0,
-    "inventory": {
-      "spiritStones": "[object Object]128624130148",
-      "items": [
-        {
-          "id": "herb_co_ban",
-          "quantity": 20
-        },
-        {
-          "id": "herb_trung_cap",
-          "quantity": 5
-        }
-      ],
-      "weapons": [],
-      "armors": []
     },
-    "cultivation": {
-      "lastCultivate": 0,
-      "cultivateCooldown": 300000,
-      "breakthroughAttempts": 0,
-      "lastBreakthrough": 0,
-      "lastMeditate": 0,
-      "lastHunt": 1755161114032,
-      "lastChallenge": 0,
-      "lastDomain": 1755161102757,
-      "lastDailyQuest": 0,
-      "lastWeeklyQuest": 0,
-      "lastDungeon": 0,
-      "lastMine": 1755161256760,
-      "lastPick": 0,
-      "lastExplore": 0,
-      "lastDaily": 1755161117420
-    },
-    "achievements": [],
-    "joinDate": 1755160845871,
-    "lastActive": 1755161256761,
-    "stats": {
-      "attack": 11,
-      "defense": 14,
-      "hp": 140,
-      "maxHp": 140,
-      "mp": 40,
-      "maxMp": 40,
-      "speed": 7,
-      "critical": 4,
-      "regen": 3,
-      "evasion": 2,
-      "reputation": 0,
-      "karma": 0
+    "equipment": {
+      "weapon": null,
+      "armor": null,
+      "accessory": null,
+      "shoes": null,
+      "artifact": null,
+      "special": null
     }
   }
 }

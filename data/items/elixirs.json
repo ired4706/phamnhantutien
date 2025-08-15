@@ -1,0 +1,36 @@
+{
+  "elixirs": {
+    "elixir_co_ban": {
+      "name": "Đan Dược Cơ Bản",
+      "emoji": "🔮",
+      "description": "Đan dược cơ bản hỗ trợ đột phá",
+      "type": "elixir",
+      "rarity": "common",
+      "value": 50
+    },
+    "elixir_trung_cap": {
+      "name": "Đan Dược Trung Cấp",
+      "emoji": "🔮",
+      "description": "Đan dược trung cấp hiệu quả cao",
+      "type": "elixir",
+      "rarity": "uncommon",
+      "value": 500
+    },
+    "elixir_thuong_cap": {
+      "name": "Đan Dược Thượng Cấp",
+      "emoji": "🔮",
+      "description": "Đan dược thượng cấp quý hiếm",
+      "type": "elixir",
+      "rarity": "rare",
+      "value": 5000
+    },
+    "elixir_cuc_cap": {
+      "name": "Đan Dược Cực Cấp",
+      "emoji": "🔮",
+      "description": "Đan dược cực cấp thần thoại",
+      "type": "elixir",
+      "rarity": "epic",
+      "value": 50000
+    }
+  }
+} 

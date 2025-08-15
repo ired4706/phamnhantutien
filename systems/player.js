@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const itemLoader = require('../utils/item-loader.js');
 
 class PlayerManager {
   constructor() {
@@ -7,11 +8,9 @@ class PlayerManager {
     this.dataPath = path.join(__dirname, '../data/players.json');
     this.spiritRootsPath = path.join(__dirname, '../data/spirit-roots.json');
     this.realmsPath = path.join(__dirname, '../data/realms.json');
-    this.itemsPath = path.join(__dirname, '../data/items.json');
     this.loadPlayers();
     this.loadSpiritRoots();
     this.loadRealms();
-    this.loadItems();
 
     // Fix any existing spiritStones data issues
     this.fixAllSpiritStones();
@@ -163,15 +162,16 @@ class PlayerManager {
       totalTiers: 0, // Tổng số tầng đã qua
       inventory: {
         spiritStones: {
-          ha_pham: 1000,
-          trung_pham: 50,
-          thuong_pham: 10,
-          cuc_pham: 2
+          ha_pham: 100,
+          trung_pham: 0,
+          thuong_pham: 0,
+          cuc_pham: 0
         },
         items: [
-          // Khởi tạo với một số vật phẩm cơ bản để test
-          { id: 'herb_co_ban', quantity: 20 },
-          { id: 'herb_trung_cap', quantity: 5 }
+          // Khởi tạo với một số vật phẩm cơ bản
+          { id: 'ngu_nien_sam', quantity: 3 },
+          { id: 'thanh_diep_thao', quantity: 3 },
+          { id: 'tieu_long_lan_qua', quantity: 3 }
         ],
         weapons: [],
         armors: []
@@ -565,7 +565,7 @@ class PlayerManager {
   }
 
   // Kiểm tra vật phẩm cần thiết cho đột phá
-  checkBreakthroughItems(player, requiredItems) {
+  async checkBreakthroughItems(player, requiredItems) {
     const itemStatus = {};
     let allItemsReady = true;
 
@@ -692,71 +692,52 @@ class PlayerManager {
     }
   }
 
-  loadItems() {
-    try {
-      const data = fs.readFileSync(this.itemsPath, 'utf8');
-      this.items = JSON.parse(data);
-    } catch (error) {
-      console.error('Error loading items:', error);
-      this.items = {};
-    }
+  // Sử dụng itemLoader để quản lý items
+  async getItemInfo(itemId) {
+    await itemLoader.loadAllItems();
+    return itemLoader.getItemInfo(itemId);
   }
 
-  getItemInfo(itemId) {
-    // Tìm item trong tất cả categories
-    for (const category of Object.values(this.items)) {
-      if (category[itemId]) {
-        return category[itemId];
-      }
-    }
-    return null;
+  async getItemName(itemId) {
+    await itemLoader.loadAllItems();
+    return itemLoader.getItemName(itemId);
   }
 
-  getItemName(itemId) {
-    const itemInfo = this.getItemInfo(itemId);
-    return itemInfo ? itemInfo.name : itemId;
+  async getItemEmoji(itemId) {
+    await itemLoader.loadAllItems();
+    return itemLoader.getItemEmoji(itemId);
   }
 
-  getItemEmoji(itemId) {
-    const itemInfo = this.getItemInfo(itemId);
-    return itemInfo ? itemInfo.emoji : '📦';
-  }
-
-  getItemType(itemId) {
-    const itemInfo = this.getItemInfo(itemId);
-    return itemInfo ? itemInfo.type || 'unknown' : 'unknown';
+  async getItemType(itemId) {
+    await itemLoader.loadAllItems();
+    return itemLoader.getItemType(itemId);
   }
 
   // Lấy thông tin độ hiếm của item
-  getItemRarity(itemId) {
-    const itemInfo = this.getItemInfo(itemId);
-    if (!itemInfo || !itemInfo.rarity) return null;
-
-    return this.items.rarity_levels[itemInfo.rarity] || null;
+  async getItemRarity(itemId) {
+    await itemLoader.loadAllItems();
+    return itemLoader.getItemRarity(itemId);
   }
 
   // Lấy màu sắc theo độ hiếm
-  getRarityColor(rarity) {
-    if (!this.items.rarity_levels || !this.items.rarity_levels[rarity]) {
-      return '#808080'; // Màu xám mặc định
-    }
-    return this.items.rarity_levels[rarity].color;
+  async getRarityColor(rarity) {
+    await itemLoader.loadAllItems();
+    const rarityInfo = itemLoader.rarityLevels[rarity];
+    return rarityInfo ? rarityInfo.color : '#808080';
   }
 
   // Lấy emoji theo độ hiếm
-  getRarityEmoji(rarity) {
-    if (!this.items.rarity_levels || !this.items.rarity_levels[rarity]) {
-      return '❓'; // Emoji mặc định
-    }
-    return this.items.rarity_levels[rarity].emoji;
+  async getRarityEmoji(rarity) {
+    await itemLoader.loadAllItems();
+    const rarityInfo = itemLoader.rarityLevels[rarity];
+    return rarityInfo ? rarityInfo.emoji : '❓';
   }
 
   // Lấy tên độ hiếm
-  getRarityName(rarity) {
-    if (!this.items.rarity_levels || !this.items.rarity_levels[rarity]) {
-      return 'Không xác định';
-    }
-    return this.items.rarity_levels[rarity].name;
+  async getRarityName(rarity) {
+    await itemLoader.loadAllItems();
+    const rarityInfo = itemLoader.rarityLevels[rarity];
+    return rarityInfo ? rarityInfo.name : 'Không xác định';
   }
 }
 

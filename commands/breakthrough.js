@@ -75,17 +75,18 @@ module.exports = {
 
       // Thêm thông tin items cần thiết
       if (breakthroughInfo.requiredItems) {
-        const itemStatus = playerManager.checkBreakthroughItems(player, breakthroughInfo.requiredItems);
+        const itemStatus = await playerManager.checkBreakthroughItems(player, breakthroughInfo.requiredItems);
 
         if (itemStatus) {
-          const itemsList = Object.entries(itemStatus.items)
-            .map(([itemId, status]) => {
+          const itemsList = await Promise.all(
+            Object.entries(itemStatus.items).map(async ([itemId, status]) => {
               const statusEmoji = status.status === '✅' ? '✅' : '❌';
               const itemColor = status.status === '✅' ? '#00FF00' : '#FF0000';
-              const itemName = this.formatItemName(itemId);
+              const itemName = await this.formatItemName(itemId);
               return `${statusEmoji} **${itemName}**: ${status.current}/${status.required}`;
             })
-            .join('\n');
+          );
+          const itemsListText = itemsList.join('\n');
 
           const allReady = itemStatus.allReady;
           const itemsStatusEmoji = allReady ? '🎒' : '⚠️';
@@ -93,7 +94,7 @@ module.exports = {
 
           mainEmbed.addFields({
             name: `${itemsStatusEmoji} **Vật Phẩm Cần Thiết**`,
-            value: `${this.createSeparator()}\n${itemsList}\n`,
+            value: `${this.createSeparator()}\n${itemsListText}\n`,
             inline: false
           });
 
@@ -133,8 +134,9 @@ module.exports = {
 
     // Tạo button đột phá với style đẹp mắt
     const hasEnoughLinhKhi = breakthroughInfo.linhKhiNeeded <= 0;
-    const hasEnoughItems = breakthroughInfo.requiredItems ?
-      playerManager.checkBreakthroughItems(player, breakthroughInfo.requiredItems)?.allReady : true;
+    const itemStatus = breakthroughInfo.requiredItems ?
+      await playerManager.checkBreakthroughItems(player, breakthroughInfo.requiredItems) : null;
+    const hasEnoughItems = itemStatus ? itemStatus.allReady : true;
     const canBreakthrough = breakthroughInfo.canBreakthrough && hasEnoughLinhKhi && hasEnoughItems;
 
     const breakthroughButton = new ButtonBuilder()
@@ -332,8 +334,9 @@ module.exports = {
   async handleBreakthroughAttempt(interaction, player, breakthroughInfo) {
     // Kiểm tra lại điều kiện
     const hasEnoughLinhKhi = breakthroughInfo.linhKhiNeeded <= 0;
-    const hasEnoughItems = breakthroughInfo.requiredItems ?
-      playerManager.checkBreakthroughItems(player, breakthroughInfo.requiredItems)?.allReady : true;
+    const itemStatus = breakthroughInfo.requiredItems ?
+      await playerManager.checkBreakthroughItems(player, breakthroughInfo.requiredItems) : null;
+    const hasEnoughItems = itemStatus ? itemStatus.allReady : true;
 
     if (!breakthroughInfo.canBreakthrough || !hasEnoughLinhKhi || !hasEnoughItems) {
       await interaction.reply({
@@ -499,15 +502,15 @@ module.exports = {
   },
 
   // Format item names từ ID để hiển thị
-  formatItemName(itemId) {
-    const itemInfo = playerManager.getItemInfo(itemId);
-    const rarityInfo = playerManager.getItemRarity(itemId);
+  async formatItemName(itemId) {
+    const itemInfo = await playerManager.getItemInfo(itemId);
+    const rarityInfo = await playerManager.getItemRarity(itemId);
 
     if (itemInfo) {
       const itemName = itemInfo.name;
       if (rarityInfo) {
         const rarityEmoji = rarityInfo.emoji;
-        return `${itemName} ${rarityEmoji}`;
+        return `${itemName} ${rarityInfo.emoji}`;
       }
       return itemName;
     }

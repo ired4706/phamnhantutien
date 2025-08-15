@@ -1,0 +1,52 @@
+{
+  "special_items": {
+    "thien_dao_chung_minh": {
+      "name": "Thiên Đạo Chứng Minh",
+      "emoji": "🌟",
+      "description": "Vật phẩm thần thoại chứng minh thiên đạo",
+      "type": "legendary",
+      "rarity": "legendary",
+      "value": 1000000
+    },
+    "linh_bao": {
+      "name": "Linh Bảo",
+      "emoji": "💎",
+      "description": "Bảo vật linh thiêng, tăng tất cả chỉ số",
+      "type": "special",
+      "rarity": "epic",
+      "value": 50000,
+      "stats": {
+        "ATK": 25,
+        "DEF": 25,
+        "HP": 50,
+        "MP": 50,
+        "SPD": 15,
+        "CRIT": 10,
+        "REGEN": 10,
+        "EVASION": 10,
+        "REP": 10,
+        "KARMA": 10
+      }
+    },
+    "than_ngoc": {
+      "name": "Thần Ngọc",
+      "emoji": "🔮",
+      "description": "Ngọc thần, tăng chỉ số đặc biệt",
+      "type": "special",
+      "rarity": "legendary",
+      "value": 200000,
+      "stats": {
+        "ATK": 50,
+        "DEF": 50,
+        "HP": 100,
+        "MP": 100,
+        "SPD": 30,
+        "CRIT": 20,
+        "REGEN": 20,
+        "EVASION": 20,
+        "REP": 20,
+        "KARMA": 20
+      }
+    }
+  }
+} 

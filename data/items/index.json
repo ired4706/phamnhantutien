@@ -1,0 +1,25 @@
+{
+  "item_files": [
+    "rarity_levels.json",
+    "currency.json",
+    "herbs.json",
+    "elixirs.json",
+    "minerals.json",
+    "equipment.json",
+    "artifacts.json",
+    "special_items.json"
+  ],
+  "categories": {
+    "herbs": "Thảo dược",
+    "elixirs": "Đan dược", 
+    "minerals": "Khoáng thạch",
+    "weapons": "Vũ khí",
+    "armors": "Áo giáp",
+    "accessories": "Trang sức",
+    "shoes": "Giày",
+    "artifacts": "Pháp bảo",
+    "essences": "Linh khí tinh hoa",
+    "special_items": "Item đặc biệt",
+    "currency": "Tiền tệ"
+  }
+} 

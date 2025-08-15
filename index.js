@@ -200,6 +200,39 @@ async function handleButtonInteraction(interaction) {
     return;
   }
 
+  // Xử lý equipment buttons
+  if (customId === 'equip_item') {
+    await interaction.reply({
+      content: '🔧 **Tính năng trang bị sẽ được cập nhật trong phiên bản tiếp theo!**\n\nHiện tại bạn có thể:\n• Xem trang bị hiện tại\n• Kiểm tra chỉ số\n• Quản lý inventory',
+      ephemeral: true
+    });
+    return;
+  }
+
+  if (customId === 'unequip_item') {
+    await interaction.reply({
+      content: '🔓 **Tính năng tháo bỏ trang bị sẽ được cập nhật trong phiên bản tiếp theo!**',
+      ephemeral: true
+    });
+    return;
+  }
+
+  if (customId === 'upgrade_equipment') {
+    await interaction.reply({
+      content: '⬆️ **Tính năng nâng cấp trang bị sẽ được cập nhật trong phiên bản tiếp theo!**',
+      ephemeral: true
+    });
+    return;
+  }
+
+  if (customId === 'equipment_info') {
+    await interaction.reply({
+      content: 'ℹ️ **Thông tin trang bị:**\n\n• **Vũ khí**: Tăng ATK, CRIT\n• **Áo giáp**: Tăng DEF, HP\n• **Trang sức**: Tăng MP, REGEN\n• **Giày**: Tăng SPD, EVASION\n• **Pháp bảo**: Tăng DEF, MP, REP\n• **Slot đặc biệt**: Tăng tất cả chỉ số',
+      ephemeral: true
+    });
+    return;
+  }
+
   // Xử lý xem thông tin linh căn (từ command spiritroot)
   if (customId.startsWith('spirit_')) {
     const spiritType = customId.replace('spirit_', '');
