@@ -2,6 +2,7 @@ const { EmbedBuilder } = require('discord.js');
 const playerManager = require('../systems/player.js');
 const expCalculator = require('../systems/exp-calculator.js');
 const cooldownManager = require('../utils/cooldown.js');
+const SpiritStonesCalculator = require('../utils/spirit-stones-calculator.js');
 
 module.exports = {
   name: 'hunt',
@@ -36,20 +37,23 @@ module.exports = {
     const expGained = expResult.finalExp;
 
     // Tính toán phần thưởng khác
-    const spiritStones = 10 + Math.floor(Math.random() * 20); // 10-30
+    const spiritStones = SpiritStonesCalculator.calculateHunt();
     const materials = ['Da yêu thú', 'Xương yêu thú', 'Máu yêu thú', 'Lông yêu thú'];
     const randomMaterial = materials[Math.floor(Math.random() * materials.length)];
 
     // Cập nhật player
     playerManager.addExperience(userId, expGained);
-    player.inventory.spiritStones += spiritStones;
+
+    // Cập nhật linh thạch theo format mới
+    SpiritStonesCalculator.updatePlayerSpiritStones(player, spiritStones);
 
     // Cập nhật thời gian săn cuối
     const lastCommandField = cooldownManager.getLastCommandField('hunt');
-    playerManager.updatePlayer(userId, {
+    const updateData = {
       [lastCommandField]: now,
-      'inventory.spiritStones': player.inventory.spiritStones
-    });
+      ...SpiritStonesCalculator.createUpdateObject(spiritStones)
+    };
+    playerManager.updatePlayer(userId, updateData);
 
     // Tạo embed thông báo thành công
     const successEmbed = new EmbedBuilder()
@@ -64,7 +68,7 @@ module.exports = {
         },
         {
           name: '💎 Linh thạch thu được',
-          value: `**+${spiritStones}**`,
+          value: SpiritStonesCalculator.formatSpiritStones(spiritStones),
           inline: true
         },
         {
@@ -73,11 +77,11 @@ module.exports = {
           inline: true
         }
       )
-      .addFields(        {
-          name: '🔍 Chi tiết tính toán Linh khí',
-          value: expResult.breakdown.calculation,
-          inline: false
-        })
+      .addFields({
+        name: '🔍 Chi tiết tính toán Linh khí',
+        value: expResult.breakdown.calculation,
+        inline: false
+      })
       .setFooter({ text: 'Săn yêu thú có thể thực hiện sau 30 giây' })
       .setTimestamp();
 

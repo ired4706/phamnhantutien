@@ -1,12 +1,13 @@
 const { EmbedBuilder } = require('discord.js');
 const playerManager = require('../systems/player.js');
-const expCalculator = require('../systems/exp-calculator.js');
 const cooldownManager = require('../utils/cooldown.js');
+const expCalculator = require('../systems/exp-calculator.js');
+const SpiritStonesCalculator = require('../utils/spirit-stones-calculator.js');
 
 module.exports = {
   name: 'dungeon',
-  aliases: ['dg', 'thiluyen', 'dungeon'],
-  description: 'Thí luyện trong dungeon để tăng tu vi',
+  aliases: ['dg', 'hamnguc', 'underground'],
+  description: 'Khám phá hầm ngục để tìm kiếm kho báu và đánh bại quái vật',
   cooldown: 21600000, // 6h = 21600000ms
 
   async execute(interaction, args) {
@@ -23,24 +24,10 @@ module.exports = {
     const player = playerManager.getPlayer(userId);
     const now = Date.now();
 
-    // Kiểm tra cooldown
-    if (player.cultivation && player.cultivation.lastDungeon &&
-      (now - player.cultivation.lastDungeon) < this.cooldown) {
-      const remainingTime = this.cooldown - (now - player.cultivation.lastDungeon);
-      const remainingHours = Math.ceil(remainingTime / 3600000);
-
-      const cooldownEmbed = new EmbedBuilder()
-        .setColor('#FF6B6B')
-        .setTitle('⏰ Đang trong thời gian hồi phục!')
-        .setDescription('Bạn cần nghỉ ngơi để tiếp tục thí luyện trong dungeon.')
-        .addFields({
-          name: '⏳ Thời gian còn lại',
-          value: `**${remainingHours} giờ**`,
-          inline: true
-        })
-        .setFooter({ text: 'Dungeon có thể thí luyện sau 6 giờ' })
-        .setTimestamp();
-
+    // Kiểm tra cooldown sử dụng common manager
+    const cooldownCheck = cooldownManager.checkCooldown(player, 'dungeon', this.cooldown);
+    if (cooldownCheck.isOnCooldown) {
+      const cooldownEmbed = cooldownManager.createCooldownEmbed('dungeon', cooldownCheck.remainingText);
       await interaction.reply({ embeds: [cooldownEmbed] });
       return;
     }
@@ -49,26 +36,36 @@ module.exports = {
     const expResult = expCalculator.calculateDungeonExp(player, 'none');
     const expGained = expResult.finalExp;
 
-    // Tính toán phần thưởng khác
-    const spiritStones = 200 + Math.floor(Math.random() * 300); // 200-500
-    const dungeonMaterials = this.getDungeonMaterials();
+    // Tính toán kết quả khám phá hầm ngục
+    const isVictory = Math.random() > 0.3; // 70% cơ hội thành công
+    const spiritStones = SpiritStonesCalculator.calculateDungeon();
+    const loot = this.getDungeonLoot();
 
     // Cập nhật player
     playerManager.addExperience(userId, expGained);
-    player.inventory.spiritStones += spiritStones;
+
+    // Cập nhật linh thạch theo format mới
+    SpiritStonesCalculator.updatePlayerSpiritStones(player, spiritStones);
 
     // Cập nhật thời gian command cuối
     const lastCommandField = cooldownManager.getLastCommandField('dungeon');
-    playerManager.updatePlayer(userId, {
+    const updateData = {
       [lastCommandField]: now,
-      'inventory.spiritStones': player.inventory.spiritStones
-    });
+      ...SpiritStonesCalculator.createUpdateObject(spiritStones)
+    };
+    playerManager.updatePlayer(userId, updateData);
 
-    // Tạo embed thông báo thành công
+    // Tạo embed thông báo kết quả
+    const resultColor = isVictory ? '#00FF00' : '#FF4500';
+    const resultTitle = isVictory ? '🐉 Khám phá hầm ngục thành công!' : '💀 Khám phá hầm ngục thất bại!';
+    const resultDescription = isVictory
+      ? `**${username}** đã khám phá thành công hầm ngục!`
+      : `**${username}** đã gặp khó khăn trong hầm ngục.`;
+
     const successEmbed = new EmbedBuilder()
-      .setColor('#FF8C00')
-      .setTitle('🏰 Thí luyện dungeon thành công!')
-      .setDescription(`**${username}** đã hoàn thành thí luyện trong dungeon.`)
+      .setColor(resultColor)
+      .setTitle(resultTitle)
+      .setDescription(resultDescription)
       .addFields(
         {
           name: '📊 Linh khí nhận được',
@@ -77,43 +74,52 @@ module.exports = {
         },
         {
           name: '💎 Linh thạch thu được',
-          value: `**+${spiritStones}**`,
+          value: SpiritStonesCalculator.formatSpiritStones(spiritStones),
+          inline: true
+        },
+        {
+          name: '⚔️ Kết quả khám phá',
+          value: isVictory ? '**Thành công** 🐉' : '**Thất bại** 💀',
           inline: true
         }
       )
-      .addFields({
-        name: '🗡️ Vật phẩm dungeon',
-        value: dungeonMaterials.join(', '),
-        inline: false
-      })
-      .addFields({
-        name: '🔍 Chi tiết tính toán Linh khí',
-        value: expResult.breakdown.calculation,
-        inline: false
-      })
-      .setFooter({ text: 'Dungeon có thể thí luyện sau 6 giờ' })
+      .addFields(
+        {
+          name: '🏆 Chiến lợi phẩm',
+          value: loot.join(', '),
+          inline: false
+        },
+        {
+          name: '🔍 Chi tiết tính toán Linh khí',
+          value: expResult.breakdown.calculation,
+          inline: false
+        }
+      )
+      .setFooter({ text: 'Khám phá hầm ngục có thể thực hiện sau 6 giờ' })
       .setTimestamp();
 
     await interaction.reply({ embeds: [successEmbed] });
   },
 
   /**
-   * Lấy vật phẩm từ dungeon
-   * @returns {Array} Danh sách vật phẩm
+   * Lấy chiến lợi phẩm từ hầm ngục
+   * @returns {Array} Danh sách chiến lợi phẩm
    */
-  getDungeonMaterials() {
-    const materials = [
-      '🗡️ Vũ khí dungeon', '🛡️ Giáp trụ dungeon', '💊 Thuốc hồi phục',
-      '📜 Bí kíp chiến đấu', '💎 Linh thạch dungeon', '🌿 Thảo dược dungeon'
+  getDungeonLoot() {
+    const loot = [
+      '⚔️ Vũ khí ma thuật', '🛡️ Giáp trụ bảo vệ',
+      '🔮 Pha lê ma lực', '💎 Đá quý hiếm',
+      '🌿 Thảo dược ma thuật', '📜 Bí kíp tu luyện',
+      '🏺 Bình thuốc ma thuật', '🎭 Trang phục ma thuật'
     ];
 
-    const count = Math.floor(Math.random() * 2) + 2; // 2-3 vật phẩm
+    const count = Math.floor(Math.random() * 3) + 2; // 2-4 chiến lợi phẩm
     const selected = [];
 
     for (let i = 0; i < count; i++) {
-      const material = materials[Math.floor(Math.random() * materials.length)];
-      if (!selected.includes(material)) {
-        selected.push(material);
+      const item = loot[Math.floor(Math.random() * loot.length)];
+      if (!selected.includes(item)) {
+        selected.push(item);
       }
     }
 

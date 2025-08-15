@@ -2,6 +2,7 @@ const { EmbedBuilder } = require('discord.js');
 const playerManager = require('../systems/player.js');
 const cooldownManager = require('../utils/cooldown.js');
 const expCalculator = require('../systems/exp-calculator.js');
+const SpiritStonesCalculator = require('../utils/spirit-stones-calculator.js');
 
 module.exports = {
   name: 'pick',
@@ -36,19 +37,22 @@ module.exports = {
     const expGained = expResult.finalExp;
 
     // Tính toán phần thưởng khác
-    const spiritStones = 20 + Math.floor(Math.random() * 30); // 20-50
+    const spiritStones = SpiritStonesCalculator.calculatePick();
     const herbs = this.getHerbs();
 
     // Cập nhật player
     playerManager.addExperience(userId, expGained);
-    player.inventory.spiritStones += spiritStones;
+
+    // Cập nhật linh thạch theo format mới
+    SpiritStonesCalculator.updatePlayerSpiritStones(player, spiritStones);
 
     // Cập nhật thời gian command cuối
     const lastCommandField = cooldownManager.getLastCommandField('pick');
-    playerManager.updatePlayer(userId, {
+    const updateData = {
       [lastCommandField]: now,
-      'inventory.spiritStones': player.inventory.spiritStones
-    });
+      ...SpiritStonesCalculator.createUpdateObject(spiritStones)
+    };
+    playerManager.updatePlayer(userId, updateData);
 
     // Tạo embed thông báo thành công
     const successEmbed = new EmbedBuilder()
@@ -63,7 +67,7 @@ module.exports = {
         },
         {
           name: '💎 Linh thạch thu được',
-          value: `**+${spiritStones}**`,
+          value: SpiritStonesCalculator.formatSpiritStones(spiritStones),
           inline: true
         },
         {
@@ -72,11 +76,11 @@ module.exports = {
           inline: true
         }
       )
-      .addFields(        {
-          name: '🔍 Chi tiết tính toán Linh khí',
-          value: expResult.breakdown.calculation,
-          inline: false
-        })
+      .addFields({
+        name: '🔍 Chi tiết tính toán Linh khí',
+        value: expResult.breakdown.calculation,
+        inline: false
+      })
       .setFooter({ text: 'Thu thập thảo dược có thể thực hiện sau 5 phút' })
       .setTimestamp();
 
@@ -105,5 +109,7 @@ module.exports = {
     }
 
     return selected;
-  }
+  },
+
+
 };

@@ -3,12 +3,17 @@
     "userId": "504705413682298891",
     "username": "ired0806",
     "spiritRoot": "kim",
-    "experience": 0,
+    "experience": 32929,
     "realm": "luyen_khi",
     "realmLevel": 1,
     "totalTiers": 0,
     "inventory": {
-      "spiritStones": "[object Object]191",
+      "spiritStones": {
+        "ha_pham": 145,
+        "trung_pham": 1,
+        "thuong_pham": 0,
+        "cuc_pham": 0
+      },
       "items": [
         {
           "id": "ngu_nien_sam",
@@ -32,19 +37,21 @@
       "breakthroughAttempts": 0,
       "lastBreakthrough": 0,
       "lastMeditate": 0,
-      "lastHunt": 0,
+      "lastHunt": 1755253213009,
       "lastChallenge": 0,
-      "lastDomain": 0,
+      "lastDomain": 1755253253740,
       "lastDailyQuest": 0,
       "lastWeeklyQuest": 0,
-      "lastDungeon": 0,
-      "lastMine": 1755251800117,
+      "lastDungeon": 1755253258020,
+      "lastMine": 1755253206916,
       "lastPick": 0,
-      "lastExplore": 0
+      "lastExplore": 1755253234775,
+      "lastDaily": 1755253170535,
+      "lastWeekly": 1755253181397
     },
     "achievements": [],
     "joinDate": 1755249145308,
-    "lastActive": 1755251800120,
+    "lastActive": 1755253258022,
     "stats": {
       "attack": 12,
       "defense": 15,

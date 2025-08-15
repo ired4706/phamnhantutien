@@ -2,6 +2,7 @@ const { EmbedBuilder } = require('discord.js');
 const playerManager = require('../systems/player.js');
 const expCalculator = require('../systems/exp-calculator.js');
 const cooldownManager = require('../utils/cooldown.js');
+const SpiritStonesCalculator = require('../utils/spirit-stones-calculator.js');
 
 module.exports = {
   name: 'meditate',
@@ -36,18 +37,21 @@ module.exports = {
     const expGained = expResult.finalExp;
 
     // Tính toán phần thưởng khác
-    const spiritStones = 50 + Math.floor(Math.random() * 100); // 50-150
+    const spiritStones = SpiritStonesCalculator.calculateMeditate();
 
     // Cập nhật player
     playerManager.addExperience(userId, expGained);
-    player.inventory.spiritStones += spiritStones;
+
+    // Cập nhật linh thạch theo format mới
+    SpiritStonesCalculator.updatePlayerSpiritStones(player, spiritStones);
 
     // Cập nhật thời gian thiền định cuối
     const lastCommandField = cooldownManager.getLastCommandField('meditate');
-    playerManager.updatePlayer(userId, {
+    const updateData = {
       [lastCommandField]: now,
-      'inventory.spiritStones': player.inventory.spiritStones
-    });
+      ...SpiritStonesCalculator.createUpdateObject(spiritStones)
+    };
+    playerManager.updatePlayer(userId, updateData);
 
     // Tạo embed thông báo thành công
     const successEmbed = new EmbedBuilder()
@@ -62,7 +66,7 @@ module.exports = {
         },
         {
           name: '💎 Linh thạch thu được',
-          value: `**+${spiritStones}**`,
+          value: SpiritStonesCalculator.formatSpiritStones(spiritStones),
           inline: true
         },
         {

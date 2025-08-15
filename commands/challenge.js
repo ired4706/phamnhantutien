@@ -2,6 +2,7 @@ const { EmbedBuilder } = require('discord.js');
 const playerManager = require('../systems/player.js');
 const expCalculator = require('../systems/exp-calculator.js');
 const cooldownManager = require('../utils/cooldown.js');
+const SpiritStonesCalculator = require('../utils/spirit-stones-calculator.js');
 
 module.exports = {
   name: 'challenge',
@@ -37,7 +38,7 @@ module.exports = {
 
     // Tính toán kết quả thách đấu (thắng/thua)
     const isVictory = Math.random() > 0.4; // 60% cơ hội thắng
-    const spiritStones = 100 + Math.floor(Math.random() * 200); // 100-300
+    const spiritStones = SpiritStonesCalculator.calculateChallenge();
 
     // Cập nhật danh tiếng và karma dựa trên kết quả
     let reputationChange = 0;
@@ -53,16 +54,19 @@ module.exports = {
 
     // Cập nhật player
     playerManager.addExperience(userId, expGained);
-    player.inventory.spiritStones += spiritStones;
+
+    // Cập nhật linh thạch theo format mới
+    SpiritStonesCalculator.updatePlayerSpiritStones(player, spiritStones);
 
     // Cập nhật thời gian command cuối
     const lastCommandField = cooldownManager.getLastCommandField('challenge');
-    playerManager.updatePlayer(userId, {
+    const updateData = {
       [lastCommandField]: now,
-      'inventory.spiritStones': player.inventory.spiritStones,
       'stats.reputation': (player.stats.reputation || 0) + reputationChange,
-      'stats.karma': (player.stats.karma || 0) + karmaChange
-    });
+      'stats.karma': (player.stats.karma || 0) + karmaChange,
+      ...SpiritStonesCalculator.createUpdateObject(spiritStones)
+    };
+    playerManager.updatePlayer(userId, updateData);
 
     // Tạo embed thông báo kết quả
     const resultColor = isVictory ? '#00FF00' : '#FF4500';
@@ -83,7 +87,7 @@ module.exports = {
         },
         {
           name: '💎 Linh thạch thu được',
-          value: `**+${spiritStones}**`,
+          value: SpiritStonesCalculator.formatSpiritStones(spiritStones),
           inline: true
         },
         {

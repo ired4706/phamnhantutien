@@ -2,11 +2,12 @@ const { EmbedBuilder } = require('discord.js');
 const playerManager = require('../systems/player.js');
 const cooldownManager = require('../utils/cooldown.js');
 const expCalculator = require('../systems/exp-calculator.js');
+const SpiritStonesCalculator = require('../utils/spirit-stones-calculator.js');
 
 module.exports = {
   name: 'domain',
-  aliases: ['d', 'bicanh', 'bicảnh'],
-  description: 'Khám phá bí cảnh domain để nhận phần thưởng lớn',
+  aliases: ['dm', 'lanhdia', 'territory'],
+  description: 'Khám phá lãnh địa để tìm kiếm bảo vật và tài nguyên quý hiếm',
   cooldown: 28800000, // 8h = 28800000ms
 
   async execute(interaction, args) {
@@ -32,74 +33,79 @@ module.exports = {
     }
 
     // Tính toán EXP theo hệ thống mới
-    const expResult = expCalculator.calculateDomainExp(player, 'domain', 'none');
+    const expResult = expCalculator.calculateDomainExp(player, 'none');
     const expGained = expResult.finalExp;
 
-    // Tính toán phần thưởng khác (domain có phần thưởng lớn)
-    const spiritStones = 500 + Math.floor(Math.random() * 1000); // 500-1500
-    const rareMaterials = this.getRareMaterials();
+    // Tính toán phần thưởng khác
+    const spiritStones = SpiritStonesCalculator.calculateDomain();
+    const treasures = this.getDomainTreasures();
 
     // Cập nhật player
     playerManager.addExperience(userId, expGained);
-    player.inventory.spiritStones += spiritStones;
+
+    // Cập nhật linh thạch theo format mới
+    SpiritStonesCalculator.updatePlayerSpiritStones(player, spiritStones);
 
     // Cập nhật thời gian command cuối
     const lastCommandField = cooldownManager.getLastCommandField('domain');
-    playerManager.updatePlayer(userId, {
+    const updateData = {
       [lastCommandField]: now,
-      'inventory.spiritStones': player.inventory.spiritStones
-    });
+      ...SpiritStonesCalculator.createUpdateObject(spiritStones)
+    };
+    playerManager.updatePlayer(userId, updateData);
 
     // Tạo embed thông báo thành công
     const successEmbed = new EmbedBuilder()
-      .setColor('#8A2BE2')
-      .setTitle('🏛️ Khám phá domain thành công!')
-      .setDescription(`**${username}** đã khám phá được bí cảnh domain.`)
+      .setColor('#9932CC')
+      .setTitle('🏰 Khám phá lãnh địa thành công!')
+      .setDescription(`**${username}** đã khám phá được lãnh địa mới.`)
       .addFields(
         {
-          name: '📊 Kinh nghiệm nhận được',
+          name: '📊 Linh khí nhận được',
           value: `**+${expGained} Linh khí**`,
           inline: true
         },
         {
           name: '💎 Linh thạch thu được',
-          value: `**+${spiritStones}**`,
+          value: SpiritStonesCalculator.formatSpiritStones(spiritStones),
+          inline: true
+        },
+        {
+          name: '🏆 Bảo vật lãnh địa',
+          value: treasures.join(', '),
           inline: true
         }
       )
       .addFields({
-        name: '🌿 Tài nguyên quý hiếm',
-        value: rareMaterials.join(', '),
-        inline: false
-      })
-      .addFields({
-        name: '🔍 Chi tiết tính toán EXP',
+        name: '🔍 Chi tiết tính toán Linh khí',
         value: expResult.breakdown.calculation,
         inline: false
       })
-      .setFooter({ text: 'Domain có thể khám phá sau 8 giờ' })
+      .setFooter({ text: 'Khám phá lãnh địa có thể thực hiện sau 8 giờ' })
       .setTimestamp();
 
     await interaction.reply({ embeds: [successEmbed] });
   },
 
   /**
-   * Lấy tài nguyên quý hiếm từ domain
-   * @returns {Array} Danh sách tài nguyên quý hiếm
+   * Lấy bảo vật từ lãnh địa
+   * @returns {Array} Danh sách bảo vật
    */
-  getRareMaterials() {
-    const materials = [
-      '🔮 Linh đan', '⚔️ Pháp bảo', '📜 Công pháp',
-      '💎 Linh thạch tinh khiết', '🌿 Thảo dược quý', '🪨 Khoáng sản hiếm'
+  getDomainTreasures() {
+    const treasures = [
+      '👑 Vương miện cổ xưa', '🗡️ Kiếm thần thoại',
+      '🛡️ Khiên bất tử', '🔮 Pha lê vũ trụ',
+      '💎 Ngọc thần linh', '📜 Cuộn giấy bí mật',
+      '🏺 Bình thuốc tiên', '🎭 Mặt nạ ma thuật'
     ];
 
-    const count = Math.floor(Math.random() * 2) + 2; // 2-3 tài nguyên quý hiếm
+    const count = Math.floor(Math.random() * 3) + 2; // 2-4 bảo vật
     const selected = [];
 
     for (let i = 0; i < count; i++) {
-      const material = materials[Math.floor(Math.random() * materials.length)];
-      if (!selected.includes(material)) {
-        selected.push(material);
+      const treasure = treasures[Math.floor(Math.random() * treasures.length)];
+      if (!selected.includes(treasure)) {
+        selected.push(treasure);
       }
     }
 

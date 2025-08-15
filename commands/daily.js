@@ -1,13 +1,14 @@
 const { EmbedBuilder } = require('discord.js');
 const playerManager = require('../systems/player.js');
-const expCalculator = require('../systems/exp-calculator.js');
 const cooldownManager = require('../utils/cooldown.js');
+const expCalculator = require('../systems/exp-calculator.js');
+const SpiritStonesCalculator = require('../utils/spirit-stones-calculator.js');
 
 module.exports = {
   name: 'daily',
-  aliases: ['d', 'nhiemvungay', 'dailyquest'],
-  description: 'Nhận và hoàn thành nhiệm vụ hàng ngày để nhận phần thưởng lớn',
-  cooldown: 86400000, // 1 ngày = 86400000ms
+  aliases: ['d', 'hangngay', 'dailyquest'],
+  description: 'Nhiệm vụ hàng ngày để nhận phần thưởng lớn',
+  cooldown: 86400000, // 1d = 86400000ms
 
   async execute(interaction, args) {
     const userId = interaction.user.id;
@@ -36,24 +37,28 @@ module.exports = {
     const expGained = expResult.finalExp;
 
     // Tính toán phần thưởng khác
-    const spiritStones = 100 + Math.floor(Math.random() * 200); // 100-300
+    const spiritStones = SpiritStonesCalculator.calculateDaily();
+    const rewards = this.getDailyRewards();
 
     // Cập nhật player
     playerManager.addExperience(userId, expGained);
-    player.inventory.spiritStones += spiritStones;
 
-    // Cập nhật thời gian daily quest cuối
+    // Cập nhật linh thạch theo format mới
+    SpiritStonesCalculator.updatePlayerSpiritStones(player, spiritStones);
+
+    // Cập nhật thời gian command cuối
     const lastCommandField = cooldownManager.getLastCommandField('daily');
-    playerManager.updatePlayer(userId, {
+    const updateData = {
       [lastCommandField]: now,
-      'inventory.spiritStones': player.inventory.spiritStones
-    });
+      ...SpiritStonesCalculator.createUpdateObject(spiritStones)
+    };
+    playerManager.updatePlayer(userId, updateData);
 
     // Tạo embed thông báo thành công
     const successEmbed = new EmbedBuilder()
-      .setColor('#00FF00')
-      .setTitle('📜 Hoàn thành nhiệm vụ hàng ngày thành công!')
-      .setDescription(`**${username}** đã hoàn thành nhiệm vụ hàng ngày quan trọng.`)
+      .setColor('#FFD700')
+      .setTitle('📅 Nhiệm vụ hàng ngày hoàn thành!')
+      .setDescription(`**${username}** đã hoàn thành nhiệm vụ hàng ngày.`)
       .addFields(
         {
           name: '📊 Linh khí nhận được',
@@ -62,7 +67,12 @@ module.exports = {
         },
         {
           name: '💎 Linh thạch thu được',
-          value: `**+${spiritStones}**`,
+          value: SpiritStonesCalculator.formatSpiritStones(spiritStones),
+          inline: true
+        },
+        {
+          name: '🎁 Phần thưởng đặc biệt',
+          value: rewards.join(', '),
           inline: true
         }
       )
@@ -71,9 +81,33 @@ module.exports = {
         value: expResult.breakdown.calculation,
         inline: false
       })
-      .setFooter({ text: 'Nhiệm vụ hàng ngày có thể nhận sau 24 giờ' })
+      .setFooter({ text: 'Nhiệm vụ hàng ngày có thể thực hiện sau 24 giờ' })
       .setTimestamp();
 
     await interaction.reply({ embeds: [successEmbed] });
   },
+
+  /**
+   * Lấy phần thưởng nhiệm vụ hàng ngày
+   * @returns {Array} Danh sách phần thưởng
+   */
+  getDailyRewards() {
+    const rewards = [
+      '🌟 Kinh nghiệm tu luyện', '🌿 Thảo dược quý hiếm',
+      '💎 Khoáng sản đặc biệt', '⚔️ Trang bị tạm thời',
+      '🔮 Bùa chú ngẫu nhiên', '📚 Kỹ năng mới'
+    ];
+
+    const count = Math.floor(Math.random() * 3) + 2; // 2-4 phần thưởng
+    const selected = [];
+
+    for (let i = 0; i < count; i++) {
+      const reward = rewards[Math.floor(Math.random() * rewards.length)];
+      if (!selected.includes(reward)) {
+        selected.push(reward);
+      }
+    }
+
+    return selected;
+  }
 }; 
