@@ -1,0 +1,1021 @@
+{
+  "weapons": {
+    "kim": {
+      "name": "Kim Hệ Vũ Khí",
+      "emoji": "⚔️",
+      "description": "Vũ khí kim thuộc tính, chuyên về sát thương sắc bén và độ bền cao",
+      "elemental_bonus": {
+        "attack": 0.25,
+        "critical": 0.20,
+        "durability": 0.30
+      },
+      "weapons": {
+        "kiem": {
+          "name": "Kiếm",
+          "description": "Vũ khí chính của Kim hệ, sắc bén và linh hoạt",
+          "types": {
+            "pham": {
+              "name": "Thiết Kiếm",
+              "emoji": "🗡️",
+              "rarity": "pham",
+              "level": 1,
+              "stats": {
+                "attack": 15,
+                "critical": 8,
+                "durability": 100,
+                "speed": 5
+              },
+              "description": "Kiếm sắt thông thường, phù hợp cho tu sĩ mới bắt đầu",
+              "crafting": {
+                "materials": ["iron_ore", "wood"],
+                "cost": 50
+              }
+            },
+            "huyen": {
+              "name": "Bạch Ngân Kiếm",
+              "emoji": "⚔️",
+              "rarity": "huyen",
+              "level": 2,
+              "stats": {
+                "attack": 25,
+                "critical": 12,
+                "durability": 150,
+                "speed": 7
+              },
+              "description": "Kiếm bạc tinh xảo, sắc bén hơn kiếm sắt",
+              "crafting": {
+                "materials": ["silver_ore", "refined_wood", "spirit_crystal"],
+                "cost": 200
+              }
+            },
+            "dia": {
+              "name": "Hàn Kim Kiếm",
+              "emoji": "🔪",
+              "rarity": "dia",
+              "level": 3,
+              "stats": {
+                "attack": 40,
+                "critical": 18,
+                "durability": 250,
+                "speed": 10
+              },
+              "description": "Kiếm hàn kim cứng cáp, có thể chém đứt đá",
+              "crafting": {
+                "materials": ["cold_iron", "diamond", "spirit_essence"],
+                "cost": 800
+              }
+            },
+            "thien": {
+              "name": "Thánh Vân Kiếm",
+              "emoji": "⚡",
+              "rarity": "thien",
+              "level": 4,
+              "stats": {
+                "attack": 65,
+                "critical": 25,
+                "durability": 400,
+                "speed": 15
+              },
+              "description": "Kiếm thánh vân, có thể điều khiển sấm sét",
+              "crafting": {
+                "materials": ["thunder_crystal", "sacred_metal", "divine_essence"],
+                "cost": 2500
+              }
+            },
+            "than": {
+              "name": "Vạn Cốt Chi Kiếm",
+              "emoji": "💀",
+              "rarity": "than",
+              "level": 5,
+              "stats": {
+                "attack": 100,
+                "critical": 35,
+                "durability": 600,
+                "speed": 20
+              },
+              "description": "Thần kiếm được rèn từ xương của vạn linh, có sức mạnh hủy diệt",
+              "crafting": {
+                "materials": ["bone_of_ancient", "god_metal", "soul_essence"],
+                "cost": 10000
+              }
+            }
+          }
+        },
+        "thuong": {
+          "name": "Thương",
+          "description": "Vũ khí dài của Kim hệ, có tầm đánh xa và sức mạnh lớn",
+          "types": {
+            "pham": {
+              "name": "Đồng Thương",
+              "emoji": "🔱",
+              "rarity": "pham",
+              "level": 1,
+              "stats": {
+                "attack": 18,
+                "critical": 5,
+                "durability": 120,
+                "speed": 3
+              },
+              "description": "Thương đồng cơ bản, phù hợp cho chiến đấu tầm xa",
+              "crafting": {
+                "materials": ["copper_ore", "wood"],
+                "cost": 60
+              }
+            },
+            "huyen": {
+              "name": "Ngân Thương",
+              "emoji": "⚡",
+              "rarity": "huyen",
+              "level": 2,
+              "stats": {
+                "attack": 30,
+                "critical": 8,
+                "durability": 180,
+                "speed": 4
+              },
+              "description": "Thương bạc tinh xảo, có thể xuyên thủng giáp",
+              "crafting": {
+                "materials": ["silver_ore", "refined_wood", "spirit_crystal"],
+                "cost": 250
+              }
+            },
+            "dia": {
+              "name": "Hắc Kim Thương",
+              "emoji": "🖤",
+              "rarity": "dia",
+              "level": 3,
+              "stats": {
+                "attack": 45,
+                "critical": 12,
+                "durability": 280,
+                "speed": 6
+              },
+              "description": "Thương hắc kim, có thể hấp thụ linh khí",
+              "crafting": {
+                "materials": ["dark_metal", "spirit_crystal", "void_essence"],
+                "cost": 1000
+              }
+            },
+            "thien": {
+              "name": "Long Vũ Thương",
+              "emoji": "🐉",
+              "rarity": "thien",
+              "level": 4,
+              "stats": {
+                "attack": 70,
+                "critical": 18,
+                "durability": 450,
+                "speed": 8
+              },
+              "description": "Thương long vũ, có thể triệu hồi rồng linh",
+              "crafting": {
+                "materials": ["dragon_scale", "divine_metal", "dragon_essence"],
+                "cost": 3000
+              }
+            },
+            "than": {
+              "name": "Trấn Thiên Thần Thương",
+              "emoji": "⚜️",
+              "rarity": "than",
+              "level": 5,
+              "stats": {
+                "attack": 110,
+                "critical": 25,
+                "durability": 700,
+                "speed": 12
+              },
+              "description": "Thần thương có thể trấn áp cả thiên địa",
+              "crafting": {
+                "materials": ["heaven_metal", "god_essence", "world_core"],
+                "cost": 15000
+              }
+            }
+          }
+        }
+      }
+    },
+    "moc": {
+      "name": "Mộc Hệ Vũ Khí",
+      "emoji": "🌿",
+      "description": "Vũ khí mộc thuộc tính, chuyên về hồi phục và tăng cường",
+      "elemental_bonus": {
+        "healing": 0.30,
+        "regen": 0.25,
+        "nature_power": 0.20
+      },
+      "weapons": {
+        "truong": {
+          "name": "Trượng",
+          "description": "Vũ khí chính của Mộc hệ, có khả năng hồi phục và tăng cường",
+          "types": {
+            "pham": {
+              "name": "Mộc Trượng",
+              "emoji": "🌳",
+              "rarity": "pham",
+              "level": 1,
+              "stats": {
+                "attack": 12,
+                "healing": 15,
+                "durability": 80,
+                "regen": 8
+              },
+              "description": "Trượng gỗ cơ bản, có khả năng hồi phục nhẹ",
+              "crafting": {
+                "materials": ["wood", "herbs"],
+                "cost": 40
+              }
+            },
+            "huyen": {
+              "name": "Thanh Ngọc Trượng",
+              "emoji": "💚",
+              "rarity": "huyen",
+              "level": 2,
+              "stats": {
+                "attack": 20,
+                "healing": 25,
+                "durability": 120,
+                "regen": 12
+              },
+              "description": "Trượng thanh ngọc, khả năng hồi phục tốt hơn",
+              "crafting": {
+                "materials": ["jade", "refined_wood", "healing_herbs"],
+                "cost": 180
+              }
+            },
+            "dia": {
+              "name": "Sinh Linh Trượng",
+              "emoji": "🌱",
+              "rarity": "dia",
+              "level": 3,
+              "stats": {
+                "attack": 32,
+                "healing": 40,
+                "durability": 200,
+                "regen": 18
+              },
+              "description": "Trượng sinh linh, có thể hồi phục đồng đội",
+              "crafting": {
+                "materials": ["life_crystal", "ancient_wood", "life_essence"],
+                "cost": 700
+              }
+            },
+            "thien": {
+              "name": "Vạn Mộc Trượng",
+              "emoji": "🌲",
+              "rarity": "thien",
+              "level": 4,
+              "stats": {
+                "attack": 50,
+                "healing": 60,
+                "durability": 320,
+                "regen": 25
+              },
+              "description": "Trượng vạn mộc, có thể triệu hồi cây cối",
+              "crafting": {
+                "materials": ["world_tree_wood", "nature_crystal", "forest_essence"],
+                "cost": 2200
+              }
+            },
+            "than": {
+              "name": "Thiên Sinh Trượng",
+              "emoji": "🌍",
+              "rarity": "than",
+              "level": 5,
+              "stats": {
+                "attack": 80,
+                "healing": 90,
+                "durability": 500,
+                "regen": 35
+              },
+              "description": "Thần trượng có thể hồi sinh cả thiên địa",
+              "crafting": {
+                "materials": ["creation_wood", "life_gem", "world_essence"],
+                "cost": 12000
+              }
+            }
+          }
+        },
+        "quat": {
+          "name": "Quạt Pháp Khí",
+          "description": "Vũ khí phụ của Mộc hệ, có thể tạo gió và điều khiển thời tiết",
+          "types": {
+            "pham": {
+              "name": "Phiêu Mộc Phiến",
+              "emoji": "🍃",
+              "rarity": "pham",
+              "level": 1,
+              "stats": {
+                "attack": 8,
+                "wind_power": 10,
+                "durability": 60,
+                "speed": 6
+              },
+              "description": "Quạt gỗ nhẹ, có thể tạo gió nhẹ",
+              "crafting": {
+                "materials": ["light_wood", "feathers"],
+                "cost": 30
+              }
+            },
+            "huyen": {
+              "name": "Thanh Liễu Phiến",
+              "emoji": "🌿",
+              "rarity": "huyen",
+              "level": 2,
+              "stats": {
+                "attack": 15,
+                "wind_power": 18,
+                "durability": 90,
+                "speed": 9
+              },
+              "description": "Quạt thanh liễu, có thể tạo gió mạnh",
+              "crafting": {
+                "materials": ["willow_wood", "wind_crystal", "air_essence"],
+                "cost": 150
+              }
+            },
+            "dia": {
+              "name": "Vạn Diệp Phiến",
+              "emoji": "🍂",
+              "rarity": "dia",
+              "level": 3,
+              "stats": {
+                "attack": 25,
+                "wind_power": 30,
+                "durability": 150,
+                "speed": 12
+              },
+              "description": "Quạt vạn diệp, có thể tạo bão lá",
+              "crafting": {
+                "materials": ["thousand_leaves", "storm_crystal", "wind_essence"],
+                "cost": 600
+              }
+            },
+            "thien": {
+              "name": "Thanh Phong Phiến",
+              "emoji": "💨",
+              "rarity": "thien",
+              "level": 4,
+              "stats": {
+                "attack": 40,
+                "wind_power": 50,
+                "durability": 250,
+                "speed": 18
+              },
+              "description": "Quạt thanh phong, có thể tạo siêu bão",
+              "crafting": {
+                "materials": ["wind_gem", "storm_essence", "hurricane_core"],
+                "cost": 2000
+              }
+            },
+            "than": {
+              "name": "Lục Nguyệt Phiến",
+              "emoji": "🌙",
+              "rarity": "than",
+              "level": 5,
+              "stats": {
+                "attack": 65,
+                "wind_power": 80,
+                "durability": 400,
+                "speed": 25
+              },
+              "description": "Thần quạt có thể điều khiển thời tiết toàn cầu",
+              "crafting": {
+                "materials": ["moon_crystal", "weather_gem", "climate_essence"],
+                "cost": 10000
+              }
+            }
+          }
+        }
+      }
+    },
+    "thuy": {
+      "name": "Thủy Hệ Vũ Khí",
+      "emoji": "💧",
+      "description": "Vũ khí thủy thuộc tính, chuyên về tốc độ và né tránh",
+      "elemental_bonus": {
+        "speed": 0.30,
+        "evasion": 0.25,
+        "water_power": 0.20
+      },
+      "weapons": {
+        "cung": {
+          "name": "Cung",
+          "description": "Vũ khí chính của Thủy hệ, có tầm bắn xa và tốc độ cao",
+          "types": {
+            "pham": {
+              "name": "Trúc Cung",
+              "emoji": "🏹",
+              "rarity": "pham",
+              "level": 1,
+              "stats": {
+                "attack": 14,
+                "speed": 12,
+                "durability": 70,
+                "range": 8
+              },
+              "description": "Cung trúc cơ bản, phù hợp cho săn bắn",
+              "crafting": {
+                "materials": ["bamboo", "string"],
+                "cost": 45
+              }
+            },
+            "huyen": {
+              "name": "Thủy Tâm Cung",
+              "emoji": "💙",
+              "rarity": "huyen",
+              "level": 2,
+              "stats": {
+                "attack": 22,
+                "speed": 18,
+                "durability": 100,
+                "range": 12
+              },
+              "description": "Cung thủy tâm, có thể bắn mũi tên nước",
+              "crafting": {
+                "materials": ["water_crystal", "refined_bamboo", "water_essence"],
+                "cost": 200
+              }
+            },
+            "dia": {
+              "name": "Băng Ngọc Cung",
+              "emoji": "❄️",
+              "rarity": "dia",
+              "level": 3,
+              "stats": {
+                "attack": 35,
+                "speed": 25,
+                "durability": 160,
+                "range": 16
+              },
+              "description": "Cung băng ngọc, có thể bắn mũi tên băng",
+              "crafting": {
+                "materials": ["ice_crystal", "jade", "frost_essence"],
+                "cost": 800
+              }
+            },
+            "thien": {
+              "name": "Hàn Hải Cung",
+              "emoji": "🌊",
+              "rarity": "thien",
+              "level": 4,
+              "stats": {
+                "attack": 55,
+                "speed": 35,
+                "durability": 280,
+                "range": 22
+              },
+              "description": "Cung hàn hải, có thể bắn mũi tên sóng thần",
+              "crafting": {
+                "materials": ["ocean_crystal", "sea_gem", "tidal_essence"],
+                "cost": 2800
+              }
+            },
+            "than": {
+              "name": "Vạn Lưu Thần Cung",
+              "emoji": "🌊",
+              "rarity": "than",
+              "level": 5,
+              "stats": {
+                "attack": 85,
+                "speed": 50,
+                "durability": 450,
+                "range": 30
+              },
+              "description": "Thần cung có thể bắn mũi tên từ mọi dòng sông",
+              "crafting": {
+                "materials": ["river_gem", "flow_essence", "current_core"],
+                "cost": 15000
+              }
+            }
+          }
+        },
+        "song_kiem": {
+          "name": "Song Kiếm",
+          "description": "Vũ khí phụ của Thủy hệ, sử dụng hai kiếm cùng lúc",
+          "types": {
+            "pham": {
+              "name": "Song Đoản",
+              "emoji": "⚔️",
+              "rarity": "pham",
+              "level": 1,
+              "stats": {
+                "attack": 16,
+                "speed": 10,
+                "durability": 80,
+                "combo": 3
+              },
+              "description": "Hai kiếm ngắn cơ bản, có thể tấn công liên hoàn",
+              "crafting": {
+                "materials": ["iron_ore", "wood", "string"],
+                "cost": 70
+              }
+            },
+            "huyen": {
+              "name": "Lưu Thủy Song Kiếm",
+              "emoji": "💧",
+              "rarity": "huyen",
+              "level": 2,
+              "stats": {
+                "attack": 26,
+                "speed": 15,
+                "durability": 120,
+                "combo": 4
+              },
+              "description": "Song kiếm lưu thủy, có thể tạo sóng nước",
+              "crafting": {
+                "materials": ["water_crystal", "refined_iron", "flow_essence"],
+                "cost": 250
+              }
+            },
+            "dia": {
+              "name": "Hàn Băng Song Kiếm",
+              "emoji": "❄️",
+              "rarity": "dia",
+              "level": 3,
+              "stats": {
+                "attack": 40,
+                "speed": 22,
+                "durability": 180,
+                "combo": 5
+              },
+              "description": "Song kiếm hàn băng, có thể đóng băng kẻ địch",
+              "crafting": {
+                "materials": ["ice_crystal", "frost_metal", "freeze_essence"],
+                "cost": 900
+              }
+            },
+            "thien": {
+              "name": "Thủy Ảnh Song Kiếm",
+              "emoji": "🌊",
+              "rarity": "thien",
+              "level": 4,
+              "stats": {
+                "attack": 60,
+                "speed": 30,
+                "durability": 300,
+                "combo": 6
+              },
+              "description": "Song kiếm thủy ảnh, có thể tạo ảo ảnh nước",
+              "crafting": {
+                "materials": ["water_gem", "illusion_crystal", "mirror_essence"],
+                "cost": 3000
+              }
+            },
+            "than": {
+              "name": "Vĩnh Lưu Song Kiếm",
+              "emoji": "♾️",
+              "rarity": "than",
+              "level": 5,
+              "stats": {
+                "attack": 90,
+                "speed": 40,
+                "durability": 500,
+                "combo": 8
+              },
+              "description": "Thần song kiếm có thể cắt đứt dòng thời gian",
+              "crafting": {
+                "materials": ["time_crystal", "eternity_gem", "flow_core"],
+                "cost": 20000
+              }
+            }
+          }
+        }
+      }
+    },
+    "hoa": {
+      "name": "Hỏa Hệ Vũ Khí",
+      "emoji": "🔥",
+      "description": "Vũ khí hỏa thuộc tính, chuyên về sát thương cao và chí mạng",
+      "elemental_bonus": {
+        "attack": 0.30,
+        "critical": 0.25,
+        "fire_power": 0.20
+      },
+      "weapons": {
+        "dao": {
+          "name": "Đao",
+          "description": "Vũ khí chính của Hỏa hệ, có sức mạnh hủy diệt cao",
+          "types": {
+            "pham": {
+              "name": "Huyết Đao",
+              "emoji": "🔪",
+              "rarity": "pham",
+              "level": 1,
+              "stats": {
+                "attack": 18,
+                "critical": 12,
+                "durability": 90,
+                "fire_damage": 5
+              },
+              "description": "Đao huyết cơ bản, có thể gây chảy máu",
+              "crafting": {
+                "materials": ["blood_iron", "wood"],
+                "cost": 60
+              }
+            },
+            "huyen": {
+              "name": "Xích Viêm Đao",
+              "emoji": "🔥",
+              "rarity": "huyen",
+              "level": 2,
+              "stats": {
+                "attack": 28,
+                "critical": 18,
+                "durability": 130,
+                "fire_damage": 12
+              },
+              "description": "Đao xích viêm, có thể gây bỏng",
+              "crafting": {
+                "materials": ["fire_crystal", "heated_iron", "flame_essence"],
+                "cost": 250
+              }
+            },
+            "dia": {
+              "name": "Liệt Diễm Đao",
+              "emoji": "🔥",
+              "rarity": "dia",
+              "level": 3,
+              "stats": {
+                "attack": 42,
+                "critical": 25,
+                "durability": 200,
+                "fire_damage": 20
+              },
+              "description": "Đao liệt diễm, có thể thiêu rụi kẻ địch",
+              "crafting": {
+                "materials": ["blaze_crystal", "inferno_metal", "fire_essence"],
+                "cost": 1000
+              }
+            },
+            "thien": {
+              "name": "Thiên Hỏa Đao",
+              "emoji": "⚡",
+              "rarity": "thien",
+              "level": 4,
+              "stats": {
+                "attack": 65,
+                "critical": 35,
+                "durability": 320,
+                "fire_damage": 35
+              },
+              "description": "Đao thiên hỏa, có thể triệu hồi lửa trời",
+              "crafting": {
+                "materials": ["heaven_fire", "divine_metal", "celestial_essence"],
+                "cost": 3500
+              }
+            },
+            "than": {
+              "name": "Diệt Thế Ma Đao",
+              "emoji": "💀",
+              "rarity": "than",
+              "level": 5,
+              "stats": {
+                "attack": 100,
+                "critical": 50,
+                "durability": 500,
+                "fire_damage": 60
+              },
+              "description": "Ma đao có thể thiêu rụi cả thế giới",
+              "crafting": {
+                "materials": ["demon_crystal", "hell_metal", "destruction_essence"],
+                "cost": 25000
+              }
+            }
+          }
+        },
+        "quyen": {
+          "name": "Quyền Thủ",
+          "description": "Vũ khí phụ của Hỏa hệ, sử dụng đấm đá kết hợp lửa",
+          "types": {
+            "pham": {
+              "name": "Hỏa Quyền",
+              "emoji": "👊",
+              "rarity": "pham",
+              "level": 1,
+              "stats": {
+                "attack": 12,
+                "critical": 8,
+                "durability": 60,
+                "fire_damage": 3
+              },
+              "description": "Quyền hỏa cơ bản, có thể đốt cháy kẻ địch",
+              "crafting": {
+                "materials": ["fire_essence", "leather"],
+                "cost": 40
+              }
+            },
+            "huyen": {
+              "name": "Xích Viêm Quyền",
+              "emoji": "🔥",
+              "rarity": "huyen",
+              "level": 2,
+              "stats": {
+                "attack": 20,
+                "critical": 12,
+                "durability": 90,
+                "fire_damage": 8
+              },
+              "description": "Quyền xích viêm, có thể tạo lửa",
+              "crafting": {
+                "materials": ["flame_crystal", "heated_leather", "fire_essence"],
+                "cost": 180
+              }
+            },
+            "dia": {
+              "name": "Liệt Hỏa Quyền",
+              "emoji": "🔥",
+              "rarity": "dia",
+              "level": 3,
+              "stats": {
+                "attack": 30,
+                "critical": 18,
+                "durability": 140,
+                "fire_damage": 15
+              },
+              "description": "Quyền liệt hỏa, có thể tạo vụ nổ",
+              "crafting": {
+                "materials": ["explosion_crystal", "blast_metal", "fire_essence"],
+                "cost": 700
+              }
+            },
+            "thien": {
+              "name": "Bạo Viêm Quyền",
+              "emoji": "💥",
+              "rarity": "thien",
+              "level": 4,
+              "stats": {
+                "attack": 45,
+                "critical": 25,
+                "durability": 220,
+                "fire_damage": 25
+              },
+              "description": "Quyền bạo viêm, có thể tạo siêu vụ nổ",
+              "crafting": {
+                "materials": ["supernova_crystal", "explosion_gem", "blast_essence"],
+                "cost": 2500
+              }
+            },
+            "than": {
+              "name": "Phá Thiên Thần Quyền",
+              "emoji": "⚡",
+              "rarity": "than",
+              "level": 5,
+              "stats": {
+                "attack": 70,
+                "critical": 35,
+                "durability": 350,
+                "fire_damage": 40
+              },
+              "description": "Thần quyền có thể phá vỡ cả thiên địa",
+              "crafting": {
+                "materials": ["heaven_breaker", "god_fist", "destruction_core"],
+                "cost": 30000
+              }
+            }
+          }
+        }
+      }
+    },
+    "tho": {
+      "name": "Thổ Hệ Vũ Khí",
+      "emoji": "🪨",
+      "description": "Vũ khí thổ thuộc tính, chuyên về phòng thủ và sức chịu đựng",
+      "elemental_bonus": {
+        "defense": 0.30,
+        "hp": 0.25,
+        "earth_power": 0.20
+      },
+      "weapons": {
+        "chui": {
+          "name": "Chùy",
+          "description": "Vũ khí chính của Thổ hệ, có sức mạnh phá hủy cao",
+          "types": {
+            "pham": {
+              "name": "Thạch Chùy",
+              "emoji": "🔨",
+              "rarity": "pham",
+              "level": 1,
+              "stats": {
+                "attack": 16,
+                "defense": 8,
+                "durability": 120,
+                "crush": 10
+              },
+              "description": "Chùy đá cơ bản, có thể đập vỡ đá",
+              "crafting": {
+                "materials": ["stone", "wood"],
+                "cost": 50
+              }
+            },
+            "huyen": {
+              "name": "Huyền Thạch Chùy",
+              "emoji": "🪨",
+              "rarity": "huyen",
+              "level": 2,
+              "stats": {
+                "attack": 24,
+                "defense": 12,
+                "durability": 160,
+                "crush": 15
+              },
+              "description": "Chùy huyền thạch, có thể đập vỡ kim loại",
+              "crafting": {
+                "materials": ["mystic_stone", "refined_wood", "earth_crystal"],
+                "cost": 200
+              }
+            },
+            "dia": {
+              "name": "Kim Cang Chùy",
+              "emoji": "💎",
+              "rarity": "dia",
+              "level": 3,
+              "stats": {
+                "attack": 36,
+                "defense": 18,
+                "durability": 240,
+                "crush": 22
+              },
+              "description": "Chùy kim cang, có thể đập vỡ mọi thứ",
+              "crafting": {
+                "materials": ["diamond", "adamantium", "earth_essence"],
+                "cost": 900
+              }
+            },
+            "thien": {
+              "name": "Cự Lực Chùy",
+              "emoji": "💪",
+              "rarity": "thien",
+              "level": 4,
+              "stats": {
+                "attack": 55,
+                "defense": 25,
+                "durability": 380,
+                "crush": 32
+              },
+              "description": "Chùy cự lực, có thể đập vỡ núi",
+              "crafting": {
+                "materials": ["mountain_crystal", "force_gem", "power_essence"],
+                "cost": 3000
+              }
+            },
+            "than": {
+              "name": "Hậu Thổ Thần Chùy",
+              "emoji": "🌍",
+              "rarity": "than",
+              "level": 5,
+              "stats": {
+                "attack": 80,
+                "defense": 35,
+                "durability": 600,
+                "crush": 45
+              },
+              "description": "Thần chùy có thể đập vỡ cả thế giới",
+              "crafting": {
+                "materials": ["world_crystal", "earth_gem", "planet_core"],
+                "cost": 20000
+              }
+            }
+          }
+        },
+        "riu": {
+          "name": "Rìu",
+          "description": "Vũ khí phụ của Thổ hệ, có thể chặt cây và khai thác",
+          "types": {
+            "pham": {
+              "name": "Mộc Rìu",
+              "emoji": "🪓",
+              "rarity": "pham",
+              "level": 1,
+              "stats": {
+                "attack": 14,
+                "defense": 6,
+                "durability": 100,
+                "chop": 8
+              },
+              "description": "Rìu gỗ cơ bản, có thể chặt cây nhỏ",
+              "crafting": {
+                "materials": ["wood", "stone"],
+                "cost": 45
+              }
+            },
+            "huyen": {
+              "name": "Thiết Rìu",
+              "emoji": "⚒️",
+              "rarity": "huyen",
+              "level": 2,
+              "stats": {
+                "attack": 22,
+                "defense": 10,
+                "durability": 140,
+                "chop": 12
+              },
+              "description": "Rìu sắt, có thể chặt cây lớn",
+              "crafting": {
+                "materials": ["iron_ore", "refined_wood", "metal_essence"],
+                "cost": 180
+              }
+            },
+            "dia": {
+              "name": "Hắc Thạch Rìu",
+              "emoji": "🖤",
+              "rarity": "dia",
+              "level": 3,
+              "stats": {
+                "attack": 32,
+                "defense": 15,
+                "durability": 200,
+                "chop": 18
+              },
+              "description": "Rìu hắc thạch, có thể chặt đá",
+              "crafting": {
+                "materials": ["dark_stone", "obsidian", "earth_essence"],
+                "cost": 700
+              }
+            },
+            "thien": {
+              "name": "Cuồng Lực Rìu",
+              "emoji": "💪",
+              "rarity": "thien",
+              "level": 4,
+              "stats": {
+                "attack": 48,
+                "defense": 20,
+                "durability": 300,
+                "chop": 25
+              },
+              "description": "Rìu cuồng lực, có thể chặt núi",
+              "crafting": {
+                "materials": ["force_crystal", "power_gem", "strength_essence"],
+                "cost": 2500
+              }
+            },
+            "than": {
+              "name": "Hạo Thiên Thần Rìu",
+              "emoji": "⚡",
+              "rarity": "than",
+              "level": 5,
+              "stats": {
+                "attack": 70,
+                "defense": 28,
+                "durability": 450,
+                "chop": 35
+              },
+              "description": "Thần rìu có thể chặt đứt cả thiên địa",
+              "crafting": {
+                "materials": ["heaven_axe", "god_metal", "divine_core"],
+                "cost": 18000
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "rarity_levels": {
+    "pham": {
+      "name": "Phàm",
+      "emoji": "⚪",
+      "color": "#808080",
+      "multiplier": 1.0,
+      "description": "Vũ khí phàm phu, chất lượng cơ bản"
+    },
+    "huyen": {
+      "name": "Huyền",
+      "emoji": "🟢",
+      "color": "#00FF00",
+      "multiplier": 1.5,
+      "description": "Vũ khí huyền bí, có sức mạnh đặc biệt"
+    },
+    "dia": {
+      "name": "Địa",
+      "emoji": "🟡",
+      "color": "#FFFF00",
+      "multiplier": 2.0,
+      "description": "Vũ khí địa cấp, có thể thay đổi chiến trường"
+    },
+    "thien": {
+      "name": "Thiên",
+      "emoji": "🟠",
+      "color": "#FF8000",
+      "multiplier": 3.0,
+      "description": "Vũ khí thiên cấp, có sức mạnh hủy diệt"
+    },
+    "than": {
+      "name": "Thần",
+      "emoji": "🔴",
+      "color": "#FF0000",
+      "multiplier": 5.0,
+      "description": "Thần khí, có thể thay đổi cả thế giới"
+    }
+  },
+  "crafting_system": {
+    "description": "Hệ thống chế tạo vũ khí dựa trên ngũ hành và cấp độ",
+    "requirements": {
+      "pham": "Cần nguyên liệu cơ bản",
+      "huyen": "Cần nguyên liệu huyền bí + Linh thạch",
+      "dia": "Cần nguyên liệu địa cấp + Linh thạch trung phẩm",
+      "thien": "Cần nguyên liệu thiên cấp + Linh thạch thượng phẩm",
+      "than": "Cần nguyên liệu thần cấp + Linh thạch cự phẩm"
+    }
+  }
+}
