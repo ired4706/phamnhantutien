@@ -211,7 +211,9 @@ module.exports = {
         '🔴 Hồng Ngọc Địa', '🟢 Lục Ngọc Địa', '🟡 Hoàng Thạch Địa',
         '🔵 Lam Thạch Địa', '⚡ Tinh Tốc Thạch Địa', '⚫ Hắc Thạch Địa',
         '🔮 Trận Văn Thạch', '🟠 Huyền Kim Thiết', '🟢 Huyền Thanh Mộc',
-        '💎 Huyền Thủy Tinh', '🔥 Huyền Hỏa Thạch', '🟡 Huyền Hoàng Thổ'
+        '💎 Huyền Thủy Tinh', '🔥 Huyền Hỏa Thạch', '🟡 Huyền Hoàng Thổ',
+        '⚫ Huyền Thiết Tinh Phách', '🟢 Ngọc Mộc Linh Tủy', '🔵 Lam Thủy Minh Châu',
+        '🔴 Xích Viêm Tâm Hỏa', '🟡 Huyền Thổ Linh Kết'
       ],
       epic: [
         '✨ Ngân Tinh Thiên Khôi', '🩸 Huyết Thạch Thiên Tâm', '💎 Huyết Châu Linh',
@@ -226,7 +228,8 @@ module.exports = {
         '🟡 Hoàng Thạch Thần', '🔵 Lam Thạch Thần', '⚡ Tinh Tốc Thạch Thần',
         '⚫ Hắc Thạch Thần', '💎 Thần Ngọc Tâm', '🟠 Thần Kim Thiết',
         '🟢 Thần Thanh Mộc', '💎 Thần Thủy Tinh', '🔥 Thần Hỏa Thạch',
-        '🟡 Thần Hoàng Thổ'
+        '🟡 Thần Hoàng Thổ', '🟠 Thần Kim Thánh Thiết', '🟢 Tiên Mộc Thánh Tủy',
+        '💎 Thần Thủy Tinh Ngọc', '🔥 Thánh Viêm Chân Hỏa', '🟡 Thần Thổ Chí Tinh'
       ]
     };
   }

@@ -8,85 +8,54 @@
           "name": "Giáp Da Thô",
           "emoji": "🥋",
           "rarity": "pham",
-          "level": 1,
-          "stats": {
-            "defense": 8,
-            "hp": 20,
-            "durability": 80,
-            "weight": 5
-          },
           "description": "Giáp da thô cơ bản, bảo vệ tối thiểu",
           "crafting": {
-            "materials": ["leather", "string"],
-            "cost": 30
+            "da_thu_tho": 8,
+            "tinh_thiet_tho": 2
           }
         },
         "huyen": {
           "name": "Giáp Đồng",
           "emoji": "🛡️",
           "rarity": "huyen",
-          "level": 2,
-          "stats": {
-            "defense": 15,
-            "hp": 35,
-            "durability": 120,
-            "weight": 8
-          },
           "description": "Giáp đồng tinh xảo, bảo vệ tốt hơn",
           "crafting": {
-            "materials": ["copper", "refined_leather", "metal_essence"],
-            "cost": 150
+            "da_linh_thu": 6,
+            "dong_tinh_luyen": 3,
+            "da_thu_tho": 4
           }
         },
         "dia": {
           "name": "Giáp Hắc Thiết",
           "emoji": "⚔️",
           "rarity": "dia",
-          "level": 3,
-          "stats": {
-            "defense": 25,
-            "hp": 60,
-            "durability": 200,
-            "weight": 12
-          },
           "description": "Giáp hắc thiết cứng cáp, có thể chống đỡ đao kiếm",
           "crafting": {
-            "materials": ["dark_iron", "steel", "defense_crystal"],
-            "cost": 600
+            "da_dia_thu": 10,
+            "huyen_tinh_dia_tam": 2,
+            "ho_linh_tam_ket": 1
           }
         },
         "thien": {
           "name": "Giáp Bạch Ngọc",
           "emoji": "💎",
           "rarity": "thien",
-          "level": 4,
-          "stats": {
-            "defense": 40,
-            "hp": 100,
-            "durability": 350,
-            "weight": 15
-          },
           "description": "Giáp bạch ngọc, có thể phản đòn",
           "crafting": {
-            "materials": ["white_jade", "divine_metal", "protection_essence"],
-            "cost": 2000
+            "da_thien_thu": 12,
+            "ngan_tinh_thien_khoi": 2,
+            "huyen_giap_lan": 1
           }
         },
         "than": {
           "name": "Thần Giáp Kim Cang",
           "emoji": "⚜️",
           "rarity": "than",
-          "level": 5,
-          "stats": {
-            "defense": 65,
-            "hp": 150,
-            "durability": 600,
-            "weight": 20
-          },
           "description": "Thần giáp kim cang, bất hoại trước mọi vũ khí",
           "crafting": {
-            "materials": ["diamond_armor", "god_metal", "immortality_core"],
-            "cost": 15000
+            "da_than_thu": 20,
+            "thien_tinh_than_khi": 3,
+            "hon_thach_nguyen": 2
           }
         }
       }
@@ -99,85 +68,54 @@
           "name": "Giáp Vải Gai",
           "emoji": "👘",
           "rarity": "pham",
-          "level": 1,
-          "stats": {
-            "defense": 5,
-            "mp": 15,
-            "spirit_resistance": 10,
-            "weight": 2
-          },
           "description": "Đạo bào vải gai cơ bản, tăng cường linh khí nhẹ",
           "crafting": {
-            "materials": ["hemp", "spirit_thread"],
-            "cost": 25
+            "da_thu_tho": 6,
+            "tinh_thiet_tho": 3
           }
         },
         "huyen": {
           "name": "Giáp Lân Bạc",
           "emoji": "✨",
           "rarity": "huyen",
-          "level": 2,
-          "stats": {
-            "defense": 10,
-            "mp": 30,
-            "spirit_resistance": 20,
-            "weight": 3
-          },
           "description": "Đạo bào lân bạc, tăng cường linh khí tốt",
           "crafting": {
-            "materials": ["silver_fabric", "spirit_crystal", "magic_thread"],
-            "cost": 120
+            "da_linh_thu": 6,
+            "dong_tinh_luyen": 3,
+            "da_thu_tho": 2
           }
         },
         "dia": {
           "name": "Giáp Uẩn Linh",
           "emoji": "🌟",
           "rarity": "dia",
-          "level": 3,
-          "stats": {
-            "defense": 18,
-            "mp": 50,
-            "spirit_resistance": 35,
-            "weight": 4
-          },
           "description": "Đạo bào uẩn linh, có thể hấp thụ linh khí",
           "crafting": {
-            "materials": ["spirit_fabric", "soul_crystal", "essence_thread"],
-            "cost": 500
+            "da_dia_thu": 10,
+            "huyen_tinh_dia_tam": 2,
+            "ho_linh_tam_ket": 1
           }
         },
         "thien": {
           "name": "Giáp Thiên Lam",
           "emoji": "🌌",
           "rarity": "thien",
-          "level": 4,
-          "stats": {
-            "defense": 30,
-            "mp": 80,
-            "spirit_resistance": 60,
-            "weight": 6
-          },
-          "description": "Đạo bào thiên lam, có thể bay lượn",
+          "description": "Đạo bào thiên lam, chứa linh khí thiên đình",
           "crafting": {
-            "materials": ["heaven_fabric", "sky_crystal", "flight_essence"],
-            "cost": 1800
+            "da_thien_thu": 12,
+            "ngan_tinh_thien_khoi": 2,
+            "huyen_giap_lan": 1
           }
         },
         "than": {
           "name": "Thần Giáp Huyền Thiên",
-          "emoji": "🔮",
+          "emoji": "🌠",
           "rarity": "than",
-          "level": 5,
-          "stats": {
-            "defense": 50,
-            "mp": 120,
-            "spirit_resistance": 100,
-            "weight": 8
-          },
-          "description": "Thần đạo bào có thể biến hóa vô hình",
+          "description": "Thần giáp huyền thiên, chứa linh khí thần thánh",
           "crafting": {
-            "materials": ["god_fabric", "mystic_crystal", "transformation_core"],
-            "cost": 12000
+            "da_than_thu": 20,
+            "thien_tinh_than_khi": 3,
+            "hon_thach_nguyen": 2
           }
         }
       }
@@ -190,176 +128,114 @@
           "name": "Giày Da Thường",
           "emoji": "👞",
           "rarity": "pham",
-          "level": 1,
-          "stats": {
-            "speed": 5,
-            "evasion": 3,
-            "durability": 60,
-            "weight": 2
-          },
           "description": "Giày da thường cơ bản, tăng tốc độ nhẹ",
           "crafting": {
-            "materials": ["leather", "rubber_sole"],
-            "cost": 20
+            "da_thu_tho": 4,
+            "thanh_van_to": 2
           }
         },
         "huyen": {
           "name": "Giày Vân Hành",
           "emoji": "☁️",
           "rarity": "huyen",
-          "level": 2,
-          "stats": {
-            "speed": 10,
-            "evasion": 6,
-            "durability": 90,
-            "weight": 2
-          },
           "description": "Giày vân hành, có thể đi trên mây",
           "crafting": {
-            "materials": ["cloud_fabric", "wind_crystal", "lightness_essence"],
-            "cost": 100
+            "da_linh_thu": 5,
+            "nguyet_anh_to": 2,
+            "da_thu_tho": 2
           }
         },
         "dia": {
           "name": "Giày Ảnh Ẩn",
           "emoji": "👻",
           "rarity": "dia",
-          "level": 3,
-          "stats": {
-            "speed": 18,
-            "evasion": 12,
-            "durability": 140,
-            "weight": 3
-          },
           "description": "Giày ảnh ẩn, có thể ẩn thân",
           "crafting": {
-            "materials": ["shadow_fabric", "stealth_crystal", "invisibility_essence"],
-            "cost": 400
+            "da_dia_thu": 6,
+            "dia_ha_to": 3,
+            "hu_anh_linh_ket": 1
           }
         },
         "thien": {
           "name": "Giày Phi Vân",
           "emoji": "🚀",
           "rarity": "thien",
-          "level": 4,
-          "stats": {
-            "speed": 30,
-            "evasion": 20,
-            "durability": 220,
-            "weight": 4
-          },
           "description": "Giày phi vân, có thể bay nhanh",
           "crafting": {
-            "materials": ["flying_fabric", "speed_crystal", "velocity_essence"],
-            "cost": 1500
+            "da_thien_thu": 8,
+            "tinh_ha_to": 3,
+            "dieu_anh_vu": 1
           }
         },
         "than": {
           "name": "Thần Khởi Lôi Bộ",
           "emoji": "⚡",
           "rarity": "than",
-          "level": 5,
-          "stats": {
-            "speed": 50,
-            "evasion": 35,
-            "durability": 350,
-            "weight": 5
-          },
           "description": "Thần giày có thể di chuyển nhanh như sấm sét",
           "crafting": {
-            "materials": ["thunder_fabric", "lightning_crystal", "speed_core"],
-            "cost": 10000
+            "da_than_thu": 10,
+            "tien_ha_van_to": 4,
+            "hon_thach_nguyen": 2
           }
         }
       }
     },
     "training_boots": {
       "name": "Giày Luyện Thể",
-      "description": "Giày chuyên dụng cho luyện tập, tăng cường thể chất",
+      "description": "Giày chuyên dụng cho việc luyện tập và tu luyện",
       "types": {
         "pham": {
           "name": "Giày Luyện Thể",
-          "emoji": "🏃",
+          "emoji": "👟",
           "rarity": "pham",
-          "level": 1,
-          "stats": {
-            "speed": 3,
-            "stamina": 8,
-            "durability": 80,
-            "weight": 3
-          },
-          "description": "Giày luyện thể cơ bản, tăng sức bền",
+          "description": "Giày luyện thể cơ bản, tăng cường tốc độ luyện tập",
           "crafting": {
-            "materials": ["training_leather", "cushion"],
-            "cost": 35
+            "da_thu_tho": 4,
+            "thanh_van_to": 2
           }
         },
         "huyen": {
           "name": "Giày Thanh Ảnh",
-          "emoji": "💚",
+          "emoji": "🌙",
           "rarity": "huyen",
-          "level": 2,
-          "stats": {
-            "speed": 6,
-            "stamina": 15,
-            "durability": 120,
-            "weight": 3
-          },
-          "description": "Giày thanh ảnh, tăng cường hồi phục",
+          "description": "Giày thanh ảnh, tăng cường tốc độ luyện tập",
           "crafting": {
-            "materials": ["healing_fabric", "recovery_crystal", "vitality_essence"],
-            "cost": 150
+            "da_linh_thu": 5,
+            "nguyet_anh_to": 2,
+            "da_thu_tho": 2
           }
         },
         "dia": {
           "name": "Giày Thủy Ảnh",
           "emoji": "💧",
           "rarity": "dia",
-          "level": 3,
-          "stats": {
-            "speed": 12,
-            "stamina": 25,
-            "durability": 180,
-            "weight": 4
-          },
-          "description": "Giày thủy ảnh, có thể chạy trên nước",
+          "description": "Giày thủy ảnh, tăng cường tốc độ luyện tập",
           "crafting": {
-            "materials": ["water_fabric", "liquid_crystal", "flow_essence"],
-            "cost": 600
+            "da_dia_thu": 6,
+            "dia_ha_to": 3,
+            "hu_anh_linh_ket": 1
           }
         },
         "thien": {
           "name": "Giày Hỏa Vũ",
           "emoji": "🔥",
           "rarity": "thien",
-          "level": 4,
-          "stats": {
-            "speed": 20,
-            "stamina": 40,
-            "durability": 280,
-            "weight": 5
-          },
-          "description": "Giày hỏa vũ, có thể bay trên lửa",
+          "description": "Giày hỏa vũ, tăng cường tốc độ luyện tập",
           "crafting": {
-            "materials": ["fire_fabric", "flame_crystal", "burning_essence"],
-            "cost": 2000
+            "da_thien_thu": 8,
+            "tinh_ha_to": 3,
+            "dieu_anh_vu": 1
           }
         },
         "than": {
           "name": "Thần Vân Ảnh Bộ",
-          "emoji": "🌈",
+          "emoji": "☁️",
           "rarity": "than",
-          "level": 5,
-          "stats": {
-            "speed": 35,
-            "stamina": 60,
-            "durability": 450,
-            "weight": 6
-          },
-          "description": "Thần giày có thể đi trên cầu vồng",
+          "description": "Thần giày có thể di chuyển nhanh như gió",
           "crafting": {
-            "materials": ["rainbow_fabric", "prism_crystal", "spectrum_core"],
-            "cost": 12000
+            "da_than_thu": 10,
+            "tien_ha_van_to": 4,
+            "hon_thach_nguyen": 2
           }
         }
       }
@@ -368,89 +244,46 @@
       "name": "Nhẫn",
       "description": "Trang bị phụ kiện, tăng cường các thuộc tính đặc biệt",
       "types": {
-        "pham": {
-          "name": "Nhẫn Thanh Thạch",
-          "emoji": "💍",
-          "rarity": "pham",
-          "level": 1,
-          "stats": {
-            "mp": 10,
-            "spirit_power": 5,
-            "durability": 100,
-            "weight": 1
-          },
-          "description": "Nhẫn thanh thạch cơ bản, tăng linh khí nhẹ",
-          "crafting": {
-            "materials": ["green_stone", "silver_band"],
-            "cost": 50
-          }
-        },
         "huyen": {
           "name": "Nhẫn Bạch Ngân",
           "emoji": "💎",
           "rarity": "huyen",
-          "level": 2,
-          "stats": {
-            "mp": 20,
-            "spirit_power": 12,
-            "durability": 150,
-            "weight": 1
-          },
           "description": "Nhẫn bạch ngân, tăng cường linh khí tốt",
           "crafting": {
-            "materials": ["silver", "spirit_crystal", "magic_band"],
-            "cost": 200
+            "ngoc_thach_thanh_khiet": 3,
+            "dong_tinh_luyen": 2
           }
         },
         "dia": {
           "name": "Nhẫn Huyền Ngọc",
           "emoji": "🔮",
           "rarity": "dia",
-          "level": 3,
-          "stats": {
-            "mp": 35,
-            "spirit_power": 22,
-            "durability": 250,
-            "weight": 1
-          },
           "description": "Nhẫn huyền ngọc, có thể lưu trữ pháp thuật",
           "crafting": {
-            "materials": ["mystic_jade", "spell_crystal", "storage_essence"],
-            "cost": 800
+            "lam_thach_bang_tam": 4,
+            "huyen_tinh_dia_tam": 2,
+            "huyet_viem_tuy_ket": 1
           }
         },
         "thien": {
           "name": "Nhẫn Tinh Quang",
-          "emoji": "⭐",
+          "emoji": "✨",
           "rarity": "thien",
-          "level": 4,
-          "stats": {
-            "mp": 55,
-            "spirit_power": 35,
-            "durability": 400,
-            "weight": 1
-          },
-          "description": "Nhẫn tinh quang, có thể triệu hồi sao",
+          "description": "Nhẫn tinh quang, chứa linh khí thiên thể",
           "crafting": {
-            "materials": ["star_crystal", "light_gem", "stellar_essence"],
-            "cost": 2500
+            "huyet_thach_thien_tam": 5,
+            "ngan_tinh_thien_khoi": 2,
+            "chien_hon_nha": 1
           }
         },
         "than": {
           "name": "Nhẫn Vĩnh Hằng",
-          "emoji": "♾️",
+          "emoji": "💫",
           "rarity": "than",
-          "level": 5,
-          "stats": {
-            "mp": 80,
-            "spirit_power": 50,
-            "durability": 600,
-            "weight": 1
-          },
-          "description": "Thần nhẫn có thể điều khiển thời gian",
+          "description": "Nhẫn vĩnh hằng, chứa linh khí thần thánh",
           "crafting": {
-            "materials": ["eternity_crystal", "time_gem", "infinity_core"],
-            "cost": 20000
+            "than_ngoc_tinh_tam": 2,
+            "hon_thach_nguyen": 2
           }
         }
       }
@@ -459,143 +292,96 @@
       "name": "Ngọc Bội",
       "description": "Trang bị phụ kiện cổ, tăng cường sức mạnh tổng thể",
       "types": {
-        "pham": {
-          "name": "Ngọc Bội Trúc",
-          "emoji": "🎋",
-          "rarity": "pham",
-          "level": 1,
-          "stats": {
-            "hp": 15,
-            "mp": 8,
-            "all_stats": 2,
-            "weight": 1
-          },
-          "description": "Ngọc bội trúc cơ bản, tăng cường nhẹ mọi thuộc tính",
-          "crafting": {
-            "materials": ["bamboo_jade", "string"],
-            "cost": 40
-          }
-        },
         "huyen": {
           "name": "Ngọc Bội Thanh Liễu",
           "emoji": "🌿",
           "rarity": "huyen",
-          "level": 2,
-          "stats": {
-            "hp": 25,
-            "mp": 15,
-            "all_stats": 4,
-            "weight": 1
-          },
           "description": "Ngọc bội thanh liễu, tăng cường mọi thuộc tính",
           "crafting": {
-            "materials": ["willow_jade", "nature_crystal", "balance_essence"],
-            "cost": 180
+            "ngoc_thach_thanh_khiet": 3,
+            "dong_tinh_luyen": 2
           }
         },
         "dia": {
           "name": "Ngọc Bội Hắc Thủy",
           "emoji": "🌊",
           "rarity": "dia",
-          "level": 3,
-          "stats": {
-            "hp": 40,
-            "mp": 25,
-            "all_stats": 7,
-            "weight": 1
-          },
           "description": "Ngọc bội hắc thủy, có thể cân bằng âm dương",
           "crafting": {
-            "materials": ["dark_water_jade", "balance_crystal", "harmony_essence"],
-            "cost": 700
+            "lam_thach_bang_tam": 4,
+            "huyen_tinh_dia_tam": 2,
+            "huyet_viem_tuy_ket": 1
           }
         },
         "thien": {
           "name": "Ngọc Bội Minh Nguyệt",
           "emoji": "🌙",
           "rarity": "thien",
-          "level": 4,
-          "stats": {
-            "hp": 60,
-            "mp": 40,
-            "all_stats": 12,
-            "weight": 1
-          },
-          "description": "Ngọc bội minh nguyệt, có thể hấp thụ ánh trăng",
+          "description": "Ngọc bội minh nguyệt, chứa linh khí thiên thể",
           "crafting": {
-            "materials": ["moon_jade", "lunar_crystal", "moonlight_essence"],
-            "cost": 2200
+            "huyet_thach_thien_tam": 5,
+            "ngan_tinh_thien_khoi": 2,
+            "lam_tam_chau": 1
           }
         },
         "than": {
           "name": "Ngọc Bội Thần Quang",
-          "emoji": "☀️",
+          "emoji": "🌟",
           "rarity": "than",
-          "level": 5,
-          "stats": {
-            "hp": 90,
-            "mp": 60,
-            "all_stats": 20,
-            "weight": 1
-          },
-          "description": "Thần ngọc bội có thể phát ra ánh sáng thần thánh",
+          "description": "Ngọc bội thần quang, chứa linh khí thần thánh",
           "crafting": {
-            "materials": ["divine_jade", "god_crystal", "holiness_core"],
-            "cost": 15000
+            "than_ngoc_tinh_tam": 2,
+            "hon_thach_nguyen": 2
           }
         }
       }
-    }
-  },
-  "equipment_sets": {
-    "kim_set": {
-      "name": "Kim Hệ Trang Bị",
-      "emoji": "⚔️",
-      "description": "Bộ trang bị kim hệ, tăng cường tấn công và phòng thủ",
-      "bonus": {
-        "2_pieces": "Tăng 15% Tấn công",
-        "4_pieces": "Tăng 25% Phòng thủ",
-        "6_pieces": "Kích hoạt 'Kim Thân Bất Hoại' - Giảm 30% sát thương nhận vào"
-      }
     },
-    "moc_set": {
-      "name": "Mộc Hệ Trang Bị",
-      "emoji": "🌿",
-      "description": "Bộ trang bị mộc hệ, tăng cường hồi phục và sức sống",
-      "bonus": {
-        "2_pieces": "Tăng 20% Hồi phục HP",
-        "4_pieces": "Tăng 30% Hồi phục MP",
-        "6_pieces": "Kích hoạt 'Mộc Linh Trường Sinh' - Tự động hồi phục 5% HP mỗi lượt"
-      }
-    },
-    "thuy_set": {
-      "name": "Thủy Hệ Trang Bị",
-      "emoji": "💧",
-      "description": "Bộ trang bị thủy hệ, tăng cường tốc độ và né tránh",
-      "bonus": {
-        "2_pieces": "Tăng 18% Tốc độ",
-        "4_pieces": "Tăng 25% Né tránh",
-        "6_pieces": "Kích hoạt 'Thủy Nguyệt Vô Biên' - Có 20% cơ hội né tránh hoàn toàn"
-      }
-    },
-    "hoa_set": {
-      "name": "Hỏa Hệ Trang Bị",
-      "emoji": "🔥",
-      "description": "Bộ trang bị hỏa hệ, tăng cường sát thương và chí mạng",
-      "bonus": {
-        "2_pieces": "Tăng 20% Tấn công",
-        "4_pieces": "Tăng 25% Chí mạng",
-        "6_pieces": "Kích hoạt 'Hỏa Long Phá Thiên' - Có 30% cơ hội gây thêm 100% sát thương"
-      }
-    },
-    "tho_set": {
-      "name": "Thổ Hệ Trang Bị",
-      "emoji": "🪨",
-      "description": "Bộ trang bị thổ hệ, tăng cường phòng thủ và sức chịu đựng",
-      "bonus": {
-        "2_pieces": "Tăng 20% Phòng thủ",
-        "4_pieces": "Tăng 25% HP",
-        "6_pieces": "Kích hoạt 'Thổ Địa Bất Động' - Giảm 40% sát thương nhận vào khi HP dưới 30%"
+    "earrings": {
+      "name": "Hoa Tai",
+      "description": "Trang bị phụ kiện tai, tăng cường sức mạnh đặc biệt",
+      "types": {
+        "huyen": {
+          "name": "Hoa Tai Thanh Vân",
+          "emoji": "☁️",
+          "rarity": "huyen",
+          "description": "Hoa tai thanh vân, tăng cường linh khí",
+          "crafting": {
+            "ngoc_thach_thanh_khiet": 3,
+            "dong_tinh_luyen": 2
+          }
+        },
+        "dia": {
+          "name": "Hoa Tai Hồng Vũ",
+          "emoji": "🌸",
+          "rarity": "dia",
+          "description": "Hoa tai hồng vũ, tăng cường linh khí",
+          "crafting": {
+            "lam_thach_bang_tam": 4,
+            "huyen_tinh_dia_tam": 2,
+            "huyet_viem_tuy_ket": 1
+          }
+        },
+        "thien": {
+          "name": "Hoa Tai Tinh Hà",
+          "emoji": "⭐",
+          "rarity": "thien",
+          "description": "Hoa tai tinh hà, chứa linh khí thiên thể",
+          "crafting": {
+            "huyet_thach_thien_tam": 5,
+            "ngan_tinh_thien_khoi": 2,
+            "lam_tam_chau": 1
+          }
+        },
+        "than": {
+          "name": "Hoa Tai Thái Hư",
+          "emoji": "🌌",
+          "rarity": "than",
+          "description": "Hoa tai thái hư, chứa linh khí thần thánh",
+          "crafting": {
+            "than_ngoc_tinh_tam": 2,
+            "hon_thach_nguyen": 2
+          }
+        }
       }
     }
   },
@@ -637,9 +423,9 @@
     }
   },
   "crafting_system": {
-    "description": "Hệ thống chế tạo trang bị dựa trên ngũ hành và cấp độ",
+    "description": "Hệ thống chế tạo trang bị dựa trên nguyên liệu từ hunt, mine và special items",
     "requirements": {
-      "pham": "Cần nguyên liệu cơ bản",
+      "pham": "Cần nguyên liệu cơ bản từ hunt (da_thu_tho, thanh_van_to)",
       "huyen": "Cần nguyên liệu huyền bí + Linh thạch",
       "dia": "Cần nguyên liệu địa cấp + Linh thạch trung phẩm",
       "thien": "Cần nguyên liệu thiên cấp + Linh thạch thượng phẩm",

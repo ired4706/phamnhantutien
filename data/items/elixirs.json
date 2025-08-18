@@ -1,1155 +1,829 @@
 {
-  "elixirs": {
-    "dan_duong_the_so_cap": {
-      "name": "Đan Dưỡng Thể Sơ Cấp",
-      "emoji": "💊",
-      "description": "Đan dược cơ bản giúp dưỡng thể, tăng cường sức khỏe",
-      "type": "elixir",
-      "rarity": "pham",
-      "rarity_level": 1,
-      "effects": {
-        "hp": 20,
-        "stamina": 10,
-        "recovery": 5
-      },
-      "crafting": {
-        "materials": [
-          {"id": "ngu_nien_sam", "name": "Ngũ niên sâm", "quantity": 1, "emoji": "🌿"},
-          {"id": "thanh_diep_thao", "name": "Thanh diệp thảo", "quantity": 1, "emoji": "🍃"},
-          {"id": "tieu_long_lan_qua", "name": "Tiểu long lân quả", "quantity": 1, "emoji": "🍎"}
-        ],
-        "cost": 100,
-        "success_rate": 85
-      },
-      "value": 150
+  "dan_duong_the_so_cap": {
+    "name": "Đan Dưỡng Thể Sơ Cấp",
+    "emoji": "💊",
+    "description": "Đan dược cơ bản giúp dưỡng thể, tăng cường sức khỏe",
+    "rarity": "pham",
+    "effects": {
+      "hp": 20,
+      "stamina": 10,
+      "recovery": 5
     },
-    "dan_bo_khi": {
-      "name": "Đan Bổ Khí",
-      "emoji": "💨",
-      "description": "Đan dược bổ sung linh khí, tăng cường tu vi",
-      "type": "elixir",
-      "rarity": "pham",
-      "rarity_level": 1,
-      "effects": {
-        "mp": 25,
-        "spirit_power": 8,
-        "cultivation_speed": 3
-      },
-      "crafting": {
-        "materials": [
-          {"name": "Ngũ niên sâm", "quantity": 1, "emoji": "🌿"},
-          {"name": "Thanh diệp thảo", "quantity": 1, "emoji": "🍃"},
-          {"name": "Tiểu long lân quả", "quantity": 1, "emoji": "🍎"}
-        ],
-        "cost": 120,
-        "success_rate": 80
-      },
-      "value": 180
+    "crafting": {
+      "ngu_nien_sam": 1,
+      "thanh_diep_thao": 1,
+      "tieu_long_lan_qua": 1
     },
-    "dan_cuong_than_so_cap": {
-      "name": "Đan Cường Thân Sơ Cấp",
-      "emoji": "💪",
-      "description": "Đan dược tăng cường thể chất, củng cố cơ bắp",
-      "type": "elixir",
-      "rarity": "pham",
-      "rarity_level": 1,
-      "effects": {
-        "defense": 8,
-        "hp": 15,
-        "strength": 5
-      },
-      "crafting": {
-        "materials": [
-          {"id": "ngu_nien_sam", "name": "Ngũ niên sâm", "quantity": 1, "emoji": "🌿"},
-          {"id": "huyet_diep_thao", "name": "Huyết diệp thảo", "quantity": 1, "emoji": "🩸"},
-          {"id": "thach_can_thao", "name": "Thạch căn thảo", "quantity": 1, "emoji": "🪨"}
-        ],
-        "cost": 130,
-        "success_rate": 82
-      },
-      "value": 200
+    "value": 150
+  },
+  "dan_bo_khi": {
+    "name": "Đan Bổ Khí",
+    "emoji": "💨",
+    "description": "Đan dược bổ sung linh khí, tăng cường tu vi",
+    "rarity": "pham",
+    "effects": {
+      "mp": 25,
+      "spirit_power": 8,
+      "cultivation_speed": 3
     },
-    "dan_bao_kich_so_cap": {
-      "name": "Đan Bạo Kích Sơ Cấp",
-      "emoji": "🔥",
-      "description": "Đan dược tăng cường sức mạnh tấn công",
-      "type": "elixir",
-      "rarity": "pham",
-      "rarity_level": 1,
-      "effects": {
-        "attack": 10,
-        "critical": 3,
-        "fire_power": 5
-      },
-      "crafting": {
-        "materials": [
-          {"id": "ngu_nien_sam", "name": "Ngũ niên sâm", "quantity": 1, "emoji": "🌿"},
-          {"id": "huyet_diep_thao", "name": "Huyết diệp thảo", "quantity": 1, "emoji": "🩸"},
-          {"id": "liet_hoa_hoa", "name": "Liệt hỏa hoa", "quantity": 1, "emoji": "🔥"}
-        ],
-        "cost": 140,
-        "success_rate": 78
-      },
-      "value": 220
+    "crafting": {
+      "ngu_nien_sam": 1,
+      "thanh_diep_thao": 1,
+      "tieu_long_lan_qua": 1
     },
-    "dan_tan_cong_so_cap": {
-      "name": "Đan Tấn Công Sơ Cấp",
-      "emoji": "⚔️",
-      "description": "Đan dược tăng cường khả năng tấn công tổng thể",
-      "type": "elixir",
-      "rarity": "pham",
-      "rarity_level": 1,
-      "effects": {
-        "attack": 12,
-        "speed": 4,
-        "agility": 3
-      },
-      "crafting": {
-        "materials": [
-          {"id": "ngu_nien_sam", "name": "Ngũ niên sâm", "quantity": 1, "emoji": "🌿"},
-          {"id": "huyet_diep_thao", "name": "Huyết diệp thảo", "quantity": 1, "emoji": "🩸"},
-          {"id": "ho_luc_qua", "name": "Hổ lực quả", "quantity": 1, "emoji": "🐯"}
-        ],
-        "cost": 150,
-        "success_rate": 75
-      },
-      "value": 250
+    "value": 180
+  },
+  "dan_cuong_than_so_cap": {
+    "name": "Đan Cường Thân Sơ Cấp",
+    "emoji": "💪",
+    "description": "Đan dược tăng cường thể chất, củng cố cơ bắp",
+    "rarity": "pham",
+    "effects": {
+      "defense": 8,
+      "hp": 15,
+      "strength": 5
     },
-    "dan_than_toc_so_cap": {
-      "name": "Đan Thần Tốc Sơ Cấp",
-      "emoji": "⚡",
-      "description": "Đan dược tăng cường tốc độ di chuyển và phản ứng",
-      "type": "elixir",
-      "rarity": "pham",
-      "rarity_level": 1,
-      "effects": {
-        "speed": 8,
-        "evasion": 5,
-        "reaction_time": 2
-      },
-      "crafting": {
-        "materials": [
-          {"id": "ngu_nien_sam", "name": "Ngũ niên sâm", "quantity": 1, "emoji": "🌿"},
-          {"id": "huyet_diep_thao", "name": "Huyết diệp thảo", "quantity": 1, "emoji": "🩸"},
-          {"id": "phong_linh_thao", "name": "Phong linh thảo", "quantity": 1, "emoji": "💨"}
-        ],
-        "cost": 160,
-        "success_rate": 80
-      },
-      "value": 280
+    "crafting": {
+      "ngu_nien_sam": 1,
+      "huyet_diep_thao": 1,
+      "thach_can_thao": 1
     },
-    "dan_sinh_co_so_cap": {
-      "name": "Đan Sinh Cơ Sơ Cấp",
-      "emoji": "🌱",
-      "description": "Đan dược tăng cường sức sống và khả năng hồi phục",
-      "type": "elixir",
-      "rarity": "pham",
-      "rarity_level": 1,
-      "effects": {
-        "hp": 25,
-        "recovery": 8,
-        "vitality": 5
-      },
-      "crafting": {
-        "materials": [
-          {"id": "ngu_nien_sam", "name": "Ngũ niên sâm", "quantity": 1, "emoji": "🌿"},
-          {"id": "huyet_diep_thao", "name": "Huyết diệp thảo", "quantity": 1, "emoji": "🩸"},
-          {"id": "sinh_mach_thao", "name": "Sinh mạch thảo", "quantity": 1, "emoji": "💚"}
-        ],
-        "cost": 170,
-        "success_rate": 85
-      },
-      "value": 300
+    "value": 200
+  },
+  "dan_bao_kich_so_cap": {
+    "name": "Đan Bạo Kích Sơ Cấp",
+    "emoji": "🔥",
+    "description": "Đan dược tăng cường sức mạnh tấn công",
+    "rarity": "pham",
+    "effects": {
+      "attack": 10,
+      "critical": 3,
+      "fire_power": 5
     },
-    "dan_an_than_so_cap": {
-      "name": "Đan Ẩn Thân Sơ Cấp",
-      "emoji": "👻",
-      "description": "Đan dược tăng cường khả năng ẩn thân và né tránh",
-      "type": "elixir",
-      "rarity": "pham",
-      "rarity_level": 1,
-      "effects": {
-        "stealth": 8,
-        "evasion": 6,
-        "shadow_power": 3
-      },
-      "crafting": {
-        "materials": [
-          {"id": "ngu_nien_sam", "name": "Ngũ niên sâm", "quantity": 1, "emoji": "🌿"},
-          {"id": "huyet_diep_thao", "name": "Huyết diệp thảo", "quantity": 1, "emoji": "🩸"},
-          {"id": "anh_diep_thao", "name": "Ảnh diệp thảo", "quantity": 1, "emoji": "🌑"}
-        ],
-        "cost": 180,
-        "success_rate": 70
-      },
-      "value": 320
+    "crafting": {
+      "ngu_nien_sam": 1,
+      "huyet_diep_thao": 1,
+      "liet_hoa_hoa": 1
     },
-    "giai_doc_dan": {
-      "name": "Giải Độc Đan",
-      "emoji": "🩹",
-      "description": "Đan dược giải độc cơ bản, loại bỏ các loại độc thường",
-      "type": "elixir",
-      "rarity": "pham",
-      "rarity_level": 1,
-      "effects": {
-        "poison_resistance": 15,
-        "detoxification": 10,
-        "immunity": 3
-      },
-      "crafting": {
-        "materials": [
-          {"id": "thanh_diep_thao", "name": "Thanh diệp thảo", "quantity": 1, "emoji": "🍃"},
-          {"id": "tieu_long_lan_qua", "name": "Tiểu long lân quả", "quantity": 1, "emoji": "🍎"},
-          {"id": "thanh_tam_thao", "name": "Thanh tâm thảo", "quantity": 1, "emoji": "💚"}
-        ],
-        "cost": 90,
-        "success_rate": 90
-      },
-      "value": 150
+    "value": 220
+  },
+  "dan_tan_cong_so_cap": {
+    "name": "Đan Tấn Công Sơ Cấp",
+    "emoji": "⚔️",
+    "description": "Đan dược tăng cường khả năng tấn công tổng thể",
+    "rarity": "pham",
+    "effects": {
+      "attack": 12,
+      "speed": 4,
+      "agility": 3
     },
-    "thanh_tam_dan": {
-      "name": "Thanh Tâm Đan",
-      "emoji": "🧘",
-      "description": "Đan dược thanh tâm, tăng cường tinh thần và tập trung",
-      "type": "elixir",
-      "rarity": "pham",
-      "rarity_level": 1,
-      "effects": {
-        "mental_clarity": 12,
-        "focus": 8,
-        "meditation_bonus": 5
-      },
-      "crafting": {
-        "materials": [
-          {"name": "Thanh diệp thảo", "quantity": 1, "emoji": "🍃"},
-          {"name": "Tiểu long lân quả", "quantity": 1, "emoji": "🍎"},
-          {"name": "Thanh tâm thảo", "quantity": 1, "emoji": "💚"}
-        ],
-        "cost": 100,
-        "success_rate": 88
-      },
-      "value": 180
+    "crafting": {
+      "ngu_nien_sam": 1,
+      "huyet_diep_thao": 1,
+      "ho_luc_qua": 1
     },
-    "bang_giai_dan": {
-      "name": "Băng Giải Đan",
-      "emoji": "❄️",
-      "description": "Đan dược giải nhiệt, chữa trị các bệnh do hỏa độc",
-      "type": "elixir",
-      "rarity": "pham",
-      "rarity_level": 1,
-      "effects": {
-        "fire_resistance": 15,
-        "cooling": 10,
-        "healing": 8
-      },
-      "crafting": {
-        "materials": [
-          {"id": "thanh_diep_thao", "name": "Thanh diệp thảo", "quantity": 1, "emoji": "🍃"},
-          {"id": "tieu_long_lan_qua", "name": "Tiểu long lân quả", "quantity": 1, "emoji": "🍎"},
-          {"id": "", "name": "Hỏa tinh thạch", "quantity": 1, "emoji": "🔥"}
-        ],
-        "cost": 110,
-        "success_rate": 85
-      },
-      "value": 200
+    "value": 250
+  },
+  "dan_than_toc_so_cap": {
+    "name": "Đan Thần Tốc Sơ Cấp",
+    "emoji": "⚡",
+    "description": "Đan dược tăng cường tốc độ di chuyển và phản ứng",
+    "rarity": "pham",
+    "effects": {
+      "speed": 8,
+      "evasion": 5,
+      "reaction_time": 2
     },
-    "hoa_giai_dan": {
-      "name": "Hỏa Giải Đan",
-      "emoji": "🔥",
-      "description": "Đan dược giải hàn, chữa trị các bệnh do hàn độc",
-      "type": "elixir",
-      "rarity": "pham",
-      "rarity_level": 1,
-      "effects": {
-        "ice_resistance": 15,
-        "warming": 10,
-        "circulation": 8
-      },
-      "crafting": {
-        "materials": [
-          {"id": "thanh_diep_thao", "name": "Thanh diệp thảo", "quantity": 1, "emoji": "🍃"},
-          {"id": "tieu_long_lan_qua", "name": "Tiểu long lân quả", "quantity": 1, "emoji": "🍎"},
-          {"id": "", "name": "Băng tinh thạch", "quantity": 1, "emoji": "🧊"}
-        ],
-        "cost": 110,
-        "success_rate": 85
-      },
-      "value": 200
+    "crafting": {
+      "ngu_nien_sam": 1,
+      "huyet_diep_thao": 1,
+      "phong_linh_thao": 1
     },
-    "dan_duong_the_trung_cap": {
-      "name": "Đan Dưỡng Thể Trung Cấp",
-      "emoji": "💊",
-      "description": "Đan dược trung cấp giúp dưỡng thể, tăng cường sức khỏe mạnh mẽ",
-      "type": "elixir",
-      "rarity": "huyen",
-      "rarity_level": 2,
-      "effects": {
-        "hp": 45,
-        "stamina": 25,
-        "recovery": 15,
-        "vitality": 8
-      },
-      "crafting": {
-        "materials": [
-          {"id": "thap_nien_sam", "name": "Thập niên sâm", "quantity": 2, "emoji": "🌿"},
-          {"id": "tu_van_thao", "name": "Tử vân thảo", "quantity": 1, "emoji": "☁️"},
-          {"id": "tieu_long_lan_qua", "name": "Tiểu long lân quả", "quantity": 1, "emoji": "🍎"}
-        ],
-        "cost": 300,
-        "success_rate": 75
-      },
-      "value": 450
+    "value": 280
+  },
+  "dan_sinh_co_so_cap": {
+    "name": "Đan Sinh Cơ Sơ Cấp",
+    "emoji": "🌱",
+    "description": "Đan dược tăng cường sức sống và khả năng hồi phục",
+    "rarity": "pham",
+    "effects": {
+      "hp": 25,
+      "recovery": 8,
+      "vitality": 5
     },
-    "dan_bo_khi_trung_cap": {
-      "name": "Đan Bổ Khí Trung Cấp",
-      "emoji": "💨",
-      "description": "Đan dược trung cấp bổ sung linh khí, tăng cường tu vi đáng kể",
-      "type": "elixir",
-      "rarity": "huyen",
-      "rarity_level": 2,
-      "effects": {
-        "mp": 60,
-        "spirit_power": 20,
-        "cultivation_speed": 8,
-        "spirit_affinity": 5
-      },
-      "crafting": {
-        "materials": [
-          {"id": "thap_nien_sam", "name": "Thập niên sâm", "quantity": 2, "emoji": "🌿"},
-          {"id": "tu_van_thao", "name": "Tử vân thảo", "quantity": 1, "emoji": "☁️"},
-          {"id": "tieu_long_lan_qua", "name": "Tiểu long lân quả", "quantity": 1, "emoji": "🍎"}
-        ],
-        "cost": 350,
-        "success_rate": 72
-      },
-      "value": 550
+    "crafting": {
+      "ngu_nien_sam": 1,
+      "huyet_diep_thao": 1,
+      "sinh_mach_thao": 1
     },
-    "dan_cuong_than": {
-      "name": "Đan Cường Thân",
-      "emoji": "💪",
-      "description": "Đan dược trung cấp tăng cường thể chất, củng cố cơ bắp mạnh mẽ",
-      "type": "elixir",
-      "rarity": "huyen",
-      "rarity_level": 2,
-      "effects": {
-        "defense": 20,
-        "hp": 35,
-        "strength": 12,
-        "endurance": 8
-      },
-      "crafting": {
-        "materials": [
-          {"id": "thap_nien_sam", "name": "Thập niên sâm", "quantity": 2, "emoji": "🌿"},
-          {"id": "hong_tinh_thao", "name": "Hồng tinh thảo", "quantity": 1, "emoji": "🔴"},
-          {"id": "", "name": "Hộ linh tâm kết", "quantity": 1, "emoji": "💎"}
-        ],
-        "cost": 400,
-        "success_rate": 70
-      },
-      "value": 650
+    "value": 300
+  },
+  "dan_an_than_so_cap": {
+    "name": "Đan Ẩn Thân Sơ Cấp",
+    "emoji": "👻",
+    "description": "Đan dược tăng cường khả năng ẩn thân và né tránh",
+    "rarity": "pham",
+    "effects": {
+      "stealth": 8,
+      "evasion": 6,
+      "shadow_power": 3
     },
-    "dan_bao_kich": {
-      "name": "Đan Bạo Kích",
-      "emoji": "🔥",
-      "description": "Đan dược trung cấp tăng cường sức mạnh tấn công hủy diệt",
-      "type": "elixir",
-      "rarity": "huyen",
-      "rarity_level": 2,
-      "effects": {
-        "attack": 25,
-        "critical": 8,
-        "fire_power": 15,
-        "explosion_damage": 10
-      },
-      "crafting": {
-        "materials": [
-          {"id": "thap_nien_sam", "name": "Thập niên sâm", "quantity": 2, "emoji": "🌿"},
-          {"id": "hong_tinh_thao", "name": "Hồng tinh thảo", "quantity": 1, "emoji": "🔴"},
-          {"id": "", "name": "Huyết viêm tủy kết", "quantity": 1, "emoji": "🔥"}
-        ],
-        "cost": 450,
-        "success_rate": 68
-      },
-      "value": 750
+    "crafting": {
+      "ngu_nien_sam": 1,
+      "huyet_diep_thao": 1,
+      "anh_diep_thao": 1
     },
-    "dan_tan_cong": {
-      "name": "Đan Tấn Công",
-      "emoji": "⚔️",
-      "description": "Đan dược trung cấp tăng cường khả năng tấn công tổng thể mạnh mẽ",
-      "type": "elixir",
-      "rarity": "huyen",
-      "rarity_level": 2,
-      "effects": {
-        "attack": 30,
-        "speed": 12,
-        "agility": 8,
-        "combat_mastery": 5
-      },
-      "crafting": {
-        "materials": [
-          {"name": "Thập niên sâm", "quantity": 2, "emoji": "🌿"},
-          {"name": "Hồng tinh thảo", "quantity": 1, "emoji": "🔴"},
-          {"name": "Huyết viêm tủy kết", "quantity": 1, "emoji": "🔥"}
-        ],
-        "cost": 500,
-        "success_rate": 65
-      },
-      "value": 850
+    "value": 320
+  },
+  "giai_doc_dan": {
+    "name": "Giải Độc Đan",
+    "emoji": "🩹",
+    "description": "Đan dược giải độc cơ bản, loại bỏ các loại độc thường",
+    "rarity": "pham",
+    "effects": {
+      "poison_resistance": 15,
+      "detoxification": 10,
+      "immunity": 3
     },
-    "dan_than_toc": {
-      "name": "Đan Thần Tốc",
-      "emoji": "⚡",
-      "description": "Đan dược trung cấp tăng cường tốc độ di chuyển và phản ứng siêu nhanh",
-      "type": "elixir",
-      "rarity": "huyen",
-      "rarity_level": 2,
-      "effects": {
-        "speed": 20,
-        "evasion": 12,
-        "reaction_time": 5,
-        "lightning_reflexes": 8
-      },
-      "crafting": {
-        "materials": [
-          {"id": "thap_nien_sam", "name": "Thập niên sâm", "quantity": 2, "emoji": "🌿"},
-          {"id": "hong_tinh_thao", "name": "Hồng tinh thảo", "quantity": 1, "emoji": "🔴"},
-          {"id": "", "name": "Hư ảnh linh kết", "quantity": 1, "emoji": "👻"}
-        ],
-        "cost": 550,
-        "success_rate": 62
-      },
-      "value": 950
+    "crafting": {
+      "thanh_diep_thao": 1,
+      "tieu_long_lan_qua": 1,
+      "giac_van_thao": 1
     },
-    "dan_sinh_co": {
-      "name": "Đan Sinh Cơ",
-      "emoji": "🌱",
-      "description": "Đan dược trung cấp tăng cường sức sống và khả năng hồi phục thần kỳ",
-      "type": "elixir",
-      "rarity": "huyen",
-      "rarity_level": 2,
-      "effects": {
-        "hp": 60,
-        "recovery": 20,
-        "vitality": 15,
-        "regeneration": 10
-      },
-      "crafting": {
-        "materials": [
-          {"id": "thap_nien_sam", "name": "Thập niên sâm", "quantity": 2, "emoji": "🌿"},
-          {"id": "hong_tinh_thao", "name": "Hồng tinh thảo", "quantity": 1, "emoji": "🔴"},
-          {"id": "", "name": "Hộ linh tâm kết", "quantity": 1, "emoji": "💎"}
-        ],
-        "cost": 600,
-        "success_rate": 75
-      },
-      "value": 1050
+    "value": 350
+  },
+  "thanh_tam_dan": {
+    "name": "Thanh Tâm Đan",
+    "emoji": "🧘",
+    "description": "Đan dược thanh tâm, tăng cường tinh thần và tập trung",
+    "rarity": "pham",
+    "effects": {
+      "mental_clarity": 12,
+      "focus": 8,
+      "meditation_bonus": 5
     },
-    "dan_an_than": {
-      "name": "Đan Ẩn Thân",
-      "emoji": "👻",
-      "description": "Đan dược trung cấp tăng cường khả năng ẩn thân và né tránh siêu phàm",
-      "type": "elixir",
-      "rarity": "huyen",
-      "rarity_level": 2,
-      "effects": {
-        "stealth": 20,
-        "evasion": 15,
-        "shadow_power": 10,
-        "invisibility": 5
-      },
-      "crafting": {
-        "materials": [
-          {"id": "thap_nien_sam", "name": "Thập niên sâm", "quantity": 2, "emoji": "🌿"},
-          {"id": "hong_tinh_thao", "name": "Hồng tinh thảo", "quantity": 1, "emoji": "🔴"},
-          {"id": "", "name": "Hư ảnh linh kết", "quantity": 1, "emoji": "👻"}
-        ],
-        "cost": 650,
-        "success_rate": 60
-      },
-      "value": 1150
+    "crafting": {
+      "thanh_diep_thao": 1,
+      "tieu_long_lan_qua": 1,
+      "thanh_tam_thao": 1
     },
-    "thanh_linh_dan": {
-      "name": "Thanh Linh Đan",
-      "emoji": "💚",
-      "description": "Đan dược trung cấp thanh lọc linh khí, tăng cường tinh khiết",
-      "type": "elixir",
-      "rarity": "huyen",
-      "rarity_level": 2,
-      "effects": {
-        "spirit_purification": 25,
-        "mp": 50,
-        "spirit_affinity": 12,
-        "meditation_bonus": 8
-      },
-      "crafting": {
-        "materials": [
-          {"id": "thap_nien_sam", "name": "Thập niên sâm", "quantity": 2, "emoji": "🌿"},
-          {"id": "tu_van_thao", "name": "Tử vân thảo", "quantity": 1, "emoji": "☁️"},
-          {"id": "thanh_lan_qua", "name": "Thanh lân quả", "quantity": 1, "emoji": "💎"},
-          {"id": "hong_tinh_thao", "name": "Hồng tinh thảo", "quantity": 1, "emoji": "🔴"}
-        ],
-        "cost": 700,
-        "success_rate": 65
-      },
-      "value": 1200
+    "value": 180
+  },
+  "bang_giai_dan": {
+    "name": "Băng Giải Đan",
+    "emoji": "❄️",
+    "description": "Đan dược giải nhiệt, chữa trị các bệnh do hỏa độc",
+    "rarity": "pham",
+    "effects": {
+      "fire_resistance": 15,
+      "cooling": 10,
+      "healing": 8
     },
-    "truc_co_dan": {
-      "name": "Trúc Cơ Đan",
-      "emoji": "🌱",
-      "description": "Đan dược trung cấp hỗ trợ đột phá Trúc Cơ, tăng cường nền tảng tu luyện",
-      "type": "elixir",
-      "rarity": "huyen",
-      "rarity_level": 2,
-      "effects": {
-        "breakthrough_bonus": 30,
-        "foundation_strength": 20,
-        "cultivation_stability": 15,
-        "realm_affinity": 10
-      },
-      "crafting": {
-        "materials": [
-          {"id": "thap_nien_sam", "name": "Thập niên sâm", "quantity": 2, "emoji": "🌿"},
-          {"id": "tu_van_thao", "name": "Tử vân thảo", "quantity": 1, "emoji": "☁️"},
-          {"id": "thanh_lan_qua", "name": "Thanh lân quả", "quantity": 1, "emoji": "💎"},
-          {"id": "tu_hau_hoa", "name": "Tử hầu hoa", "quantity": 1, "emoji": "🌸"}
-        ],
-        "cost": 800,
-        "success_rate": 58
-      },
-      "value": 1500
+    "crafting": {
+      "thanh_diep_thao": 1,
+      "tieu_long_lan_qua": 1,
+      "hoa_tinh_thach": 1
     },
-    "dan_duong_the_cao_cap": {
-      "name": "Đan Dưỡng Thể Cao Cấp",
-      "emoji": "💊",
-      "description": "Đan dược địa cấp giúp dưỡng thể, tăng cường sức khỏe phi thường",
-      "type": "elixir",
-      "rarity": "dia",
-      "rarity_level": 3,
-      "effects": {
-        "hp": 100,
-        "stamina": 50,
-        "recovery": 30,
-        "vitality": 20,
-        "immortality": 5
-      },
-      "crafting": {
-        "materials": [
-          {"id": "bach_nien_sam", "name": "Bách niên sâm", "quantity": 2, "emoji": "🌿"},
-          {"id": "ngoc_diep_thao", "name": "Ngọc diệp thảo", "quantity": 1, "emoji": "💎"},
-          {"id": "thanh_lan_qua", "name": "Thanh lân quả", "quantity": 1, "emoji": "💎"}
-        ],
-        "cost": 1500,
-        "success_rate": 60
-      },
-      "value": 2500
+    "value": 200
+  },
+  "hoa_giai_dan": {
+    "name": "Hỏa Giải Đan",
+    "emoji": "🔥",
+    "description": "Đan dược giải hàn, chữa trị các bệnh do hàn độc",
+    "rarity": "pham",
+    "effects": {
+      "ice_resistance": 15,
+      "warming": 10,
+      "circulation": 8
     },
-    "dan_bo_khi_cao_cap": {
-      "name": "Đan Bổ Khí Cao Cấp",
-      "emoji": "💨",
-      "description": "Đan dược địa cấp bổ sung linh khí, tăng cường tu vi phi thường",
-      "type": "elixir",
-      "rarity": "dia",
-      "rarity_level": 3,
-      "effects": {
-        "mp": 120,
-        "spirit_power": 40,
-        "cultivation_speed": 15,
-        "spirit_affinity": 20,
-        "realm_understanding": 10
-      },
-      "crafting": {
-        "materials": [
-          {"id": "bach_nien_sam", "name": "Bách niên sâm", "quantity": 2, "emoji": "🌿"},
-          {"id": "ngoc_diep_thao", "name": "Ngọc diệp thảo", "quantity": 1, "emoji": "💎"},
-          {"id": "thanh_lan_qua", "name": "Thanh lân quả", "quantity": 1, "emoji": "💎"}
-        ],
-        "cost": 1800,
-        "success_rate": 58
-      },
-      "value": 3000
+    "crafting": {
+      "thanh_diep_thao": 1,
+      "tieu_long_lan_qua": 1,
+      "bang_tinh_thach": 1
     },
-    "ngung_co_dan": {
-      "name": "Ngưng Cơ Đan",
-      "emoji": "🌱",
-      "description": "Đan dược địa cấp giúp ngưng tụ cơ thể, tăng cường thể chất siêu phàm",
-      "type": "elixir",
-      "rarity": "dia",
-      "rarity_level": 3,
-      "effects": {
-        "defense": 50,
-        "hp": 80,
-        "strength": 30,
-        "endurance": 25,
-        "body_consolidation": 15
-      },
-      "crafting": {
-        "materials": [
-          {"id": "bach_nien_sam", "name": "Bách niên sâm", "quantity": 2, "emoji": "🌿"},
-          {"id": "ngoc_diep_thao", "name": "Ngọc diệp thảo", "quantity": 1, "emoji": "💎"},
-          {"id": "long_lan_qua", "name": "Long lân quả", "quantity": 1, "emoji": "🐉"},
-          {"id": "xich_van_thao", "name": "Xích vân thảo", "quantity": 1, "emoji": "☁️"}
-        ],
-        "cost": 2200,
-        "success_rate": 55
-      },
-      "value": 4000
+    "value": 200
+  },
+  "dan_duong_the_trung_cap": {
+    "name": "Đan Dưỡng Thể Trung Cấp",
+    "emoji": "💊",
+    "description": "Đan dược trung cấp giúp dưỡng thể, tăng cường sức khỏe mạnh mẽ",
+    "rarity": "huyen",
+    "effects": {
+      "hp": 45,
+      "stamina": 25,
+      "recovery": 15,
+      "vitality": 8
     },
-    "hong_tran_dan": {
-      "name": "Hồng Trần Đan",
-      "emoji": "🌸",
-      "description": "Đan dược địa cấp giúp thanh lọc hồng trần, tăng cường tinh thần",
-      "type": "elixir",
-      "rarity": "dia",
-      "rarity_level": 3,
-      "effects": {
-        "mental_clarity": 40,
-        "focus": 25,
-        "meditation_bonus": 20,
-        "spirit_purification": 30,
-        "enlightenment": 10
-      },
-      "crafting": {
-        "materials": [
-          {"id": "bach_nien_sam", "name": "Bách niên sâm", "quantity": 2, "emoji": "🌿"},
-          {"id": "ngoc_diep_thao", "name": "Ngọc diệp thảo", "quantity": 1, "emoji": "💎"},
-          {"id": "long_lan_qua", "name": "Long lân quả", "quantity": 1, "emoji": "🐉"},
-          {"id": "that_ha_lien", "name": "Thất hà liên", "quantity": 1, "emoji": "🌺"}
-        ],
-        "cost": 2500,
-        "success_rate": 52
-      },
-      "value": 5000
+    "crafting": {
+      "thap_nien_sam": 2,
+      "tu_van_thao": 1,
+      "tieu_long_lan_qua": 1
     },
-    "tu_dan_dan": {
-      "name": "Tụ Đan Đan",
-      "emoji": "🔮",
-      "description": "Đan dược thiên cấp giúp tụ đan, tăng cường khả năng luyện đan",
-      "type": "elixir",
-      "rarity": "thien",
-      "rarity_level": 4,
-      "effects": {
-        "alchemy_mastery": 50,
-        "elixir_quality": 30,
-        "success_rate": 25,
-        "spirit_control": 20,
-        "elemental_affinity": 15
-      },
-      "crafting": {
-        "materials": [
-          {"id": "thien_nien_sam", "name": "Thiên niên sâm", "quantity": 2, "emoji": "🌿"},
-          {"id": "bich_quang_thao", "name": "Bích quang thảo", "quantity": 1, "emoji": "💎"},
-          {"id": "thien_linh_qua", "name": "Thiên linh quả", "quantity": 1, "emoji": "⭐"},
-          {"id": "ngoc_huyen_chi", "name": "Ngọc huyền chi", "quantity": 1, "emoji": "💎"}
-        ],
-        "cost": 5000,
-        "success_rate": 45
-      },
-      "value": 10000
+    "value": 450
+  },
+  "dan_bo_khi_trung_cap": {
+    "name": "Đan Bổ Khí Trung Cấp",
+    "emoji": "💨",
+    "description": "Đan dược trung cấp bổ sung linh khí, tăng cường tu vi đáng kể",
+    "rarity": "huyen",
+    "effects": {
+      "mp": 60,
+      "spirit_power": 20,
+      "cultivation_speed": 8,
+      "spirit_affinity": 5
     },
-    "dinh_linh_dan": {
-      "name": "Định Linh Đan",
-      "emoji": "🧘",
-      "description": "Đan dược thiên cấp giúp định linh, ổn định linh khí",
-      "type": "elixir",
-      "rarity": "thien",
-      "rarity_level": 4,
-      "effects": {
-        "spirit_stability": 60,
-        "cultivation_control": 40,
-        "realm_stability": 30,
-        "breakthrough_safety": 25,
-        "spirit_balance": 20
-      },
-      "crafting": {
-        "materials": [
-          {"id": "thien_nien_sam", "name": "Thiên niên sâm", "quantity": 2, "emoji": "🌿"},
-          {"id": "bich_quang_thao", "name": "Bích quang thảo", "quantity": 1, "emoji": "💎"},
-          {"id": "thien_linh_qua", "name": "Thiên linh quả", "quantity": 1, "emoji": "⭐"},
-          {"id": "thien_tam_lien", "name": "Thiên tâm liên", "quantity": 1, "emoji": "🌸"}
-        ],
-        "cost": 6000,
-        "success_rate": 42
-      },
-      "value": 12000
+    "crafting": {
+      "thap_nien_sam": 2,
+      "tu_van_thao": 1,
+      "tieu_long_lan_qua": 1
     },
-    "duong_anh_dan": {
-      "name": "Dưỡng Anh Đan",
-      "emoji": "👶",
-      "description": "Đan dược thiên cấp giúp dưỡng nguyên anh, tăng cường tu vi",
-      "type": "elixir",
-      "rarity": "thien",
-      "rarity_level": 4,
-      "effects": {
-        "soul_strength": 80,
-        "spirit_essence": 50,
-        "immortality": 30,
-        "divine_affinity": 25,
-        "transcendence": 20
-      },
-      "crafting": {
-        "materials": [
-          {"id": "van_nien_sam", "name": "Vạn niên sâm", "quantity": 2, "emoji": "🌿"},
-          {"id": "kim_tam_thao", "name": "Kim tâm thảo", "quantity": 1, "emoji": "💎"},
-          {"id": "long_tuy_qua", "name": "Long tủy quả", "quantity": 1, "emoji": "🐉"},
-          {"id": "tien_huyet_chi_lan", "name": "Tiên huyết chi lan", "quantity": 1, "emoji": "🌺"}
-        ],
-        "cost": 8000,
-        "success_rate": 35
-      },
-      "value": 20000
+    "value": 550
+  },
+  "dan_cuong_than": {
+    "name": "Đan Cường Thân",
+    "emoji": "💪",
+    "description": "Đan dược trung cấp tăng cường thể chất, củng cố cơ bắp mạnh mẽ",
+    "rarity": "huyen",
+    "effects": {
+      "defense": 20,
+      "hp": 35,
+      "strength": 12,
+      "endurance": 8
     },
-    "thien_van_dan": {
-      "name": "Thiên Vận Đan",
-      "emoji": "☁️",
-      "description": "Đan dược thiên cấp giúp nắm bắt thiên vận, tăng cường vận may",
-      "type": "elixir",
-      "rarity": "thien",
-      "rarity_level": 4,
-      "effects": {
-        "luck": 100,
-        "fate_manipulation": 60,
-        "destiny_control": 40,
-        "heavenly_favor": 30,
-        "miracle_chance": 25
-      },
-      "crafting": {
-        "materials": [
-          {"id": "thien_van_hoa", "name": "Thiên vận hoa", "quantity": 2, "emoji": "🌸"},
-          {"id": "", "name": "Tinh Vận Thạch", "quantity": 2, "emoji": "💎"}
-        ],
-        "cost": 10000,
-        "success_rate": 30
-      },
-      "value": 30000
+    "crafting": {
+      "thap_nien_sam": 2,
+      "hong_tinh_thao": 1,
+      "ho_linh_tam_ket": 1
     },
-    "hoi_hon_dan": {
-      "name": "Hồi Hồn Đan",
-      "emoji": "💀",
-      "description": "Đan dược thiên cấp giúp hồi hồn, phục hồi linh hồn",
-      "type": "elixir",
-      "rarity": "thien",
-      "rarity_level": 4,
-      "effects": {
-        "soul_restoration": 80,
-        "memory_recovery": 50,
-        "consciousness_repair": 40,
-        "spirit_rebirth": 30,
-        "immortality": 25
-      },
-      "crafting": {
-        "materials": [
-          {"id": "thien_nien_sam", "name": "Thiên niên sâm", "quantity": 2, "emoji": "🌿"},
-          {"id": "bich_quang_thao", "name": "Bích quang thảo", "quantity": 1, "emoji": "💎"},
-          {"id": "long_lan_qua", "name": "Long lân quả", "quantity": 1, "emoji": "🐉"}
-        ],
-        "cost": 7000,
-        "success_rate": 38
-      },
-      "value": 15000
+    "value": 650
+  },
+  "dan_bao_kich": {
+    "name": "Đan Bạo Kích",
+    "emoji": "🔥",
+    "description": "Đan dược trung cấp tăng cường sức mạnh tấn công hủy diệt",
+    "rarity": "huyen",
+    "effects": {
+      "attack": 25,
+      "critical": 8,
+      "fire_power": 15,
+      "explosion_damage": 10
     },
-    "than_hoi_dan": {
-      "name": "Thánh Hồi Đan",
-      "emoji": "✨",
-      "description": "Đan dược thiên cấp giúp hồi phục thánh thể, tăng cường sức mạnh thần thánh",
-      "type": "elixir",
-      "rarity": "thien",
-      "rarity_level": 4,
-      "effects": {
-        "divine_healing": 100,
-        "holy_power": 60,
-        "sacred_restoration": 50,
-        "godly_favor": 40,
-        "immortality": 35
-      },
-      "crafting": {
-        "materials": [
-          {"id": "thien_nien_sam", "name": "Thiên niên sâm", "quantity": 2, "emoji": "🌿"},
-          {"id": "bich_quang_thao", "name": "Bích quang thảo", "quantity": 1, "emoji": "💎"},
-          {"id": "thien_linh_qua", "name": "Thiên linh quả", "quantity": 1, "emoji": "⭐"}
-        ],
-        "cost": 9000,
-        "success_rate": 32
-      },
-      "value": 25000
+    "crafting": {
+      "thap_nien_sam": 2,
+      "hong_tinh_thao": 1,
+      "huyet_viem_tuy_ket": 1
     },
-    "bach_luyen_dan": {
-      "name": "Bách Luyện Đan",
-      "emoji": "⚔️",
-      "description": "Đan dược thiên cấp giúp luyện tập trăm lần, tăng cường chiến đấu",
-      "type": "elixir",
-      "rarity": "thien",
-      "rarity_level": 4,
-      "effects": {
-        "combat_mastery": 80,
-        "weapon_proficiency": 50,
-        "battle_experience": 40,
-        "warrior_spirit": 30,
-        "martial_arts": 25
-      },
-      "crafting": {
-        "materials": [
-          {"id": "thien_nien_sam", "name": "Thiên niên sâm", "quantity": 2, "emoji": "🌿"},
-          {"id": "chu_thien_huyet_diep", "name": "Chu thiên huyết diệp", "quantity": 1, "emoji": "🩸"},
-          {"id": "", "name": "Chiến hồn nha", "quantity": 1, "emoji": "⚔️"}
-        ],
-        "cost": 7500,
-        "success_rate": 40
-      },
-      "value": 18000
+    "value": 750
+  },
+  "dan_tan_cong": {
+    "name": "Đan Tấn Công",
+    "emoji": "⚔️",
+    "description": "Đan dược trung cấp tăng cường khả năng tấn công tổng thể mạnh mẽ",
+    "rarity": "huyen",
+    "effects": {
+      "attack": 30,
+      "speed": 12,
+      "agility": 8,
+      "combat_mastery": 5
     },
-    "huyen_kim_dan": {
-      "name": "Huyền Kim Đan",
-      "emoji": "💎",
-      "description": "Đan dược thiên cấp giúp tăng cường huyền kim, củng cố phòng thủ",
-      "type": "elixir",
-      "rarity": "thien",
-      "rarity_level": 4,
-      "effects": {
-        "defense": 100,
-        "armor_strength": 60,
-        "damage_reduction": 50,
-        "invincibility": 30,
-        "guardian_spirit": 25
-      },
-      "crafting": {
-        "materials": [
-          {"id": "thien_nien_sam", "name": "Thiên niên sâm", "quantity": 2, "emoji": "🌿"},
-          {"id": "chu_thien_huyet_diep", "name": "Chu thiên huyết diệp", "quantity": 1, "emoji": "🩸"},
-          {"id": "", "name": "Huyền giáp lân", "quantity": 1, "emoji": "🛡️"}
-        ],
-        "cost": 8000,
-        "success_rate": 38
-      },
-      "value": 20000
+    "crafting": {
+      "thap_nien_sam": 2,
+      "hong_tinh_thao": 1,
+      "huyet_viem_tuy_ket": 1
     },
-    "huyet_mach_dan": {
-      "name": "Huyết Mạch Đan",
-      "emoji": "🩸",
-      "description": "Đan dược thiên cấp giúp tăng cường huyết mạch, củng cố sức sống",
-      "type": "elixir",
-      "rarity": "thien",
-      "rarity_level": 4,
-      "effects": {
-        "hp": 200,
-        "blood_power": 80,
-        "vitality": 60,
-        "regeneration": 50,
-        "immortality": 40
-      },
-      "crafting": {
-        "materials": [
-          {"name": "Thiên niên sâm", "quantity": 2, "emoji": "🌿"},
-          {"name": "Chu thiên huyết diệp", "quantity": 1, "emoji": "🩸"},
-          {"name": "Huyền giáp lân", "quantity": 1, "emoji": "🛡️"}
-        ],
-        "cost": 8500,
-        "success_rate": 35
-      },
-      "value": 22000
+    "value": 750
+  },
+  "dan_than_toc": {
+    "name": "Đan Thần Tốc",
+    "emoji": "⚡",
+    "description": "Đan dược trung cấp tăng cường tốc độ di chuyển và phản ứng siêu nhanh",
+    "rarity": "huyen",
+    "effects": {
+      "speed": 20,
+      "evasion": 12,
+      "reaction_time": 5,
+      "lightning_reflexes": 8
     },
-    "thanh_tam_dan_thien": {
-      "name": "Thanh Tâm Đan",
-      "emoji": "🧘",
-      "description": "Đan dược thiên cấp giúp thanh tâm, tăng cường tinh thần siêu phàm",
-      "type": "elixir",
-      "rarity": "thien",
-      "rarity_level": 4,
-      "effects": {
-        "mental_clarity": 100,
-        "spirit_purification": 80,
-        "enlightenment": 60,
-        "divine_wisdom": 50,
-        "transcendence": 40
-      },
-      "crafting": {
-        "materials": [
-          {"id": "thien_nien_sam", "name": "Thiên niên sâm", "quantity": 2, "emoji": "🌿"},
-          {"id": "chu_thien_huyet_diep", "name": "Chu thiên huyết diệp", "quantity": 1, "emoji": "🩸"},
-          {"id": "", "name": "Lam Tâm Châu", "quantity": 1, "emoji": "💎"}
-        ],
-        "cost": 9000,
-        "success_rate": 32
-      },
-      "value": 25000
+    "crafting": {
+      "thap_nien_sam": 2,
+      "hong_tinh_thao": 1,
+      "hu_anh_linh_ket": 1
     },
-    "nghich_menh_dan": {
-      "name": "Nghịch Mệnh Đan",
-      "emoji": "⚡",
-      "description": "Đan dược thiên cấp giúp nghịch mệnh, thay đổi số phận",
-      "type": "elixir",
-      "rarity": "thien",
-      "rarity_level": 4,
-      "effects": {
-        "fate_defiance": 100,
-        "destiny_control": 80,
-        "reality_manipulation": 60,
-        "time_control": 50,
-        "space_control": 40
-      },
-      "crafting": {
-        "materials": [
-          {"name": "Thiên niên sâm", "quantity": 2, "emoji": "🌿"},
-          {"name": "Chu thiên huyết diệp", "quantity": 1, "emoji": "🩸"},
-          {"name": "Chiến hồn nha", "quantity": 1, "emoji": "⚔️"}
-        ],
-        "cost": 12000,
-        "success_rate": 25
-      },
-      "value": 35000
+    "value": 950
+  },
+  "dan_sinh_co": {
+    "name": "Đan Sinh Cơ",
+    "emoji": "🌱",
+    "description": "Đan dược trung cấp tăng cường sức sống và khả năng hồi phục thần kỳ",
+    "rarity": "huyen",
+    "effects": {
+      "hp": 60,
+      "recovery": 20,
+      "vitality": 15,
+      "regeneration": 10
     },
-    "tam_hai_dan": {
-      "name": "Tâm Hải Đan",
-      "emoji": "🌊",
-      "description": "Đan dược thiên cấp giúp mở rộng tâm hải, tăng cường tinh thần",
-      "type": "elixir",
-      "rarity": "thien",
-      "rarity_level": 4,
-      "effects": {
-        "mental_capacity": 100,
-        "spirit_ocean": 80,
-        "consciousness_expansion": 60,
-        "mind_control": 50,
-        "psychic_power": 40
-      },
-      "crafting": {
-        "materials": [
-          {"name": "Thiên niên sâm", "quantity": 2, "emoji": "🌿"},
-          {"name": "Chu thiên huyết diệp", "quantity": 1, "emoji": "🩸"},
-          {"name": "Lam Tâm Châu", "quantity": 1, "emoji": "💎"}
-        ],
-        "cost": 10000,
-        "success_rate": 28
-      },
-      "value": 30000
+    "crafting": {
+      "thap_nien_sam": 2,
+      "hong_tinh_thao": 1,
+      "tinh_hai_tam_ket": 1
     },
-    "linh_anh_dan": {
-      "name": "Linh Ảnh Đan",
-      "emoji": "👻",
-      "description": "Đan dược thiên cấp giúp tạo linh ảnh, tăng cường ảo thuật",
-      "type": "elixir",
-      "rarity": "thien",
-      "rarity_level": 4,
-      "effects": {
-        "illusion_mastery": 100,
-        "phantom_creation": 80,
-        "shadow_manipulation": 60,
-        "reality_distortion": 50,
-        "mind_illusion": 40
-      },
-      "crafting": {
-        "materials": [
-          {"id": "thien_nien_sam", "name": "Thiên niên sâm", "quantity": 2, "emoji": "🌿"},
-          {"id": "chu_thien_huyet_diep", "name": "Chu thiên huyết diệp", "quantity": 1, "emoji": "🩸"},
-          {"id": "", "name": "Điêu Ảnh Vũ", "quantity": 1, "emoji": "👻"}
-        ],
-        "cost": 11000,
-        "success_rate": 30
-      },
-      "value": 32000
+    "value": 950
+  },
+  "dan_an_than": {
+    "name": "Đan Ẩn Thân",
+    "emoji": "👻",
+    "description": "Đan dược trung cấp tăng cường khả năng ẩn thân và né tránh siêu phàm",
+    "rarity": "huyen",
+    "effects": {
+      "stealth": 20,
+      "evasion": 15,
+      "shadow_power": 10,
+      "invisibility": 5
     },
-    "phong_hanh_dan": {
-      "name": "Phong Hành Đan",
-      "emoji": "💨",
-      "description": "Đan dược thiên cấp giúp phong hành, tăng cường tốc độ siêu phàm",
-      "type": "elixir",
-      "rarity": "thien",
-      "rarity_level": 4,
-      "effects": {
-        "speed": 150,
-        "wind_mastery": 100,
-        "flight": 80,
-        "teleportation": 60,
-        "time_acceleration": 50
-      },
-      "crafting": {
-        "materials": [
-          {"id": "thien_nien_sam", "name": "Thiên niên sâm", "quantity": 2, "emoji": "🌿"},
-          {"id": "chu_thien_huyet_diep", "name": "Chu thiên huyết diệp", "quantity": 1, "emoji": "🩸"},
-          {"id": "", "name": "Điêu Ảnh Vũ", "quantity": 1, "emoji": "👻"}
-        ],
-        "cost": 11500,
-        "success_rate": 28
-      },
-      "value": 35000
+    "crafting": {
+      "thap_nien_sam": 2,
+      "hong_tinh_thao": 1,
+      "hu_anh_linh_ket": 1
     },
-    "cuu_chuyen_dan": {
-      "name": "Cửu Chuyển Đan",
-      "emoji": "🔄",
-      "description": "Thần đan cửu chuyển, có thể thay đổi cả thiên địa, tăng cường sức mạnh vô hạn",
-      "type": "elixir",
-      "rarity": "than",
-      "rarity_level": 5,
-      "effects": {
-        "reality_manipulation": 200,
-        "universe_control": 150,
-        "omnipotence": 100,
-        "creation_destruction": 80,
-        "eternal_life": 60
-      },
-      "crafting": {
-        "materials": [
-          {"id": "van_nien_sam", "name": "Vạn niên sâm", "quantity": 2, "emoji": "🌿"},
-          {"id": "kim_tam_thao", "name": "Kim tâm thảo", "quantity": 2, "emoji": "💎"},
-          {"id": "long_tuy_qua", "name": "Long tủy quả", "quantity": 2, "emoji": "🐉"},
-          {"id": "thien_van_hoa", "name": "Thiên vận hoa", "quantity": 1, "emoji": "🌸"}
-        ],
-        "cost": 50000,
-        "success_rate": 15
-      },
-      "value": 100000
+    "value": 1050
+  },
+  "thanh_linh_dan": {
+    "name": "Thanh Linh Đan",
+    "emoji": "💚",
+    "description": "Đan dược trung cấp thanh lọc linh khí, tăng cường tinh khiết",
+    "rarity": "huyen",
+    "effects": {
+      "spirit_purification": 25,
+      "mp": 50,
+      "spirit_affinity": 12,
+      "meditation_bonus": 8
     },
-    "tay_tuy_dan": {
-      "name": "Tẩy Tủy Đan",
-      "emoji": "💎",
-      "description": "Thần đan tẩy tủy, thanh lọc hoàn toàn cơ thể và linh hồn, đạt đến trạng thái siêu phàm",
-      "type": "elixir",
-      "rarity": "than",
-      "rarity_level": 5,
-      "effects": {
-        "body_purification": 200,
-        "soul_cleansing": 150,
-        "divine_transformation": 100,
-        "immortality": 80,
-        "godhood": 60
-      },
-      "crafting": {
-        "materials": [
-          {"id": "van_nien_sam", "name": "Vạn niên sâm", "quantity": 2, "emoji": "🌿"},
-          {"id": "kim_tam_thao", "name": "Kim tâm thảo", "quantity": 2, "emoji": "💎"},
-          {"id": "long_tuy_qua", "name": "Long tủy quả", "quantity": 2, "emoji": "🐉"},
-          {"id": "thien_van_hoa", "name": "Thiên vận hoa", "quantity": 1, "emoji": "🌸"}
-        ],
-        "cost": 60000,
-        "success_rate": 12
-      },
-      "value": 150000
+    "crafting": {
+      "thap_nien_sam": 2,
+      "tu_van_thao": 1,
+      "thanh_lan_qua": 1,
+      "hong_tinh_thao": 1
     },
-    "sinh_menh_dan": {
-      "name": "Sinh Mệnh Đan",
-      "emoji": "🌟",
-      "description": "Thần đan sinh mệnh, tạo ra sự sống mới, khôi phục hoàn toàn mọi thứ",
-      "type": "elixir",
-      "rarity": "than",
-      "rarity_level": 5,
-      "effects": {
-        "life_creation": 200,
-        "complete_restoration": 150,
-        "resurrection": 100,
-        "eternal_youth": 80,
-        "vitality_mastery": 60
-      },
-      "crafting": {
-        "materials": [
-          {"id": "van_nien_sam", "name": "Vạn niên sâm", "quantity": 3, "emoji": "🌿"},
-          {"id": "kim_tam_thao", "name": "Kim tâm thảo", "quantity": 2, "emoji": "💎"},
-          {"id": "long_tuy_qua", "name": "Long tủy quả", "quantity": 2, "emoji": "🐉"}
-        ],
-        "cost": 70000,
-        "success_rate": 10
-      },
-      "value": 200000
+    "value": 1200
+  },
+  "truc_co_dan": {
+    "name": "Trúc Cơ Đan",
+    "emoji": "🌱",
+    "description": "Đan dược trung cấp hỗ trợ đột phá Trúc Cơ, tăng cường nền tảng tu luyện",
+    "rarity": "huyen",
+    "effects": {
+      "breakthrough_bonus": 30,
+      "foundation_strength": 20,
+      "cultivation_stability": 15,
+      "realm_affinity": 10
     },
-    "cuc_pham_cuong_hoa_dan": {
-      "name": "Cực Phẩm Cường Hóa Đan",
-      "emoji": "⚡",
-      "description": "Thần đan cực phẩm, tăng cường mọi thuộc tính đến mức tối đa, vượt qua giới hạn",
-      "type": "elixir",
-      "rarity": "than",
-      "rarity_level": 5,
-      "effects": {
-        "all_stats_max": 300,
-        "limit_break": 200,
-        "ultimate_power": 150,
-        "transcendence": 100,
-        "divine_ascension": 80
-      },
-      "crafting": {
-        "materials": [
-          {"id": "van_nien_sam", "name": "Vạn niên sâm", "quantity": 3, "emoji": "🌿"},
-          {"id": "long_tuy_qua", "name": "Long tủy quả", "quantity": 3, "emoji": "🐉"}
-        ],
-        "cost": 80000,
-        "success_rate": 8
-      },
-      "value": 300000
+    "crafting": {
+      "thap_nien_sam": 2,
+      "tu_van_thao": 1,
+      "thanh_lan_qua": 1,
+      "tu_hau_hoa": 1
     },
-    "khai_mach_dan": {
-      "name": "Khai Mạch Đan",
-      "emoji": "🔓",
-      "description": "Thần đan khai mạch, mở ra tiềm năng vô hạn, đạt đến cảnh giới tối cao",
-      "type": "elixir",
-      "rarity": "than",
-      "rarity_level": 5,
-      "effects": {
-        "potential_unlock": 250,
-        "supreme_realm": 200,
-        "infinite_growth": 150,
-        "cosmic_understanding": 100,
-        "absolute_mastery": 80
-      },
-      "crafting": {
-        "materials": [
-          {"id": "van_nien_sam", "name": "Vạn niên sâm", "quantity": 2, "emoji": "🌿"},
-          {"id": "", "name": "Thần Ngọc Tâm", "quantity": 1, "emoji": "💎"},
-          {"id": "", "name": "Hồn Cốt Ma Hoàng", "quantity": 1, "emoji": "💀"}
-        ],
-        "cost": 100000,
-        "success_rate": 5
-      },
-      "value": 500000
+    "value": 1200
+  },
+  "dan_duong_the_cao_cap": {
+    "name": "Đan Dưỡng Thể Cao Cấp",
+    "emoji": "💊",
+    "description": "Đan dược địa cấp giúp dưỡng thể, tăng cường sức khỏe phi thường",
+    "rarity": "dia",
+    "effects": {
+      "hp": 100,
+      "stamina": 50,
+      "recovery": 30,
+      "vitality": 20,
+      "immortality": 5
+    },
+    "crafting": {
+      "bach_nien_sam": 2,
+      "ngoc_diep_thao": 1,
+      "thanh_lan_qua": 1
+    },
+    "value": 1500
+  },
+  "dan_bo_khi_cao_cap": {
+    "name": "Đan Bổ Khí Cao Cấp",
+    "emoji": "💨",
+    "description": "Đan dược địa cấp bổ sung linh khí, tăng cường tu vi phi thường",
+    "rarity": "dia",
+    "effects": {
+      "mp": 120,
+      "spirit_power": 40,
+      "cultivation_speed": 15,
+      "spirit_affinity": 20,
+      "realm_understanding": 10
+    },
+    "crafting": {
+      "bach_nien_sam": 2,
+      "ngoc_diep_thao": 1,
+      "thanh_lan_qua": 1
+    },
+    "value": 3000
+  },
+  "ngung_co_dan": {
+    "name": "Ngưng Cơ Đan",
+    "emoji": "🌱",
+    "description": "Đan dược địa cấp giúp ngưng tụ cơ thể, tăng cường thể chất siêu phàm",
+    "rarity": "dia",
+    "effects": {
+      "defense": 50,
+      "hp": 80,
+      "strength": 30,
+      "endurance": 25,
+      "body_consolidation": 15
+    },
+    "crafting": {
+      "bach_nien_sam": 2,
+      "ngoc_diep_thao": 1,
+      "long_lan_qua": 1,
+      "xich_van_thao": 1
+    },
+    "value": 1800
+  },
+  "hong_tran_dan": {
+    "name": "Hồng Trần Đan",
+    "emoji": "🌸",
+    "description": "Đan dược địa cấp giúp thanh lọc hồng trần, tăng cường tinh thần",
+    "rarity": "dia",
+    "effects": {
+      "mental_clarity": 40,
+      "focus": 25,
+      "meditation_bonus": 20,
+      "spirit_purification": 30,
+      "enlightenment": 10
+    },
+    "crafting": {
+      "bach_nien_sam": 2,
+      "ngoc_diep_thao": 1,
+      "long_lan_qua": 1,
+      "that_ha_lien": 1
+    },
+    "value": 2200
+  },
+  "tu_dan_dan": {
+    "name": "Tụ Đan Đan",
+    "emoji": "🔮",
+    "description": "Đan dược thiên cấp giúp tụ đan, tăng cường khả năng luyện đan",
+    "rarity": "thien",
+    "effects": {
+      "alchemy_mastery": 50,
+      "elixir_quality": 30,
+      "success_rate": 25,
+      "spirit_control": 20,
+      "elemental_affinity": 15
+    },
+    "crafting": {
+      "thien_nien_sam": 2,
+      "bich_quang_thao": 1,
+      "thien_linh_qua": 1,
+      "ngoc_huyen_chi": 1
+    },
+    "value": 10000
+  },
+  "dinh_linh_dan": {
+    "name": "Định Linh Đan",
+    "emoji": "🧘",
+    "description": "Đan dược thiên cấp giúp định linh, ổn định linh khí",
+    "rarity": "thien",
+    "effects": {
+      "spirit_stability": 60,
+      "cultivation_control": 40,
+      "realm_stability": 30,
+      "breakthrough_safety": 25,
+      "spirit_balance": 20
+    },
+    "crafting": {
+      "thien_nien_sam": 2,
+      "bich_quang_thao": 1,
+      "thien_linh_qua": 1,
+      "thien_tam_lien": 1
+    },
+    "value": 10000
+  },
+  "duong_anh_dan": {
+    "name": "Dưỡng Anh Đan",
+    "emoji": "👶",
+    "description": "Đan dược thiên cấp giúp dưỡng nguyên anh, tăng cường tu vi",
+    "rarity": "thien",
+    "effects": {
+      "soul_strength": 80,
+      "spirit_essence": 50,
+      "immortality": 30,
+      "divine_affinity": 25,
+      "transcendence": 20
+    },
+    "crafting": {
+      "van_nien_sam": 2,
+      "kim_tam_thao": 1,
+      "long_tuy_qua": 1,
+      "tien_huyet_chi_lan": 1
     }
   },
-  "rarity_levels": {
-    "pham": {
-      "name": "Phàm",
-      "emoji": "⚪",
-      "color": "#808080",
-      "multiplier": 1.0,
-      "description": "Đan dược phàm phu, chất lượng cơ bản"
+  "thien_van_dan": {
+    "name": "Thiên Vận Đan",
+    "emoji": "☁️",
+    "description": "Đan dược thiên cấp giúp nắm bắt thiên vận, tăng cường vận may",
+    "rarity": "thien",
+    "effects": {
+      "luck": 100,
+      "fate_manipulation": 60,
+      "destiny_control": 40,
+      "heavenly_favor": 30,
+      "miracle_chance": 25
     },
-    "huyen": {
-      "name": "Huyền",
-      "emoji": "🟢",
-      "color": "#00FF00",
-      "multiplier": 1.5,
-      "description": "Đan dược huyền bí, có hiệu quả đặc biệt"
+    "crafting": {
+      "thien_van_hoa": 2,
+      "tinh_van_thach": 2
     },
-    "dia": {
-      "name": "Địa",
-      "emoji": "🟡",
-      "color": "#FFFF00",
-      "multiplier": 2.0,
-      "description": "Đan dược địa cấp, có thể thay đổi cơ thể"
-    },
-    "thien": {
-      "name": "Thiên",
-      "emoji": "🟠",
-      "color": "#FF8000",
-      "multiplier": 3.0,
-      "description": "Đan dược thiên cấp, có sức mạnh thần kỳ"
-    },
-    "than": {
-      "name": "Thần",
-      "emoji": "🔴",
-      "color": "#FF0000",
-      "multiplier": 5.0,
-      "description": "Thần đan, có thể thay đổi cả thiên địa"
-    }
+    "value": 20000
   },
-  "crafting_system": {
-    "description": "Hệ thống chế tạo đan dược dựa trên độ hiếm và nguyên liệu",
-    "requirements": {
-      "pham": "Cần nguyên liệu cơ bản + Lò nung đơn giản",
-      "huyen": "Cần nguyên liệu huyền bí + Lò nung huyền bí",
-      "dia": "Cần nguyên liệu địa cấp + Lò nung địa cấp",
-      "thien": "Cần nguyên liệu thiên cấp + Lò nung thiên cấp",
-      "than": "Cần nguyên liệu thần cấp + Lò nung thần cấp"
+  "hoi_hon_dan": {
+    "name": "Hồi Hồn Đan",
+    "emoji": "💀",
+    "description": "Đan dược thiên cấp giúp hồi hồn, phục hồi linh hồn",
+    "rarity": "thien",
+    "effects": {
+      "soul_restoration": 80,
+      "memory_recovery": 50,
+      "consciousness_repair": 40,
+      "spirit_rebirth": 30,
+      "immortality": 25
     },
-    "success_rate_factors": {
-      "base_rate": 80,
-      "skill_bonus": "Mỗi cấp độ kỹ năng luyện đan +5%",
-      "equipment_bonus": "Lò nung tốt hơn +10-20%",
-      "material_quality": "Nguyên liệu chất lượng cao +5-15%"
-    }
+    "crafting": {
+      "thien_nien_sam": 2,
+      "bich_quang_thao": 1,
+      "long_lan_qua": 1
+    },
+    "value": 20000
+  },
+  "than_hoi_dan": {
+    "name": "Thánh Hồi Đan",
+    "emoji": "✨",
+    "description": "Đan dược thiên cấp giúp hồi phục thánh thể, tăng cường sức mạnh thần thánh",
+    "rarity": "thien",
+    "effects": {
+      "divine_healing": 100,
+      "holy_power": 60,
+      "sacred_restoration": 50,
+      "godly_favor": 40,
+      "immortality": 35
+    },
+    "crafting": {
+      "thien_nien_sam": 2,
+      "bich_quang_thao": 1,
+      "thien_linh_qua": 1
+    },
+    "value": 15000
+  },
+  "bach_luyen_dan": {
+    "name": "Bách Luyện Đan",
+    "emoji": "⚔️",
+    "description": "Đan dược thiên cấp giúp luyện tập trăm lần, tăng cường chiến đấu",
+    "rarity": "thien",
+    "effects": {
+      "combat_mastery": 80,
+      "weapon_proficiency": 50,
+      "battle_experience": 40,
+      "warrior_spirit": 30,
+      "martial_arts": 25
+    },
+    "crafting": {
+      "thien_nien_sam": 2,
+      "chu_thien_huyet_diep": 1,
+      "chien_hon_nha": 1
+    },
+    "value": 18000
+  },
+  "huyen_kim_dan": {
+    "name": "Huyền Kim Đan",
+    "emoji": "💎",
+    "description": "Đan dược thiên cấp giúp tăng cường huyền kim, củng cố phòng thủ",
+    "rarity": "thien",
+    "effects": {
+      "defense": 100,
+      "armor_strength": 60,
+      "damage_reduction": 50,
+      "invincibility": 30,
+      "guardian_spirit": 25
+    },
+    "crafting": {
+      "thien_nien_sam": 2,
+      "chu_thien_huyet_diep": 1,
+      "huyen_giap_lan": 1
+    },
+    "value": 18000
+  },
+  "huyet_mach_dan": {
+    "name": "Huyết Mạch Đan",
+    "emoji": "🩸",
+    "description": "Đan dược thiên cấp giúp tăng cường huyết mạch, củng cố sức sống",
+    "rarity": "thien",
+    "effects": {
+      "hp": 200,
+      "blood_power": 80,
+      "vitality": 60,
+      "regeneration": 50,
+      "immortality": 40
+    },
+    "crafting": {
+      "thien_nien_sam": 2,
+      "chu_thien_huyet_diep": 1,
+      "huyen_giap_lan": 1
+    },
+    "value": 20000
+  },
+  "thanh_tam_dan_thien": {
+    "name": "Thanh Tâm Đan",
+    "emoji": "🧘",
+    "description": "Đan dược thiên cấp giúp thanh tâm, tăng cường tinh thần siêu phàm",
+    "rarity": "thien",
+    "effects": {
+      "mental_clarity": 100,
+      "spirit_purification": 80,
+      "enlightenment": 60,
+      "divine_wisdom": 50,
+      "transcendence": 40
+    },
+    "crafting": {
+      "thien_nien_sam": 2,
+      "chu_thien_huyet_diep": 1,
+      "lam_tam_chau": 1
+    },
+    "value": 25000
+  },
+  "nghich_menh_dan": {
+    "name": "Nghịch Mệnh Đan",
+    "emoji": "⚡",
+    "description": "Đan dược thiên cấp giúp nghịch mệnh, thay đổi số phận",
+    "rarity": "thien",
+    "effects": {
+      "fate_defiance": 100,
+      "destiny_control": 80,
+      "reality_manipulation": 60,
+      "time_control": 50,
+      "space_control": 40
+    },
+    "crafting": {
+      "thien_nien_sam": 2,
+      "chu_thien_huyet_diep": 1,
+      "chien_hon_nha": 1
+    },
+    "value": 25000
+  },
+  "tam_hai_dan": {
+    "name": "Tâm Hải Đan",
+    "emoji": "🌊",
+    "description": "Đan dược thiên cấp giúp mở rộng tâm hải, tăng cường tinh thần",
+    "rarity": "thien",
+    "effects": {
+      "mental_capacity": 100,
+      "spirit_ocean": 80,
+      "consciousness_expansion": 60,
+      "mind_control": 50,
+      "psychic_power": 40
+    },
+    "crafting": {
+      "thien_nien_sam": 2,
+      "chu_thien_huyet_diep": 1,
+      "lam_tam_chau": 1
+    },
+    "value": 35000
+  },
+  "linh_anh_dan": {
+    "name": "Linh Ảnh Đan",
+    "emoji": "👻",
+    "description": "Đan dược thiên cấp giúp tạo linh ảnh, tăng cường ảo thuật",
+    "rarity": "thien",
+    "effects": {
+      "illusion_mastery": 100,
+      "phantom_creation": 80,
+      "shadow_manipulation": 60,
+      "reality_distortion": 50,
+      "mind_illusion": 40
+    },
+    "crafting": {
+      "thien_nien_sam": 2,
+      "chu_thien_huyet_diep": 1,
+      "dieu_anh_vu": 1
+    },
+    "value": 30000
+  },
+  "phong_hanh_dan": {
+    "name": "Phong Hành Đan",
+    "emoji": "💨",
+    "description": "Đan dược thiên cấp giúp phong hành, tăng cường tốc độ siêu phàm",
+    "rarity": "thien",
+    "effects": {
+      "speed": 150,
+      "wind_mastery": 100,
+      "flight": 80,
+      "teleportation": 60,
+      "time_acceleration": 50
+    },
+    "crafting": {
+      "thien_nien_sam": 2,
+      "chu_thien_huyet_diep": 1,
+      "dieu_anh_vu": 1
+    },
+    "value": 32000
+  },
+  "cuu_chuyen_dan": {
+    "name": "Cửu Chuyển Đan",
+    "emoji": "🔄",
+    "description": "Thần đan cửu chuyển, có thể thay đổi cả thiên địa, tăng cường sức mạnh vô hạn",
+    "rarity": "than",
+    "effects": {
+      "reality_manipulation": 200,
+      "universe_control": 150,
+      "omnipotence": 100,
+      "creation_destruction": 80,
+      "eternal_life": 60
+    },
+    "crafting": {
+      "van_nien_sam": 2,
+      "kim_tam_thao": 2,
+      "long_tuy_qua": 2,
+      "thien_van_hoa": 1
+    },
+    "value": 100000
+  },
+  "tay_tuy_dan": {
+    "name": "Tẩy Tủy Đan",
+    "emoji": "💎",
+    "description": "Thần đan tẩy tủy, thanh lọc hoàn toàn cơ thể và linh hồn, đạt đến trạng thái siêu phàm",
+    "rarity": "than",
+    "effects": {
+      "body_purification": 200,
+      "soul_cleansing": 150,
+      "divine_transformation": 100,
+      "immortality": 80,
+      "godhood": 60
+    },
+    "crafting": {
+      "van_nien_sam": 2,
+      "kim_tam_thao": 2,
+      "long_tuy_qua": 2,
+      "thien_van_hoa": 1
+    },
+    "value": 150000
+  },
+  "sinh_menh_dan": {
+    "name": "Sinh Mệnh Đan",
+    "emoji": "🌟",
+    "description": "Thần đan sinh mệnh, tạo ra sự sống mới, khôi phục hoàn toàn mọi thứ",
+    "rarity": "than",
+    "effects": {
+      "life_creation": 200,
+      "complete_restoration": 150,
+      "resurrection": 100,
+      "eternal_youth": 80,
+      "vitality_mastery": 60
+    },
+    "crafting": {
+      "van_nien_sam": 3,
+      "kim_tam_thao": 3,
+      "long_tuy_qua": 3
+    },
+    "value": 200000
+  },
+  "cuc_pham_cuong_hoa_dan": {
+    "name": "Cực Phẩm Cường Hóa Đan",
+    "emoji": "⚡",
+    "description": "Thần đan cực phẩm, tăng cường mọi thuộc tính đến mức tối đa, vượt qua giới hạn",
+    "rarity": "than",
+    "effects": {
+      "all_stats_max": 300,
+      "limit_break": 200,
+      "ultimate_power": 150,
+      "transcendence": 100,
+      "divine_ascension": 80
+    },
+    "crafting": {
+      "van_nien_sam": 3,
+      "long_tuy_qua": 3
+    },
+    "value": 300000
+  },
+  "khai_mach_dan": {
+    "name": "Khai Mạch Đan",
+    "emoji": "🔓",
+    "description": "Thần đan khai mạch, mở ra tiềm năng vô hạn, đạt đến cảnh giới tối cao",
+    "rarity": "than",
+    "effects": {
+      "potential_unlock": 250,
+      "supreme_realm": 200,
+      "infinite_growth": 150,
+      "cosmic_understanding": 100,
+      "absolute_mastery": 80
+    },
+    "crafting": {
+      "van_nien_sam": 2,
+      "thien_ngoc_tam": 2,
+      "hon_co_ma_hoang": 1
+    },
+    "value": 500000
   }
-} 
+}

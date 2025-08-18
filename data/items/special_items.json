@@ -1,52 +1,60 @@
 {
   "special_items": {
-    "thien_dao_chung_minh": {
-      "name": "Thiên Đạo Chứng Minh",
-      "emoji": "🌟",
-      "description": "Vật phẩm thần thoại chứng minh thiên đạo",
-      "type": "legendary",
-      "rarity": "legendary",
-      "value": 1000000
-    },
-    "linh_bao": {
-      "name": "Linh Bảo",
-      "emoji": "💎",
-      "description": "Bảo vật linh thiêng, tăng tất cả chỉ số",
-      "type": "special",
+    "chien_hon_nha": {
+      "name": "Chiến Hồn Nha",
+      "emoji": "⚔️",
+      "description": "Vũ khí thần thoại, chứa hồn chiến đấu của các vị tiên nhân",
       "rarity": "epic",
-      "value": 50000,
-      "stats": {
-        "ATK": 25,
-        "DEF": 25,
-        "HP": 50,
-        "MP": 50,
-        "SPD": 15,
-        "CRIT": 10,
-        "REGEN": 10,
-        "EVASION": 10,
-        "REP": 10,
-        "KARMA": 10
-      }
+      "value": 150000
     },
-    "than_ngoc": {
-      "name": "Thần Ngọc",
-      "emoji": "🔮",
-      "description": "Ngọc thần, tăng chỉ số đặc biệt",
-      "type": "special",
-      "rarity": "legendary",
-      "value": 200000,
-      "stats": {
-        "ATK": 50,
-        "DEF": 50,
-        "HP": 100,
-        "MP": 100,
-        "SPD": 30,
-        "CRIT": 20,
-        "REGEN": 20,
-        "EVASION": 20,
-        "REP": 20,
-        "KARMA": 20
-      }
+    "huyen_giap_lan": {
+      "name": "Huyền Giáp Lân",
+      "emoji": "🛡️",
+      "description": "Áo giáp thần thoại, được tạo từ vảy rồng huyền bí",
+      "rarity": "epic",
+      "value": 180000
+    },
+    "lam_tam_chau": {
+      "name": "Lam Tâm Châu",
+      "emoji": "💎",
+      "description": "Ngọc tâm thần thoại, chứa linh khí của biển cả",
+      "rarity": "epic",
+      "value": 120000
+    },
+    "dieu_anh_vu": {
+      "name": "Điêu Ảnh Vũ",
+      "emoji": "👘",
+      "description": "Đạo bào thần thoại, được thêu dệt từ sợi tơ tiên",
+      "rarity": "epic",
+      "value": 160000
+    },
+    "huyet_viem_tuy_ket": {
+      "name": "Huyết Viêm Tủy Kết",
+      "emoji": "🩸",
+      "description": "Vật phẩm huyền bí, chứa linh khí huyết và lửa",
+      "rarity": "uncommon",
+      "value": 8000
+    },
+    "ho_linh_tam_ket": {
+      "name": "Hộ Linh Tâm Kết",
+      "emoji": "🛡️",
+      "description": "Vật phẩm huyền bí, tăng cường khả năng bảo vệ",
+      "rarity": "uncommon",
+      "value": 8500
+    },
+    "tinh_hai_tam_ket": {
+      "name": "Tịnh Hải Tâm Kết",
+      "emoji": "🌊",
+      "description": "Vật phẩm huyền bí, chứa linh khí biển cả tinh khiết",
+      "rarity": "uncommon",
+      "value": 9000
+    },
+    "hu_anh_linh_ket": {
+      "name": "Hư Ảnh Linh Kết",
+      "emoji": "👻",
+      "description": "Vật phẩm huyền bí, chứa linh khí huyền ảo",
+      "rarity": "uncommon",
+      "value": 9500
     }
   }
-} 
+}
