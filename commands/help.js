@@ -24,11 +24,11 @@ module.exports = {
         value: '• **`fstart`** - Bắt đầu hành trình tu tiên, chọn linh căn\n• **`fhelp`** - Hiển thị hướng dẫn này',
         inline: false
       },
-      {
-        name: '🏮 **Lệnh Thông Tin**',
-        value: '• **`fstatus`** - Xem trạng thái tu luyện và tiến độ đột phá\n• **`fspiritroot`** - Xem thông tin linh căn\n• **`fcultivation`** - Xem thông tin hệ thống tu vi\n• **`fbreakthrough`** - Xem chi tiết tiến độ đột phá và vật phẩm cần thiết',
-        inline: false
-      }
+              {
+          name: '🏮 **Lệnh Thông Tin**',
+          value: '• **`fstatus`** - Xem trạng thái tu luyện và tiến độ đột phá\n• **`fspiritroot`** - Xem thông tin linh căn\n• **`fcultivation`** - Xem thông tin hệ thống tu vi\n• **`fbreakthrough`** - Xem chi tiết tiến độ đột phá và vật phẩm cần thiết\n• **`finventory`** - Xem inventory và vật phẩm của bạn',
+          inline: false
+        }
     );
 
     // Thêm footer
@@ -212,7 +212,7 @@ module.exports = {
       .addFields(
         {
           name: '🌿 **Thu Thập Thảo Dược (5m Cooldown)**',
-          value: '• **`fpick`** - Thu thập thảo dược\n• Cooldown ngắn, phù hợp thu thập liên tục\n• Thu được thảo dược cơ bản và trung cấp',
+          value: '• **`fpick`** - Thu thập thảo dược ngay lập tức\n• Cooldown ngắn, phù hợp thu thập liên tục\n• Thu được thảo dược thực tế từ herbs.json\n• Linh khí: 40-50, Thảo dược: 2-4 loại',
           inline: false
         },
         {
@@ -225,6 +225,11 @@ module.exports = {
           value: '• **`fexplore`** - Khám phá thế giới\n• Thu được vật phẩm đa dạng\n• Có thể gặp sự kiện đặc biệt',
           inline: false
         },
+        {
+          name: '🎒 **Quản Lý Inventory**',
+          value: '• **`finventory`** - Xem inventory và vật phẩm\n• Phân loại theo category và rarity\n• Thống kê linh thạch và trang bị',
+          inline: false
+        }
       )
       .setFooter({ text: 'Sử dụng fhelp để quay lại menu chính' })
       .setTimestamp();
@@ -281,7 +286,7 @@ module.exports = {
         },
         {
           name: '🏮 **Lệnh Thông Tin**',
-          value: '`fstatus` - Trạng thái tu luyện\n`fspiritroot` - Thông tin linh căn\n`fcultivation` - Hệ thống tu vi\n`fbreakthrough` - Tiến độ đột phá',
+          value: '`fstatus` - Trạng thái tu luyện\n`fspiritroot` - Thông tin linh căn\n`fcultivation` - Hệ thống tu vi\n`fbreakthrough` - Tiến độ đột phá\n`finventory` - Xem inventory',
           inline: false
         },
         {

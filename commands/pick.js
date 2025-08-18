@@ -1,14 +1,46 @@
-const { EmbedBuilder } = require('discord.js');
+const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 const playerManager = require('../systems/player.js');
 const cooldownManager = require('../utils/cooldown.js');
 const expCalculator = require('../systems/exp-calculator.js');
 const SpiritStonesCalculator = require('../utils/spirit-stones-calculator.js');
+const itemLoader = require('../utils/item-loader.js');
 
 module.exports = {
   name: 'pick',
   aliases: ['p', 'hai', 'thuoc'],
   description: 'Thu thập thảo dược để lấy tài nguyên và kinh nghiệm',
   cooldown: 300000, // 5m = 300000ms
+
+  // Tạo separator đẹp mắt
+  createSeparator() {
+    return '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━';
+  },
+
+  // Lấy màu theo rarity
+  getRarityColor(rarity) {
+    const colors = {
+      'common': '#9B9B9B',      // Xám
+      'uncommon': '#4CAF50',    // Xanh lá
+      'rare': '#2196F3',        // Xanh dương
+      'epic': '#9C27B0',        // Tím
+      'legendary': '#FF9800',   // Cam
+      'mythic': '#F44336'       // Đỏ
+    };
+    return colors[rarity] || '#9B9B9B';
+  },
+
+  // Lấy emoji rarity
+  getRarityEmoji(rarity) {
+    const emojis = {
+      'common': '⚪',
+      'uncommon': '🟢',
+      'rare': '🔵',
+      'epic': '🟣',
+      'legendary': '🟠',
+      'mythic': '🔴'
+    };
+    return emojis[rarity] || '⚪';
+  },
 
   async execute(interaction, args) {
     const userId = interaction.user.id;
@@ -21,10 +53,155 @@ module.exports = {
       return;
     }
 
+    // Thực hiện thu thập ngay lập tức
+    await this.performCollection(interaction, userId, username);
+  },
+
+  // Hiển thị danh sách thảo dược
+  async showHerbsList(interaction) {
+    const herbs = itemLoader.items;
+    const herbsList = Object.values(herbs).filter(item => item.category === 'herbs');
+    
+    // Nhóm theo rarity
+    const herbsByRarity = {};
+    herbsList.forEach(herb => {
+      const rarity = herb.rarity || 'common';
+      if (!herbsByRarity[rarity]) {
+        herbsByRarity[rarity] = [];
+      }
+      herbsByRarity[rarity].push(herb);
+    });
+
+    const embed = new EmbedBuilder()
+      .setColor('#4CAF50')
+      .setTitle('🌿 **Danh Sách Thảo Dược**')
+      .setDescription(`${this.createSeparator()}\n**Tất cả thảo dược có thể thu thập được**`);
+
+    // Hiển thị theo rarity từ thấp đến cao
+    const rarityOrder = ['common', 'uncommon', 'rare', 'epic', 'legendary', 'mythic'];
+    
+    rarityOrder.forEach(rarity => {
+      if (herbsByRarity[rarity] && herbsByRarity[rarity].length > 0) {
+        const herbs = herbsByRarity[rarity];
+        const rarityEmoji = this.getRarityEmoji(rarity);
+        const rarityName = this.getRarityDisplayName(rarity);
+        
+        const herbsList = herbs.map(herb => 
+          `${herb.emoji} **${herb.name}** - ${herb.description}`
+        ).join('\n');
+
+        embed.addFields({
+          name: `${rarityEmoji} **${rarityName}** (${herbs.length} loại)`,
+          value: herbsList,
+          inline: false
+        });
+      }
+    });
+
+    // Button quay lại
+    const backButton = new ButtonBuilder()
+      .setCustomId('pick_back')
+      .setLabel('Quay Lại')
+      .setStyle(ButtonStyle.Secondary)
+      .setEmoji('⬅️');
+
+    const backRow = new ActionRowBuilder().addComponents(backButton);
+
+    try {
+      await interaction.update({
+        embeds: [embed],
+        components: [backRow]
+      });
+    } catch (error) {
+      console.log('Not a button interaction, sending new message');
+      await interaction.channel.send({
+        embeds: [embed],
+        components: [backRow]
+      });
+    }
+  },
+
+  // Hiển thị thông tin chi tiết về thảo dược
+  async showDetailedHerbsInfo(interaction) {
+    const herbs = itemLoader.items;
+    const herbsList = Object.values(herbs).filter(item => item.category === 'herbs');
+    
+    // Thống kê theo rarity
+    const stats = {};
+    herbsList.forEach(herb => {
+      const rarity = herb.rarity || 'common';
+      if (!stats[rarity]) {
+        stats[rarity] = { count: 0, totalValue: 0 };
+      }
+      stats[rarity].count++;
+      stats[rarity].totalValue += herb.value || 0;
+    });
+
+    const embed = new EmbedBuilder()
+      .setColor('#9932CC')
+      .setTitle('ℹ️ **Thông Tin Chi Tiết Thảo Dược**')
+      .setDescription(`${this.createSeparator()}\n**Thống kê và thông tin về hệ thống thảo dược**`);
+
+    // Thống kê theo rarity
+    const rarityOrder = ['common', 'uncommon', 'rare', 'epic', 'legendary', 'mythic'];
+    
+    rarityOrder.forEach(rarity => {
+      if (stats[rarity]) {
+        const rarityEmoji = this.getRarityEmoji(rarity);
+        const rarityName = this.getRarityDisplayName(rarity);
+        const stat = stats[rarity];
+        
+        embed.addFields({
+          name: `${rarityEmoji} **${rarityName}**`,
+          value: `**Số lượng**: ${stat.count} loại\n**Tổng giá trị**: ${stat.totalValue.toLocaleString()} linh thạch`,
+          inline: true
+        });
+      }
+    });
+
+    // Thông tin về hệ thống thu thập
+    embed.addFields(
+      {
+        name: '📊 **Hệ Thống Thu Thập**',
+        value: '• **Cooldown**: 5 phút\n• **Linh khí**: 40-50 (random)\n• **Thảo dược**: 2-4 loại (random)\n• **Linh thạch**: Hạ phẩm + Trung phẩm',
+        inline: false
+      },
+      {
+        name: '🎯 **Tỷ Lệ Thu Thập**',
+        value: '• **Common**: 60% (thảo dược cơ bản)\n• **Uncommon**: 25% (thảo dược trung cấp)\n• **Rare**: 10% (thảo dược quý hiếm)\n• **Epic+**: 5% (thảo dược đặc biệt)',
+        inline: false
+      }
+    );
+
+    // Button quay lại
+    const backButton = new ButtonBuilder()
+      .setCustomId('pick_back')
+      .setLabel('Quay Lại')
+      .setStyle(ButtonStyle.Secondary)
+      .setEmoji('⬅️');
+
+    const backRow = new ActionRowBuilder().addComponents(backButton);
+
+    try {
+      await interaction.update({
+        embeds: [embed],
+        components: [backRow]
+      });
+    } catch (error) {
+      console.log('Not a button interaction, sending new message');
+      await interaction.channel.send({
+        embeds: [embed],
+        components: [backRow]
+      });
+    }
+  },
+
+  // Thực hiện thu thập
+  async performCollection(interaction, userId, username) {
     const player = playerManager.getPlayer(userId);
     const now = Date.now();
 
-    // Kiểm tra cooldown sử dụng common manager
+    // Kiểm tra cooldown
     const cooldownCheck = cooldownManager.checkCooldown(player, 'pick', this.cooldown);
     if (cooldownCheck.isOnCooldown) {
       const cooldownEmbed = cooldownManager.createCooldownEmbed('pick', cooldownCheck.remainingText);
@@ -32,18 +209,19 @@ module.exports = {
       return;
     }
 
-    // Tính toán Linh khí theo hệ thống mới (pick có Linh khí random 40-50)
+    // Load items nếu chưa load
+    await itemLoader.loadAllItems();
+
+    // Tính toán Linh khí
     const expResult = expCalculator.calculatePickExp(player, 'none');
     const expGained = expResult.finalExp;
 
-    // Tính toán phần thưởng khác
+    // Tính toán phần thưởng
     const spiritStones = SpiritStonesCalculator.calculatePick();
-    const herbs = this.getHerbs();
+    const herbs = this.getRealHerbs();
 
     // Cập nhật player
     playerManager.addExperience(userId, expGained);
-
-    // Cập nhật linh thạch theo format mới
     SpiritStonesCalculator.updatePlayerSpiritStones(player, spiritStones);
 
     // Cập nhật thời gian command cuối
@@ -57,59 +235,114 @@ module.exports = {
     // Tạo embed thông báo thành công
     const successEmbed = new EmbedBuilder()
       .setColor('#228B22')
-      .setTitle('🌿 Thu thập thảo dược thành công!')
-      .setDescription(`**${username}** đã thu thập được thảo dược.`)
+      .setTitle('🌿 **Thu thập thảo dược thành công!**')
+      .setDescription(`${this.createSeparator()}\n**${username}** đã thu thập được thảo dược.`)
       .addFields(
         {
-          name: '📊 Linh khí nhận được',
+          name: '📊 **Linh khí nhận được**',
           value: `**+${expGained} Linh khí** (Random 40-50)`,
           inline: true
         },
         {
-          name: '💎 Linh thạch thu được',
+          name: '💎 **Linh thạch thu được**',
           value: SpiritStonesCalculator.formatSpiritStones(spiritStones),
           inline: true
         },
         {
-          name: '🌿 Thảo dược thu được',
-          value: herbs.join(', '),
-          inline: true
+          name: '🌿 **Thảo dược thu được**',
+          value: herbs.map(herb => `${herb.emoji} **${herb.name}** ${this.getRarityEmoji(herb.rarity)}`).join('\n'),
+          inline: false
         }
       )
       .addFields({
-        name: '🔍 Chi tiết tính toán Linh khí',
+        name: '🔍 **Chi tiết tính toán Linh khí**',
         value: expResult.breakdown.calculation,
         inline: false
       })
       .setFooter({ text: 'Thu thập thảo dược có thể thực hiện sau 5 phút' })
       .setTimestamp();
 
+    // Gửi kết quả
     await interaction.reply({ embeds: [successEmbed] });
   },
 
+  // Lấy tên hiển thị cho rarity
+  getRarityDisplayName(rarity) {
+    const displayNames = {
+      'common': 'Thường',
+      'uncommon': 'Hiếm',
+      'rare': 'Quý Hiếm',
+      'epic': 'Cực Quý',
+      'legendary': 'Huyền Thoại',
+      'mythic': 'Thần Thoại'
+    };
+    return displayNames[rarity] || rarity;
+  },
+
   /**
-   * Lấy thảo dược từ thu thập
-   * @returns {Array} Danh sách thảo dược
+   * Lấy thảo dược thực tế từ herbs.json
+   * @returns {Array} Danh sách thảo dược với thông tin đầy đủ
    */
-  getHerbs() {
-    const herbs = [
-      '🌱 Cỏ thuốc', '🌸 Hoa dược', '🌿 Lá thuốc',
-      '🍄 Nấm dược', '🌺 Hoa sen', '🌻 Hoa hướng dương',
-      '🌼 Hoa cúc', '🌷 Hoa hồng', '🌹 Hoa hồng dại'
-    ];
+  getRealHerbs() {
+    const herbs = itemLoader.items;
+    const herbsList = Object.values(herbs).filter(item => item.category === 'herbs');
+    
+    // Tỷ lệ thu thập theo rarity
+    const rarityWeights = {
+      'common': 60,      // 60%
+      'uncommon': 25,    // 25%
+      'rare': 10,        // 10%
+      'epic': 3,         // 3%
+      'legendary': 1.5,  // 1.5%
+      'mythic': 0.5      // 0.5%
+    };
 
     const count = Math.floor(Math.random() * 3) + 2; // 2-4 thảo dược
     const selected = [];
 
     for (let i = 0; i < count; i++) {
-      const herb = herbs[Math.floor(Math.random() * herbs.length)];
-      if (!selected.includes(herb)) {
-        selected.push(herb);
+      // Chọn rarity dựa trên tỷ lệ
+      const rarity = this.selectRarityByWeight(rarityWeights);
+      
+      // Lọc thảo dược theo rarity đã chọn
+      const availableHerbs = herbsList.filter(herb => herb.rarity === rarity);
+      
+      if (availableHerbs.length > 0) {
+        const randomHerb = availableHerbs[Math.floor(Math.random() * availableHerbs.length)];
+        
+        // Kiểm tra xem thảo dược đã được chọn chưa
+        if (!selected.find(h => h.id === randomHerb.id)) {
+          selected.push({
+            id: randomHerb.id,
+            name: randomHerb.name,
+            emoji: randomHerb.emoji,
+            rarity: randomHerb.rarity,
+            value: randomHerb.value,
+            description: randomHerb.description
+          });
+        }
       }
     }
 
     return selected;
   },
 
-
+  /**
+   * Chọn rarity dựa trên tỷ lệ
+   * @param {Object} weights - Tỷ lệ của từng rarity
+   * @returns {String} Rarity được chọn
+   */
+  selectRarityByWeight(weights) {
+    const totalWeight = Object.values(weights).reduce((sum, weight) => sum + weight, 0);
+    let random = Math.random() * totalWeight;
+    
+    for (const [rarity, weight] of Object.entries(weights)) {
+      random -= weight;
+      if (random <= 0) {
+        return rarity;
+      }
+    }
+    
+    return 'common'; // Fallback
+  }
 };

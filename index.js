@@ -84,19 +84,29 @@ client.on('messageCreate', async message => {
       channel: message.channel,
       client: client,
       reply: async (content) => {
-        if (typeof content === 'string') {
-          await message.reply(content);
-        } else if (content.embeds && content.components) {
-          // Hỗ trợ cả embeds và components
-          await message.reply({
-            content: content.content || null,
-            embeds: content.embeds || [],
-            components: content.components || []
-          });
-        } else if (content.embeds) {
-          await message.reply({ embeds: content.embeds });
-        } else if (content.content) {
-          await message.reply(content.content);
+        try {
+          if (typeof content === 'string') {
+            await message.channel.send(content);
+          } else if (content.embeds && content.components) {
+            // Hỗ trợ cả embeds và components
+            await message.channel.send({
+              content: content.content || null,
+              embeds: content.embeds || [],
+              components: content.components || []
+            });
+          } else if (content.embeds) {
+            await message.channel.send({ embeds: content.embeds });
+          } else if (content.content) {
+            await message.channel.send(content.content);
+          }
+        } catch (error) {
+          console.error('Error sending message:', error);
+          // Fallback: gửi message đơn giản
+          try {
+            await message.channel.send('❌ Có lỗi xảy ra khi hiển thị thông tin!');
+          } catch (fallbackError) {
+            console.error('Fallback error:', fallbackError);
+          }
         }
       },
       options: {
@@ -199,6 +209,42 @@ async function handleButtonInteraction(interaction) {
     }
     return;
   }
+
+  // Xử lý button inventory
+  if (customId.startsWith('inventory_')) {
+    try {
+      const inventoryCommand = require('./commands/inventory.js');
+      const playerManager = require('./systems/player.js');
+      
+      const userId = interaction.user.id;
+      const username = interaction.user.username;
+      
+      // Kiểm tra xem user đã bắt đầu game chưa
+      if (!playerManager.hasStartedGame(userId)) {
+        const notStartedEmbed = playerManager.createNotStartedEmbed();
+        await interaction.reply({ embeds: [notStartedEmbed], ephemeral: true });
+        return;
+      }
+
+      const player = playerManager.getPlayer(userId);
+      const viewType = customId.replace('inventory_', '');
+      
+      if (viewType === 'back') {
+        await inventoryCommand.showMainInventory(interaction, player, username);
+      } else {
+        await inventoryCommand.showDetailedView(interaction, viewType, player);
+      }
+    } catch (error) {
+      console.error('Error handling inventory button:', error);
+      await interaction.reply({
+        content: '❌ Có lỗi xảy ra khi xử lý button inventory!',
+        ephemeral: true
+      });
+    }
+    return;
+  }
+
+
 
   // Xử lý equipment buttons
   if (customId === 'equip_item') {
