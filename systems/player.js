@@ -197,6 +197,14 @@ class PlayerManager {
         lastPick: 0,
         lastExplore: 0
       },
+      // Hệ thống luyện đan
+      alchemy: {
+        furnaceLevel: 1, // Level lò luyện (mặc định 1)
+        totalCrafted: 0, // Tổng số đan dược đã luyện
+        successCount: 0, // Số lần luyện thành công
+        failureCount: 0, // Số lần luyện thất bại
+        lastAlchemy: 0 // Thời gian luyện đan cuối cùng
+      },
       achievements: [],
       joinDate: Date.now(),
       lastActive: Date.now()

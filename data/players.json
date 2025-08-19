@@ -17,19 +17,19 @@
       "items": [
         {
           "id": "ngu_nien_sam",
-          "quantity": 3
+          "quantity": 189
         },
         {
           "id": "thanh_diep_thao",
-          "quantity": 3
+          "quantity": 189
         },
         {
           "id": "tieu_long_lan_qua",
-          "quantity": 3
+          "quantity": 189
         },
         {
           "id": "thanh_van_to",
-          "quantity": 3
+          "quantity": 300
         },
         {
           "id": "tu_hau_hoa",
@@ -54,6 +54,10 @@
         {
           "id": "ngoc_diep_thao",
           "quantity": 1
+        },
+        {
+          "id": "dan_duong_the_so_cap",
+          "quantity": 7
         }
       ],
       "weapons": [],
@@ -79,7 +83,7 @@
     },
     "achievements": [],
     "joinDate": 1755249145308,
-    "lastActive": 1755586168231,
+    "lastActive": 1755589111210,
     "stats": {
       "attack": 12,
       "defense": 15,
@@ -101,6 +105,12 @@
       "shoes": null,
       "artifact": null,
       "special": null
+    },
+    "alchemy": {
+      "totalCrafted": 12,
+      "failureCount": 5,
+      "lastAlchemy": 1755598183253,
+      "successCount": null
     }
   },
   "558528163244802089": {
@@ -121,15 +131,15 @@
       "items": [
         {
           "id": "ngu_nien_sam",
-          "quantity": 3
+          "quantity": 2
         },
         {
           "id": "thanh_diep_thao",
-          "quantity": 3
+          "quantity": 2
         },
         {
           "id": "tieu_long_lan_qua",
-          "quantity": 3
+          "quantity": 2
         },
         {
           "id": "Ngũ Niên Sâm",
@@ -162,7 +172,7 @@
     },
     "achievements": [],
     "joinDate": 1755491250975,
-    "lastActive": 1755585734201,
+    "lastActive": 1755589297570,
     "stats": {
       "attack": 12,
       "defense": 15,
@@ -176,6 +186,11 @@
       "evasion": 3,
       "reputation": 0,
       "karma": 0
+    },
+    "alchemy": {
+      "totalCrafted": 1,
+      "failureCount": 1,
+      "lastAlchemy": 1755589297570
     }
   },
   "test_user": {

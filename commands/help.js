@@ -24,11 +24,11 @@ module.exports = {
         value: '• **`fstart`** - Bắt đầu hành trình tu tiên, chọn linh căn\n• **`fhelp`** - Hiển thị hướng dẫn này',
         inline: false
       },
-              {
-          name: '🏮 **Lệnh Thông Tin**',
-          value: '• **`fstatus`** - Xem trạng thái tu luyện và tiến độ đột phá\n• **`fspiritroot`** - Xem thông tin linh căn\n• **`fcultivation`** - Xem thông tin hệ thống tu vi\n• **`fbreakthrough`** - Xem chi tiết tiến độ đột phá và vật phẩm cần thiết\n• **`finventory`** - Xem inventory và vật phẩm của bạn',
-          inline: false
-        }
+      {
+        name: '🏮 **Lệnh Thông Tin**',
+        value: '• **`fstatus`** - Xem trạng thái tu luyện và tiến độ đột phá\n• **`fspiritroot`** - Xem thông tin linh căn\n• **`fcultivation`** - Xem thông tin hệ thống tu vi\n• **`fbreakthrough`** - Xem chi tiết tiến độ đột phá và vật phẩm cần thiết\n• **`finventory`** - Xem inventory và vật phẩm của bạn',
+        inline: false
+      }
     );
 
     // Thêm footer
@@ -226,6 +226,11 @@ module.exports = {
           inline: false
         },
         {
+          name: '🧪 **Luyện Đan Dược (30m Cooldown)**',
+          value: '• **`falchemy`** - Luyện đan dược từ nguyên liệu\n• Sử dụng dược thảo từ herbs và khoáng thạch từ minerals\n• Level lò luyện ảnh hưởng tỉ lệ thành công\n• Thất bại sẽ mất nguyên liệu, thành công nhận đan dược',
+          inline: false
+        },
+        {
           name: '🎒 **Quản Lý Inventory**',
           value: '• **`finventory`** - Xem inventory và vật phẩm\n• Phân loại theo category và rarity\n• Thống kê linh thạch và trang bị',
           inline: false
@@ -302,6 +307,11 @@ module.exports = {
         {
           name: '🌿 **Lệnh Thu Thập**',
           value: '`fmine` (1h) - Khai thác\n`fpick` (5m) - Thu thập\n`fexplore` (10m) - Khám phá',
+          inline: false
+        },
+        {
+          name: '🧪 **Lệnh Luyện Đan**',
+          value: '`falchemy` (30m) - Luyện đan dược\n• Sử dụng dược thảo và khoáng thạch\n• Level lò luyện ảnh hưởng tỉ lệ thành công\n• Thất bại sẽ mất nguyên liệu',
           inline: false
         }
       )

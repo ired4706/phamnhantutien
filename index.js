@@ -139,6 +139,40 @@ client.on('interactionCreate', async interaction => {
   }
 });
 
+// Select menu interaction handler (e.g., falchemy select)
+client.on('interactionCreate', async interaction => {
+  if (!interaction.isStringSelectMenu()) return;
+
+  const { customId } = interaction;
+
+  try {
+    if (customId === 'falchemy_select_elixir' || customId.startsWith('falchemy_select_qty:')) {
+      const falchemyCommand = require('./commands/falchemy.js');
+      const playerManager = require('./systems/player.js');
+
+      const userId = interaction.user.id;
+
+      // Kiểm tra xem user đã bắt đầu game chưa
+      if (!playerManager.hasStartedGame(userId)) {
+        const notStartedEmbed = playerManager.createNotStartedEmbed();
+        await interaction.reply({ embeds: [notStartedEmbed], ephemeral: true });
+        return;
+      }
+
+      await falchemyCommand.handleSelectMenu(interaction);
+      return;
+    }
+  } catch (error) {
+    console.error('Select menu interaction error:', error);
+    if (!interaction.replied && !interaction.deferred) {
+      await interaction.reply({
+        content: '❌ Có lỗi xảy ra khi xử lý select menu!',
+        ephemeral: true
+      });
+    }
+  }
+});
+
 // Hàm xử lý button interactions
 async function handleButtonInteraction(interaction) {
   const { customId } = interaction;
@@ -215,10 +249,10 @@ async function handleButtonInteraction(interaction) {
     try {
       const inventoryCommand = require('./commands/inventory.js');
       const playerManager = require('./systems/player.js');
-      
+
       const userId = interaction.user.id;
       const username = interaction.user.username;
-      
+
       // Kiểm tra xem user đã bắt đầu game chưa
       if (!playerManager.hasStartedGame(userId)) {
         const notStartedEmbed = playerManager.createNotStartedEmbed();
@@ -228,7 +262,7 @@ async function handleButtonInteraction(interaction) {
 
       const player = playerManager.getPlayer(userId);
       const viewType = customId.replace('inventory_', '');
-      
+
       if (viewType === 'back') {
         await inventoryCommand.showMainInventory(interaction, player, username);
       } else {
@@ -238,6 +272,72 @@ async function handleButtonInteraction(interaction) {
       console.error('Error handling inventory button:', error);
       await interaction.reply({
         content: '❌ Có lỗi xảy ra khi xử lý button inventory!',
+        ephemeral: true
+      });
+    }
+    return;
+  }
+
+  // Xử lý button falchemy
+  if (customId.startsWith('falchemy_')) {
+    try {
+      const falchemyCommand = require('./commands/falchemy.js');
+      const playerManager = require('./systems/player.js');
+
+      const userId = interaction.user.id;
+      const username = interaction.user.username;
+
+      // Kiểm tra xem user đã bắt đầu game chưa
+      if (!playerManager.hasStartedGame(userId)) {
+        const notStartedEmbed = playerManager.createNotStartedEmbed();
+        await interaction.reply({ embeds: [notStartedEmbed], ephemeral: true });
+        return;
+      }
+
+      // Xử lý các button falchemy
+      if (customId === 'falchemy_back_main') {
+        await falchemyCommand.showFurnaceInfo(interaction, userId);
+      } else if (customId.startsWith('falchemy_type_')) {
+        const type = customId.replace('falchemy_type_', '');
+        await falchemyCommand.showElixirsByType(interaction, type, userId);
+      } else if (customId === 'falchemy_furnace_info') {
+        await falchemyCommand.showDetailedFurnaceInfo(interaction);
+      } else {
+        // Fallback: gọi handleButton của command
+        await falchemyCommand.handleButton(interaction);
+      }
+    } catch (error) {
+      console.error('Error handling falchemy button:', error);
+      await interaction.reply({
+        content: '❌ Có lỗi xảy ra khi xử lý button falchemy!',
+        ephemeral: true
+      });
+    }
+    return;
+  }
+
+  // Xử lý select menu falchemy
+  if (customId === 'falchemy_select_elixir') {
+    try {
+      const falchemyCommand = require('./commands/falchemy.js');
+      const playerManager = require('./systems/player.js');
+
+      const userId = interaction.user.id;
+      const username = interaction.user.username;
+
+      // Kiểm tra xem user đã bắt đầu game chưa
+      if (!playerManager.hasStartedGame(userId)) {
+        const notStartedEmbed = playerManager.createNotStartedEmbed();
+        await interaction.reply({ embeds: [notStartedEmbed], ephemeral: true });
+        return;
+      }
+
+      // Xử lý select menu
+      await falchemyCommand.handleSelectMenu(interaction);
+    } catch (error) {
+      console.error('Error handling falchemy select menu:', error);
+      await interaction.reply({
+        content: '❌ Có lỗi xảy ra khi xử lý select menu falchemy!',
         ephemeral: true
       });
     }

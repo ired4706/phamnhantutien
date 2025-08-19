@@ -14,7 +14,8 @@
       "thanh_diep_thao": 1,
       "tieu_long_lan_qua": 1
     },
-    "value": 150
+    "value": 150,
+    "type": "heal"
   },
   "dan_bo_khi": {
     "name": "Đan Bổ Khí",
@@ -31,7 +32,8 @@
       "thanh_diep_thao": 1,
       "tieu_long_lan_qua": 1
     },
-    "value": 180
+    "value": 180,
+    "type": "heal"
   },
   "dan_cuong_than_so_cap": {
     "name": "Đan Cường Thân Sơ Cấp",
@@ -48,7 +50,8 @@
       "huyet_diep_thao": 1,
       "thach_can_thao": 1
     },
-    "value": 200
+    "value": 200,
+    "type": "buff"
   },
   "dan_bao_kich_so_cap": {
     "name": "Đan Bạo Kích Sơ Cấp",
@@ -65,7 +68,8 @@
       "huyet_diep_thao": 1,
       "liet_hoa_hoa": 1
     },
-    "value": 220
+    "value": 220,
+    "type": "buff"
   },
   "dan_tan_cong_so_cap": {
     "name": "Đan Tấn Công Sơ Cấp",
@@ -82,7 +86,8 @@
       "huyet_diep_thao": 1,
       "ho_luc_qua": 1
     },
-    "value": 250
+    "value": 250,
+    "type": "buff"
   },
   "dan_than_toc_so_cap": {
     "name": "Đan Thần Tốc Sơ Cấp",
@@ -99,7 +104,8 @@
       "huyet_diep_thao": 1,
       "phong_linh_thao": 1
     },
-    "value": 280
+    "value": 280,
+    "type": "buff"
   },
   "dan_sinh_co_so_cap": {
     "name": "Đan Sinh Cơ Sơ Cấp",
@@ -116,7 +122,8 @@
       "huyet_diep_thao": 1,
       "sinh_mach_thao": 1
     },
-    "value": 300
+    "value": 300,
+    "type": "buff"
   },
   "dan_an_than_so_cap": {
     "name": "Đan Ẩn Thân Sơ Cấp",
@@ -133,7 +140,8 @@
       "huyet_diep_thao": 1,
       "anh_diep_thao": 1
     },
-    "value": 320
+    "value": 320,
+    "type": "buff"
   },
   "giai_doc_dan": {
     "name": "Giải Độc Đan",
@@ -150,7 +158,8 @@
       "tieu_long_lan_qua": 1,
       "giac_van_thao": 1
     },
-    "value": 350
+    "value": 350,
+    "type": "buff"
   },
   "thanh_tam_dan": {
     "name": "Thanh Tâm Đan",
@@ -167,7 +176,8 @@
       "tieu_long_lan_qua": 1,
       "thanh_tam_thao": 1
     },
-    "value": 180
+    "value": 180,
+    "type": "buff"
   },
   "bang_giai_dan": {
     "name": "Băng Giải Đan",
@@ -184,7 +194,8 @@
       "tieu_long_lan_qua": 1,
       "hoa_tinh_thach": 1
     },
-    "value": 200
+    "value": 200,
+    "type": "buff"
   },
   "hoa_giai_dan": {
     "name": "Hỏa Giải Đan",
@@ -201,7 +212,8 @@
       "tieu_long_lan_qua": 1,
       "bang_tinh_thach": 1
     },
-    "value": 200
+    "value": 200,
+    "type": "buff"
   },
   "dan_duong_the_trung_cap": {
     "name": "Đan Dưỡng Thể Trung Cấp",
@@ -219,7 +231,8 @@
       "tu_van_thao": 1,
       "tieu_long_lan_qua": 1
     },
-    "value": 450
+    "value": 450,
+    "type": "heal"
   },
   "dan_bo_khi_trung_cap": {
     "name": "Đan Bổ Khí Trung Cấp",
@@ -237,7 +250,8 @@
       "tu_van_thao": 1,
       "tieu_long_lan_qua": 1
     },
-    "value": 550
+    "value": 550,
+    "type": "heal"
   },
   "dan_cuong_than": {
     "name": "Đan Cường Thân",
@@ -255,7 +269,8 @@
       "hong_tinh_thao": 1,
       "ho_linh_tam_ket": 1
     },
-    "value": 650
+    "value": 650,
+    "type": "buff"
   },
   "dan_bao_kich": {
     "name": "Đan Bạo Kích",
@@ -273,7 +288,8 @@
       "hong_tinh_thao": 1,
       "huyet_viem_tuy_ket": 1
     },
-    "value": 750
+    "value": 750,
+    "type": "buff"
   },
   "dan_tan_cong": {
     "name": "Đan Tấn Công",
@@ -291,7 +307,8 @@
       "hong_tinh_thao": 1,
       "huyet_viem_tuy_ket": 1
     },
-    "value": 750
+    "value": 750,
+    "type": "buff"
   },
   "dan_than_toc": {
     "name": "Đan Thần Tốc",
@@ -309,7 +326,8 @@
       "hong_tinh_thao": 1,
       "hu_anh_linh_ket": 1
     },
-    "value": 950
+    "value": 950,
+    "type": "buff"
   },
   "dan_sinh_co": {
     "name": "Đan Sinh Cơ",
@@ -327,7 +345,8 @@
       "hong_tinh_thao": 1,
       "tinh_hai_tam_ket": 1
     },
-    "value": 950
+    "value": 950,
+    "type": "buff"
   },
   "dan_an_than": {
     "name": "Đan Ẩn Thân",
@@ -345,7 +364,8 @@
       "hong_tinh_thao": 1,
       "hu_anh_linh_ket": 1
     },
-    "value": 1050
+    "value": 1050,
+    "type": "buff"
   },
   "thanh_linh_dan": {
     "name": "Thanh Linh Đan",
@@ -364,7 +384,8 @@
       "thanh_lan_qua": 1,
       "hong_tinh_thao": 1
     },
-    "value": 1200
+    "value": 1200,
+    "type": "breakthrough"
   },
   "truc_co_dan": {
     "name": "Trúc Cơ Đan",
@@ -383,7 +404,8 @@
       "thanh_lan_qua": 1,
       "tu_hau_hoa": 1
     },
-    "value": 1200
+    "value": 1200,
+    "type": "breakthrough"
   },
   "dan_duong_the_cao_cap": {
     "name": "Đan Dưỡng Thể Cao Cấp",
@@ -402,7 +424,8 @@
       "ngoc_diep_thao": 1,
       "thanh_lan_qua": 1
     },
-    "value": 1500
+    "value": 1500,
+    "type": "heal"
   },
   "dan_bo_khi_cao_cap": {
     "name": "Đan Bổ Khí Cao Cấp",
@@ -421,7 +444,8 @@
       "ngoc_diep_thao": 1,
       "thanh_lan_qua": 1
     },
-    "value": 3000
+    "value": 3000,
+    "type": "heal"
   },
   "ngung_co_dan": {
     "name": "Ngưng Cơ Đan",
@@ -441,7 +465,8 @@
       "long_lan_qua": 1,
       "xich_van_thao": 1
     },
-    "value": 1800
+    "value": 1800,
+    "type": "breakthrough"
   },
   "hong_tran_dan": {
     "name": "Hồng Trần Đan",
@@ -461,7 +486,8 @@
       "long_lan_qua": 1,
       "that_ha_lien": 1
     },
-    "value": 2200
+    "value": 2200,
+    "type": "breakthrough"
   },
   "tu_dan_dan": {
     "name": "Tụ Đan Đan",
@@ -481,7 +507,8 @@
       "thien_linh_qua": 1,
       "ngoc_huyen_chi": 1
     },
-    "value": 10000
+    "value": 10000,
+    "type": "breakthrough"
   },
   "dinh_linh_dan": {
     "name": "Định Linh Đan",
@@ -501,7 +528,8 @@
       "thien_linh_qua": 1,
       "thien_tam_lien": 1
     },
-    "value": 10000
+    "value": 10000,
+    "type": "breakthrough"
   },
   "duong_anh_dan": {
     "name": "Dưỡng Anh Đan",
@@ -520,7 +548,9 @@
       "kim_tam_thao": 1,
       "long_tuy_qua": 1,
       "tien_huyet_chi_lan": 1
-    }
+    },
+    "value": 10000,
+    "type": "breakthrough"
   },
   "thien_van_dan": {
     "name": "Thiên Vận Đan",
@@ -538,7 +568,8 @@
       "thien_van_hoa": 2,
       "tinh_van_thach": 2
     },
-    "value": 20000
+    "value": 20000,
+    "type": "special"
   },
   "hoi_hon_dan": {
     "name": "Hồi Hồn Đan",
@@ -557,9 +588,10 @@
       "bich_quang_thao": 1,
       "long_lan_qua": 1
     },
-    "value": 20000
+    "value": 20000,
+    "type": "heal"
   },
-  "than_hoi_dan": {
+  "thanh_hoi_dan": {
     "name": "Thánh Hồi Đan",
     "emoji": "✨",
     "description": "Đan dược thiên cấp giúp hồi phục thánh thể, tăng cường sức mạnh thần thánh",
@@ -576,7 +608,8 @@
       "bich_quang_thao": 1,
       "thien_linh_qua": 1
     },
-    "value": 15000
+    "value": 15000,
+    "type": "heal"
   },
   "bach_luyen_dan": {
     "name": "Bách Luyện Đan",
@@ -595,7 +628,8 @@
       "chu_thien_huyet_diep": 1,
       "chien_hon_nha": 1
     },
-    "value": 18000
+    "value": 18000,
+    "type": "special"
   },
   "huyen_kim_dan": {
     "name": "Huyền Kim Đan",
@@ -614,7 +648,8 @@
       "chu_thien_huyet_diep": 1,
       "huyen_giap_lan": 1
     },
-    "value": 18000
+    "value": 18000,
+    "type": "special"
   },
   "huyet_mach_dan": {
     "name": "Huyết Mạch Đan",
@@ -633,7 +668,8 @@
       "chu_thien_huyet_diep": 1,
       "huyen_giap_lan": 1
     },
-    "value": 20000
+    "value": 20000,
+    "type": "special"
   },
   "thanh_tam_dan_thien": {
     "name": "Thanh Tâm Đan",
@@ -652,7 +688,8 @@
       "chu_thien_huyet_diep": 1,
       "lam_tam_chau": 1
     },
-    "value": 25000
+    "value": 25000,
+    "type": "special"
   },
   "nghich_menh_dan": {
     "name": "Nghịch Mệnh Đan",
@@ -671,7 +708,8 @@
       "chu_thien_huyet_diep": 1,
       "chien_hon_nha": 1
     },
-    "value": 25000
+    "value": 25000,
+    "type": "special"
   },
   "tam_hai_dan": {
     "name": "Tâm Hải Đan",
@@ -690,7 +728,8 @@
       "chu_thien_huyet_diep": 1,
       "lam_tam_chau": 1
     },
-    "value": 35000
+    "value": 35000,
+    "type": "special"
   },
   "linh_anh_dan": {
     "name": "Linh Ảnh Đan",
@@ -709,7 +748,8 @@
       "chu_thien_huyet_diep": 1,
       "dieu_anh_vu": 1
     },
-    "value": 30000
+    "value": 30000,
+    "type": "special"
   },
   "phong_hanh_dan": {
     "name": "Phong Hành Đan",
@@ -728,7 +768,8 @@
       "chu_thien_huyet_diep": 1,
       "dieu_anh_vu": 1
     },
-    "value": 32000
+    "value": 32000,
+    "type": "special"
   },
   "cuu_chuyen_dan": {
     "name": "Cửu Chuyển Đan",
@@ -748,7 +789,8 @@
       "long_tuy_qua": 2,
       "thien_van_hoa": 1
     },
-    "value": 100000
+    "value": 100000,
+    "type": "special"
   },
   "tay_tuy_dan": {
     "name": "Tẩy Tủy Đan",
@@ -768,7 +810,8 @@
       "long_tuy_qua": 2,
       "thien_van_hoa": 1
     },
-    "value": 150000
+    "value": 150000,
+    "type": "special"
   },
   "sinh_menh_dan": {
     "name": "Sinh Mệnh Đan",
@@ -787,7 +830,8 @@
       "kim_tam_thao": 3,
       "long_tuy_qua": 3
     },
-    "value": 200000
+    "value": 200000,
+    "type": "heal"
   },
   "cuc_pham_cuong_hoa_dan": {
     "name": "Cực Phẩm Cường Hóa Đan",
@@ -805,7 +849,8 @@
       "van_nien_sam": 3,
       "long_tuy_qua": 3
     },
-    "value": 300000
+    "value": 300000,
+    "type": "buff"
   },
   "khai_mach_dan": {
     "name": "Khai Mạch Đan",
@@ -824,6 +869,7 @@
       "thien_ngoc_tam": 2,
       "hon_co_ma_hoang": 1
     },
-    "value": 500000
+    "value": 500000,
+    "type": "special"
   }
 }

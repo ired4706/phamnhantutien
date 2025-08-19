@@ -236,5 +236,19 @@
     "description": "Hoa lan chứa huyết tiên, vật phẩm thần thoại",
     "rarity": "legendary",
     "value": 500000
+  },
+  "thien_ngoc_tam": {
+    "name": "Thiên Ngọc Tâm",
+    "emoji": "💎",
+    "description": "Tâm ngọc thiên cấp, chứa linh khí vô hạn",
+    "rarity": "legendary",
+    "value": 400000
+  },
+  "hon_co_ma_hoang": {
+    "name": "Hồn Cổ Ma Hoàng",
+    "emoji": "👻",
+    "description": "Hồn ma cổ xưa, chứa sức mạnh ma đạo",
+    "rarity": "legendary",
+    "value": 600000
   }
 }
