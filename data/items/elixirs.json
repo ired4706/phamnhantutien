@@ -3,7 +3,7 @@
     "name": "Đan Dưỡng Thể Sơ Cấp",
     "emoji": "💊",
     "description": "Đan dược cơ bản giúp dưỡng thể, tăng cường sức khỏe",
-    "rarity": "pham",
+    "rarity": "common",
     "effects": {
       "hp": 20,
       "stamina": 10,
@@ -20,7 +20,7 @@
     "name": "Đan Bổ Khí",
     "emoji": "💨",
     "description": "Đan dược bổ sung linh khí, tăng cường tu vi",
-    "rarity": "pham",
+    "rarity": "common",
     "effects": {
       "mp": 25,
       "spirit_power": 8,
@@ -37,7 +37,7 @@
     "name": "Đan Cường Thân Sơ Cấp",
     "emoji": "💪",
     "description": "Đan dược tăng cường thể chất, củng cố cơ bắp",
-    "rarity": "pham",
+    "rarity": "common",
     "effects": {
       "defense": 8,
       "hp": 15,
@@ -54,7 +54,7 @@
     "name": "Đan Bạo Kích Sơ Cấp",
     "emoji": "🔥",
     "description": "Đan dược tăng cường sức mạnh tấn công",
-    "rarity": "pham",
+    "rarity": "common",
     "effects": {
       "attack": 10,
       "critical": 3,
@@ -71,7 +71,7 @@
     "name": "Đan Tấn Công Sơ Cấp",
     "emoji": "⚔️",
     "description": "Đan dược tăng cường khả năng tấn công tổng thể",
-    "rarity": "pham",
+    "rarity": "common",
     "effects": {
       "attack": 12,
       "speed": 4,
@@ -88,7 +88,7 @@
     "name": "Đan Thần Tốc Sơ Cấp",
     "emoji": "⚡",
     "description": "Đan dược tăng cường tốc độ di chuyển và phản ứng",
-    "rarity": "pham",
+    "rarity": "common",
     "effects": {
       "speed": 8,
       "evasion": 5,
@@ -105,7 +105,7 @@
     "name": "Đan Sinh Cơ Sơ Cấp",
     "emoji": "🌱",
     "description": "Đan dược tăng cường sức sống và khả năng hồi phục",
-    "rarity": "pham",
+    "rarity": "common",
     "effects": {
       "hp": 25,
       "recovery": 8,
@@ -122,7 +122,7 @@
     "name": "Đan Ẩn Thân Sơ Cấp",
     "emoji": "👻",
     "description": "Đan dược tăng cường khả năng ẩn thân và né tránh",
-    "rarity": "pham",
+    "rarity": "common",
     "effects": {
       "stealth": 8,
       "evasion": 6,
@@ -139,7 +139,7 @@
     "name": "Giải Độc Đan",
     "emoji": "🩹",
     "description": "Đan dược giải độc cơ bản, loại bỏ các loại độc thường",
-    "rarity": "pham",
+    "rarity": "common",
     "effects": {
       "poison_resistance": 15,
       "detoxification": 10,
@@ -156,7 +156,7 @@
     "name": "Thanh Tâm Đan",
     "emoji": "🧘",
     "description": "Đan dược thanh tâm, tăng cường tinh thần và tập trung",
-    "rarity": "pham",
+    "rarity": "common",
     "effects": {
       "mental_clarity": 12,
       "focus": 8,
@@ -173,7 +173,7 @@
     "name": "Băng Giải Đan",
     "emoji": "❄️",
     "description": "Đan dược giải nhiệt, chữa trị các bệnh do hỏa độc",
-    "rarity": "pham",
+    "rarity": "common",
     "effects": {
       "fire_resistance": 15,
       "cooling": 10,
@@ -190,7 +190,7 @@
     "name": "Hỏa Giải Đan",
     "emoji": "🔥",
     "description": "Đan dược giải hàn, chữa trị các bệnh do hàn độc",
-    "rarity": "pham",
+    "rarity": "common",
     "effects": {
       "ice_resistance": 15,
       "warming": 10,
@@ -207,7 +207,7 @@
     "name": "Đan Dưỡng Thể Trung Cấp",
     "emoji": "💊",
     "description": "Đan dược trung cấp giúp dưỡng thể, tăng cường sức khỏe mạnh mẽ",
-    "rarity": "huyen",
+    "rarity": "uncommon",
     "effects": {
       "hp": 45,
       "stamina": 25,
@@ -225,7 +225,7 @@
     "name": "Đan Bổ Khí Trung Cấp",
     "emoji": "💨",
     "description": "Đan dược trung cấp bổ sung linh khí, tăng cường tu vi đáng kể",
-    "rarity": "huyen",
+    "rarity": "uncommon",
     "effects": {
       "mp": 60,
       "spirit_power": 20,
@@ -243,7 +243,7 @@
     "name": "Đan Cường Thân",
     "emoji": "💪",
     "description": "Đan dược trung cấp tăng cường thể chất, củng cố cơ bắp mạnh mẽ",
-    "rarity": "huyen",
+    "rarity": "uncommon",
     "effects": {
       "defense": 20,
       "hp": 35,
@@ -261,7 +261,7 @@
     "name": "Đan Bạo Kích",
     "emoji": "🔥",
     "description": "Đan dược trung cấp tăng cường sức mạnh tấn công hủy diệt",
-    "rarity": "huyen",
+    "rarity": "uncommon",
     "effects": {
       "attack": 25,
       "critical": 8,
@@ -279,7 +279,7 @@
     "name": "Đan Tấn Công",
     "emoji": "⚔️",
     "description": "Đan dược trung cấp tăng cường khả năng tấn công tổng thể mạnh mẽ",
-    "rarity": "huyen",
+    "rarity": "uncommon",
     "effects": {
       "attack": 30,
       "speed": 12,
@@ -297,7 +297,7 @@
     "name": "Đan Thần Tốc",
     "emoji": "⚡",
     "description": "Đan dược trung cấp tăng cường tốc độ di chuyển và phản ứng siêu nhanh",
-    "rarity": "huyen",
+    "rarity": "uncommon",
     "effects": {
       "speed": 20,
       "evasion": 12,
@@ -315,7 +315,7 @@
     "name": "Đan Sinh Cơ",
     "emoji": "🌱",
     "description": "Đan dược trung cấp tăng cường sức sống và khả năng hồi phục thần kỳ",
-    "rarity": "huyen",
+    "rarity": "uncommon",
     "effects": {
       "hp": 60,
       "recovery": 20,
@@ -333,7 +333,7 @@
     "name": "Đan Ẩn Thân",
     "emoji": "👻",
     "description": "Đan dược trung cấp tăng cường khả năng ẩn thân và né tránh siêu phàm",
-    "rarity": "huyen",
+    "rarity": "uncommon",
     "effects": {
       "stealth": 20,
       "evasion": 15,
@@ -351,7 +351,7 @@
     "name": "Thanh Linh Đan",
     "emoji": "💚",
     "description": "Đan dược trung cấp thanh lọc linh khí, tăng cường tinh khiết",
-    "rarity": "huyen",
+    "rarity": "uncommon",
     "effects": {
       "spirit_purification": 25,
       "mp": 50,
@@ -370,7 +370,7 @@
     "name": "Trúc Cơ Đan",
     "emoji": "🌱",
     "description": "Đan dược trung cấp hỗ trợ đột phá Trúc Cơ, tăng cường nền tảng tu luyện",
-    "rarity": "huyen",
+    "rarity": "uncommon",
     "effects": {
       "breakthrough_bonus": 30,
       "foundation_strength": 20,
@@ -389,7 +389,7 @@
     "name": "Đan Dưỡng Thể Cao Cấp",
     "emoji": "💊",
     "description": "Đan dược địa cấp giúp dưỡng thể, tăng cường sức khỏe phi thường",
-    "rarity": "dia",
+    "rarity": "rare",
     "effects": {
       "hp": 100,
       "stamina": 50,
@@ -408,7 +408,7 @@
     "name": "Đan Bổ Khí Cao Cấp",
     "emoji": "💨",
     "description": "Đan dược địa cấp bổ sung linh khí, tăng cường tu vi phi thường",
-    "rarity": "dia",
+    "rarity": "rare",
     "effects": {
       "mp": 120,
       "spirit_power": 40,
@@ -427,7 +427,7 @@
     "name": "Ngưng Cơ Đan",
     "emoji": "🌱",
     "description": "Đan dược địa cấp giúp ngưng tụ cơ thể, tăng cường thể chất siêu phàm",
-    "rarity": "dia",
+    "rarity": "rare",
     "effects": {
       "defense": 50,
       "hp": 80,
@@ -447,7 +447,7 @@
     "name": "Hồng Trần Đan",
     "emoji": "🌸",
     "description": "Đan dược địa cấp giúp thanh lọc hồng trần, tăng cường tinh thần",
-    "rarity": "dia",
+    "rarity": "rare",
     "effects": {
       "mental_clarity": 40,
       "focus": 25,
@@ -467,7 +467,7 @@
     "name": "Tụ Đan Đan",
     "emoji": "🔮",
     "description": "Đan dược thiên cấp giúp tụ đan, tăng cường khả năng luyện đan",
-    "rarity": "thien",
+    "rarity": "epic",
     "effects": {
       "alchemy_mastery": 50,
       "elixir_quality": 30,
@@ -487,7 +487,7 @@
     "name": "Định Linh Đan",
     "emoji": "🧘",
     "description": "Đan dược thiên cấp giúp định linh, ổn định linh khí",
-    "rarity": "thien",
+    "rarity": "epic",
     "effects": {
       "spirit_stability": 60,
       "cultivation_control": 40,
@@ -507,7 +507,7 @@
     "name": "Dưỡng Anh Đan",
     "emoji": "👶",
     "description": "Đan dược thiên cấp giúp dưỡng nguyên anh, tăng cường tu vi",
-    "rarity": "thien",
+    "rarity": "epic",
     "effects": {
       "soul_strength": 80,
       "spirit_essence": 50,
@@ -526,7 +526,7 @@
     "name": "Thiên Vận Đan",
     "emoji": "☁️",
     "description": "Đan dược thiên cấp giúp nắm bắt thiên vận, tăng cường vận may",
-    "rarity": "thien",
+    "rarity": "epic",
     "effects": {
       "luck": 100,
       "fate_manipulation": 60,
@@ -544,7 +544,7 @@
     "name": "Hồi Hồn Đan",
     "emoji": "💀",
     "description": "Đan dược thiên cấp giúp hồi hồn, phục hồi linh hồn",
-    "rarity": "thien",
+    "rarity": "epic",
     "effects": {
       "soul_restoration": 80,
       "memory_recovery": 50,
@@ -563,7 +563,7 @@
     "name": "Thánh Hồi Đan",
     "emoji": "✨",
     "description": "Đan dược thiên cấp giúp hồi phục thánh thể, tăng cường sức mạnh thần thánh",
-    "rarity": "thien",
+    "rarity": "epic",
     "effects": {
       "divine_healing": 100,
       "holy_power": 60,
@@ -582,7 +582,7 @@
     "name": "Bách Luyện Đan",
     "emoji": "⚔️",
     "description": "Đan dược thiên cấp giúp luyện tập trăm lần, tăng cường chiến đấu",
-    "rarity": "thien",
+    "rarity": "epic",
     "effects": {
       "combat_mastery": 80,
       "weapon_proficiency": 50,
@@ -601,7 +601,7 @@
     "name": "Huyền Kim Đan",
     "emoji": "💎",
     "description": "Đan dược thiên cấp giúp tăng cường huyền kim, củng cố phòng thủ",
-    "rarity": "thien",
+    "rarity": "epic",
     "effects": {
       "defense": 100,
       "armor_strength": 60,
@@ -620,7 +620,7 @@
     "name": "Huyết Mạch Đan",
     "emoji": "🩸",
     "description": "Đan dược thiên cấp giúp tăng cường huyết mạch, củng cố sức sống",
-    "rarity": "thien",
+    "rarity": "epic",
     "effects": {
       "hp": 200,
       "blood_power": 80,
@@ -639,7 +639,7 @@
     "name": "Thanh Tâm Đan",
     "emoji": "🧘",
     "description": "Đan dược thiên cấp giúp thanh tâm, tăng cường tinh thần siêu phàm",
-    "rarity": "thien",
+    "rarity": "epic",
     "effects": {
       "mental_clarity": 100,
       "spirit_purification": 80,
@@ -658,7 +658,7 @@
     "name": "Nghịch Mệnh Đan",
     "emoji": "⚡",
     "description": "Đan dược thiên cấp giúp nghịch mệnh, thay đổi số phận",
-    "rarity": "thien",
+    "rarity": "epic",
     "effects": {
       "fate_defiance": 100,
       "destiny_control": 80,
@@ -677,7 +677,7 @@
     "name": "Tâm Hải Đan",
     "emoji": "🌊",
     "description": "Đan dược thiên cấp giúp mở rộng tâm hải, tăng cường tinh thần",
-    "rarity": "thien",
+    "rarity": "epic",
     "effects": {
       "mental_capacity": 100,
       "spirit_ocean": 80,
@@ -696,7 +696,7 @@
     "name": "Linh Ảnh Đan",
     "emoji": "👻",
     "description": "Đan dược thiên cấp giúp tạo linh ảnh, tăng cường ảo thuật",
-    "rarity": "thien",
+    "rarity": "epic",
     "effects": {
       "illusion_mastery": 100,
       "phantom_creation": 80,
@@ -715,7 +715,7 @@
     "name": "Phong Hành Đan",
     "emoji": "💨",
     "description": "Đan dược thiên cấp giúp phong hành, tăng cường tốc độ siêu phàm",
-    "rarity": "thien",
+    "rarity": "epic",
     "effects": {
       "speed": 150,
       "wind_mastery": 100,
@@ -734,7 +734,7 @@
     "name": "Cửu Chuyển Đan",
     "emoji": "🔄",
     "description": "Thần đan cửu chuyển, có thể thay đổi cả thiên địa, tăng cường sức mạnh vô hạn",
-    "rarity": "than",
+    "rarity": "legendary",
     "effects": {
       "reality_manipulation": 200,
       "universe_control": 150,
@@ -754,7 +754,7 @@
     "name": "Tẩy Tủy Đan",
     "emoji": "💎",
     "description": "Thần đan tẩy tủy, thanh lọc hoàn toàn cơ thể và linh hồn, đạt đến trạng thái siêu phàm",
-    "rarity": "than",
+    "rarity": "legendary",
     "effects": {
       "body_purification": 200,
       "soul_cleansing": 150,
@@ -774,7 +774,7 @@
     "name": "Sinh Mệnh Đan",
     "emoji": "🌟",
     "description": "Thần đan sinh mệnh, tạo ra sự sống mới, khôi phục hoàn toàn mọi thứ",
-    "rarity": "than",
+    "rarity": "legendary",
     "effects": {
       "life_creation": 200,
       "complete_restoration": 150,
@@ -793,7 +793,7 @@
     "name": "Cực Phẩm Cường Hóa Đan",
     "emoji": "⚡",
     "description": "Thần đan cực phẩm, tăng cường mọi thuộc tính đến mức tối đa, vượt qua giới hạn",
-    "rarity": "than",
+    "rarity": "legendary",
     "effects": {
       "all_stats_max": 300,
       "limit_break": 200,
@@ -811,7 +811,7 @@
     "name": "Khai Mạch Đan",
     "emoji": "🔓",
     "description": "Thần đan khai mạch, mở ra tiềm năng vô hạn, đạt đến cảnh giới tối cao",
-    "rarity": "than",
+    "rarity": "legendary",
     "effects": {
       "potential_unlock": 250,
       "supreme_realm": 200,

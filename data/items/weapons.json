@@ -1,581 +1,619 @@
 {
-  "kiem": {
-    "name": "Kiếm",
-    "description": "Vũ khí chính của Kim hệ, sắc bén và linh hoạt",
-    "types": {
-      "pham": {
-        "name": "Thiết Kiếm",
-        "emoji": "🗡️",
-        "rarity": "pham",
-        "description": "Kiếm sắt thông thường, phù hợp cho tu sĩ mới bắt đầu",
-        "crafting": {
-          "thiet_tinh_tho": 5,
-          "kim_thiet_thuong": 2
-        }
-      },
-      "huyen": {
-        "name": "Bạch Ngân Kiếm",
-        "emoji": "⚔️",
-        "rarity": "huyen",
-        "description": "Kiếm bạc tinh xảo, sắc bén hơn kiếm sắt",
-        "crafting": {
-          "dong_tinh_luyen": 6,
-          "kim_thiet_thuong": 3
-        }
-      },
-      "dia": {
-        "name": "Hàn Kim Kiếm",
-        "emoji": "🔪",
-        "rarity": "dia",
-        "description": "Kiếm hàn kim cứng cáp, có thể chém đứt đá",
-        "crafting": {
-          "huyen_tinh_dia_tam": 8,
-          "huyen_thiet_tinh_phach": 2,
-          "huyet_viem_tuy_ket": 1
-        }
-      },
-      "thien": {
-        "name": "Thánh Vân Kiếm",
-        "emoji": "⚡",
-        "rarity": "thien",
-        "description": "Kiếm thánh vân, có thể điều khiển sấm sét",
-        "crafting": {
-          "ngan_tinh_thien_khoi": 10,
-          "huyen_thiet_tinh_phach": 2,
-          "chien_hon_nha": 1
-        }
-      },
-      "than": {
-        "name": "Vạn Cốt Chi Kiếm",
-        "emoji": "💀",
-        "rarity": "than",
-        "description": "Thần kiếm được rèn từ xương của vạn linh, có sức mạnh hủy diệt",
-        "crafting": {
-          "thien_tinh_than_khi": 15,
-          "than_kim_than_thiet": 3
-        }
-      }
+  "thiet_kiem": {
+    "name": "Thiết Kiếm",
+    "emoji": "🗡️",
+    "rarity": "common",
+    "description": "Kiếm sắt thông thường, phù hợp cho tu sĩ mới bắt đầu",
+    "crafting": {
+      "thiet_tinh_tho": 5,
+      "kim_thiet_thuong": 2
+    },
+    "type": "sword",
+    "element": "kim"
+  },
+  "bach_ngan_kiem": {
+    "name": "Bạch Ngân Kiếm",
+    "emoji": "⚔️",
+    "rarity": "uncommon",
+    "description": "Kiếm bạc tinh xảo, sắc bén hơn kiếm sắt",
+    "crafting": {
+      "dong_tinh_luyen": 6,
+      "kim_thiet_thuong": 3
+    },
+    "type": "sword",
+    "element": "kim"
+  },
+  "han_kim_kiem": {
+    "name": "Hàn Kim Kiếm",
+    "emoji": "🔪",
+    "rarity": "rare",
+    "description": "Kiếm hàn kim cứng cáp, có thể chém đứt đá",
+    "crafting": {
+      "huyen_tinh_dia_tam": 8,
+      "huyen_thiet_tinh_phach": 2,
+      "huyet_viem_tuy_ket": 1
+    },
+    "type": "sword",
+    "element": "kim"
+  },
+  "thanh_van_kiem": {
+    "name": "Thánh Vân Kiếm",
+    "emoji": "⚡",
+    "rarity": "epic",
+    "description": "Kiếm thánh vân, có thể điều khiển sấm sét",
+    "crafting": {
+      "ngan_tinh_thien_khoi": 10,
+      "huyen_thiet_tinh_phach": 2,
+      "chien_hon_nha": 1
+    },
+    "type": "sword",
+    "element": "kim"
+  },
+  "van_cot_chi_kiem": {
+    "name": "Vạn Cốt Chi Kiếm",
+    "emoji": "💀",
+    "rarity": "legendary",
+    "description": "Thần kiếm được rèn từ xương của vạn linh, có sức mạnh hủy diệt",
+    "crafting": {
+      "thien_tinh_than_khi": 15,
+      "than_kim_than_thiet": 3
+    },
+    "type": "sword",
+    "element": "kim"
+  },
+  "dong_thuong": {
+    "name": "Đồng Thương",
+    "emoji": "🔱",
+    "rarity": "common",
+    "description": "Thương đồng cơ bản, phù hợp cho chiến đấu tầm xa",
+    "crafting": {
+      "thiet_tinh_tho": 5,
+      "kim_thiet_thuong": 2
+    },
+    "type": "spear",
+    "element": "kim"
+  },
+  "ngan_thuong": {
+    "name": "Ngân Thương",
+    "emoji": "⚡",
+    "rarity": "uncommon",
+    "description": "Thương bạc tinh xảo, có thể xuyên thủng giáp",
+    "crafting": {
+      "dong_tinh_luyen": 6,
+      "kim_thiet_thuong": 3
+    },
+    "type": "spear",
+    "element": "kim"
+  },
+  "hac_kim_thuong": {
+    "name": "Hắc Kim Thương",
+    "emoji": "🖤",
+    "rarity": "rare",
+    "description": "Thương hắc kim, có thể hấp thụ linh khí",
+    "crafting": {
+      "huyen_tinh_dia_tam": 8,
+      "huyen_thiet_tinh_phach": 2,
+      "huyet_viem_tuy_ket": 1
+    },
+    "type": "spear",
+    "element": "kim"
+  },
+  "long_vu_thuong": {
+    "name": "Long Vũ Thương",
+    "emoji": "🐉",
+    "rarity": "epic",
+    "description": "Thương long vũ, có thể triệu hồi rồng linh",
+    "crafting": {
+      "ngan_tinh_thien_khoi": 10,
+      "huyen_thiet_tinh_phach": 2,
+      "chien_hon_nha": 1
+    },
+    "type": "spear",
+    "element": "kim"
+  },
+  "tran_thien_than_thuong": {
+    "name": "Trấn Thiên Thần Thương",
+    "emoji": "⚜️",
+    "rarity": "legendary",
+    "description": "Thần thương có thể trấn áp cả thiên địa",
+    "crafting": {
+      "thien_tinh_than_khi": 15,
+      "than_kim_than_thiet": 3
+    },
+    "type": "spear",
+    "element": "kim"
+  },
+  "moc_truong": {
+    "name": "Mộc Trượng",
+    "emoji": "🌳",
+    "rarity": "common",
+    "description": "Trượng gỗ cơ bản, có khả năng hồi phục nhẹ",
+    "crafting": {
+      "thiet_tinh_tho": 5,
+      "thanh_moc_tinh": 2
+    },
+    "type": "staff",
+    "element": "moc"
+  },
+  "thanh_ngoc_truong": {
+    "name": "Thanh Ngọc Trượng",
+    "emoji": "💚",
+    "rarity": "uncommon",
+    "description": "Trượng thanh ngọc, khả năng hồi phục tốt hơn",
+    "crafting": {
+      "dong_tinh_luyen": 6,
+      "thanh_moc_tinh": 3
+    },
+    "type": "staff",
+    "element": "moc"
+  },
+  "sinh_linh_truong": {
+    "name": "Sinh Linh Trượng",
+    "emoji": "🌱",
+    "rarity": "rare",
+    "description": "Trượng sinh linh, có thể hồi phục đồng đội",
+    "crafting": {
+      "huyen_tinh_dia_tam": 8,
+      "ngoc_moc_linh_tuy": 2,
+      "huyet_viem_tuy_ket": 1
+    },
+    "type": "staff",
+    "element": "moc"
+  },
+  "van_moc_truong": {
+    "name": "Vạn Mộc Trượng",
+    "emoji": "🌲",
+    "rarity": "epic",
+    "description": "Trượng vạn mộc, có thể triệu hồi cây cối",
+    "crafting": {
+      "ngan_tinh_thien_khoi": 10,
+      "ngoc_moc_linh_tuy": 2,
+      "chien_hon_nha": 1
+    },
+    "type": "staff",
+    "element": "moc"
+  },
+  "thien_sinh_truong": {
+    "name": "Thiên Sinh Trượng",
+    "emoji": "🌍",
+    "rarity": "legendary",
+    "description": "Thần trượng có thể hồi sinh cả thiên địa",
+    "crafting": {
+      "thien_tinh_than_khi": 15,
+      "tien_moc_than_tuy": 3
+    },
+    "type": "staff",
+    "element": "moc"
+  },
+  "phieu_moc_phien": {
+    "name": "Phiêu Mộc Phiến",
+    "emoji": "🍃",
+    "rarity": "common",
+    "description": "Quạt gỗ nhẹ, có thể tạo gió nhẹ",
+    "crafting": {
+      "thiet_tinh_tho": 5,
+      "thanh_moc_tinh": 2
+    },
+    "type": "fan",
+    "element": "moc"
+  },
+  "thanh_lieu_phien": {
+    "name": "Thanh Liễu Phiến",
+    "emoji": "🌿",
+    "rarity": "uncommon",
+    "description": "Quạt thanh liễu, có thể tạo gió mạnh",
+    "crafting": {
+      "dong_tinh_luyen": 6,
+      "thanh_moc_tinh": 3
+    },
+    "type": "fan",
+    "element": "moc"
+  },
+  "van_diep_phien": {
+    "name": "Vạn Diệp Phiến",
+    "emoji": "🍂",
+    "rarity": "rare",
+    "description": "Quạt vạn diệp, có thể tạo bão lá",
+    "crafting": {
+      "huyen_tinh_dia_tam": 8,
+      "ngoc_moc_linh_tuy": 2,
+      "huyet_viem_tuy_ket": 1
+    },
+    "type": "fan",
+    "element": "moc"
+  },
+  "thanh_phong_phien": {
+    "name": "Thanh Phong Phiến",
+    "emoji": "💨",
+    "rarity": "epic",
+    "description": "Quạt thanh phong, có thể tạo siêu bão",
+    "crafting": {
+      "ngan_tinh_thien_khoi": 10,
+      "ngoc_moc_linh_tuy": 2,
+      "chien_hon_nha": 1
+    },
+    "type": "fan",
+    "element": "moc"
+  },
+  "luc_nguyet_phien": {
+    "name": "Lục Nguyệt Phiến",
+    "emoji": "🌙",
+    "rarity": "legendary",
+    "description": "Thần quạt có thể điều khiển thời tiết toàn cầu",
+    "crafting": {
+      "thien_tinh_than_khi": 15,
+      "tien_moc_than_tuy": 3
+    },
+    "type": "fan",
+    "element": "moc"
+  },
+  "truc_cung": {
+    "name": "Trúc Cung",
+    "emoji": "🏹",
+    "rarity": "common",
+    "description": "Cung trúc cơ bản, phù hợp cho săn bắn",
+    "crafting": {
+      "thiet_tinh_tho": 5,
+      "thuy_tinh_thach": 2
+    },
+    "type": "bow",
+    "element": "thuy"
+  },
+  "thuy_tam_cung": {
+    "name": "Thủy Tâm Cung",
+    "emoji": "💙",
+    "rarity": "uncommon",
+    "description": "Cung thủy tâm, có thể bắn mũi tên nước",
+    "crafting": {
+      "dong_tinh_luyen": 6,
+      "thuy_tinh_thach": 3
+    },
+    "type": "bow",
+    "element": "thuy"
+  },
+  "bang_ngoc_cung": {
+    "name": "Băng Ngọc Cung",
+    "emoji": "❄️",
+    "rarity": "rare",
+    "description": "Cung băng ngọc, có thể bắn mũi tên băng",
+    "crafting": {
+      "huyen_tinh_dia_tam": 8,
+      "lam_thuy_minh_chau": 2,
+      "huyet_viem_tuy_ket": 1
+    },
+    "type": "bow",
+    "element": "thuy"
+  },
+  "han_hai_cung": {
+    "name": "Hàn Hải Cung",
+    "emoji": "🌊",
+    "rarity": "epic",
+    "description": "Cung hàn hải, có thể bắn mũi tên sóng thần",
+    "crafting": {
+      "ngan_tinh_thien_khoi": 10,
+      "lam_thuy_minh_chau": 2,
+      "chien_hon_nha": 1
+    },
+    "type": "bow",
+    "element": "thuy"
+  },
+  "van_luu_than_cung": {
+    "name": "Vạn Lưu Thần Cung",
+    "emoji": "🌊",
+    "rarity": "legendary",
+    "description": "Thần cung có thể bắn mũi tên từ mọi dòng sông",
+    "crafting": {
+      "thien_tinh_than_khi": 15,
+      "than_thuy_tinh_ngoc": 3
+    },
+    "type": "bow",
+    "element": "thuy"
+  },
+  "song_doan": {
+    "name": "Song Đoản",
+    "emoji": "⚔️",
+    "rarity": "common",
+    "description": "Hai kiếm ngắn cơ bản, có thể tấn công liên hoàn",
+    "crafting": {
+      "thiet_tinh_tho": 5,
+      "thuy_tinh_thach": 2
+    },
+    "type": "double_sword",
+    "element": "thuy"
+  },
+  "luu_thuy_song_kiem": {
+    "name": "Lưu Thủy Song Kiếm",
+    "emoji": "💧",
+    "rarity": "uncommon",
+    "description": "Song kiếm lưu thủy, có thể tạo sóng nước",
+    "crafting": {
+      "dong_tinh_luyen": 6,
+      "thuy_tinh_thach": 3
+    },
+    "type": "double_sword",
+    "element": "thuy"
+  },
+  "han_bang_song_kiem": {
+    "name": "Hàn Băng Song Kiếm",
+    "emoji": "❄️",
+    "rarity": "rare",
+    "description": "Song kiếm hàn băng, có thể đóng băng kẻ địch",
+    "crafting": {
+      "huyen_tinh_dia_tam": 8,
+      "lam_thuy_minh_chau": 2,
+      "huyet_viem_tuy_ket": 1
+    },
+    "type": "double_sword",
+    "element": "thuy"
+  },
+  "thuy_anh_song_kiem": {
+    "name": "Thủy Ảnh Song Kiếm",
+    "emoji": "🌊",
+    "rarity": "epic",
+    "description": "Song kiếm thủy ảnh, có thể tạo ảo ảnh nước",
+    "crafting": {
+      "ngan_tinh_thien_khoi": 10,
+      "lam_thuy_minh_chau": 2,
+      "chien_hon_nha": 1
+    },
+    "type": "double_sword",
+    "element": "thuy"
+  },
+  "vinh_luu_song_kiem": {
+    "name": "Vĩnh Lưu Song Kiếm",
+    "emoji": "♾️",
+    "rarity": "legendary",
+    "description": "Thần song kiếm có thể cắt đứt dòng thời gian",
+    "crafting": {
+      "thien_tinh_than_khi": 15,
+      "than_thuy_tinh_ngoc": 3
     }
   },
-  "thuong": {
-    "name": "Thương",
-    "description": "Vũ khí dài của Kim hệ, có tầm đánh xa và sức mạnh lớn",
-    "types": {
-      "pham": {
-        "name": "Đồng Thương",
-        "emoji": "🔱",
-        "rarity": "pham",
-        "description": "Thương đồng cơ bản, phù hợp cho chiến đấu tầm xa",
-        "crafting": {
-          "thiet_tinh_tho": 5,
-          "kim_thiet_thuong": 2
-        }
-      },
-      "huyen": {
-        "name": "Ngân Thương",
-        "emoji": "⚡",
-        "rarity": "huyen",
-        "description": "Thương bạc tinh xảo, có thể xuyên thủng giáp",
-        "crafting": {
-          "dong_tinh_luyen": 6,
-          "kim_thiet_thuong": 3
-        }
-      },
-      "dia": {
-        "name": "Hắc Kim Thương",
-        "emoji": "🖤",
-        "rarity": "dia",
-        "description": "Thương hắc kim, có thể hấp thụ linh khí",
-        "crafting": {
-          "huyen_tinh_dia_tam": 8,
-          "huyen_thiet_tinh_phach": 2,
-          "huyet_viem_tuy_ket": 1
-        }
-      },
-      "thien": {
-        "name": "Long Vũ Thương",
-        "emoji": "🐉",
-        "rarity": "thien",
-        "description": "Thương long vũ, có thể triệu hồi rồng linh",
-        "crafting": {
-          "ngan_tinh_thien_khoi": 10,
-          "huyen_thiet_tinh_phach": 2,
-          "chien_hon_nha": 1
-        }
-      },
-      "than": {
-        "name": "Trấn Thiên Thần Thương",
-        "emoji": "⚜️",
-        "rarity": "than",
-        "description": "Thần thương có thể trấn áp cả thiên địa",
-        "crafting": {
-          "thien_tinh_than_khi": 15,
-          "than_kim_than_thiet": 3
-        }
-      }
-    }
+  "huyet_dao": {
+    "name": "Huyết Đao",
+    "emoji": "🔪",
+    "rarity": "common",
+    "description": "Đao huyết cơ bản, có thể gây chảy máu",
+    "crafting": {
+      "thiet_tinh_tho": 5,
+      "hoa_thach_nhiet_tam": 2
+    },
+    "type": "broadsword",
+    "element": "hoa"
   },
-  "truong": {
-    "name": "Trượng",
-    "description": "Vũ khí chính của Mộc hệ, có khả năng hồi phục và tăng cường",
-    "types": {
-      "pham": {
-        "name": "Mộc Trượng",
-        "emoji": "🌳",
-        "rarity": "pham",
-        "description": "Trượng gỗ cơ bản, có khả năng hồi phục nhẹ",
-        "crafting": {
-          "thiet_tinh_tho": 5,
-          "thanh_moc_tinh": 2
-        }
-      },
-      "huyen": {
-        "name": "Thanh Ngọc Trượng",
-        "emoji": "💚",
-        "rarity": "huyen",
-        "description": "Trượng thanh ngọc, khả năng hồi phục tốt hơn",
-        "crafting": {
-          "dong_tinh_luyen": 6,
-          "thanh_moc_tinh": 3
-        }
-      },
-      "dia": {
-        "name": "Sinh Linh Trượng",
-        "emoji": "🌱",
-        "rarity": "dia",
-        "description": "Trượng sinh linh, có thể hồi phục đồng đội",
-        "crafting": {
-          "huyen_tinh_dia_tam": 8,
-          "ngoc_moc_linh_tuy": 2,
-          "huyet_viem_tuy_ket": 1
-        }
-      },
-      "thien": {
-        "name": "Vạn Mộc Trượng",
-        "emoji": "🌲",
-        "rarity": "thien",
-        "description": "Trượng vạn mộc, có thể triệu hồi cây cối",
-        "crafting": {
-          "ngan_tinh_thien_khoi": 10,
-          "ngoc_moc_linh_tuy": 2,
-          "chien_hon_nha": 1
-        }
-      },
-      "than": {
-        "name": "Thiên Sinh Trượng",
-        "emoji": "🌍",
-        "rarity": "than",
-        "description": "Thần trượng có thể hồi sinh cả thiên địa",
-        "crafting": {
-          "thien_tinh_than_khi": 15,
-          "tien_moc_than_tuy": 3
-        }
-      }
-    }
+  "xich_viem_dao": {
+    "name": "Xích Viêm Đao",
+    "emoji": "🔥",
+    "rarity": "uncommon",
+    "description": "Đao xích viêm, có thể gây bỏng",
+    "crafting": {
+      "dong_tinh_luyen": 6,
+      "hoa_thach_nhiet_tam": 3
+    },
+    "type": "broadsword",
+    "element": "hoa"
   },
-  "quat": {
-    "name": "Quạt Pháp Khí",
-    "description": "Vũ khí phụ của Mộc hệ, có thể tạo gió và điều khiển thời tiết",
-    "types": {
-      "pham": {
-        "name": "Phiêu Mộc Phiến",
-        "emoji": "🍃",
-        "rarity": "pham",
-        "description": "Quạt gỗ nhẹ, có thể tạo gió nhẹ",
-        "crafting": {
-          "thiet_tinh_tho": 5,
-          "thanh_moc_tinh": 2
-        }
-      },
-      "huyen": {
-        "name": "Thanh Liễu Phiến",
-        "emoji": "🌿",
-        "rarity": "huyen",
-        "description": "Quạt thanh liễu, có thể tạo gió mạnh",
-        "crafting": {
-          "dong_tinh_luyen": 6,
-          "thanh_moc_tinh": 3
-        }
-      },
-      "dia": {
-        "name": "Vạn Diệp Phiến",
-        "emoji": "🍂",
-        "rarity": "dia",
-        "description": "Quạt vạn diệp, có thể tạo bão lá",
-        "crafting": {
-          "huyen_tinh_dia_tam": 8,
-          "ngoc_moc_linh_tuy": 2,
-          "huyet_viem_tuy_ket": 1
-        }
-      },
-      "thien": {
-        "name": "Thanh Phong Phiến",
-        "emoji": "💨",
-        "rarity": "thien",
-        "description": "Quạt thanh phong, có thể tạo siêu bão",
-        "crafting": {
-          "ngan_tinh_thien_khoi": 10,
-          "ngoc_moc_linh_tuy": 2,
-          "chien_hon_nha": 1
-        }
-      },
-      "than": {
-        "name": "Lục Nguyệt Phiến",
-        "emoji": "🌙",
-        "rarity": "than",
-        "description": "Thần quạt có thể điều khiển thời tiết toàn cầu",
-        "crafting": {
-          "thien_tinh_than_khi": 15,
-          "tien_moc_than_tuy": 3
-        }
-      }
-    }
+  "liet_diem_dao": {
+    "name": "Liệt Diễm Đao",
+    "emoji": "🔥",
+    "rarity": "rare",
+    "description": "Đao liệt diễm, có thể thiêu rụi kẻ địch",
+    "crafting": {
+      "huyen_tinh_dia_tam": 8,
+      "xich_viem_tam_hoa": 2,
+      "huyet_viem_tuy_ket": 1
+    },
+    "type": "broadsword",
+    "element": "hoa"
   },
-  "cung": {
-    "name": "Cung",
-    "description": "Vũ khí chính của Thủy hệ, có tầm bắn xa và tốc độ cao",
-    "types": {
-      "pham": {
-        "name": "Trúc Cung",
-        "emoji": "🏹",
-        "rarity": "pham",
-        "description": "Cung trúc cơ bản, phù hợp cho săn bắn",
-        "crafting": {
-          "thiet_tinh_tho": 5,
-          "thuy_tinh_thach": 2
-        }
-      },
-      "huyen": {
-        "name": "Thủy Tâm Cung",
-        "emoji": "💙",
-        "rarity": "huyen",
-        "description": "Cung thủy tâm, có thể bắn mũi tên nước",
-        "crafting": {
-          "dong_tinh_luyen": 6,
-          "thuy_tinh_thach": 3
-        }
-      },
-      "dia": {
-        "name": "Băng Ngọc Cung",
-        "emoji": "❄️",
-        "rarity": "dia",
-        "description": "Cung băng ngọc, có thể bắn mũi tên băng",
-        "crafting": {
-          "huyen_tinh_dia_tam": 8,
-          "lam_thuy_minh_chau": 2,
-          "huyet_viem_tuy_ket": 1
-        }
-      },
-      "thien": {
-        "name": "Hàn Hải Cung",
-        "emoji": "🌊",
-        "rarity": "thien",
-        "description": "Cung hàn hải, có thể bắn mũi tên sóng thần",
-        "crafting": {
-          "ngan_tinh_thien_khoi": 10,
-          "lam_thuy_minh_chau": 2,
-          "chien_hon_nha": 1
-        }
-      },
-      "than": {
-        "name": "Vạn Lưu Thần Cung",
-        "emoji": "🌊",
-        "rarity": "than",
-        "description": "Thần cung có thể bắn mũi tên từ mọi dòng sông",
-        "crafting": {
-          "thien_tinh_than_khi": 15,
-          "than_thuy_tinh_ngoc": 3
-        }
-      }
-    }
+  "thien_hoa_dao": {
+    "name": "Thiên Hỏa Đao",
+    "emoji": "⚡",
+    "rarity": "epic",
+    "description": "Đao thiên hỏa, có thể triệu hồi lửa trời",
+    "crafting": {
+      "ngan_tinh_thien_khoi": 10,
+      "xich_viem_tam_hoa": 2
+    },
+    "type": "broadsword",
+    "element": "hoa"
   },
-  "song_kiem": {
-    "name": "Song Kiếm",
-    "description": "Vũ khí phụ của Thủy hệ, sử dụng hai kiếm cùng lúc",
-    "types": {
-      "pham": {
-        "name": "Song Đoản",
-        "emoji": "⚔️",
-        "rarity": "pham",
-        "description": "Hai kiếm ngắn cơ bản, có thể tấn công liên hoàn",
-        "crafting": {
-          "thiet_tinh_tho": 5,
-          "thuy_tinh_thach": 2
-        }
-      },
-      "huyen": {
-        "name": "Lưu Thủy Song Kiếm",
-        "emoji": "💧",
-        "rarity": "huyen",
-        "description": "Song kiếm lưu thủy, có thể tạo sóng nước",
-        "crafting": {
-          "dong_tinh_luyen": 6,
-          "thuy_tinh_thach": 3
-        }
-      },
-      "dia": {
-        "name": "Hàn Băng Song Kiếm",
-        "emoji": "❄️",
-        "rarity": "dia",
-        "description": "Song kiếm hàn băng, có thể đóng băng kẻ địch",
-        "crafting": {
-          "huyen_tinh_dia_tam": 8,
-          "lam_thuy_minh_chau": 2,
-          "huyet_viem_tuy_ket": 1
-        }
-      },
-      "thien": {
-        "name": "Thủy Ảnh Song Kiếm",
-        "emoji": "🌊",
-        "rarity": "thien",
-        "description": "Song kiếm thủy ảnh, có thể tạo ảo ảnh nước",
-        "crafting": {
-          "ngan_tinh_thien_khoi": 10,
-          "lam_thuy_minh_chau": 2,
-          "chien_hon_nha": 1
-        }
-      },
-      "than": {
-        "name": "Vĩnh Lưu Song Kiếm",
-        "emoji": "♾️",
-        "rarity": "than",
-        "description": "Thần song kiếm có thể cắt đứt dòng thời gian",
-        "crafting": {
-          "thien_tinh_than_khi": 15,
-          "than_thuy_tinh_ngoc": 3
-        }
-      }
-    }
+  "diet_the_ma_dao": {
+    "name": "Diệt Thế Ma Đao",
+    "emoji": "💀",
+    "rarity": "legendary",
+    "description": "Ma đao có thể thiêu rụi cả thế giới",
+    "crafting": {
+      "thien_tinh_than_khi": 15,
+      "than_viem_chan_hoa": 3
+    },
+    "type": "broadsword",
+    "element": "hoa"
   },
-  "dao": {
-    "name": "Đao",
-    "description": "Vũ khí chính của Hỏa hệ, có sức mạnh hủy diệt cao",
-    "types": {
-      "pham": {
-        "name": "Huyết Đao",
-        "emoji": "🔪",
-        "rarity": "pham",
-        "description": "Đao huyết cơ bản, có thể gây chảy máu",
-        "crafting": {
-          "thiet_tinh_tho": 5,
-          "hoa_thach_nhiet_tam": 2
-        }
-      },
-      "huyen": {
-        "name": "Xích Viêm Đao",
-        "emoji": "🔥",
-        "rarity": "huyen",
-        "description": "Đao xích viêm, có thể gây bỏng",
-        "crafting": {
-          "dong_tinh_luyen": 6,
-          "hoa_thach_nhiet_tam": 3
-        }
-      },
-      "dia": {
-        "name": "Liệt Diễm Đao",
-        "emoji": "🔥",
-        "rarity": "dia",
-        "description": "Đao liệt diễm, có thể thiêu rụi kẻ địch",
-        "crafting": {
-          "huyen_tinh_dia_tam": 8,
-          "xich_viem_tam_hoa": 2,
-          "huyet_viem_tuy_ket": 1
-        }
-      },
-      "thien": {
-        "name": "Thiên Hỏa Đao",
-        "emoji": "⚡",
-        "rarity": "thien",
-        "description": "Đao thiên hỏa, có thể triệu hồi lửa trời",
-        "crafting": {
-          "ngan_tinh_thien_khoi": 10,
-          "xich_viem_tam_hoa": 2
-        }
-      },
-      "than": {
-        "name": "Diệt Thế Ma Đao",
-        "emoji": "💀",
-        "rarity": "than",
-        "description": "Ma đao có thể thiêu rụi cả thế giới",
-        "crafting": {
-          "thien_tinh_than_khi": 15,
-          "than_viem_chan_hoa": 3
-        }
-      }
-    }
+  "hoa_quyen": {
+    "name": "Hỏa Quyền",
+    "emoji": "👊",
+    "rarity": "common",
+    "description": "Quyền hỏa cơ bản, có thể đốt cháy kẻ địch",
+    "crafting": {
+      "thiet_tinh_tho": 5,
+      "hoa_thach_nhiet_tam": 2
+    },
+    "type": "fist",
+    "element": "hoa"
   },
-  "quyen": {
-    "name": "Quyền Thủ",
-    "description": "Vũ khí phụ của Hỏa hệ, sử dụng đấm đá kết hợp lửa",
-    "types": {
-      "pham": {
-        "name": "Hỏa Quyền",
-        "emoji": "👊",
-        "rarity": "pham",
-        "description": "Quyền hỏa cơ bản, có thể đốt cháy kẻ địch",
-        "crafting": {
-          "thiet_tinh_tho": 5,
-          "hoa_thach_nhiet_tam": 2
-        }
-      },
-      "huyen": {
-        "name": "Xích Viêm Quyền",
-        "emoji": "🔥",
-        "rarity": "huyen",
-        "description": "Quyền xích viêm, có thể tạo lửa",
-        "crafting": {
-          "dong_tinh_luyen": 6,
-          "hoa_thach_nhiet_tam": 3
-        }
-      },
-      "dia": {
-        "name": "Liệt Hỏa Quyền",
-        "emoji": "🔥",
-        "rarity": "dia",
-        "description": "Quyền liệt hỏa, có thể tạo vụ nổ",
-        "crafting": {
-          "huyen_tinh_dia_tam": 8,
-          "xich_viem_tam_hoa": 2,
-          "huyet_viem_tuy_ket": 1
-        }
-      },
-      "thien": {
-        "name": "Bạo Viêm Quyền",
-        "emoji": "💥",
-        "rarity": "thien",
-        "description": "Quyền bạo viêm, có thể tạo siêu vụ nổ",
-        "crafting": {
-          "ngan_tinh_thien_khoi": 10,
-          "xich_viem_tam_hoa": 2,
-          "chien_hon_nha": 1
-        }
-      },
-      "than": {
-        "name": "Phá Thiên Thần Quyền",
-        "emoji": "⚡",
-        "rarity": "than",
-        "description": "Thần quyền có thể phá vỡ cả thiên địa",
-        "crafting": {
-          "thien_tinh_than_khi": 15,
-          "than_viem_chan_hoa": 3
-        }
-      }
-    }
+  "xich_viem_quyen": {
+    "name": "Xích Viêm Quyền",
+    "emoji": "🔥",
+    "rarity": "uncommon",
+    "description": "Quyền xích viêm, có thể tạo lửa",
+    "crafting": {
+      "dong_tinh_luyen": 6,
+      "hoa_thach_nhiet_tam": 3
+    },
+    "type": "fist",
+    "element": "hoa"
   },
-  "chuy": {
-    "name": "Chùy",
-    "description": "Vũ khí chính của Thổ hệ, có sức mạnh phá hủy cao",
-    "types": {
-      "pham": {
-        "name": "Thạch Chùy",
-        "emoji": "🔨",
-        "rarity": "pham",
-        "description": "Chùy đá cơ bản, có thể đập vỡ đá",
-        "crafting": {
-          "thiet_tinh_tho": 5,
-          "hoang_tho_ket": 2
-        }
-      },
-      "huyen": {
-        "name": "Huyền Thạch Chùy",
-        "emoji": "🪨",
-        "rarity": "huyen",
-        "description": "Chùy huyền thạch, có thể đập vỡ kim loại",
-        "crafting": {
-          "dong_tinh_luyen": 6,
-          "hoang_tho_ket": 3
-        }
-      },
-      "dia": {
-        "name": "Kim Cang Chùy",
-        "emoji": "💎",
-        "rarity": "dia",
-        "description": "Chùy kim cang, có thể đập vỡ mọi thứ",
-        "crafting": {
-          "huyen_tinh_dia_tam": 8,
-          "huyen_tho_linh_ket": 2,
-          "huyet_viem_tuy_ket": 1
-        }
-      },
-      "thien": {
-        "name": "Cự Lực Chùy",
-        "emoji": "💪",
-        "rarity": "thien",
-        "description": "Chùy cự lực, có thể đập vỡ núi",
-        "crafting": {
-          "ngan_tinh_thien_khoi": 10,
-          "huyen_tho_linh_ket": 2,
-          "chien_hon_nha": 1
-        }
-      },
-      "than": {
-        "name": "Hậu Thổ Thần Chùy",
-        "emoji": "🌍",
-        "rarity": "than",
-        "description": "Thần chùy có thể đập vỡ cả thế giới",
-        "crafting": {
-          "thien_tinh_than_khi": 15,
-          "than_tho_chi_tinh": 3
-        }
-      }
-    }
+  "liet_hoa_quyen": {
+    "name": "Liệt Hỏa Quyền",
+    "emoji": "🔥",
+    "rarity": "rare",
+    "description": "Quyền liệt hỏa, có thể tạo vụ nổ",
+    "crafting": {
+      "huyen_tinh_dia_tam": 8,
+      "xich_viem_tam_hoa": 2,
+      "huyet_viem_tuy_ket": 1
+    },
+    "type": "fist",
+    "element": "hoa"
   },
-  "riu": {
-    "name": "Rìu",
-    "description": "Vũ khí phụ của Thổ hệ, có thể chặt cây và khai thác",
-    "types": {
-      "pham": {
-        "name": "Mộc Rìu",
-        "emoji": "🪓",
-        "rarity": "pham",
-        "description": "Rìu gỗ cơ bản, có thể chặt cây nhỏ",
-        "crafting": {
-          "thiet_tinh_tho": 5,
-          "hoang_tho_ket": 2
-        }
-      },
-      "huyen": {
-        "name": "Thiết Rìu",
-        "emoji": "⚒️",
-        "rarity": "huyen",
-        "description": "Rìu sắt, có thể chặt cây lớn",
-        "crafting": {
-          "dong_tinh_luyen": 6,
-          "hoang_tho_ket": 3
-        }
-      },
-      "dia": {
-        "name": "Hắc Thạch Rìu",
-        "emoji": "🖤",
-        "rarity": "dia",
-        "description": "Rìu hắc thạch, có thể chặt đá",
-        "crafting": {
-          "huyen_tinh_dia_tam": 8,
-          "huyen_tho_linh_ket": 2,
-          "huyet_viem_tuy_ket": 1
-        }
-      },
-      "thien": {
-        "name": "Cuồng Lực Rìu",
-        "emoji": "💪",
-        "rarity": "thien",
-        "description": "Rìu cuồng lực, có thể chặt núi",
-        "crafting": {
-          "ngan_tinh_thien_khoi": 10,
-          "huyen_tho_linh_ket": 2,
-          "chien_hon_nha": 1
-        }
-      },
-      "than": {
-        "name": "Hạo Thiên Thần Rìu",
-        "emoji": "⚡",
-        "rarity": "than",
-        "description": "Thần rìu có thể chặt đứt cả thiên địa",
-        "crafting": {
-          "thien_tinh_than_khi": 15,
-          "than_tho_chi_tinh": 3
-        }
-      }
-    }
+  "bao_viem_quyen": {
+    "name": "Bạo Viêm Quyền",
+    "emoji": "💥",
+    "rarity": "epic",
+    "description": "Quyền bạo viêm, có thể tạo siêu vụ nổ",
+    "crafting": {
+      "ngan_tinh_thien_khoi": 10,
+      "xich_viem_tam_hoa": 2,
+      "chien_hon_nha": 1
+    },
+    "type": "fist",
+    "element": "hoa"
+  },
+  "phat_thien_than_quyen": {
+    "name": "Phá Thiên Thần Quyền",
+    "emoji": "⚡",
+    "rarity": "legendary",
+    "description": "Thần quyền có thể phá vỡ cả thiên địa",
+    "crafting": {
+      "thien_tinh_than_khi": 15,
+      "than_viem_chan_hoa": 3
+    },
+    "type": "fist",
+    "element": "hoa"
+  },
+  "thach_chuy": {
+    "name": "Thạch Chùy",
+    "emoji": "🔨",
+    "rarity": "common",
+    "description": "Chùy đá cơ bản, có thể đập vỡ đá",
+    "crafting": {
+      "thiet_tinh_tho": 5,
+      "hoang_tho_ket": 2
+    },
+    "type": "mace",
+    "element": "tho"
+  },
+  "huyen_thach_chuy": {
+    "name": "Huyền Thạch Chùy",
+    "emoji": "🪨",
+    "rarity": "uncommon",
+    "description": "Chùy huyền thạch, có thể đập vỡ kim loại",
+    "crafting": {
+      "dong_tinh_luyen": 6,
+      "hoang_tho_ket": 3
+    },
+    "type": "mace",
+    "element": "tho"
+  },
+  "kim_cang_chuy": {
+    "name": "Kim Cang Chùy",
+    "emoji": "💎",
+    "rarity": "rare",
+    "description": "Chùy kim cang, có thể đập vỡ mọi thứ",
+    "crafting": {
+      "huyen_tinh_dia_tam": 8,
+      "huyen_tho_linh_ket": 2,
+      "huyet_viem_tuy_ket": 1
+    },
+    "type": "mace",
+    "element": "tho"
+  },
+  "cu_luc_chuy": {
+    "name": "Cự Lực Chùy",
+    "emoji": "💪",
+    "rarity": "epic",
+    "description": "Chùy cự lực, có thể đập vỡ núi",
+    "crafting": {
+      "ngan_tinh_thien_khoi": 10,
+      "huyen_tho_linh_ket": 2,
+      "chien_hon_nha": 1
+    },
+    "type": "mace",
+    "element": "tho"
+  },
+  "hau_tho_than_chuy": {
+    "name": "Hậu Thổ Thần Chùy",
+    "emoji": "🌍",
+    "rarity": "legendary",
+    "description": "Thần chùy có thể đập vỡ cả thế giới",
+    "crafting": {
+      "thien_tinh_than_khi": 15,
+      "than_tho_chi_tinh": 3
+    },
+    "type": "mace",
+    "element": "tho"
+  },
+  "moc_riu": {
+    "name": "Mộc Rìu",
+    "emoji": "🪓",
+    "rarity": "common",
+    "description": "Rìu gỗ cơ bản, có thể chặt cây nhỏ",
+    "crafting": {
+      "thiet_tinh_tho": 5,
+      "hoang_tho_ket": 2
+    },
+    "type": "axe",
+    "element": "tho"
+  },
+  "thiet_riu": {
+    "name": "Thiết Rìu",
+    "emoji": "⚒️",
+    "rarity": "uncommon",
+    "description": "Rìu sắt, có thể chặt cây lớn",
+    "crafting": {
+      "dong_tinh_luyen": 6,
+      "hoang_tho_ket": 3
+    },
+    "type": "axe",
+    "element": "tho"
+  },
+  "hac_thach_riu": {
+    "name": "Hắc Thạch Rìu",
+    "emoji": "🖤",
+    "rarity": "rare",
+    "description": "Rìu hắc thạch, có thể chặt đá",
+    "crafting": {
+      "huyen_tinh_dia_tam": 8,
+      "huyen_tho_linh_ket": 2,
+      "huyet_viem_tuy_ket": 1
+    },
+    "type": "axe",
+    "element": "tho"
+  },
+  "cuong_luc_riu": {
+    "name": "Cuồng Lực Rìu",
+    "emoji": "💪",
+    "rarity": "epic",
+    "description": "Rìu cuồng lực, có thể chặt núi",
+    "crafting": {
+      "ngan_tinh_thien_khoi": 10,
+      "huyen_tho_linh_ket": 2,
+      "chien_hon_nha": 1
+    },
+    "type": "axe",
+    "element": "tho"
+  },
+  "hao_thien_than_riu": {
+    "name": "Hạo Thiên Thần Rìu",
+    "emoji": "⚡",
+    "rarity": "legendary",
+    "description": "Thần rìu có thể chặt đứt cả thiên địa",
+    "crafting": {
+      "thien_tinh_than_khi": 15,
+      "than_tho_chi_tinh": 3
+    },
+    "type": "axe",
+    "element": "tho"
   }
 }

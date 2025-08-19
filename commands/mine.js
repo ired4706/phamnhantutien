@@ -3,6 +3,7 @@ const playerManager = require('../systems/player.js');
 const cooldownManager = require('../utils/cooldown.js');
 const expCalculator = require('../systems/exp-calculator.js');
 const SpiritStonesCalculator = require('../utils/spirit-stones-calculator.js');
+const ItemDropCalculator = require('../utils/item-drop-calculator.js');
 
 module.exports = {
   name: 'mine',
@@ -38,7 +39,7 @@ module.exports = {
 
     // Tính toán phần thưởng khác
     const spiritStones = SpiritStonesCalculator.calculateMine();
-    const minerals = this.getMineralsByRealm(player.realm, player.realmLevel);
+    const minerals = ItemDropCalculator.calculateMineItems(player);
 
     // Cập nhật player
     playerManager.addExperience(userId, expGained);
@@ -72,8 +73,8 @@ module.exports = {
         },
         {
           name: '🌿 Khoáng sản thu được',
-          value: `${minerals.length} items: ${minerals.join(', ')}`,
-          inline: true
+          value: minerals.length > 0 ? ItemDropCalculator.formatItems(minerals) : 'Không có khoáng sản nào',
+          inline: false
         }
       )
       .addFields({

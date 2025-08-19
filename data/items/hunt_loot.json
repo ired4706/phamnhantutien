@@ -1,346 +1,62 @@
 {
-  "hunt_loot": {
-    "common": {
-      "name": "Phàm Cấp",
-      "emoji": "⚪",
-      "description": "Vật phẩm phàm cấp, dễ dàng thu thập",
-      "items": {
-        "da_thu_tho": {
-          "name": "Da Thú Thô",
-          "emoji": "🦊",
-          "description": "Da thú thô, nguyên liệu cơ bản để chế tạo",
-          "type": "material",
-          "rarity": "common",
-          "value": 50,
-          "stats": {
-            "DEF": 5,
-            "HP": 10
-          },
-          "crafting_uses": [
-            "armor",
-            "accessories",
-            "basic_equipment"
-          ],
-          "drop_rate": 45
-        },
-        "thanh_van_to": {
-          "name": "Thanh Vân Tơ",
-          "emoji": "☁️",
-          "description": "Tơ vân xanh, nguyên liệu nhẹ nhàng",
-          "type": "material",
-          "rarity": "common",
-          "value": 60,
-          "stats": {
-            "SPD": 8,
-            "EVASION": 5
-          },
-          "crafting_uses": [
-            "robe",
-            "accessories",
-            "light_armor"
-          ],
-          "drop_rate": 40
-        }
-      }
-    },
-    "uncommon": {
-      "name": "Huyền Cấp",
-      "emoji": "🟢",
-      "description": "Vật phẩm huyền bí, có sức mạnh đặc biệt",
-      "items": {
-        "da_linh_thu": {
-          "name": "Da Linh Thú",
-          "emoji": "🐺",
-          "description": "Da linh thú, chứa linh khí huyền bí",
-          "type": "material",
-          "rarity": "uncommon",
-          "value": 300,
-          "stats": {
-            "DEF": 15,
-            "HP": 25,
-            "SPIRIT_RESISTANCE": 10
-          },
-          "crafting_uses": [
-            "spirit_armor",
-            "enchanted_accessories",
-            "huyen_equipment"
-          ],
-          "drop_rate": 30
-        },
-        "nguyet_anh_to": {
-          "name": "Nguyệt Ảnh Tơ",
-          "emoji": "🌙",
-          "description": "Tơ ánh trăng, chứa linh khí âm dương",
-          "type": "material",
-          "rarity": "uncommon",
-          "value": 350,
-          "stats": {
-            "SPD": 15,
-            "EVASION": 12,
-            "MP": 20
-          },
-          "crafting_uses": [
-            "mystic_robe",
-            "lunar_accessories",
-            "yin_yang_equipment"
-          ],
-          "drop_rate": 25
-        }
-      }
-    },
-    "rare": {
-      "name": "Địa Cấp",
-      "emoji": "🟡",
-      "description": "Vật phẩm địa cấp, có thể thay đổi chiến trường",
-      "items": {
-        "da_dia_thu": {
-          "name": "Da Địa Thú",
-          "emoji": "🦁",
-          "description": "Da địa thú, chứa linh khí đất mạnh mẽ",
-          "type": "material",
-          "rarity": "rare",
-          "value": 1500,
-          "stats": {
-            "DEF": 35,
-            "HP": 60,
-            "SPIRIT_RESISTANCE": 25,
-            "REP": 15
-          },
-          "crafting_uses": [
-            "earth_armor",
-            "ground_accessories",
-            "dia_equipment"
-          ],
-          "drop_rate": 15
-        },
-        "dia_ha_to": {
-          "name": "Địa Hà Tơ",
-          "emoji": "🏔️",
-          "description": "Tơ địa hà, chứa linh khí núi non",
-          "type": "material",
-          "rarity": "rare",
-          "value": 1800,
-          "stats": {
-            "SPD": 25,
-            "EVASION": 20,
-            "MP": 40,
-            "DEF": 20
-          },
-          "crafting_uses": [
-            "mountain_robe",
-            "earth_accessories",
-            "dia_equipment"
-          ],
-          "drop_rate": 10
-        }
-      }
-    },
-    "epic": {
-      "name": "Thiên Cấp",
-      "emoji": "🟠",
-      "description": "Vật phẩm thiên cấp, có sức mạnh hủy diệt",
-      "items": {
-        "da_thien_thu": {
-          "name": "Da Thiên Thú",
-          "emoji": "🦅",
-          "description": "Da thiên thú, chứa linh khí thiên đình",
-          "type": "material",
-          "rarity": "epic",
-          "value": 8000,
-          "stats": {
-            "DEF": 80,
-            "HP": 120,
-            "SPIRIT_RESISTANCE": 50,
-            "REP": 30,
-            "KARMA": 20
-          },
-          "crafting_uses": [
-            "heavenly_armor",
-            "celestial_accessories",
-            "thien_equipment"
-          ],
-          "drop_rate": 5
-        },
-        "tinh_ha_to": {
-          "name": "Tinh Hà Tơ",
-          "emoji": "⭐",
-          "description": "Tơ tinh hà, chứa linh khí ngân hà",
-          "type": "material",
-          "rarity": "epic",
-          "value": 10000,
-          "stats": {
-            "SPD": 45,
-            "EVASION": 35,
-            "MP": 80,
-            "DEF": 40,
-            "REGEN": 25
-          },
-          "crafting_uses": [
-            "stellar_robe",
-            "cosmic_accessories",
-            "thien_equipment"
-          ],
-          "drop_rate": 3
-        }
-      }
-    },
-    "legendary": {
-      "name": "Thần Cấp",
-      "emoji": "🔴",
-      "description": "Thần khí, có thể thay đổi cả thế giới",
-      "items": {
-        "da_than_thu": {
-          "name": "Da Thần Thú",
-          "emoji": "🐉",
-          "description": "Da thần thú, chứa linh khí thần thánh",
-          "type": "material",
-          "rarity": "legendary",
-          "value": 50000,
-          "stats": {
-            "DEF": 150,
-            "HP": 250,
-            "SPIRIT_RESISTANCE": 100,
-            "REP": 60,
-            "KARMA": 50,
-            "ALL_STATS": 25
-          },
-          "crafting_uses": [
-            "divine_armor",
-            "godly_accessories",
-            "than_equipment"
-          ],
-          "drop_rate": 1
-        },
-        "tien_ha_van_to": {
-          "name": "Tiên Hà Vân Tơ",
-          "emoji": "🌈",
-          "description": "Tơ tiên hà vân, chứa linh khí tiên giới",
-          "type": "material",
-          "rarity": "legendary",
-          "value": 75000,
-          "stats": {
-            "SPD": 80,
-            "EVASION": 60,
-            "MP": 150,
-            "DEF": 80,
-            "REGEN": 50,
-            "ALL_STATS": 30
-          },
-          "crafting_uses": [
-            "immortal_robe",
-            "transcendent_accessories",
-            "than_equipment"
-          ],
-          "drop_rate": 0.5
-        }
-      }
-    }
+  "da_thu_tho": {
+    "name": "Da Thú Thô",
+    "emoji": "🦊",
+    "description": "Da thú thô, nguyên liệu cơ bản để chế tạo",
+    "rarity": "common"
   },
-  "drop_rates_by_realm": {
-    "luyen_khi": {
-      "common": 80,
-      "uncommon": 20,
-      "rare": 0,
-      "epic": 0,
-      "legendary": 0
-    },
-    "truc_co": {
-      "common": 55,
-      "uncommon": 35,
-      "rare": 10,
-      "epic": 0,
-      "legendary": 0
-    },
-    "ket_dan": {
-      "common": 35,
-      "uncommon": 35,
-      "rare": 25,
-      "epic": 5,
-      "legendary": 0
-    },
-    "nguyen_anh": {
-      "common": 20,
-      "uncommon": 30,
-      "rare": 35,
-      "epic": 14,
-      "legendary": 1
-    }
+  "thanh_van_to": {
+    "name": "Thanh Vân Tơ",
+    "emoji": "☁️",
+    "description": "Tơ vân xanh, nguyên liệu nhẹ nhàng",
+    "rarity": "common"
   },
-  "crafting_recipes": {
-    "basic_armor": {
-      "name": "Áo Giáp Cơ Bản",
-      "materials": {
-        "da_thu_tho": 3,
-        "thanh_van_to": 2
-      },
-      "result": "basic_armor",
-      "stats": {
-        "DEF": 20,
-        "HP": 40
-      }
-    },
-    "spirit_armor": {
-      "name": "Áo Giáp Linh Khí",
-      "materials": {
-        "da_linh_thu": 2,
-        "nguyet_anh_to": 1
-      },
-      "result": "spirit_armor",
-      "stats": {
-        "DEF": 35,
-        "HP": 60,
-        "SPIRIT_RESISTANCE": 15
-      }
-    },
-    "earth_armor": {
-      "name": "Áo Giáp Địa Khí",
-      "materials": {
-        "da_dia_thu": 2,
-        "dia_ha_to": 1
-      },
-      "result": "earth_armor",
-      "stats": {
-        "DEF": 60,
-        "HP": 100,
-        "SPIRIT_RESISTANCE": 30
-      }
-    },
-    "heavenly_armor": {
-      "name": "Áo Giáp Thiên Khí",
-      "materials": {
-        "da_thien_thu": 2,
-        "tinh_ha_to": 1
-      },
-      "result": "heavenly_armor",
-      "stats": {
-        "DEF": 120,
-        "HP": 200,
-        "SPIRIT_RESISTANCE": 60
-      }
-    },
-    "divine_armor": {
-      "name": "Áo Giáp Thần Khí",
-      "materials": {
-        "da_than_thu": 2,
-        "tien_ha_van_to": 1
-      },
-      "result": "divine_armor",
-      "stats": {
-        "DEF": 250,
-        "HP": 400,
-        "SPIRIT_RESISTANCE": 120
-      }
-    }
+  "da_linh_thu": {
+    "name": "Da Linh Thú",
+    "emoji": "🐺",
+    "description": "Da linh thú, chứa linh khí huyền bí",
+    "rarity": "uncommon"
   },
-  "hunt_mechanics": {
-    "description": "Hệ thống săn thú để thu thập nguyên liệu chế tạo",
-    "cooldown": "30 giây",
-    "energy_cost": "Thấp",
-    "success_rate": "90%",
-    "bonus_effects": {
-      "lucky_hunt": "Có 5% cơ hội nhận thêm 1 item",
-      "critical_hunt": "Có 2% cơ hội nhận item rarity cao hơn",
-      "perfect_hunt": "Có 1% cơ hội nhận tất cả items cùng rarity"
-    }
+  "nguyet_anh_to": {
+    "name": "Nguyệt Ảnh Tơ",
+    "emoji": "🌙",
+    "description": "Tơ ánh trăng, chứa linh khí âm dương",
+    "rarity": "uncommon"
+  },
+  "da_dia_thu": {
+    "name": "Da Địa Thú",
+    "emoji": "🦁",
+    "description": "Da địa thú, chứa linh khí đất mạnh mẽ",
+    "rarity": "rare"
+  },
+  "dia_ha_to": {
+    "name": "Địa Hà Tơ",
+    "emoji": "🏔️",
+    "description": "Tơ địa hà, chứa linh khí núi non",
+    "rarity": "rare"
+  },
+  "da_thien_thu": {
+    "name": "Da Thiên Thú",
+    "emoji": "🦅",
+    "description": "Da thiên thú, chứa linh khí thiên đình",
+    "rarity": "epic"
+  },
+  "tinh_ha_to": {
+    "name": "Tinh Hà Tơ",
+    "emoji": "⭐",
+    "description": "Tơ tinh hà, chứa linh khí ngân hà",
+    "rarity": "epic"
+  },
+  "da_than_thu": {
+    "name": "Da Thần Thú",
+    "emoji": "🐉",
+    "description": "Da thần thú, chứa linh khí thần thánh",
+    "rarity": "legendary"
+  },
+  "tien_ha_van_to": {
+    "name": "Tiên Hà Vân Tơ",
+    "emoji": "🌈",
+    "description": "Tơ tiên hà vân, chứa linh khí tiên giới",
+    "rarity": "legendary"
   }
 }

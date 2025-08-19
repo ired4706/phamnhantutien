@@ -1,184 +1,182 @@
 {
-  "spirit_roots": {
-    "kim": {
-      "name": "Kim Linh Căn",
-      "emoji": "⚔️",
-      "description": "Linh căn kim thuộc tính, chuyên về công kích sắc bén và phòng thủ cứng cáp",
-      "basic_stats": {
-        "attack": 12,
-        "defense": 15,
-        "hp": 120,
-        "mana": 50,
-        "speed": 8,
-        "critical": 5,
-        "regen": 2,
-        "evasion": 3,
-        "reputation": 0,
-        "karma": 0
-      },
-      "growth_rates": {
-        "attack": 1.8,
-        "defense": 2.0,
-        "hp": 15,
-        "mana": 5,
-        "speed": 0.2,
-        "critical": 0.3,
-        "regen": 0.1,
-        "evasion": 0.1,
-        "reputation": 0,
-        "karma": 0
-      },
-      "special_abilities": [
-        "Kim Kiếm Vô Song",
-        "Thép Thân Bất Hoại",
-        "Phong Lôi Kiếm Pháp"
-      ],
-      "weakness": "hỏa",
-      "strength": "mộc"
+  "kim": {
+    "name": "Kim Linh Căn",
+    "emoji": "⚔️",
+    "description": "Linh căn kim thuộc tính, chuyên về công kích sắc bén và phòng thủ cứng cáp",
+    "basic_stats": {
+      "attack": 12,
+      "defense": 15,
+      "hp": 120,
+      "mana": 50,
+      "speed": 8,
+      "critical": 5,
+      "regen": 2,
+      "evasion": 3,
+      "reputation": 0,
+      "karma": 0
     },
-    "moc": {
-      "name": "Mộc Linh Căn",
-      "emoji": "🌳",
-      "description": "Linh căn mộc thuộc tính, chuyên về hồi phục và né tránh",
-      "basic_stats": {
-        "attack": 10,
-        "defense": 10,
-        "hp": 100,
-        "mana": 70,
-        "speed": 9,
-        "critical": 7,
-        "regen": 4,
-        "evasion": 4,
-        "reputation": 0,
-        "karma": 0
-      },
-      "growth_rates": {
-        "attack": 1.4,
-        "defense": 1.4,
-        "hp": 12,
-        "mana": 7,
-        "speed": 0.25,
-        "critical": 0.35,
-        "regen": 0.3,
-        "evasion": 0.15,
-        "reputation": 0,
-        "karma": 0
-      },
-      "special_abilities": [
-        "Mộc Linh Hồi Phục",
-        "Thảo Mộc Trường Sinh",
-        "Thiên Mộc Vạn Thọ"
-      ],
-      "weakness": "kim",
-      "strength": "thổ"
+    "growth_rates": {
+      "attack": 1.8,
+      "defense": 2.0,
+      "hp": 15,
+      "mana": 5,
+      "speed": 0.2,
+      "critical": 0.3,
+      "regen": 0.1,
+      "evasion": 0.1,
+      "reputation": 0,
+      "karma": 0
     },
-    "thuy": {
-      "name": "Thủy Linh Căn",
-      "emoji": "💧",
-      "description": "Linh căn thủy thuộc tính, chuyên về tốc độ và né tránh",
-      "basic_stats": {
-        "attack": 9,
-        "defense": 9,
-        "hp": 90,
-        "mana": 90,
-        "speed": 10,
-        "critical": 6,
-        "regen": 3,
-        "evasion": 6,
-        "reputation": 0,
-        "karma": 0
-      },
-      "growth_rates": {
-        "attack": 1.2,
-        "defense": 1.2,
-        "hp": 10,
-        "mana": 9,
-        "speed": 0.3,
-        "critical": 0.25,
-        "regen": 0.2,
-        "evasion": 0.25,
-        "reputation": 0,
-        "karma": 0
-      },
-      "special_abilities": [
-        "Thủy Nguyệt Vô Biên",
-        "Hải Triều Bất Tận",
-        "Băng Sương Thiên Hạ"
-      ],
-      "weakness": "thổ",
-      "strength": "hỏa"
+    "special_abilities": [
+      "Kim Kiếm Vô Song",
+      "Thép Thân Bất Hoại",
+      "Phong Lôi Kiếm Pháp"
+    ],
+    "weakness": "hỏa",
+    "strength": "mộc"
+  },
+  "moc": {
+    "name": "Mộc Linh Căn",
+    "emoji": "🌳",
+    "description": "Linh căn mộc thuộc tính, chuyên về hồi phục và né tránh",
+    "basic_stats": {
+      "attack": 10,
+      "defense": 10,
+      "hp": 100,
+      "mana": 70,
+      "speed": 9,
+      "critical": 7,
+      "regen": 4,
+      "evasion": 4,
+      "reputation": 0,
+      "karma": 0
     },
-    "hoa": {
-      "name": "Hỏa Linh Căn",
-      "emoji": "🔥",
-      "description": "Linh căn hỏa thuộc tính, chuyên về công kích mãnh liệt và chí mạng",
-      "basic_stats": {
-        "attack": 14,
-        "defense": 8,
-        "hp": 95,
-        "mana": 60,
-        "speed": 11,
-        "critical": 10,
-        "regen": 2,
-        "evasion": 5,
-        "reputation": 0,
-        "karma": 0
-      },
-      "growth_rates": {
-        "attack": 2.0,
-        "defense": 1.0,
-        "hp": 11,
-        "mana": 6,
-        "speed": 0.35,
-        "critical": 0.4,
-        "regen": 0.1,
-        "evasion": 0.2,
-        "reputation": 0,
-        "karma": 0
-      },
-      "special_abilities": [
-        "Hỏa Long Phá Thiên",
-        "Thiên Hỏa Vạn Trượng",
-        "Hỏa Phượng Tái Sinh"
-      ],
-      "weakness": "thủy",
-      "strength": "kim"
+    "growth_rates": {
+      "attack": 1.4,
+      "defense": 1.4,
+      "hp": 12,
+      "mana": 7,
+      "speed": 0.25,
+      "critical": 0.35,
+      "regen": 0.3,
+      "evasion": 0.15,
+      "reputation": 0,
+      "karma": 0
     },
-    "tho": {
-      "name": "Thổ Linh Căn",
-      "emoji": "🏔️",
-      "description": "Linh căn thổ thuộc tính, chuyên về phòng thủ và hồi phục",
-      "basic_stats": {
-        "attack": 11,
-        "defense": 14,
-        "hp": 140,
-        "mana": 40,
-        "speed": 7,
-        "critical": 4,
-        "regen": 3,
-        "evasion": 2,
-        "reputation": 0,
-        "karma": 0
-      },
-      "growth_rates": {
-        "attack": 1.5,
-        "defense": 1.8,
-        "hp": 18,
-        "mana": 4,
-        "speed": 0.15,
-        "critical": 0.2,
-        "regen": 0.2,
-        "evasion": 0.08,
-        "reputation": 0,
-        "karma": 0
-      },
-      "special_abilities": [
-        "Thổ Địa Bất Động",
-        "Sơn Nhạc Vạn Cổ",
-        "Đại Địa Vô Biên"
-      ],
-      "weakness": "mộc",
-      "strength": "thủy"
-    }
+    "special_abilities": [
+      "Mộc Linh Hồi Phục",
+      "Thảo Mộc Trường Sinh",
+      "Thiên Mộc Vạn Thọ"
+    ],
+    "weakness": "kim",
+    "strength": "thổ"
+  },
+  "thuy": {
+    "name": "Thủy Linh Căn",
+    "emoji": "💧",
+    "description": "Linh căn thủy thuộc tính, chuyên về tốc độ và né tránh",
+    "basic_stats": {
+      "attack": 9,
+      "defense": 9,
+      "hp": 90,
+      "mana": 90,
+      "speed": 10,
+      "critical": 6,
+      "regen": 3,
+      "evasion": 6,
+      "reputation": 0,
+      "karma": 0
+    },
+    "growth_rates": {
+      "attack": 1.2,
+      "defense": 1.2,
+      "hp": 10,
+      "mana": 9,
+      "speed": 0.3,
+      "critical": 0.25,
+      "regen": 0.2,
+      "evasion": 0.25,
+      "reputation": 0,
+      "karma": 0
+    },
+    "special_abilities": [
+      "Thủy Nguyệt Vô Biên",
+      "Hải Triều Bất Tận",
+      "Băng Sương Thiên Hạ"
+    ],
+    "weakness": "thổ",
+    "strength": "hỏa"
+  },
+  "hoa": {
+    "name": "Hỏa Linh Căn",
+    "emoji": "🔥",
+    "description": "Linh căn hỏa thuộc tính, chuyên về công kích mãnh liệt và chí mạng",
+    "basic_stats": {
+      "attack": 14,
+      "defense": 8,
+      "hp": 95,
+      "mana": 60,
+      "speed": 11,
+      "critical": 10,
+      "regen": 2,
+      "evasion": 5,
+      "reputation": 0,
+      "karma": 0
+    },
+    "growth_rates": {
+      "attack": 2.0,
+      "defense": 1.0,
+      "hp": 11,
+      "mana": 6,
+      "speed": 0.35,
+      "critical": 0.4,
+      "regen": 0.1,
+      "evasion": 0.2,
+      "reputation": 0,
+      "karma": 0
+    },
+    "special_abilities": [
+      "Hỏa Long Phá Thiên",
+      "Thiên Hỏa Vạn Trượng",
+      "Hỏa Phượng Tái Sinh"
+    ],
+    "weakness": "thủy",
+    "strength": "kim"
+  },
+  "tho": {
+    "name": "Thổ Linh Căn",
+    "emoji": "🏔️",
+    "description": "Linh căn thổ thuộc tính, chuyên về phòng thủ và hồi phục",
+    "basic_stats": {
+      "attack": 11,
+      "defense": 14,
+      "hp": 140,
+      "mana": 40,
+      "speed": 7,
+      "critical": 4,
+      "regen": 3,
+      "evasion": 2,
+      "reputation": 0,
+      "karma": 0
+    },
+    "growth_rates": {
+      "attack": 1.5,
+      "defense": 1.8,
+      "hp": 18,
+      "mana": 4,
+      "speed": 0.15,
+      "critical": 0.2,
+      "regen": 0.2,
+      "evasion": 0.08,
+      "reputation": 0,
+      "karma": 0
+    },
+    "special_abilities": [
+      "Thổ Địa Bất Động",
+      "Sơn Nhạc Vạn Cổ",
+      "Đại Địa Vô Biên"
+    ],
+    "weakness": "mộc",
+    "strength": "thủy"
   }
-} 
+}

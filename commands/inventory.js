@@ -36,14 +36,19 @@ module.exports = {
     }
   },
 
-  // Format inventory items theo category
-  formatInventoryByCategory(items) {
+  // Format inventory items theo category với phân trang
+  formatInventoryByCategory(items, page = 1, itemsPerPage = 15) {
     if (!items || items.length === 0) {
-      return 'Không có vật phẩm nào';
+      return {
+        content: 'Không có vật phẩm nào',
+        totalPages: 1,
+        currentPage: 1,
+        totalItems: 0
+      };
     }
 
     const categories = {};
-    
+
     // Phân loại items theo category
     items.forEach(item => {
       const itemInfo = itemLoader.getItemInfo(item.id);
@@ -59,24 +64,78 @@ module.exports = {
       }
     });
 
-    // Format từng category
-    const formattedCategories = [];
+    // Flatten tất cả items để phân trang
+    const allFormattedItems = [];
     Object.keys(categories).forEach(category => {
       const categoryItems = categories[category];
       const categoryName = this.getCategoryDisplayName(category);
-      
-      const formattedItems = categoryItems.map(item => {
+
+      // Thêm header category
+      allFormattedItems.push({
+        type: 'header',
+        content: `**${categoryName}**`
+      });
+
+      // Thêm items trong category
+      categoryItems.forEach(item => {
         const rarityInfo = itemLoader.getItemRarity(item.id);
         const rarityEmoji = rarityInfo ? rarityInfo.emoji : '';
         const quantity = this.formatQuantity(item.quantity);
-        
-        return `${item.info.emoji} **${item.info.name}** x${quantity} ${rarityEmoji}`;
-      });
 
-      formattedCategories.push(`**${categoryName}**\n${formattedItems.join('\n')}`);
+        allFormattedItems.push({
+          type: 'item',
+          content: `${item.info.emoji} **${item.info.name}** x${quantity} ${rarityEmoji}`
+        });
+      });
     });
 
-    return formattedCategories.join('\n\n');
+    // Tính toán phân trang
+    const totalItems = allFormattedItems.filter(item => item.type === 'item').length;
+    const totalPages = Math.max(1, Math.ceil(totalItems / itemsPerPage));
+    const currentPage = Math.max(1, Math.min(page, totalPages));
+
+    // Lấy items cho trang hiện tại
+    let itemCount = 0;
+    let startIndex = -1;
+    let endIndex = -1;
+
+    for (let i = 0; i < allFormattedItems.length; i++) {
+      if (allFormattedItems[i].type === 'item') {
+        itemCount++;
+
+        if (itemCount === (currentPage - 1) * itemsPerPage + 1 && startIndex === -1) {
+          // Tìm header gần nhất trước item đầu tiên
+          for (let j = i - 1; j >= 0; j--) {
+            if (allFormattedItems[j].type === 'header') {
+              startIndex = j;
+              break;
+            }
+          }
+          if (startIndex === -1) startIndex = i;
+        }
+
+        if (itemCount === currentPage * itemsPerPage) {
+          endIndex = i;
+          break;
+        }
+      }
+    }
+
+    // Nếu chưa tìm thấy endIndex, lấy đến cuối
+    if (endIndex === -1) {
+      endIndex = allFormattedItems.length - 1;
+    }
+
+    // Lấy items cho trang hiện tại
+    const pageItems = allFormattedItems.slice(startIndex, endIndex + 1);
+    const content = pageItems.map(item => item.content).join('\n');
+
+    return {
+      content: content || 'Không có vật phẩm nào trong trang này',
+      totalPages,
+      currentPage,
+      totalItems
+    };
   },
 
   // Lấy tên hiển thị cho category
@@ -97,10 +156,105 @@ module.exports = {
     return displayNames[category] || category;
   },
 
+  // Tạo pagination buttons
+  createPaginationButtons(currentPage, totalPages, prefix = 'inv_page') {
+    const buttons = [];
+
+    // Previous button
+    if (currentPage > 1) {
+      buttons.push(
+        new ButtonBuilder()
+          .setCustomId(`${prefix}_${currentPage - 1}`)
+          .setLabel('⬅️ Trước')
+          .setStyle(ButtonStyle.Secondary)
+      );
+    }
+
+    // Page info button (disabled)
+    buttons.push(
+      new ButtonBuilder()
+        .setCustomId(`${prefix}_info`)
+        .setLabel(`${currentPage}/${totalPages}`)
+        .setStyle(ButtonStyle.Secondary)
+        .setDisabled(true)
+    );
+
+    // Next button
+    if (currentPage < totalPages) {
+      buttons.push(
+        new ButtonBuilder()
+          .setCustomId(`${prefix}_${currentPage + 1}`)
+          .setLabel('Tiếp ➡️')
+          .setStyle(ButtonStyle.Secondary)
+      );
+    }
+
+    return buttons;
+  },
+
+  // Hiển thị trang inventory cụ thể
+  async showInventoryPage(interaction, player, page) {
+    if (!player.inventory.items || player.inventory.items.length === 0) {
+      return interaction.update({
+        content: '❌ Không có vật phẩm nào để phân trang!',
+        embeds: [],
+        components: []
+      });
+    }
+
+    const inventoryData = this.formatInventoryByCategory(player.inventory.items, page, 15);
+
+    const embed = new EmbedBuilder()
+      .setColor('#4CAF50')
+      .setTitle('🌿 **Vật Phẩm Chi Tiết**')
+      .setDescription(`${this.createSeparator()}\n**Danh sách các vật phẩm trong kho**`)
+      .addFields({
+        name: `📋 **Danh Sách Vật Phẩm** (Trang ${inventoryData.currentPage}/${inventoryData.totalPages})`,
+        value: inventoryData.content,
+        inline: false
+      });
+
+    if (inventoryData.totalPages > 1) {
+      embed.setFooter({
+        text: `Tổng ${inventoryData.totalItems} vật phẩm • Trang ${inventoryData.currentPage}/${inventoryData.totalPages}`
+      });
+    }
+
+    // Tạo buttons
+    const buttons = [];
+
+    // Pagination buttons
+    if (inventoryData.totalPages > 1) {
+      buttons.push(...this.createPaginationButtons(inventoryData.currentPage, inventoryData.totalPages));
+    }
+
+    // Back button
+    buttons.push(
+      new ButtonBuilder()
+        .setCustomId('inventory_back')
+        .setLabel('Quay Lại')
+        .setStyle(ButtonStyle.Secondary)
+        .setEmoji('⬅️')
+    );
+
+    const rows = [];
+    if (buttons.length > 0) {
+      // Chia buttons thành các row (mỗi row tối đa 5 buttons)
+      for (let i = 0; i < buttons.length; i += 5) {
+        rows.push(new ActionRowBuilder().addComponents(buttons.slice(i, i + 5)));
+      }
+    }
+
+    await interaction.update({
+      embeds: [embed],
+      components: rows
+    });
+  },
+
   // Format spirit stones
   formatSpiritStones(spiritStones) {
     if (!spiritStones) return 'Không có linh thạch';
-    
+
     const stones = [];
     if (spiritStones.ha_pham > 0) {
       stones.push(`💎 **Hạ Phẩm**: ${spiritStones.ha_pham.toLocaleString()}`);
@@ -114,7 +268,7 @@ module.exports = {
     if (spiritStones.cuc_pham > 0) {
       stones.push(`💠 **Cực Phẩm**: ${spiritStones.cuc_pham.toLocaleString()}`);
     }
-    
+
     return stones.length > 0 ? stones.join('\n') : 'Không có linh thạch';
   },
 
@@ -148,7 +302,7 @@ module.exports = {
 
     // Lấy thông tin player
     const player = playerManager.getPlayer(userId);
-    
+
     // Load items nếu chưa load
     await itemLoader.loadAllItems();
 
@@ -190,11 +344,18 @@ module.exports = {
       .setDescription(`${this.createSeparator()}\n**Danh sách các vật phẩm trong kho**`);
 
     if (player.inventory.items && player.inventory.items.length > 0) {
+      const inventoryData = this.formatInventoryByCategory(player.inventory.items, 1, 15);
       itemsEmbed.addFields({
-        name: '📋 **Danh Sách Vật Phẩm**',
-        value: this.formatInventoryByCategory(player.inventory.items),
+        name: `📋 **Danh Sách Vật Phẩm** (Trang 1/${inventoryData.totalPages})`,
+        value: inventoryData.content,
         inline: false
       });
+
+      if (inventoryData.totalPages > 1) {
+        itemsEmbed.setFooter({
+          text: `Tổng ${inventoryData.totalItems} vật phẩm • Sử dụng nút Vật Phẩm để xem chi tiết`
+        });
+      }
     } else {
       itemsEmbed.addFields({
         name: '📋 **Danh Sách Vật Phẩm**',
@@ -255,7 +416,7 @@ module.exports = {
 
     // Tạo collector để lắng nghe button click
     try {
-      const filter = i => i.user.id === userId && i.customId.startsWith('inventory_');
+      const filter = i => i.user.id === userId && (i.customId.startsWith('inventory_') || i.customId.startsWith('inv_page_'));
       const collector = interaction.channel.createMessageComponentCollector({
         filter,
         time: 600000 // 10 phút
@@ -263,8 +424,18 @@ module.exports = {
 
       collector.on('collect', async (buttonInteraction) => {
         try {
+          // Xử lý phân trang
+          if (buttonInteraction.customId.startsWith('inv_page_')) {
+            const pageStr = buttonInteraction.customId.replace('inv_page_', '');
+            if (pageStr !== 'info') {
+              const page = parseInt(pageStr);
+              await this.showInventoryPage(buttonInteraction, player, page);
+            }
+            return;
+          }
+
           const viewType = buttonInteraction.customId.replace('inventory_', '');
-          
+
           if (viewType === 'back') {
             // Xử lý button quay lại
             await this.showMainInventory(buttonInteraction, player, username);
@@ -312,7 +483,7 @@ module.exports = {
 
         const spiritStones = player.inventory.spiritStones;
         const totalValue = this.calculateSpiritStonesValue(spiritStones);
-        
+
         embed.addFields(
           {
             name: '💎 **Hạ Phẩm**',
@@ -349,25 +520,18 @@ module.exports = {
           .setDescription(`${this.createSeparator()}\n**Danh sách đầy đủ các vật phẩm**`);
 
         if (player.inventory.items && player.inventory.items.length > 0) {
-          // Phân loại và hiển thị theo rarity
-          const itemsByRarity = this.groupItemsByRarity(player.inventory.items);
-          
-          Object.keys(itemsByRarity).forEach(rarity => {
-            const items = itemsByRarity[rarity];
-            const rarityInfo = itemLoader.getItemRarity(items[0].id);
-            const rarityName = rarityInfo ? rarityInfo.name : rarity;
-            
-            const formattedItems = items.map(item => {
-              const itemInfo = itemLoader.getItemInfo(item.id);
-              return `${itemInfo.emoji} **${itemInfo.name}** x${this.formatQuantity(item.quantity)}`;
-            });
-
-            embed.addFields({
-              name: `${rarityInfo ? rarityInfo.emoji : '📦'} **${rarityName}**`,
-              value: formattedItems.join('\n'),
-              inline: false
-            });
+          const inventoryData = this.formatInventoryByCategory(player.inventory.items, 1, 15);
+          embed.addFields({
+            name: `📋 **Danh Sách Vật Phẩm** (Trang 1/${inventoryData.totalPages})`,
+            value: inventoryData.content,
+            inline: false
           });
+
+          if (inventoryData.totalPages > 1) {
+            embed.setFooter({
+              text: `Tổng ${inventoryData.totalItems} vật phẩm • Sử dụng nút Trang để xem thêm`
+            });
+          }
         } else {
           embed.addFields({
             name: '📋 **Danh Sách Vật Phẩm**',
@@ -433,27 +597,46 @@ module.exports = {
     });
     embed.setTimestamp();
 
-    // Button quay lại
-    const backButton = new ButtonBuilder()
-      .setCustomId('inventory_back')
-      .setLabel('Quay Lại')
-      .setStyle(ButtonStyle.Secondary)
-      .setEmoji('⬅️');
+    // Tạo buttons
+    const buttons = [];
 
-    const backRow = new ActionRowBuilder().addComponents(backButton);
+    // Pagination buttons cho items view
+    if (viewType === 'items' && player.inventory.items && player.inventory.items.length > 0) {
+      const inventoryData = this.formatInventoryByCategory(player.inventory.items, 1, 15);
+      if (inventoryData.totalPages > 1) {
+        buttons.push(...this.createPaginationButtons(1, inventoryData.totalPages));
+      }
+    }
+
+    // Button quay lại
+    buttons.push(
+      new ButtonBuilder()
+        .setCustomId('inventory_back')
+        .setLabel('Quay Lại')
+        .setStyle(ButtonStyle.Secondary)
+        .setEmoji('⬅️')
+    );
+
+    const rows = [];
+    if (buttons.length > 0) {
+      // Chia buttons thành các row (mỗi row tối đa 5 buttons)
+      for (let i = 0; i < buttons.length; i += 5) {
+        rows.push(new ActionRowBuilder().addComponents(buttons.slice(i, i + 5)));
+      }
+    }
 
     try {
       // Thử update nếu là button interaction
       await interaction.update({
         embeds: [embed],
-        components: [backRow]
+        components: rows
       });
     } catch (error) {
       // Nếu không phải button interaction hoặc có lỗi, gửi message mới
       console.log('Not a button interaction, sending new message');
       await interaction.channel.send({
         embeds: [embed],
-        components: [backRow]
+        components: rows
       });
     }
   },
@@ -461,11 +644,11 @@ module.exports = {
   // Nhóm items theo rarity
   groupItemsByRarity(items) {
     const grouped = {};
-    
+
     items.forEach(item => {
       const rarityInfo = itemLoader.getItemRarity(item.id);
       const rarity = rarityInfo ? rarityInfo.name : 'unknown';
-      
+
       if (!grouped[rarity]) {
         grouped[rarity] = [];
       }
@@ -478,11 +661,11 @@ module.exports = {
   // Tính tổng giá trị linh thạch
   calculateSpiritStonesValue(spiritStones) {
     if (!spiritStones) return 0;
-    
-    return (spiritStones.ha_pham || 0) + 
-           ((spiritStones.trung_pham || 0) * 10) + 
-           ((spiritStones.thuong_pham || 0) * 100) + 
-           ((spiritStones.cuc_pham || 0) * 1000);
+
+    return (spiritStones.ha_pham || 0) +
+      ((spiritStones.trung_pham || 0) * 10) +
+      ((spiritStones.thuong_pham || 0) * 100) +
+      ((spiritStones.cuc_pham || 0) * 1000);
   },
 
   // Hiển thị lại inventory chính
@@ -525,11 +708,18 @@ module.exports = {
       .setDescription(`${this.createSeparator()}\n**Danh sách các vật phẩm trong kho**`);
 
     if (player.inventory.items && player.inventory.items.length > 0) {
+      const inventoryData = this.formatInventoryByCategory(player.inventory.items, 1, 15);
       itemsEmbed.addFields({
-        name: '📋 **Danh Sách Vật Phẩm**',
-        value: this.formatInventoryByCategory(player.inventory.items),
+        name: `📋 **Danh Sách Vật Phẩm** (Trang 1/${inventoryData.totalPages})`,
+        value: inventoryData.content,
         inline: false
       });
+
+      if (inventoryData.totalPages > 1) {
+        itemsEmbed.setFooter({
+          text: `Tổng ${inventoryData.totalItems} vật phẩm • Sử dụng nút Vật Phẩm để xem chi tiết`
+        });
+      }
     } else {
       itemsEmbed.addFields({
         name: '📋 **Danh Sách Vật Phẩm**',

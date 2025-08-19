@@ -1,52 +1,50 @@
 {
-  "currency": {
-    "spirit_stone_ha_pham": {
-      "name": "Linh Thạch Hạ Phẩm",
-      "emoji": "🪙",
-      "description": "Đơn vị tiền tệ cơ bản trong tu tiên giới",
-      "value": 1,
-      "rarity": "common",
-      "exchange_rate": {
-        "to_trung_pham": 100,
-        "to_thuong_pham": 10000,
-        "to_cuc_pham": 1000000
-      }
-    },
-    "spirit_stone_trung_pham": {
-      "name": "Linh Thạch Trung Phẩm",
-      "emoji": "✨",
-      "description": "Đơn vị tiền tệ trung cấp, giá trị cao hơn hạ phẩm",
-      "value": 100,
-      "rarity": "uncommon",
-      "exchange_rate": {
-        "to_ha_pham": 100,
-        "to_thuong_pham": 100,
-        "to_cuc_pham": 10000
-      }
-    },
-    "spirit_stone_thuong_pham": {
-      "name": "Linh Thạch Thượng Phẩm",
-      "emoji": "🔮",
-      "description": "Đơn vị tiền tệ cao cấp, giá trị lớn",
-      "value": 10000,
-      "rarity": "rare",
-      "exchange_rate": {
-        "to_ha_pham": 10000,
-        "to_trung_pham": 100,
-        "to_cuc_pham": 100
-      }
-    },
-    "spirit_stone_cuc_pham": {
-      "name": "Linh Thạch Cực Phẩm",
-      "emoji": "💎",
-      "description": "Đơn vị tiền tệ thần thoại, giá trị cao nhất",
-      "value": 1000000,
-      "rarity": "epic",
-      "exchange_rate": {
-        "to_ha_pham": 1000000,
-        "to_trung_pham": 10000,
-        "to_thuong_pham": 100
-      }
+  "spirit_stone_ha_pham": {
+    "name": "Linh Thạch Hạ Phẩm",
+    "emoji": "🪙",
+    "description": "Đơn vị tiền tệ cơ bản trong tu tiên giới",
+    "value": 1,
+    "rarity": "common",
+    "exchange_rate": {
+      "to_trung_pham": 100,
+      "to_thuong_pham": 10000,
+      "to_cuc_pham": 1000000
+    }
+  },
+  "spirit_stone_trung_pham": {
+    "name": "Linh Thạch Trung Phẩm",
+    "emoji": "✨",
+    "description": "Đơn vị tiền tệ trung cấp, giá trị cao hơn hạ phẩm",
+    "value": 100,
+    "rarity": "uncommon",
+    "exchange_rate": {
+      "to_ha_pham": 100,
+      "to_thuong_pham": 100,
+      "to_cuc_pham": 10000
+    }
+  },
+  "spirit_stone_thuong_pham": {
+    "name": "Linh Thạch Thượng Phẩm",
+    "emoji": "🔮",
+    "description": "Đơn vị tiền tệ cao cấp, giá trị lớn",
+    "value": 10000,
+    "rarity": "rare",
+    "exchange_rate": {
+      "to_ha_pham": 10000,
+      "to_trung_pham": 100,
+      "to_cuc_pham": 100
+    }
+  },
+  "spirit_stone_cuc_pham": {
+    "name": "Linh Thạch Cực Phẩm",
+    "emoji": "💎",
+    "description": "Đơn vị tiền tệ thần thoại, giá trị cao nhất",
+    "value": 1000000,
+    "rarity": "epic",
+    "exchange_rate": {
+      "to_ha_pham": 1000000,
+      "to_trung_pham": 10000,
+      "to_thuong_pham": 100
     }
   }
-} 
+}

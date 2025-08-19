@@ -3,7 +3,7 @@ const playerManager = require('../systems/player.js');
 const cooldownManager = require('../utils/cooldown.js');
 const expCalculator = require('../systems/exp-calculator.js');
 const SpiritStonesCalculator = require('../utils/spirit-stones-calculator.js');
-const itemLoader = require('../utils/item-loader.js');
+const ItemDropCalculator = require('../utils/item-drop-calculator.js');
 
 module.exports = {
   name: 'pick',
@@ -61,7 +61,7 @@ module.exports = {
   async showHerbsList(interaction) {
     const herbs = itemLoader.items;
     const herbsList = Object.values(herbs).filter(item => item.category === 'herbs');
-    
+
     // Nhóm theo rarity
     const herbsByRarity = {};
     herbsList.forEach(herb => {
@@ -79,14 +79,14 @@ module.exports = {
 
     // Hiển thị theo rarity từ thấp đến cao
     const rarityOrder = ['common', 'uncommon', 'rare', 'epic', 'legendary', 'mythic'];
-    
+
     rarityOrder.forEach(rarity => {
       if (herbsByRarity[rarity] && herbsByRarity[rarity].length > 0) {
         const herbs = herbsByRarity[rarity];
         const rarityEmoji = this.getRarityEmoji(rarity);
         const rarityName = this.getRarityDisplayName(rarity);
-        
-        const herbsList = herbs.map(herb => 
+
+        const herbsList = herbs.map(herb =>
           `${herb.emoji} **${herb.name}** - ${herb.description}`
         ).join('\n');
 
@@ -125,7 +125,7 @@ module.exports = {
   async showDetailedHerbsInfo(interaction) {
     const herbs = itemLoader.items;
     const herbsList = Object.values(herbs).filter(item => item.category === 'herbs');
-    
+
     // Thống kê theo rarity
     const stats = {};
     herbsList.forEach(herb => {
@@ -144,13 +144,13 @@ module.exports = {
 
     // Thống kê theo rarity
     const rarityOrder = ['common', 'uncommon', 'rare', 'epic', 'legendary', 'mythic'];
-    
+
     rarityOrder.forEach(rarity => {
       if (stats[rarity]) {
         const rarityEmoji = this.getRarityEmoji(rarity);
         const rarityName = this.getRarityDisplayName(rarity);
         const stat = stats[rarity];
-        
+
         embed.addFields({
           name: `${rarityEmoji} **${rarityName}**`,
           value: `**Số lượng**: ${stat.count} loại\n**Tổng giá trị**: ${stat.totalValue.toLocaleString()} linh thạch`,
@@ -218,11 +218,16 @@ module.exports = {
 
     // Tính toán phần thưởng
     const spiritStones = SpiritStonesCalculator.calculatePick();
-    const herbs = this.getRealHerbs();
+    const herbs = ItemDropCalculator.calculatePickItems(player);
 
     // Cập nhật player
     playerManager.addExperience(userId, expGained);
     SpiritStonesCalculator.updatePlayerSpiritStones(player, spiritStones);
+
+    // Thêm thảo dược vào inventory
+    herbs.forEach(herb => {
+      playerManager.addItemToInventory(player, herb.id, 1);
+    });
 
     // Cập nhật thời gian command cuối
     const lastCommandField = cooldownManager.getLastCommandField('pick');
@@ -286,7 +291,7 @@ module.exports = {
   getRealHerbs() {
     const herbs = itemLoader.items;
     const herbsList = Object.values(herbs).filter(item => item.category === 'herbs');
-    
+
     // Tỷ lệ thu thập theo rarity
     const rarityWeights = {
       'common': 60,      // 60%
@@ -303,13 +308,13 @@ module.exports = {
     for (let i = 0; i < count; i++) {
       // Chọn rarity dựa trên tỷ lệ
       const rarity = this.selectRarityByWeight(rarityWeights);
-      
+
       // Lọc thảo dược theo rarity đã chọn
       const availableHerbs = herbsList.filter(herb => herb.rarity === rarity);
-      
+
       if (availableHerbs.length > 0) {
         const randomHerb = availableHerbs[Math.floor(Math.random() * availableHerbs.length)];
-        
+
         // Kiểm tra xem thảo dược đã được chọn chưa
         if (!selected.find(h => h.id === randomHerb.id)) {
           selected.push({
@@ -335,14 +340,14 @@ module.exports = {
   selectRarityByWeight(weights) {
     const totalWeight = Object.values(weights).reduce((sum, weight) => sum + weight, 0);
     let random = Math.random() * totalWeight;
-    
+
     for (const [rarity, weight] of Object.entries(weights)) {
       random -= weight;
       if (random <= 0) {
         return rarity;
       }
     }
-    
+
     return 'common'; // Fallback
   }
 };

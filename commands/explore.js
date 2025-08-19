@@ -3,6 +3,7 @@ const playerManager = require('../systems/player.js');
 const cooldownManager = require('../utils/cooldown.js');
 const expCalculator = require('../systems/exp-calculator.js');
 const SpiritStonesCalculator = require('../utils/spirit-stones-calculator.js');
+const ItemDropCalculator = require('../utils/item-drop-calculator.js');
 
 module.exports = {
   name: 'explore',
@@ -38,7 +39,7 @@ module.exports = {
 
     // Tính toán phần thưởng khác
     const spiritStones = SpiritStonesCalculator.calculateExplore();
-    const discoveries = this.getDiscoveries();
+    const discoveries = ItemDropCalculator.calculateExploreItems(player);
 
     // Cập nhật player
     playerManager.addExperience(userId, expGained);
@@ -85,30 +86,5 @@ module.exports = {
       .setTimestamp();
 
     await interaction.reply({ embeds: [successEmbed] });
-  },
-
-  /**
-   * Lấy khám phá từ thế giới
-   * @returns {Array} Danh sách khám phá
-   */
-  getDiscoveries() {
-    const discoveries = [
-      '🏔️ Núi cao', '🌊 Biển rộng', '🌲 Rừng rậm',
-      '🏜️ Sa mạc', '🏞️ Thung lũng', '🌋 Núi lửa',
-      '🏰 Lâu đài cổ', '🗿 Tượng đá', '🏛️ Đền thờ',
-      '🌅 Bình minh', '🌄 Hoàng hôn', '🌌 Bầu trời đêm'
-    ];
-
-    const count = Math.floor(Math.random() * 3) + 2; // 2-4 khám phá
-    const selected = [];
-
-    for (let i = 0; i < count; i++) {
-      const discovery = discoveries[Math.floor(Math.random() * discoveries.length)];
-      if (!selected.includes(discovery)) {
-        selected.push(discovery);
-      }
-    }
-
-    return selected;
   }
 };

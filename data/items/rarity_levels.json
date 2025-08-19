@@ -1,34 +1,32 @@
 {
-  "rarity_levels": {
-    "common": {
-      "name": "Phàm cấp",
-      "color": "#FFFFFF",
-      "emoji": "⚪",
-      "description": "Vật phẩm phổ thông, dễ kiếm"
-    },
-    "uncommon": {
-      "name": "Huyền cấp",
-      "color": "#4169E1",
-      "emoji": "🔵",
-      "description": "Vật phẩm huyền bí, có giá trị"
-    },
-    "rare": {
-      "name": "Địa cấp",
-      "color": "#9370DB",
-      "emoji": "🟣",
-      "description": "Vật phẩm địa cấp, quý hiếm"
-    },
-    "epic": {
-      "name": "Thiên cấp",
-      "color": "#FF8C00",
-      "emoji": "🟠",
-      "description": "Vật phẩm thiên cấp, cực kỳ quý hiếm"
-    },
-    "legendary": {
-      "name": "Thần cấp",
-      "color": "#FF0000",
-      "emoji": "🔴",
-      "description": "Vật phẩm thần cấp, thần thoại"
-    }
+  "common": {
+    "name": "Phàm cấp",
+    "color": "#FFFFFF",
+    "emoji": "⚪",
+    "description": "Vật phẩm phổ thông, dễ kiếm"
+  },
+  "uncommon": {
+    "name": "Huyền cấp",
+    "color": "#4169E1",
+    "emoji": "🔵",
+    "description": "Vật phẩm huyền bí, có giá trị"
+  },
+  "rare": {
+    "name": "Địa cấp",
+    "color": "#9370DB",
+    "emoji": "🟣",
+    "description": "Vật phẩm địa cấp, quý hiếm"
+  },
+  "epic": {
+    "name": "Thiên cấp",
+    "color": "#FF8C00",
+    "emoji": "🟠",
+    "description": "Vật phẩm thiên cấp, cực kỳ quý hiếm"
+  },
+  "legendary": {
+    "name": "Thần cấp",
+    "color": "#FF0000",
+    "emoji": "🔴",
+    "description": "Vật phẩm thần cấp, thần thoại"
   }
-} 
+}

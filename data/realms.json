@@ -1,105 +1,188 @@
 {
-  "realms": {
-    "luyen_khi": {
-      "name": "Luyện Khí Kỳ",
-      "emoji": "💨",
-      "description": "Cảnh giới đầu tiên của tu tiên, luyện khí trong cơ thể",
-      "levels": [
-        "Tầng 1", "Tầng 2", "Tầng 3", "Tầng 4", "Tầng 5",
-        "Tầng 6", "Tầng 7", "Tầng 8", "Tầng 9", "Tầng 10",
-        "Tầng 11", "Tầng 12", "Tầng 13"
-      ],
-      "maxLevel": 13,
-      "experienceMultiplier": 1.0,
-      "realmBonus": {
-        "tier_1": 0.0,
-        "tier_2": 0.0,
-        "tier_3": 0.0,
-        "tier_4": 0.0,
-        "tier_5": 0.0,
-        "tier_6": 0.0,
-        "tier_7": 0.0,
-        "tier_8": 0.0,
-        "tier_9": 0.0,
-        "tier_10": 0.0,
-        "tier_11": 0.0,
-        "tier_12": 0.0,
-        "tier_13": 0.0
-      },
-      "breakthroughRequirements": {
-        "tier_2": { "herb_co_ban": 5 },
-        "tier_3": { "herb_co_ban": 8 },
-        "tier_4": { "herb_co_ban": 12 },
-        "tier_5": { "herb_co_ban": 15, "herb_trung_cap": 2 },
-        "tier_6": { "herb_co_ban": 20, "herb_trung_cap": 5 },
-        "tier_7": { "herb_co_ban": 25, "herb_trung_cap": 8 },
-        "tier_8": { "herb_co_ban": 30, "herb_trung_cap": 12 },
-        "tier_9": { "herb_co_ban": 35, "herb_trung_cap": 15 },
-        "tier_10": { "herb_co_ban": 40, "herb_trung_cap": 20 },
-        "tier_11": { "herb_co_ban": 45, "herb_trung_cap": 25 },
-        "tier_12": { "herb_co_ban": 50, "herb_trung_cap": 30 },
-        "tier_13": { "herb_co_ban": 60, "herb_trung_cap": 40 },
-        "truc_co_so_ky": { "herb_trung_cap": 50, "elixir_co_ban": 1 }
-      }
+  "luyen_khi": {
+    "name": "Luyện Khí Kỳ",
+    "emoji": "💨",
+    "description": "Cảnh giới đầu tiên của tu tiên, luyện khí trong cơ thể",
+    "levels": [
+      "Tầng 1",
+      "Tầng 2",
+      "Tầng 3",
+      "Tầng 4",
+      "Tầng 5",
+      "Tầng 6",
+      "Tầng 7",
+      "Tầng 8",
+      "Tầng 9",
+      "Tầng 10",
+      "Tầng 11",
+      "Tầng 12",
+      "Tầng 13"
+    ],
+    "maxLevel": 13,
+    "experienceMultiplier": 1.0,
+    "realmBonus": {
+      "tier_1": 0.0,
+      "tier_2": 0.0,
+      "tier_3": 0.0,
+      "tier_4": 0.0,
+      "tier_5": 0.0,
+      "tier_6": 0.0,
+      "tier_7": 0.0,
+      "tier_8": 0.0,
+      "tier_9": 0.0,
+      "tier_10": 0.0,
+      "tier_11": 0.0,
+      "tier_12": 0.0,
+      "tier_13": 0.0
     },
-    "truc_co": {
-      "name": "Trúc Cơ Kỳ",
-      "emoji": "🌱",
-      "description": "Cảnh giới thứ hai, xây dựng nền tảng tu luyện vững chắc",
-      "levels": [
-        "Sơ Kỳ", "Trung Kỳ", "Hậu Kỳ"
-      ],
-      "maxLevel": 3,
-      "experienceMultiplier": 2.0,
-      "realmBonus": {
-        "so_ky": 0.10,
-        "trung_ky": 0.15,
-        "hau_ky": 0.20
+    "breakthroughRequirements": {
+      "tier_2": {
+        "herb_co_ban": 5
       },
-      "breakthroughRequirements": {
-        "trung_ky": { "herb_trung_cap": 60, "elixir_trung_cap": 2 },
-        "hau_ky": { "herb_trung_cap": 80, "elixir_trung_cap": 3 },
-        "ket_dan_so_ky": { "herb_thuong_cap": 50, "elixir_trung_cap": 5, "artifact_co_ban": 1 }
+      "tier_3": {
+        "herb_co_ban": 8
+      },
+      "tier_4": {
+        "herb_co_ban": 12
+      },
+      "tier_5": {
+        "herb_co_ban": 15,
+        "herb_trung_cap": 2
+      },
+      "tier_6": {
+        "herb_co_ban": 20,
+        "herb_trung_cap": 5
+      },
+      "tier_7": {
+        "herb_co_ban": 25,
+        "herb_trung_cap": 8
+      },
+      "tier_8": {
+        "herb_co_ban": 30,
+        "herb_trung_cap": 12
+      },
+      "tier_9": {
+        "herb_co_ban": 35,
+        "herb_trung_cap": 15
+      },
+      "tier_10": {
+        "herb_co_ban": 40,
+        "herb_trung_cap": 20
+      },
+      "tier_11": {
+        "herb_co_ban": 45,
+        "herb_trung_cap": 25
+      },
+      "tier_12": {
+        "herb_co_ban": 50,
+        "herb_trung_cap": 30
+      },
+      "tier_13": {
+        "herb_co_ban": 60,
+        "herb_trung_cap": 40
+      },
+      "truc_co_so_ky": {
+        "herb_trung_cap": 50,
+        "elixir_co_ban": 1
       }
+    }
+  },
+  "truc_co": {
+    "name": "Trúc Cơ Kỳ",
+    "emoji": "🌱",
+    "description": "Cảnh giới thứ hai, xây dựng nền tảng tu luyện vững chắc",
+    "levels": [
+      "Sơ Kỳ",
+      "Trung Kỳ",
+      "Hậu Kỳ"
+    ],
+    "maxLevel": 3,
+    "experienceMultiplier": 2.0,
+    "realmBonus": {
+      "so_ky": 0.10,
+      "trung_ky": 0.15,
+      "hau_ky": 0.20
     },
-    "ket_dan": {
-      "name": "Kết Đan Kỳ",
-      "emoji": "🔮",
-      "description": "Cảnh giới thứ ba, kết tinh tu vi thành đan",
-      "levels": [
-        "Sơ Kỳ", "Trung Kỳ", "Hậu Kỳ"
-      ],
-      "maxLevel": 3,
-      "experienceMultiplier": 4.0,
-      "realmBonus": {
-        "so_ky": 0.25,
-        "trung_ky": 0.30,
-        "hau_ky": 0.35
+    "breakthroughRequirements": {
+      "trung_ky": {
+        "herb_trung_cap": 60,
+        "elixir_trung_cap": 2
       },
-      "breakthroughRequirements": {
-        "trung_ky": { "herb_thuong_cap": 70, "elixir_thuong_cap": 3, "artifact_trung_cap": 2 },
-        "hau_ky": { "herb_thuong_cap": 90, "elixir_thuong_cap": 5, "artifact_trung_cap": 3 },
-        "nguyen_anh_so_ky": { "herb_cuc_cap": 30, "elixir_thuong_cap": 8, "artifact_thuong_cap": 5, "essence_co_ban": 1 }
+      "hau_ky": {
+        "herb_trung_cap": 80,
+        "elixir_trung_cap": 3
+      },
+      "ket_dan_so_ky": {
+        "herb_thuong_cap": 50,
+        "elixir_trung_cap": 5,
+        "artifact_co_ban": 1
       }
+    }
+  },
+  "ket_dan": {
+    "name": "Kết Đan Kỳ",
+    "emoji": "🔮",
+    "description": "Cảnh giới thứ ba, kết tinh tu vi thành đan",
+    "levels": [
+      "Sơ Kỳ",
+      "Trung Kỳ",
+      "Hậu Kỳ"
+    ],
+    "maxLevel": 3,
+    "experienceMultiplier": 4.0,
+    "realmBonus": {
+      "so_ky": 0.25,
+      "trung_ky": 0.30,
+      "hau_ky": 0.35
     },
-    "nguyen_anh": {
-      "name": "Nguyên Anh Kỳ",
-      "emoji": "👶",
-      "description": "Cảnh giới thứ tư, tu luyện nguyên thần",
-      "levels": [
-        "Sơ Kỳ", "Trung Kỳ", "Hậu Kỳ"
-      ],
-      "maxLevel": 3,
-      "experienceMultiplier": 8.0,
-      "realmBonus": {
-        "so_ky": 0.40,
-        "trung_ky": 0.50,
-        "hau_ky": 0.60
+    "breakthroughRequirements": {
+      "trung_ky": {
+        "herb_thuong_cap": 70,
+        "elixir_thuong_cap": 3,
+        "artifact_trung_cap": 2
       },
-      "breakthroughRequirements": {
-        "trung_ky": { "herb_cuc_cap": 50, "elixir_cuc_cap": 3, "artifact_thuong_cap": 8, "essence_trung_cap": 2 },
-        "hau_ky": { "herb_cuc_cap": 80, "elixir_cuc_cap": 5, "artifact_thuong_cap": 12, "essence_trung_cap": 5 }
+      "hau_ky": {
+        "herb_thuong_cap": 90,
+        "elixir_thuong_cap": 5,
+        "artifact_trung_cap": 3
+      },
+      "nguyen_anh_so_ky": {
+        "herb_cuc_cap": 30,
+        "elixir_thuong_cap": 8,
+        "artifact_thuong_cap": 5,
+        "essence_co_ban": 1
+      }
+    }
+  },
+  "nguyen_anh": {
+    "name": "Nguyên Anh Kỳ",
+    "emoji": "👶",
+    "description": "Cảnh giới thứ tư, tu luyện nguyên thần",
+    "levels": [
+      "Sơ Kỳ",
+      "Trung Kỳ",
+      "Hậu Kỳ"
+    ],
+    "maxLevel": 3,
+    "experienceMultiplier": 8.0,
+    "realmBonus": {
+      "so_ky": 0.40,
+      "trung_ky": 0.50,
+      "hau_ky": 0.60
+    },
+    "breakthroughRequirements": {
+      "trung_ky": {
+        "herb_cuc_cap": 50,
+        "elixir_cuc_cap": 3,
+        "artifact_thuong_cap": 8,
+        "essence_trung_cap": 2
+      },
+      "hau_ky": {
+        "herb_cuc_cap": 80,
+        "elixir_cuc_cap": 5,
+        "artifact_thuong_cap": 12,
+        "essence_trung_cap": 5
       }
     }
   }
-} 
+}

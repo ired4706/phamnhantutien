@@ -3,6 +3,7 @@ const playerManager = require('../systems/player.js');
 const expCalculator = require('../systems/exp-calculator.js');
 const cooldownManager = require('../utils/cooldown.js');
 const SpiritStonesCalculator = require('../utils/spirit-stones-calculator.js');
+const ItemDropCalculator = require('../utils/item-drop-calculator.js');
 
 module.exports = {
   name: 'hunt',
@@ -38,14 +39,18 @@ module.exports = {
 
     // Tính toán phần thưởng khác
     const spiritStones = SpiritStonesCalculator.calculateHunt();
-    const materials = ['Da yêu thú', 'Xương yêu thú', 'Máu yêu thú', 'Lông yêu thú'];
-    const randomMaterial = materials[Math.floor(Math.random() * materials.length)];
+    const huntItems = ItemDropCalculator.calculateHuntItems(player);
 
     // Cập nhật player
     playerManager.addExperience(userId, expGained);
 
     // Cập nhật linh thạch theo format mới
     SpiritStonesCalculator.updatePlayerSpiritStones(player, spiritStones);
+
+    // Thêm vật liệu săn được vào inventory
+    huntItems.forEach(item => {
+      playerManager.addItemToInventory(player, item.id, 1);
+    });
 
     // Cập nhật thời gian săn cuối
     const lastCommandField = cooldownManager.getLastCommandField('hunt');
@@ -73,8 +78,8 @@ module.exports = {
         },
         {
           name: '🦴 Vật liệu thu được',
-          value: `**${randomMaterial}**`,
-          inline: true
+          value: huntItems.length > 0 ? ItemDropCalculator.formatItems(huntItems) : 'Không có vật liệu nào',
+          inline: false
         }
       )
       .addFields({
@@ -86,5 +91,5 @@ module.exports = {
       .setTimestamp();
 
     await interaction.reply({ embeds: [successEmbed] });
-  },
+  }
 };

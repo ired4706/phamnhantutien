@@ -1,444 +1,376 @@
 {
-  "equipment": {
-    "armor": {
-      "name": "Giáp Trụ",
-      "description": "Trang bị phòng thủ chính, bảo vệ cơ thể khỏi sát thương",
-      "types": {
-        "pham": {
-          "name": "Giáp Da Thô",
-          "emoji": "🥋",
-          "rarity": "pham",
-          "description": "Giáp da thô cơ bản, bảo vệ tối thiểu",
-          "crafting": {
-            "da_thu_tho": 8,
-            "tinh_thiet_tho": 2
-          }
-        },
-        "huyen": {
-          "name": "Giáp Đồng",
-          "emoji": "🛡️",
-          "rarity": "huyen",
-          "description": "Giáp đồng tinh xảo, bảo vệ tốt hơn",
-          "crafting": {
-            "da_linh_thu": 6,
-            "dong_tinh_luyen": 3,
-            "da_thu_tho": 4
-          }
-        },
-        "dia": {
-          "name": "Giáp Hắc Thiết",
-          "emoji": "⚔️",
-          "rarity": "dia",
-          "description": "Giáp hắc thiết cứng cáp, có thể chống đỡ đao kiếm",
-          "crafting": {
-            "da_dia_thu": 10,
-            "huyen_tinh_dia_tam": 2,
-            "ho_linh_tam_ket": 1
-          }
-        },
-        "thien": {
-          "name": "Giáp Bạch Ngọc",
-          "emoji": "💎",
-          "rarity": "thien",
-          "description": "Giáp bạch ngọc, có thể phản đòn",
-          "crafting": {
-            "da_thien_thu": 12,
-            "ngan_tinh_thien_khoi": 2,
-            "huyen_giap_lan": 1
-          }
-        },
-        "than": {
-          "name": "Thần Giáp Kim Cang",
-          "emoji": "⚜️",
-          "rarity": "than",
-          "description": "Thần giáp kim cang, bất hoại trước mọi vũ khí",
-          "crafting": {
-            "da_than_thu": 20,
-            "thien_tinh_than_khi": 3,
-            "hon_thach_nguyen": 2
-          }
-        }
-      }
+  "giap_da_tho": {
+    "name": "Giáp Da Thô",
+    "emoji": "🥋",
+    "rarity": "common",
+    "description": "Giáp da thô cơ bản, bảo vệ tối thiểu",
+    "crafting": {
+      "da_thu_tho": 8,
+      "tinh_thiet_tho": 2
     },
-    "robe": {
-      "name": "Đạo Bào",
-      "description": "Trang phục tu tiên, tăng cường linh khí và phòng thủ pháp thuật",
-      "types": {
-        "pham": {
-          "name": "Giáp Vải Gai",
-          "emoji": "👘",
-          "rarity": "pham",
-          "description": "Đạo bào vải gai cơ bản, tăng cường linh khí nhẹ",
-          "crafting": {
-            "da_thu_tho": 6,
-            "tinh_thiet_tho": 3
-          }
-        },
-        "huyen": {
-          "name": "Giáp Lân Bạc",
-          "emoji": "✨",
-          "rarity": "huyen",
-          "description": "Đạo bào lân bạc, tăng cường linh khí tốt",
-          "crafting": {
-            "da_linh_thu": 6,
-            "dong_tinh_luyen": 3,
-            "da_thu_tho": 2
-          }
-        },
-        "dia": {
-          "name": "Giáp Uẩn Linh",
-          "emoji": "🌟",
-          "rarity": "dia",
-          "description": "Đạo bào uẩn linh, có thể hấp thụ linh khí",
-          "crafting": {
-            "da_dia_thu": 10,
-            "huyen_tinh_dia_tam": 2,
-            "ho_linh_tam_ket": 1
-          }
-        },
-        "thien": {
-          "name": "Giáp Thiên Lam",
-          "emoji": "🌌",
-          "rarity": "thien",
-          "description": "Đạo bào thiên lam, chứa linh khí thiên đình",
-          "crafting": {
-            "da_thien_thu": 12,
-            "ngan_tinh_thien_khoi": 2,
-            "huyen_giap_lan": 1
-          }
-        },
-        "than": {
-          "name": "Thần Giáp Huyền Thiên",
-          "emoji": "🌠",
-          "rarity": "than",
-          "description": "Thần giáp huyền thiên, chứa linh khí thần thánh",
-          "crafting": {
-            "da_than_thu": 20,
-            "thien_tinh_than_khi": 3,
-            "hon_thach_nguyen": 2
-          }
-        }
-      }
-    },
-    "boots": {
-      "name": "Giày",
-      "description": "Trang bị chân, tăng cường tốc độ di chuyển và né tránh",
-      "types": {
-        "pham": {
-          "name": "Giày Da Thường",
-          "emoji": "👞",
-          "rarity": "pham",
-          "description": "Giày da thường cơ bản, tăng tốc độ nhẹ",
-          "crafting": {
-            "da_thu_tho": 4,
-            "thanh_van_to": 2
-          }
-        },
-        "huyen": {
-          "name": "Giày Vân Hành",
-          "emoji": "☁️",
-          "rarity": "huyen",
-          "description": "Giày vân hành, có thể đi trên mây",
-          "crafting": {
-            "da_linh_thu": 5,
-            "nguyet_anh_to": 2,
-            "da_thu_tho": 2
-          }
-        },
-        "dia": {
-          "name": "Giày Ảnh Ẩn",
-          "emoji": "👻",
-          "rarity": "dia",
-          "description": "Giày ảnh ẩn, có thể ẩn thân",
-          "crafting": {
-            "da_dia_thu": 6,
-            "dia_ha_to": 3,
-            "hu_anh_linh_ket": 1
-          }
-        },
-        "thien": {
-          "name": "Giày Phi Vân",
-          "emoji": "🚀",
-          "rarity": "thien",
-          "description": "Giày phi vân, có thể bay nhanh",
-          "crafting": {
-            "da_thien_thu": 8,
-            "tinh_ha_to": 3,
-            "dieu_anh_vu": 1
-          }
-        },
-        "than": {
-          "name": "Thần Khởi Lôi Bộ",
-          "emoji": "⚡",
-          "rarity": "than",
-          "description": "Thần giày có thể di chuyển nhanh như sấm sét",
-          "crafting": {
-            "da_than_thu": 10,
-            "tien_ha_van_to": 4,
-            "hon_thach_nguyen": 2
-          }
-        }
-      }
-    },
-    "training_boots": {
-      "name": "Giày Luyện Thể",
-      "description": "Giày chuyên dụng cho việc luyện tập và tu luyện",
-      "types": {
-        "pham": {
-          "name": "Giày Luyện Thể",
-          "emoji": "👟",
-          "rarity": "pham",
-          "description": "Giày luyện thể cơ bản, tăng cường tốc độ luyện tập",
-          "crafting": {
-            "da_thu_tho": 4,
-            "thanh_van_to": 2
-          }
-        },
-        "huyen": {
-          "name": "Giày Thanh Ảnh",
-          "emoji": "🌙",
-          "rarity": "huyen",
-          "description": "Giày thanh ảnh, tăng cường tốc độ luyện tập",
-          "crafting": {
-            "da_linh_thu": 5,
-            "nguyet_anh_to": 2,
-            "da_thu_tho": 2
-          }
-        },
-        "dia": {
-          "name": "Giày Thủy Ảnh",
-          "emoji": "💧",
-          "rarity": "dia",
-          "description": "Giày thủy ảnh, tăng cường tốc độ luyện tập",
-          "crafting": {
-            "da_dia_thu": 6,
-            "dia_ha_to": 3,
-            "hu_anh_linh_ket": 1
-          }
-        },
-        "thien": {
-          "name": "Giày Hỏa Vũ",
-          "emoji": "🔥",
-          "rarity": "thien",
-          "description": "Giày hỏa vũ, tăng cường tốc độ luyện tập",
-          "crafting": {
-            "da_thien_thu": 8,
-            "tinh_ha_to": 3,
-            "dieu_anh_vu": 1
-          }
-        },
-        "than": {
-          "name": "Thần Vân Ảnh Bộ",
-          "emoji": "☁️",
-          "rarity": "than",
-          "description": "Thần giày có thể di chuyển nhanh như gió",
-          "crafting": {
-            "da_than_thu": 10,
-            "tien_ha_van_to": 4,
-            "hon_thach_nguyen": 2
-          }
-        }
-      }
-    },
-    "rings": {
-      "name": "Nhẫn",
-      "description": "Trang bị phụ kiện, tăng cường các thuộc tính đặc biệt",
-      "types": {
-        "huyen": {
-          "name": "Nhẫn Bạch Ngân",
-          "emoji": "💎",
-          "rarity": "huyen",
-          "description": "Nhẫn bạch ngân, tăng cường linh khí tốt",
-          "crafting": {
-            "ngoc_thach_thanh_khiet": 3,
-            "dong_tinh_luyen": 2
-          }
-        },
-        "dia": {
-          "name": "Nhẫn Huyền Ngọc",
-          "emoji": "🔮",
-          "rarity": "dia",
-          "description": "Nhẫn huyền ngọc, có thể lưu trữ pháp thuật",
-          "crafting": {
-            "lam_thach_bang_tam": 4,
-            "huyen_tinh_dia_tam": 2,
-            "huyet_viem_tuy_ket": 1
-          }
-        },
-        "thien": {
-          "name": "Nhẫn Tinh Quang",
-          "emoji": "✨",
-          "rarity": "thien",
-          "description": "Nhẫn tinh quang, chứa linh khí thiên thể",
-          "crafting": {
-            "huyet_thach_thien_tam": 5,
-            "ngan_tinh_thien_khoi": 2,
-            "chien_hon_nha": 1
-          }
-        },
-        "than": {
-          "name": "Nhẫn Vĩnh Hằng",
-          "emoji": "💫",
-          "rarity": "than",
-          "description": "Nhẫn vĩnh hằng, chứa linh khí thần thánh",
-          "crafting": {
-            "than_ngoc_tinh_tam": 2,
-            "hon_thach_nguyen": 2
-          }
-        }
-      }
-    },
-    "pendants": {
-      "name": "Ngọc Bội",
-      "description": "Trang bị phụ kiện cổ, tăng cường sức mạnh tổng thể",
-      "types": {
-        "huyen": {
-          "name": "Ngọc Bội Thanh Liễu",
-          "emoji": "🌿",
-          "rarity": "huyen",
-          "description": "Ngọc bội thanh liễu, tăng cường mọi thuộc tính",
-          "crafting": {
-            "ngoc_thach_thanh_khiet": 3,
-            "dong_tinh_luyen": 2
-          }
-        },
-        "dia": {
-          "name": "Ngọc Bội Hắc Thủy",
-          "emoji": "🌊",
-          "rarity": "dia",
-          "description": "Ngọc bội hắc thủy, có thể cân bằng âm dương",
-          "crafting": {
-            "lam_thach_bang_tam": 4,
-            "huyen_tinh_dia_tam": 2,
-            "huyet_viem_tuy_ket": 1
-          }
-        },
-        "thien": {
-          "name": "Ngọc Bội Minh Nguyệt",
-          "emoji": "🌙",
-          "rarity": "thien",
-          "description": "Ngọc bội minh nguyệt, chứa linh khí thiên thể",
-          "crafting": {
-            "huyet_thach_thien_tam": 5,
-            "ngan_tinh_thien_khoi": 2,
-            "lam_tam_chau": 1
-          }
-        },
-        "than": {
-          "name": "Ngọc Bội Thần Quang",
-          "emoji": "🌟",
-          "rarity": "than",
-          "description": "Ngọc bội thần quang, chứa linh khí thần thánh",
-          "crafting": {
-            "than_ngoc_tinh_tam": 2,
-            "hon_thach_nguyen": 2
-          }
-        }
-      }
-    },
-    "earrings": {
-      "name": "Hoa Tai",
-      "description": "Trang bị phụ kiện tai, tăng cường sức mạnh đặc biệt",
-      "types": {
-        "huyen": {
-          "name": "Hoa Tai Thanh Vân",
-          "emoji": "☁️",
-          "rarity": "huyen",
-          "description": "Hoa tai thanh vân, tăng cường linh khí",
-          "crafting": {
-            "ngoc_thach_thanh_khiet": 3,
-            "dong_tinh_luyen": 2
-          }
-        },
-        "dia": {
-          "name": "Hoa Tai Hồng Vũ",
-          "emoji": "🌸",
-          "rarity": "dia",
-          "description": "Hoa tai hồng vũ, tăng cường linh khí",
-          "crafting": {
-            "lam_thach_bang_tam": 4,
-            "huyen_tinh_dia_tam": 2,
-            "huyet_viem_tuy_ket": 1
-          }
-        },
-        "thien": {
-          "name": "Hoa Tai Tinh Hà",
-          "emoji": "⭐",
-          "rarity": "thien",
-          "description": "Hoa tai tinh hà, chứa linh khí thiên thể",
-          "crafting": {
-            "huyet_thach_thien_tam": 5,
-            "ngan_tinh_thien_khoi": 2,
-            "lam_tam_chau": 1
-          }
-        },
-        "than": {
-          "name": "Hoa Tai Thái Hư",
-          "emoji": "🌌",
-          "rarity": "than",
-          "description": "Hoa tai thái hư, chứa linh khí thần thánh",
-          "crafting": {
-            "than_ngoc_tinh_tam": 2,
-            "hon_thach_nguyen": 2
-          }
-        }
-      }
-    }
+    "type": "armor"
   },
-  "rarity_levels": {
-    "pham": {
-      "name": "Phàm",
-      "emoji": "⚪",
-      "color": "#808080",
-      "multiplier": 1.0,
-      "description": "Trang bị phàm phu, chất lượng cơ bản"
+  "giap_dong": {
+    "name": "Giáp Đồng",
+    "emoji": "🛡️",
+    "rarity": "uncommon",
+    "description": "Giáp đồng tinh xảo, bảo vệ tốt hơn",
+    "crafting": {
+      "da_linh_thu": 6,
+      "dong_tinh_luyen": 3,
+      "da_thu_tho": 4
     },
-    "huyen": {
-      "name": "Huyền",
-      "emoji": "🟢",
-      "color": "#00FF00",
-      "multiplier": 1.5,
-      "description": "Trang bị huyền bí, có sức mạnh đặc biệt"
-    },
-    "dia": {
-      "name": "Địa",
-      "emoji": "🟡",
-      "color": "#FFFF00",
-      "multiplier": 2.0,
-      "description": "Trang bị địa cấp, có thể thay đổi chiến trường"
-    },
-    "thien": {
-      "name": "Thiên",
-      "emoji": "🟠",
-      "color": "#FF8000",
-      "multiplier": 3.0,
-      "description": "Trang bị thiên cấp, có sức mạnh hủy diệt"
-    },
-    "than": {
-      "name": "Thần",
-      "emoji": "🔴",
-      "color": "#FF0000",
-      "multiplier": 5.0,
-      "description": "Thần khí, có thể thay đổi cả thế giới"
-    }
+    "type": "armor"
   },
-  "crafting_system": {
-    "description": "Hệ thống chế tạo trang bị dựa trên nguyên liệu từ hunt, mine và special items",
-    "requirements": {
-      "pham": "Cần nguyên liệu cơ bản từ hunt (da_thu_tho, thanh_van_to)",
-      "huyen": "Cần nguyên liệu huyền bí + Linh thạch",
-      "dia": "Cần nguyên liệu địa cấp + Linh thạch trung phẩm",
-      "thien": "Cần nguyên liệu thiên cấp + Linh thạch thượng phẩm",
-      "than": "Cần nguyên liệu thần cấp + Linh thạch cự phẩm"
-    }
+  "giap_hac_thiet": {
+    "name": "Giáp Hắc Thiết",
+    "emoji": "⚔️",
+    "rarity": "rare",
+    "description": "Giáp hắc thiết cứng cáp, có thể chống đỡ đao kiếm",
+    "crafting": {
+      "da_dia_thu": 10,
+      "huyen_tinh_dia_tam": 2,
+      "ho_linh_tam_ket": 1
+    },
+    "type": "armor"
   },
-  "equipment_slots": {
-    "head": "Đầu",
-    "chest": "Ngực",
-    "legs": "Chân",
-    "feet": "Giày",
-    "hands": "Tay",
-    "accessory_1": "Phụ kiện 1",
-    "accessory_2": "Phụ kiện 2"
+  "giap_bach_ngoc": {
+    "name": "Giáp Bạch Ngọc",
+    "emoji": "💎",
+    "rarity": "epic",
+    "description": "Giáp bạch ngọc, có thể phản đòn",
+    "crafting": {
+      "da_thien_thu": 12,
+      "ngan_tinh_thien_khoi": 2,
+      "huyen_giap_lan": 1
+    },
+    "type": "armor"
+  },
+  "than_giap_kim_cang": {
+    "name": "Thần Giáp Kim Cang",
+    "emoji": "⚜️",
+    "rarity": "legendary",
+    "description": "Thần giáp kim cang, bất hoại trước mọi vũ khí",
+    "crafting": {
+      "da_than_thu": 20,
+      "thien_tinh_than_khi": 3,
+      "hon_thach_nguyen": 2
+    },
+    "type": "armor"
+  },
+  "giap_vai_gai": {
+    "name": "Giáp Vải Gai",
+    "emoji": "👘",
+    "rarity": "common",
+    "description": "Đạo bào vải gai cơ bản, tăng cường linh khí nhẹ",
+    "crafting": {
+      "da_thu_tho": 6,
+      "tinh_thiet_tho": 3
+    },
+    "type": "armor"
+  },
+  "giap_lan_bac": {
+    "name": "Giáp Lân Bạc",
+    "emoji": "✨",
+    "rarity": "uncommon",
+    "description": "Đạo bào lân bạc, tăng cường linh khí tốt",
+    "crafting": {
+      "da_linh_thu": 6,
+      "dong_tinh_luyen": 3,
+      "da_thu_tho": 2
+    },
+    "type": "armor"
+  },
+  "giap_u_an_linh": {
+    "name": "Giáp Uẩn Linh",
+    "emoji": "🌟",
+    "rarity": "rare",
+    "description": "Đạo bào uẩn linh, có thể hấp thụ linh khí",
+    "crafting": {
+      "da_dia_thu": 10,
+      "huyen_tinh_dia_tam": 2,
+      "ho_linh_tam_ket": 1
+    },
+    "type": "armor"
+  },
+  "giap_thien_lam": {
+    "name": "Giáp Thiên Lam",
+    "emoji": "🌌",
+    "rarity": "epic",
+    "description": "Đạo bào thiên lam, chứa linh khí thiên đình",
+    "crafting": {
+      "da_thien_thu": 12,
+      "ngan_tinh_thien_khoi": 2,
+      "huyen_giap_lan": 1
+    },
+    "type": "armor"
+  },
+  "than_giap_huyen_thien": {
+    "name": "Thần Giáp Huyền Thiên",
+    "emoji": "🌠",
+    "rarity": "legendary",
+    "description": "Thần giáp huyền thiên, chứa linh khí thần thánh",
+    "crafting": {
+      "da_than_thu": 20,
+      "thien_tinh_than_khi": 3,
+      "hon_thach_nguyen": 2
+    },
+    "type": "armor"
+  },
+  "giay_da_thuong": {
+    "name": "Giày Da Thường",
+    "emoji": "👞",
+    "rarity": "common",
+    "description": "Giày da thường cơ bản, tăng tốc độ nhẹ",
+    "crafting": {
+      "da_thu_tho": 4,
+      "thanh_van_to": 2
+    },
+    "type": "boots"
+  },
+  "giay_van_hanh": {
+    "name": "Giày Vân Hành",
+    "emoji": "☁️",
+    "rarity": "uncommon",
+    "description": "Giày vân hành, có thể đi trên mây",
+    "crafting": {
+      "da_linh_thu": 5,
+      "nguyet_anh_to": 2,
+      "da_thu_tho": 2
+    },
+    "type": "boots"
+  },
+  "giay_anh_an": {
+    "name": "Giày Ảnh Ẩn",
+    "emoji": "👻",
+    "rarity": "rare",
+    "description": "Giày ảnh ẩn, có thể ẩn thân",
+    "crafting": {
+      "da_dia_thu": 6,
+      "dia_ha_to": 3,
+      "hu_anh_linh_ket": 1
+    },
+    "type": "boots"
+  },
+  "giay_phi_van": {
+    "name": "Giày Phi Vân",
+    "emoji": "🚀",
+    "rarity": "epic",
+    "description": "Giày phi vân, có thể bay nhanh",
+    "crafting": {
+      "da_thien_thu": 8,
+      "tinh_ha_to": 3,
+      "dieu_anh_vu": 1
+    },
+    "type": "boots"
+  },
+  "than_khoi_loi_bo": {
+    "name": "Thần Khởi Lôi Bộ",
+    "emoji": "⚡",
+    "rarity": "legendary",
+    "description": "Thần giày có thể di chuyển nhanh như sấm sét",
+    "crafting": {
+      "da_than_thu": 10,
+      "tien_ha_van_to": 4,
+      "hon_thach_nguyen": 2
+    },
+    "type": "boots"
+  },
+  "giay_luyen_the": {
+    "name": "Giày Luyện Thể",
+    "emoji": "👟",
+    "rarity": "common",
+    "description": "Giày luyện thể cơ bản, tăng cường tốc độ luyện tập",
+    "crafting": {
+      "da_thu_tho": 4,
+      "thanh_van_to": 2
+    },
+    "type": "boots"
+  },
+  "giay_thanh_anh": {
+    "name": "Giày Thanh Ảnh",
+    "emoji": "🌙",
+    "rarity": "uncommon",
+    "description": "Giày thanh ảnh, tăng cường tốc độ luyện tập",
+    "crafting": {
+      "da_linh_thu": 5,
+      "nguyet_anh_to": 2,
+      "da_thu_tho": 2
+    },
+    "type": "boots"
+  },
+  "giay_thuy_anh": {
+    "name": "Giày Thủy Ảnh",
+    "emoji": "💧",
+    "rarity": "rare",
+    "description": "Giày thủy ảnh, tăng cường tốc độ luyện tập",
+    "crafting": {
+      "da_dia_thu": 6,
+      "dia_ha_to": 3,
+      "hu_anh_linh_ket": 1
+    },
+    "type": "boots"
+  },
+  "giay_hoa_vu": {
+    "name": "Giày Hỏa Vũ",
+    "emoji": "🔥",
+    "rarity": "epic",
+    "description": "Giày hỏa vũ, tăng cường tốc độ luyện tập",
+    "crafting": {
+      "da_thien_thu": 8,
+      "tinh_ha_to": 3,
+      "dieu_anh_vu": 1
+    },
+    "type": "boots"
+  },
+  "than_van_anh_bo": {
+    "name": "Thần Vân Ảnh Bộ",
+    "emoji": "☁️",
+    "rarity": "legendary",
+    "description": "Thần giày có thể di chuyển nhanh như gió",
+    "crafting": {
+      "da_than_thu": 10,
+      "tien_ha_van_to": 4,
+      "hon_thach_nguyen": 2
+    },
+    "type": "boots"
+  },
+  "nhan_bach_ngoc": {
+    "name": "Nhẫn Bạch Ngân",
+    "emoji": "💎",
+    "rarity": "uncommon",
+    "description": "Nhẫn bạch ngân, tăng cường linh khí tốt",
+    "crafting": {
+      "ngoc_thach_thanh_khiet": 3,
+      "dong_tinh_luyen": 2
+    },
+    "type": "ring"
+  },
+  "nhan_huyen_ngoc": {
+    "name": "Nhẫn Huyền Ngọc",
+    "emoji": "🔮",
+    "rarity": "rare",
+    "description": "Nhẫn huyền ngọc, có thể lưu trữ pháp thuật",
+    "crafting": {
+      "lam_thach_bang_tam": 4,
+      "huyen_tinh_dia_tam": 2,
+      "huyet_viem_tuy_ket": 1
+    },
+    "type": "ring"
+  },
+  "nhan_tinh_quang": {
+    "name": "Nhẫn Tinh Quang",
+    "emoji": "✨",
+    "rarity": "epic",
+    "description": "Nhẫn tinh quang, chứa linh khí thiên thể",
+    "crafting": {
+      "huyet_thach_thien_tam": 5,
+      "ngan_tinh_thien_khoi": 2,
+      "chien_hon_nha": 1
+    },
+    "type": "ring"
+  },
+  "nhan_vinh_hang": {
+    "name": "Nhẫn Vĩnh Hằng",
+    "emoji": "💫",
+    "rarity": "legendary",
+    "description": "Nhẫn vĩnh hằng, chứa linh khí thần thánh",
+    "crafting": {
+      "than_ngoc_tinh_tam": 2,
+      "hon_thach_nguyen": 2
+    },
+    "type": "ring"
+  },
+  "ngoc_boi_thanh_lieu": {
+    "name": "Ngọc Bội Thanh Liễu",
+    "emoji": "🌿",
+    "rarity": "uncommon",
+    "description": "Ngọc bội thanh liễu, tăng cường mọi thuộc tính",
+    "crafting": {
+      "ngoc_thach_thanh_khiet": 3,
+      "dong_tinh_luyen": 2
+    },
+    "type": "pendant"
+  },
+  "ngoc_boi_hac_thuy": {
+    "name": "Ngọc Bội Hắc Thủy",
+    "emoji": "🌊",
+    "rarity": "rare",
+    "description": "Ngọc bội hắc thủy, có thể cân bằng âm dương",
+    "crafting": {
+      "lam_thach_bang_tam": 4,
+      "huyen_tinh_dia_tam": 2,
+      "huyet_viem_tuy_ket": 1
+    },
+    "type": "pendant"
+  },
+  "ngoc_boi_minh_nguyet": {
+    "name": "Ngọc Bội Minh Nguyệt",
+    "emoji": "🌙",
+    "rarity": "epic",
+    "description": "Ngọc bội minh nguyệt, chứa linh khí thiên thể",
+    "crafting": {
+      "huyet_thach_thien_tam": 5,
+      "ngan_tinh_thien_khoi": 2,
+      "lam_tam_chau": 1
+    },
+    "type": "pendant"
+  },
+  "ngoc_boi_than_quang": {
+    "name": "Ngọc Bội Thần Quang",
+    "emoji": "🌟",
+    "rarity": "legendary",
+    "description": "Ngọc bội thần quang, chứa linh khí thần thánh",
+    "crafting": {
+      "than_ngoc_tinh_tam": 2,
+      "hon_thach_nguyen": 2
+    },
+    "type": "pendant"
+  },
+  "hoa_tai_thanh_van": {
+    "name": "Hoa Tai Thanh Vân",
+    "emoji": "☁️",
+    "rarity": "uncommon",
+    "description": "Hoa tai thanh vân, tăng cường linh khí",
+    "crafting": {
+      "ngoc_thach_thanh_khiet": 3,
+      "dong_tinh_luyen": 2
+    },
+    "type": "earrings"
+  },
+  "hoa_tai_hong_vu": {
+    "name": "Hoa Tai Hồng Vũ",
+    "emoji": "🌸",
+    "rarity": "rare",
+    "description": "Hoa tai hồng vũ, tăng cường linh khí",
+    "crafting": {
+      "lam_thach_bang_tam": 4,
+      "huyen_tinh_dia_tam": 2,
+      "huyet_viem_tuy_ket": 1
+    },
+    "type": "earrings"
+  },
+  "hoa_tai_tinh_ha": {
+    "name": "Hoa Tai Tinh Hà",
+    "emoji": "⭐",
+    "rarity": "epic",
+    "description": "Hoa tai tinh hà, chứa linh khí thiên thể",
+    "crafting": {
+      "huyet_thach_thien_tam": 5,
+      "ngan_tinh_thien_khoi": 2,
+      "lam_tam_chau": 1
+    },
+    "type": "earrings"
+  },
+  "hoa_tai_thai_hu": {
+    "name": "Hoa Tai Thái Hư",
+    "emoji": "🌌",
+    "rarity": "legendary",
+    "description": "Hoa tai thái hư, chứa linh khí thần thánh",
+    "crafting": {
+      "than_ngoc_tinh_tam": 2,
+      "hon_thach_nguyen": 2
+    },
+    "type": "earrings"
   }
 }

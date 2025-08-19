@@ -11,7 +11,7 @@
   ],
   "categories": {
     "herbs": "Thảo dược",
-    "elixirs": "Đan dược", 
+    "elixirs": "Đan dược",
     "minerals": "Khoáng thạch",
     "weapons": "Vũ khí",
     "armors": "Áo giáp",
@@ -22,4 +22,4 @@
     "special_items": "Item đặc biệt",
     "currency": "Tiền tệ"
   }
-} 
+}
