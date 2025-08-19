@@ -27,15 +27,29 @@ class ItemLoader {
           const filePath = path.join(itemsDir, fileName);
           if (fs.existsSync(filePath)) {
             const fileData = JSON.parse(fs.readFileSync(filePath, 'utf8'));
-            this.mergeItems(fileData);
+            this.mergeItems(fileData, fileName);
           }
+        }
+
+        // Load weapons.json riêng vì không có trong index
+        const weaponsPath = path.join(itemsDir, 'weapons.json');
+        if (fs.existsSync(weaponsPath)) {
+          const weaponsData = JSON.parse(fs.readFileSync(weaponsPath, 'utf8'));
+          this.mergeItems(weaponsData, 'weapons.json');
+        }
+
+        // Load hunt_loot.json riêng vì không có trong index
+        const huntLootPath = path.join(itemsDir, 'hunt_loot.json');
+        if (fs.existsSync(huntLootPath)) {
+          const huntLootData = JSON.parse(fs.readFileSync(huntLootPath, 'utf8'));
+          this.mergeItems(huntLootData, 'hunt_loot.json');
         }
       } else {
         // Fallback: load file items.json cũ nếu có
         const oldItemsPath = path.join(__dirname, '../data/items.json');
         if (fs.existsSync(oldItemsPath)) {
           const oldData = JSON.parse(fs.readFileSync(oldItemsPath, 'utf8'));
-          this.mergeItems(oldData);
+          this.mergeItems(oldData, 'legacy');
         }
       }
 
@@ -49,25 +63,71 @@ class ItemLoader {
   }
 
   // Merge items từ các file khác nhau
-  mergeItems(fileData) {
-    // Merge rarity levels
-    if (fileData.rarity_levels) {
+  mergeItems(fileData, fileName) {
+    // Merge rarity levels - file rarity_levels.json có cấu trúc trực tiếp
+    if (fileName === 'rarity_levels.json') {
+      this.rarityLevels = { ...this.rarityLevels, ...fileData };
+    } else if (fileData.rarity_levels) {
+      // Fallback cho cấu trúc cũ
       this.rarityLevels = { ...this.rarityLevels, ...fileData.rarity_levels };
     }
 
+    // Xác định category từ tên file
+    let category = this.determineCategoryFromFileName(fileName);
+
     // Merge tất cả items
-    Object.keys(fileData).forEach(category => {
-      if (category !== 'rarity_levels') {
-        if (fileData[category] && typeof fileData[category] === 'object') {
-          Object.keys(fileData[category]).forEach(itemId => {
-            this.items[itemId] = {
-              ...fileData[category][itemId],
+    Object.keys(fileData).forEach(key => {
+      if (key !== 'rarity_levels' && key !== 'drop_rates_by_realm' && key !== 'crafting_recipes' && key !== 'hunt_mechanics') {
+        if (fileData[key] && typeof fileData[key] === 'object') {
+          // Nếu là object chứa items (như herbs.json, minerals.json)
+          if (fileData[key].name && fileData[key].emoji) {
+            // Đây là item, thêm vào với category đã xác định
+            this.items[key] = {
+              ...fileData[key],
               category: category
             };
-          });
+          } else {
+            // Có thể là category con, kiểm tra từng item
+            Object.keys(fileData[key]).forEach(itemId => {
+              if (fileData[key][itemId] && fileData[key][itemId].name) {
+                this.items[itemId] = {
+                  ...fileData[key][itemId],
+                  category: category
+                };
+              }
+            });
+          }
         }
       }
     });
+  }
+
+  // Xác định category từ tên file
+  determineCategoryFromFileName(fileName) {
+    const fileNameWithoutExt = fileName.replace('.json', '');
+
+    switch (fileNameWithoutExt) {
+      case 'herbs':
+        return 'herbs';
+      case 'minerals':
+        return 'minerals';
+      case 'hunt_loot':
+        return 'hunt_loot';
+      case 'special_items':
+        return 'special_items';
+      case 'artifacts':
+        return 'artifacts';
+      case 'elixirs':
+        return 'elixirs';
+      case 'weapons':
+        return 'weapons';
+      case 'equipment':
+        return 'equipment';
+      case 'currency':
+        return 'currency';
+      default:
+        return fileNameWithoutExt;
+    }
   }
 
   // Lấy thông tin item theo ID
@@ -85,12 +145,6 @@ class ItemLoader {
   getItemEmoji(itemId) {
     const item = this.items[itemId];
     return item ? item.emoji : '📦';
-  }
-
-  // Lấy loại item
-  getItemType(itemId) {
-    const item = this.items[itemId];
-    return item ? item.type : 'unknown';
   }
 
   // Lấy rarity của item
@@ -134,8 +188,35 @@ class ItemLoader {
     const searchTerm = query.toLowerCase();
     return Object.values(this.items).filter(item =>
       item.name.toLowerCase().includes(searchTerm) ||
-      item.description.toLowerCase().includes(searchTerm)
+      (item.description && item.description.toLowerCase().includes(searchTerm))
     );
+  }
+
+  // Lấy tất cả categories có sẵn
+  getAvailableCategories() {
+    const categories = new Set();
+    Object.values(this.items).forEach(item => {
+      if (item.category) {
+        categories.add(item.category);
+      }
+    });
+    return Array.from(categories);
+  }
+
+  // Lấy items theo category và rarity
+  getItemsByCategoryAndRarity(category, rarity) {
+    return Object.values(this.items).filter(item =>
+      item.category === category && item.rarity === rarity
+    );
+  }
+
+  // Lấy random item theo category và rarity
+  getRandomItemByCategoryAndRarity(category, rarity) {
+    const items = this.getItemsByCategoryAndRarity(category, rarity);
+    if (items.length === 0) return null;
+
+    const randomIndex = Math.floor(Math.random() * items.length);
+    return items[randomIndex];
   }
 
   // Reload items (hữu ích khi có thay đổi)

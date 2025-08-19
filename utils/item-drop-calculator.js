@@ -41,9 +41,9 @@ class ItemDropCalculator {
         const randomHerb = availableHerbs[Math.floor(Math.random() * availableHerbs.length)];
 
         // Kiểm tra xem thảo dược đã được chọn chưa
-        if (!selected.find(h => h.id === randomHerb.id)) {
+        if (!selected.find(h => h.name === randomHerb.name)) {
           selected.push({
-            id: randomHerb.id,
+            id: randomHerb.name, // Use name as id since no id field in new structure
             name: randomHerb.name,
             emoji: randomHerb.emoji,
             rarity: randomHerb.rarity,
@@ -90,9 +90,9 @@ class ItemDropCalculator {
 
       if (mineralsByRarity.length > 0) {
         const randomMineral = mineralsByRarity[Math.floor(Math.random() * mineralsByRarity.length)];
-        if (!selectedMinerals.find(m => m.id === randomMineral.id)) {
+        if (!selectedMinerals.find(m => m.name === randomMineral.name)) {
           selectedMinerals.push({
-            id: randomMineral.id,
+            id: randomMineral.name, // Use name as id since no id field in new structure
             name: randomMineral.name,
             emoji: randomMineral.emoji,
             rarity: randomMineral.rarity,
@@ -139,9 +139,9 @@ class ItemDropCalculator {
 
       if (itemsByRarity.length > 0) {
         const randomItem = itemsByRarity[Math.floor(Math.random() * itemsByRarity.length)];
-        if (!selectedItems.find(item => item.id === randomItem.id)) {
+        if (!selectedItems.find(item => item.name === randomItem.name)) {
           selectedItems.push({
-            id: randomItem.id,
+            id: randomItem.name,
             name: randomItem.name,
             emoji: randomItem.emoji,
             rarity: randomItem.rarity,
@@ -205,9 +205,9 @@ class ItemDropCalculator {
 
       if (itemsByRarity.length > 0) {
         const randomItem = itemsByRarity[Math.floor(Math.random() * itemsByRarity.length)];
-        if (!selected.find(item => item.id === randomItem.id)) {
+        if (!selected.find(item => item.name === randomItem.name)) {
           selected.push({
-            id: randomItem.id,
+            id: randomItem.name,
             name: randomItem.name,
             emoji: randomItem.emoji,
             rarity: randomItem.rarity,
@@ -244,9 +244,9 @@ class ItemDropCalculator {
 
       if (itemsByRarity.length > 0) {
         const randomItem = itemsByRarity[Math.floor(Math.random() * itemsByRarity.length)];
-        if (!selected.find(item => item.id === randomItem.id)) {
+        if (!selected.find(item => item.name === randomItem.name)) {
           selected.push({
-            id: randomItem.id,
+            id: randomItem.name,
             name: randomItem.name,
             emoji: randomItem.emoji,
             rarity: randomItem.rarity,
@@ -327,9 +327,9 @@ class ItemDropCalculator {
 
       if (itemsByRarity.length > 0) {
         const randomItem = itemsByRarity[Math.floor(Math.random() * itemsByRarity.length)];
-        if (!randomItems.find(item => item.id === randomItem.id)) {
+        if (!randomItems.find(item => item.name === randomItem.name)) {
           randomItems.push({
-            id: randomItem.id,
+            id: randomItem.name,
             name: randomItem.name,
             emoji: randomItem.emoji,
             rarity: randomItem.rarity,
@@ -372,9 +372,9 @@ class ItemDropCalculator {
 
       if (itemsByRarity.length > 0) {
         const randomItem = itemsByRarity[Math.floor(Math.random() * itemsByRarity.length)];
-        if (!randomItems.find(item => item.id === randomItem.id)) {
+        if (!randomItems.find(item => item.name === randomItem.name)) {
           randomItems.push({
-            id: randomItem.id,
+            id: randomItem.name,
             name: randomItem.name,
             emoji: randomItem.emoji,
             rarity: randomItem.rarity,
