@@ -40,10 +40,15 @@ class ItemDropCalculator {
       if (availableHerbs.length > 0) {
         const randomHerb = availableHerbs[Math.floor(Math.random() * availableHerbs.length)];
 
+        // Tìm id (key) của herb trong itemLoader.items
+        const herbId = Object.keys(itemLoader.items).find(key =>
+          itemLoader.items[key] === randomHerb
+        );
+
         // Kiểm tra xem thảo dược đã được chọn chưa
-        if (!selected.find(h => h.name === randomHerb.name)) {
+        if (!selected.find(h => h.id === herbId)) {
           selected.push({
-            id: randomHerb.name, // Use name as id since no id field in new structure
+            id: herbId, // Use actual id (key) instead of name
             name: randomHerb.name,
             emoji: randomHerb.emoji,
             rarity: randomHerb.rarity,
@@ -90,9 +95,15 @@ class ItemDropCalculator {
 
       if (mineralsByRarity.length > 0) {
         const randomMineral = mineralsByRarity[Math.floor(Math.random() * mineralsByRarity.length)];
-        if (!selectedMinerals.find(m => m.name === randomMineral.name)) {
+
+        // Tìm id (key) của mineral trong itemLoader.items
+        const mineralId = Object.keys(itemLoader.items).find(key =>
+          itemLoader.items[key] === randomMineral
+        );
+
+        if (!selectedMinerals.find(m => m.id === mineralId)) {
           selectedMinerals.push({
-            id: randomMineral.name, // Use name as id since no id field in new structure
+            id: mineralId, // Use actual id (key) instead of name
             name: randomMineral.name,
             emoji: randomMineral.emoji,
             rarity: randomMineral.rarity,
@@ -107,7 +118,7 @@ class ItemDropCalculator {
   }
 
   /**
-   * Tính toán items cho lệnh /hunt (vật liệu săn)
+   * Tính toán items cho lệnh /hunt (săn yêu thú)
    * @param {Object} player - Player object
    * @returns {Array} Danh sách vật liệu săn được
    */
@@ -139,9 +150,15 @@ class ItemDropCalculator {
 
       if (itemsByRarity.length > 0) {
         const randomItem = itemsByRarity[Math.floor(Math.random() * itemsByRarity.length)];
-        if (!selectedItems.find(item => item.name === randomItem.name)) {
+
+        // Tìm id (key) của item trong itemLoader.items
+        const itemId = Object.keys(itemLoader.items).find(key =>
+          itemLoader.items[key] === randomItem
+        );
+
+        if (!selectedItems.find(item => item.id === itemId)) {
           selectedItems.push({
-            id: randomItem.name,
+            id: itemId, // Use actual id (key) instead of name
             name: randomItem.name,
             emoji: randomItem.emoji,
             rarity: randomItem.rarity,
@@ -205,9 +222,15 @@ class ItemDropCalculator {
 
       if (itemsByRarity.length > 0) {
         const randomItem = itemsByRarity[Math.floor(Math.random() * itemsByRarity.length)];
-        if (!selected.find(item => item.name === randomItem.name)) {
+
+        // Tìm id (key) của item trong itemLoader.items
+        const itemId = Object.keys(itemLoader.items).find(key =>
+          itemLoader.items[key] === randomItem
+        );
+
+        if (!selected.find(item => item.id === itemId)) {
           selected.push({
-            id: randomItem.name,
+            id: itemId, // Use actual id (key) instead of name
             name: randomItem.name,
             emoji: randomItem.emoji,
             rarity: randomItem.rarity,
@@ -244,9 +267,15 @@ class ItemDropCalculator {
 
       if (itemsByRarity.length > 0) {
         const randomItem = itemsByRarity[Math.floor(Math.random() * itemsByRarity.length)];
-        if (!selected.find(item => item.name === randomItem.name)) {
+
+        // Tìm id (key) của item trong itemLoader.items
+        const itemId = Object.keys(itemLoader.items).find(key =>
+          itemLoader.items[key] === randomItem
+        );
+
+        if (!selected.find(item => item.id === itemId)) {
           selected.push({
-            id: randomItem.name,
+            id: itemId, // Use actual id (key) instead of name
             name: randomItem.name,
             emoji: randomItem.emoji,
             rarity: randomItem.rarity,
@@ -327,9 +356,15 @@ class ItemDropCalculator {
 
       if (itemsByRarity.length > 0) {
         const randomItem = itemsByRarity[Math.floor(Math.random() * itemsByRarity.length)];
-        if (!randomItems.find(item => item.name === randomItem.name)) {
+
+        // Tìm id (key) của item trong itemLoader.items
+        const itemId = Object.keys(itemLoader.items).find(key =>
+          itemLoader.items[key] === randomItem
+        );
+
+        if (!randomItems.find(item => item.id === itemId)) {
           randomItems.push({
-            id: randomItem.name,
+            id: itemId, // Use actual id (key) instead of name
             name: randomItem.name,
             emoji: randomItem.emoji,
             rarity: randomItem.rarity,
@@ -372,9 +407,15 @@ class ItemDropCalculator {
 
       if (itemsByRarity.length > 0) {
         const randomItem = itemsByRarity[Math.floor(Math.random() * itemsByRarity.length)];
-        if (!randomItems.find(item => item.name === randomItem.name)) {
+
+        // Tìm id (key) của item trong itemLoader.items
+        const itemId = Object.keys(itemLoader.items).find(key =>
+          itemLoader.items[key] === randomItem
+        );
+
+        if (!randomItems.find(item => item.id === itemId)) {
           randomItems.push({
-            id: randomItem.name,
+            id: itemId, // Use actual id (key) instead of name
             name: randomItem.name,
             emoji: randomItem.emoji,
             rarity: randomItem.rarity,

@@ -4,6 +4,7 @@ const cooldownManager = require('../utils/cooldown.js');
 const expCalculator = require('../systems/exp-calculator.js');
 const SpiritStonesCalculator = require('../utils/spirit-stones-calculator.js');
 const ItemDropCalculator = require('../utils/item-drop-calculator.js');
+const itemLoader = require('../utils/item-loader.js');
 
 module.exports = {
   name: 'pick',
@@ -59,12 +60,14 @@ module.exports = {
 
   // Hiển thị danh sách thảo dược
   async showHerbsList(interaction) {
-    const herbs = itemLoader.items;
-    const herbsList = Object.values(herbs).filter(item => item.category === 'herbs');
+    // Load items nếu chưa load
+    await itemLoader.loadAllItems();
+
+    const herbs = Object.values(itemLoader.items).filter(item => item.category === 'herbs');
 
     // Nhóm theo rarity
     const herbsByRarity = {};
-    herbsList.forEach(herb => {
+    herbs.forEach(herb => {
       const rarity = herb.rarity || 'common';
       if (!herbsByRarity[rarity]) {
         herbsByRarity[rarity] = [];
@@ -82,17 +85,17 @@ module.exports = {
 
     rarityOrder.forEach(rarity => {
       if (herbsByRarity[rarity] && herbsByRarity[rarity].length > 0) {
-        const herbs = herbsByRarity[rarity];
+        const herbsList = herbsByRarity[rarity];
         const rarityEmoji = this.getRarityEmoji(rarity);
         const rarityName = this.getRarityDisplayName(rarity);
 
-        const herbsList = herbs.map(herb =>
+        const herbsListFormatted = herbsList.map(herb =>
           `${herb.emoji} **${herb.name}** - ${herb.description}`
         ).join('\n');
 
         embed.addFields({
-          name: `${rarityEmoji} **${rarityName}** (${herbs.length} loại)`,
-          value: herbsList,
+          name: `${rarityEmoji} **${rarityName}** (${herbsList.length} loại)`,
+          value: herbsListFormatted,
           inline: false
         });
       }
@@ -282,72 +285,5 @@ module.exports = {
       'mythic': 'Thần Thoại'
     };
     return displayNames[rarity] || rarity;
-  },
-
-  /**
-   * Lấy thảo dược thực tế từ herbs.json
-   * @returns {Array} Danh sách thảo dược với thông tin đầy đủ
-   */
-  getRealHerbs() {
-    const herbs = itemLoader.items;
-    const herbsList = Object.values(herbs).filter(item => item.category === 'herbs');
-
-    // Tỷ lệ thu thập theo rarity
-    const rarityWeights = {
-      'common': 60,      // 60%
-      'uncommon': 25,    // 25%
-      'rare': 10,        // 10%
-      'epic': 3,         // 3%
-      'legendary': 1.5,  // 1.5%
-      'mythic': 0.5      // 0.5%
-    };
-
-    const count = Math.floor(Math.random() * 3) + 2; // 2-4 thảo dược
-    const selected = [];
-
-    for (let i = 0; i < count; i++) {
-      // Chọn rarity dựa trên tỷ lệ
-      const rarity = this.selectRarityByWeight(rarityWeights);
-
-      // Lọc thảo dược theo rarity đã chọn
-      const availableHerbs = herbsList.filter(herb => herb.rarity === rarity);
-
-      if (availableHerbs.length > 0) {
-        const randomHerb = availableHerbs[Math.floor(Math.random() * availableHerbs.length)];
-
-        // Kiểm tra xem thảo dược đã được chọn chưa
-        if (!selected.find(h => h.id === randomHerb.id)) {
-          selected.push({
-            id: randomHerb.id,
-            name: randomHerb.name,
-            emoji: randomHerb.emoji,
-            rarity: randomHerb.rarity,
-            value: randomHerb.value,
-            description: randomHerb.description
-          });
-        }
-      }
-    }
-
-    return selected;
-  },
-
-  /**
-   * Chọn rarity dựa trên tỷ lệ
-   * @param {Object} weights - Tỷ lệ của từng rarity
-   * @returns {String} Rarity được chọn
-   */
-  selectRarityByWeight(weights) {
-    const totalWeight = Object.values(weights).reduce((sum, weight) => sum + weight, 0);
-    let random = Math.random() * totalWeight;
-
-    for (const [rarity, weight] of Object.entries(weights)) {
-      random -= weight;
-      if (random <= 0) {
-        return rarity;
-      }
-    }
-
-    return 'common'; // Fallback
   }
 };

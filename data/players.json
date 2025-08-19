@@ -3,13 +3,13 @@
     "userId": "504705413682298891",
     "username": "ired0806",
     "spiritRoot": "kim",
-    "experience": 33689,
+    "experience": 56868,
     "realm": "luyen_khi",
     "realmLevel": 1,
     "totalTiers": 0,
     "inventory": {
       "spiritStones": {
-        "ha_pham": 2,
+        "ha_pham": 21,
         "trung_pham": 0,
         "thuong_pham": 0,
         "cuc_pham": 0
@@ -26,6 +26,34 @@
         {
           "id": "tieu_long_lan_qua",
           "quantity": 3
+        },
+        {
+          "id": "thanh_van_to",
+          "quantity": 3
+        },
+        {
+          "id": "tu_hau_hoa",
+          "quantity": 1
+        },
+        {
+          "id": "bach_nien_sam",
+          "quantity": 1
+        },
+        {
+          "id": "tu_van_thao",
+          "quantity": 1
+        },
+        {
+          "id": "thanh_tam_thao",
+          "quantity": 1
+        },
+        {
+          "id": "phong_linh_thao",
+          "quantity": 1
+        },
+        {
+          "id": "ngoc_diep_thao",
+          "quantity": 1
         }
       ],
       "weapons": [],
@@ -33,25 +61,25 @@
     },
     "cultivation": {
       "lastCultivate": 0,
-      "cultivateCooldown": 300000,
+      "cultivateCooldown": 0,
       "breakthroughAttempts": 0,
       "lastBreakthrough": 0,
       "lastMeditate": 0,
-      "lastHunt": 1755575974734,
+      "lastHunt": 1755586163729,
       "lastChallenge": 0,
-      "lastDomain": 1755253253740,
+      "lastDomain": 0,
       "lastDailyQuest": 0,
       "lastWeeklyQuest": 0,
-      "lastDungeon": 1755253258020,
-      "lastMine": 1755574837281,
-      "lastPick": 1755571758405,
-      "lastExplore": 1755574868919,
-      "lastDaily": 1755253170535,
-      "lastWeekly": 1755253181397
+      "lastDungeon": 0,
+      "lastMine": 1755586168230,
+      "lastPick": 0,
+      "lastExplore": 0,
+      "lastDaily": 0,
+      "lastWeekly": 0
     },
     "achievements": [],
     "joinDate": 1755249145308,
-    "lastActive": 1755575974747,
+    "lastActive": 1755586168231,
     "stats": {
       "attack": 12,
       "defense": 15,
@@ -79,14 +107,89 @@
     "userId": "558528163244802089",
     "username": "just_archer",
     "spiritRoot": "kim",
-    "experience": 15724,
+    "experience": 25797,
     "realm": "luyen_khi",
     "realmLevel": 1,
     "totalTiers": 0,
     "inventory": {
       "spiritStones": {
-        "ha_pham": 20,
-        "trung_pham": 1,
+        "ha_pham": 210,
+        "trung_pham": 2,
+        "thuong_pham": 0,
+        "cuc_pham": 0
+      },
+      "items": [
+        {
+          "id": "ngu_nien_sam",
+          "quantity": 3
+        },
+        {
+          "id": "thanh_diep_thao",
+          "quantity": 3
+        },
+        {
+          "id": "tieu_long_lan_qua",
+          "quantity": 3
+        },
+        {
+          "id": "Ngũ Niên Sâm",
+          "quantity": 1
+        },
+        {
+          "id": "Xích Vân Thảo",
+          "quantity": 1
+        }
+      ],
+      "weapons": [],
+      "armors": []
+    },
+    "cultivation": {
+      "lastCultivate": 0,
+      "cultivateCooldown": 300000,
+      "breakthroughAttempts": 0,
+      "lastBreakthrough": 0,
+      "lastMeditate": 0,
+      "lastHunt": 1755491287085,
+      "lastChallenge": 0,
+      "lastDomain": 1755585734200,
+      "lastDailyQuest": 0,
+      "lastWeeklyQuest": 0,
+      "lastDungeon": 0,
+      "lastMine": 1755585658893,
+      "lastPick": 1755585654844,
+      "lastExplore": 1755491293189,
+      "lastDaily": 1755491270359
+    },
+    "achievements": [],
+    "joinDate": 1755491250975,
+    "lastActive": 1755585734201,
+    "stats": {
+      "attack": 12,
+      "defense": 15,
+      "hp": 120,
+      "maxHp": 120,
+      "mp": 50,
+      "maxMp": 50,
+      "speed": 8,
+      "critical": 5,
+      "regen": 2,
+      "evasion": 3,
+      "reputation": 0,
+      "karma": 0
+    }
+  },
+  "test_user": {
+    "userId": "test_user",
+    "username": "TestUser",
+    "spiritRoot": "invalid_type",
+    "experience": 0,
+    "realm": "luyen_khi",
+    "realmLevel": 1,
+    "totalTiers": 0,
+    "inventory": {
+      "spiritStones": {
+        "ha_pham": 100,
+        "trung_pham": 0,
         "thuong_pham": 0,
         "cuc_pham": 0
       },
@@ -113,20 +216,19 @@
       "breakthroughAttempts": 0,
       "lastBreakthrough": 0,
       "lastMeditate": 0,
-      "lastHunt": 1755491287085,
+      "lastHunt": 0,
       "lastChallenge": 0,
-      "lastDomain": 1755491258773,
+      "lastDomain": 0,
       "lastDailyQuest": 0,
       "lastWeeklyQuest": 0,
       "lastDungeon": 0,
-      "lastMine": 1755491327786,
+      "lastMine": 0,
       "lastPick": 0,
-      "lastExplore": 1755491293189,
-      "lastDaily": 1755491270359
+      "lastExplore": 0
     },
     "achievements": [],
-    "joinDate": 1755491250975,
-    "lastActive": 1755491327787,
+    "joinDate": 1755584616173,
+    "lastActive": 1755584616173,
     "stats": {
       "attack": 12,
       "defense": 15,

@@ -19,7 +19,9 @@ class PlayerManager {
   loadSpiritRoots() {
     try {
       const data = fs.readFileSync(this.spiritRootsPath, 'utf8');
-      this.spiritRoots = JSON.parse(data).spirit_roots;
+      const parsedData = JSON.parse(data);
+      // Handle both old format (with spirit_roots wrapper) and new format (direct object)
+      this.spiritRoots = parsedData.spirit_roots || parsedData;
     } catch (error) {
       console.error('Error loading spirit roots:', error);
       this.spiritRoots = {};
@@ -29,7 +31,9 @@ class PlayerManager {
   loadRealms() {
     try {
       const data = fs.readFileSync(this.realmsPath, 'utf8');
-      this.realms = JSON.parse(data).realms;
+      const parsedData = JSON.parse(data);
+      // Handle both old format (with realms wrapper) and new format (direct object)
+      this.realms = parsedData.realms || parsedData;
     } catch (error) {
       console.error('Error loading realms:', error);
       this.realms = {};
@@ -145,7 +149,7 @@ class PlayerManager {
 
     // Sử dụng linh căn được chọn hoặc random nếu không có
     let spiritRoot;
-    if (chosenSpiritRoot && this.spiritRoots[chosenSpiritRoot]) {
+    if (chosenSpiritRoot && this.getSpiritRootInfo(chosenSpiritRoot)) {
       spiritRoot = chosenSpiritRoot;
     } else {
       const spiritRootTypes = Object.keys(this.spiritRoots);
@@ -204,14 +208,14 @@ class PlayerManager {
     this.players.set(userId, player);
     this.savePlayers();
 
-    const spiritRootInfo = this.spiritRoots[spiritRoot];
+    const spiritRootInfo = this.getSpiritRootInfo(spiritRoot);
     console.log(`🌿 Created new player: ${username} with ${spiritRootInfo.name}`);
     return player;
   }
 
   chooseSpiritRoot(userId, username, spiritRootType) {
     // Kiểm tra linh căn hợp lệ
-    if (!this.spiritRoots[spiritRootType]) {
+    if (!this.getSpiritRootInfo(spiritRootType)) {
       return { success: false, message: 'Linh căn không hợp lệ!' };
     }
 
@@ -227,12 +231,12 @@ class PlayerManager {
     return {
       success: true,
       player: player,
-      spiritRoot: this.spiritRoots[spiritRootType]
+      spiritRoot: this.getSpiritRootInfo(spiritRootType)
     };
   }
 
   calculatePlayerStats(player) {
-    const spiritRoot = this.spiritRoots[player.spiritRoot];
+    const spiritRoot = this.getSpiritRootInfo(player.spiritRoot);
     if (!spiritRoot) return;
 
     const { basic_stats, growth_rates } = spiritRoot;
@@ -252,17 +256,17 @@ class PlayerManager {
     // Tính bonus mốc tu vi
     let realmBonus = 0;
     if (player.realm === 'truc_co') {
-      const realmInfo = this.realms[player.realm];
+      const realmInfo = this.getRealmInfo(player.realm);
       if (player.realmLevel === 1) realmBonus = realmInfo.realmBonus.so_ky;
       else if (player.realmLevel === 2) realmBonus = realmInfo.realmBonus.trung_ky;
       else if (player.realmLevel === 3) realmBonus = realmInfo.realmBonus.hau_ky;
     } else if (player.realm === 'ket_dan') {
-      const realmInfo = this.realms[player.realm];
+      const realmInfo = this.getRealmInfo(player.realm);
       if (player.realmLevel === 1) realmBonus = realmInfo.realmBonus.so_ky;
       else if (player.realmLevel === 2) realmBonus = realmInfo.realmBonus.trung_ky;
       else if (player.realmLevel === 3) realmBonus = realmInfo.realmBonus.hau_ky;
     } else if (player.realm === 'nguyen_anh') {
-      const realmInfo = this.realms[player.realm];
+      const realmInfo = this.getRealmInfo(player.realm);
       if (player.realmLevel === 1) realmBonus = realmInfo.realmBonus.so_ky;
       else if (player.realmLevel === 2) realmBonus = realmInfo.realmBonus.trung_ky;
       else if (player.realmLevel === 3) realmBonus = realmInfo.realmBonus.hau_ky;
@@ -322,6 +326,19 @@ class PlayerManager {
 
   // Lấy thông tin cảnh giới
   getRealmInfo(realmKey) {
+    // Kiểm tra an toàn
+    if (!realmKey || !this.realms || !this.realms[realmKey]) {
+      // Fallback về Luyện Khí nếu không tìm thấy
+      console.warn(`⚠️ Realm "${realmKey}" not found, falling back to "luyen_khi"`);
+      return this.realms?.luyen_khi || {
+        name: "Luyện Khí Kỳ",
+        emoji: "💨",
+        description: "Cảnh giới đầu tiên của tu tiên, luyện khí trong cơ thể",
+        levels: ["Tầng 1", "Tầng 2", "Tầng 3", "Tầng 4", "Tầng 5", "Tầng 6", "Tầng 7", "Tầng 8", "Tầng 9", "Tầng 10", "Tầng 11", "Tầng 12", "Tầng 13"],
+        maxLevel: 13,
+        experienceMultiplier: 1.0
+      };
+    }
     return this.realms[realmKey];
   }
 
@@ -415,6 +432,21 @@ class PlayerManager {
   }
 
   getSpiritRootInfo(spiritRootType) {
+    // Kiểm tra an toàn
+    if (!spiritRootType || !this.spiritRoots || !this.spiritRoots[spiritRootType]) {
+      // Fallback về Kim Linh Căn nếu không tìm thấy
+      console.warn(`⚠️ Spirit root type "${spiritRootType}" not found, falling back to "kim"`);
+      return this.spiritRoots?.kim || {
+        name: "Kim Linh Căn",
+        emoji: "⚔️",
+        description: "Linh căn kim thuộc tính mặc định",
+        basic_stats: { attack: 12, defense: 15, hp: 120, mana: 50, speed: 8, critical: 5, regen: 2, evasion: 3, reputation: 0, karma: 0 },
+        growth_rates: { attack: 1.8, defense: 2.0, hp: 15, mana: 5, speed: 0.2, critical: 0.3, regen: 0.1, evasion: 0.1, reputation: 0, karma: 0 },
+        special_abilities: ["Kim Kiếm Vô Song", "Thép Thân Bất Hoại", "Phong Lôi Kiếm Pháp"],
+        weakness: "hỏa",
+        strength: "mộc"
+      };
+    }
     return this.spiritRoots[spiritRootType];
   }
 
@@ -443,7 +475,7 @@ class PlayerManager {
     // Kiểm tra xem có thể đột phá không
     if (currentRealm === 'luyen_khi' && currentRealmLevel >= 13) {
       // Đã đạt tầng cuối Luyện Khí, cần đột phá lên Trúc Cơ
-      const realmInfo = this.realms['luyen_khi'];
+      const realmInfo = this.getRealmInfo('luyen_khi');
       const requiredItems = realmInfo.breakthroughRequirements['truc_co_so_ky'];
       return {
         canBreakthrough: true,
@@ -457,7 +489,7 @@ class PlayerManager {
       };
     } else if (currentRealm === 'truc_co' && currentRealmLevel >= 3) {
       // Đã đạt tầng cuối Trúc Cơ, cần đột phá lên Kết Đan
-      const realmInfo = this.realms['truc_co'];
+      const realmInfo = this.getRealmInfo('truc_co');
       const requiredItems = realmInfo.breakthroughRequirements['ket_dan_so_ky'];
       return {
         canBreakthrough: true,
@@ -471,7 +503,7 @@ class PlayerManager {
       };
     } else if (currentRealm === 'ket_dan' && currentRealmLevel >= 3) {
       // Đã đạt tầng cuối Kết Đan, cần đột phá lên Nguyên Anh
-      const realmInfo = this.realms['ket_dan'];
+      const realmInfo = this.getRealmInfo('ket_dan');
       const requiredItems = realmInfo.breakthroughRequirements['nguyen_anh_so_ky'];
       return {
         canBreakthrough: true,
@@ -504,7 +536,7 @@ class PlayerManager {
       }
 
       // Lấy items cần thiết từ realms.json
-      const realmInfo = this.realms[currentRealm];
+      const realmInfo = this.getRealmInfo(currentRealm);
       let requiredItems = null;
 
       if (currentRealm === 'luyen_khi') {
