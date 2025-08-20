@@ -139,7 +139,7 @@ client.on('interactionCreate', async interaction => {
   }
 });
 
-// Select menu interaction handler (e.g., falchemy select)
+// Select menu interaction handler (e.g., falchemy select, forge select)
 client.on('interactionCreate', async interaction => {
   if (!interaction.isStringSelectMenu()) return;
 
@@ -147,7 +147,7 @@ client.on('interactionCreate', async interaction => {
 
   try {
     if (customId === 'falchemy_select_elixir' || customId.startsWith('falchemy_select_qty:')) {
-      const falchemyCommand = require('./commands/falchemy.js');
+      const falchemyCommand = require('./commands/alchemy.js');
       const playerManager = require('./systems/player.js');
 
       const userId = interaction.user.id;
@@ -160,6 +160,23 @@ client.on('interactionCreate', async interaction => {
       }
 
       await falchemyCommand.handleSelectMenu(interaction);
+      return;
+    }
+
+    if (customId === 'forge_select_weapon' || customId.startsWith('forge_select_qty:')) {
+      const forgeCommand = require('./commands/forge.js');
+      const playerManager = require('./systems/player.js');
+
+      const userId = interaction.user.id;
+
+      // Kiểm tra xem user đã bắt đầu game chưa
+      if (!playerManager.hasStartedGame(userId)) {
+        const notStartedEmbed = playerManager.createNotStartedEmbed();
+        await interaction.reply({ embeds: [notStartedEmbed], ephemeral: true });
+        return;
+      }
+
+      await forgeCommand.handleSelectMenu(interaction);
       return;
     }
   } catch (error) {
@@ -281,7 +298,7 @@ async function handleButtonInteraction(interaction) {
   // Xử lý button falchemy
   if (customId.startsWith('falchemy_')) {
     try {
-      const falchemyCommand = require('./commands/falchemy.js');
+      const falchemyCommand = require('./commands/alchemy.js');
       const playerManager = require('./systems/player.js');
 
       const userId = interaction.user.id;
@@ -316,10 +333,48 @@ async function handleButtonInteraction(interaction) {
     return;
   }
 
+  // Xử lý button forge
+  if (customId.startsWith('forge_')) {
+    try {
+      const forgeCommand = require('./commands/forge.js');
+      const playerManager = require('./systems/player.js');
+
+      const userId = interaction.user.id;
+      const username = interaction.user.username;
+
+      // Kiểm tra xem user đã bắt đầu game chưa
+      if (!playerManager.hasStartedGame(userId)) {
+        const notStartedEmbed = playerManager.createNotStartedEmbed();
+        await interaction.reply({ embeds: [notStartedEmbed], ephemeral: true });
+        return;
+      }
+
+      // Xử lý các button forge
+      if (customId === 'forge_back_main') {
+        await forgeCommand.showForgeInfo(interaction, userId);
+      } else if (customId.startsWith('forge_element_')) {
+        const element = customId.replace('forge_element_', '');
+        await forgeCommand.showWeaponsByElement(interaction, element, userId);
+      } else if (customId === 'forge_forge_info') {
+        await forgeCommand.showDetailedForgeInfo(interaction);
+      } else {
+        // Fallback: gọi handleButton của command
+        await forgeCommand.handleButton(interaction);
+      }
+    } catch (error) {
+      console.error('Error handling forge button:', error);
+      await interaction.reply({
+        content: '❌ Có lỗi xảy ra khi xử lý button forge!',
+        ephemeral: true
+      });
+    }
+    return;
+  }
+
   // Xử lý select menu falchemy
   if (customId === 'falchemy_select_elixir') {
     try {
-      const falchemyCommand = require('./commands/falchemy.js');
+      const falchemyCommand = require('./commands/alchemy.js');
       const playerManager = require('./systems/player.js');
 
       const userId = interaction.user.id;

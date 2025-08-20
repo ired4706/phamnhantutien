@@ -205,6 +205,14 @@ class PlayerManager {
         failureCount: 0, // Số lần luyện thất bại
         lastAlchemy: 0 // Thời gian luyện đan cuối cùng
       },
+      // Hệ thống rèn vũ khí
+      forge: {
+        forgeLevel: 1, // Level lò rèn (mặc định 1)
+        totalCrafted: 0, // Tổng số vũ khí đã chế tạo
+        successCount: 0, // Số lần chế tạo thành công
+        failureCount: 0, // Số lần chế tạo thất bại
+        lastForge: 0 // Thời gian chế tạo vũ khí cuối cùng
+      },
       achievements: [],
       joinDate: Date.now(),
       lastActive: Date.now()

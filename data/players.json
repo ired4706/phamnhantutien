@@ -58,9 +58,22 @@
         {
           "id": "dan_duong_the_so_cap",
           "quantity": 7
+        },
+        {
+          "id": "thiet_tinh_tho",
+          "quantity": 75
+        },
+        {
+          "id": "kim_thiet_thuong",
+          "quantity": 990
         }
       ],
-      "weapons": [],
+      "weapons": [
+        {
+          "id": "thiet_kiem",
+          "quantity": 3
+        }
+      ],
       "armors": []
     },
     "cultivation": {
@@ -111,6 +124,13 @@
       "failureCount": 5,
       "lastAlchemy": 1755598183253,
       "successCount": null
+    },
+    "forge": {
+      "forgeLevel": 1,
+      "totalCrafted": 5,
+      "successCount": 3,
+      "failureCount": 2,
+      "lastForge": 1755690483770
     }
   },
   "558528163244802089": {

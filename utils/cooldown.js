@@ -12,7 +12,8 @@ class CooldownManager {
       dungeon: 'Thí luyện có thể thực hiện sau 6 giờ',
       mine: 'Khai thác có thể thực hiện sau 1 giờ',
       pick: 'Thu thập thảo dược có thể thực hiện sau 5 phút',
-      explore: 'Khám phá có thể thực hiện sau 10 phút'
+      explore: 'Khám phá có thể thực hiện sau 10 phút',
+      forge: 'Chế tạo vũ khí có thể thực hiện sau 1 giờ'
     };
   }
 
@@ -114,6 +115,10 @@ class CooldownManager {
    * @returns {string} - Field name để update trong database
    */
   getLastCommandField(commandName) {
+    // Xử lý đặc biệt cho forge (không thuộc cultivation)
+    if (commandName === 'forge') {
+      return 'forge.lastForge';
+    }
     return `cultivation.last${commandName.charAt(0).toUpperCase() + commandName.slice(1)}`;
   }
 }

@@ -60,6 +60,7 @@ npm start
 - `fbreakthrough` - Xem chi tiết tiến độ đột phá và thực hiện đột phá
 
 - `fhunt` - Săn yêu thú lấy tài nguyên
+- `fforge` - Chế tạo vũ khí theo ngũ hành
 
 ### Hệ thống tu luyện:
 1. Sử dụng `fcultivate` để tu luyện
