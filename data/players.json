@@ -61,20 +61,108 @@
         },
         {
           "id": "thiet_tinh_tho",
-          "quantity": 75
+          "quantity": 50
         },
         {
           "id": "kim_thiet_thuong",
-          "quantity": 990
-        }
-      ],
-      "weapons": [
+          "quantity": 980
+        },
         {
-          "id": "thiet_kiem",
-          "quantity": 3
+          "id": "da_than_thu",
+          "quantity": 880
+        },
+        {
+          "id": "tien_ha_van_to",
+          "quantity": 940
+        },
+        {
+          "id": "hon_thach_nguyen",
+          "quantity": 960
         }
       ],
-      "armors": []
+      "weapons": [],
+      "armors": [
+        {
+          "uid": "n6dim5st",
+          "id": "than_van_anh_bo",
+          "createdAt": 1756983553542,
+          "bonuses": {
+            "speed": 12,
+            "evasion": 11,
+            "attack": 12,
+            "defense": 11,
+            "hp": 10,
+            "mana": 11,
+            "main_evasion": 15,
+            "water_res": 9,
+            "metal_res": 9
+          }
+        },
+        {
+          "uid": "n6di25dr",
+          "id": "than_van_anh_bo",
+          "createdAt": 1756983553542,
+          "bonuses": {
+            "speed": 12,
+            "regen": 9,
+            "attack": 12,
+            "hp": 9,
+            "evasion": 11,
+            "defense": 10,
+            "main_evasion": 15,
+            "water_res": 11,
+            "fire_res": 8
+          }
+        },
+        {
+          "uid": "n6di8ddl",
+          "id": "than_van_anh_bo",
+          "createdAt": 1756983553542,
+          "bonuses": {
+            "evasion": 10,
+            "hp": 9,
+            "mana": 11,
+            "speed": 10,
+            "critical": 12,
+            "defense": 12,
+            "main_evasion": 15,
+            "fire_res": 11,
+            "wood_res": 12
+          }
+        },
+        {
+          "uid": "n6dipqem",
+          "id": "than_van_anh_bo",
+          "createdAt": 1756983553542,
+          "bonuses": {
+            "critical": 11,
+            "regen": 9,
+            "attack": 12,
+            "speed": 10,
+            "hp": 9,
+            "evasion": 10,
+            "main_evasion": 15,
+            "wood_res": 11,
+            "metal_res": 12
+          }
+        },
+        {
+          "uid": "n6di6fkj",
+          "id": "than_van_anh_bo",
+          "createdAt": 1756983553542,
+          "bonuses": {
+            "hp": 10,
+            "critical": 11,
+            "evasion": 10,
+            "regen": 11,
+            "attack": 10,
+            "speed": 11,
+            "main_evasion": 15,
+            "earth_res": 12,
+            "metal_res": 11
+          }
+        }
+      ]
     },
     "cultivation": {
       "lastCultivate": 0,
@@ -127,24 +215,24 @@
     },
     "forge": {
       "forgeLevel": 1,
-      "totalCrafted": 5,
-      "successCount": 3,
-      "failureCount": 2,
-      "lastForge": 1755690483770
+      "totalCrafted": 10,
+      "successCount": 6,
+      "failureCount": 4,
+      "lastForge": 1756978324952
     }
   },
   "558528163244802089": {
     "userId": "558528163244802089",
     "username": "just_archer",
     "spiritRoot": "kim",
-    "experience": 25797,
+    "experience": 36654,
     "realm": "luyen_khi",
     "realmLevel": 1,
     "totalTiers": 0,
     "inventory": {
       "spiritStones": {
-        "ha_pham": 210,
-        "trung_pham": 2,
+        "ha_pham": 149,
+        "trung_pham": 0,
         "thuong_pham": 0,
         "cuc_pham": 0
       },
@@ -181,7 +269,7 @@
       "lastMeditate": 0,
       "lastHunt": 1755491287085,
       "lastChallenge": 0,
-      "lastDomain": 1755585734200,
+      "lastDomain": 1756978526538,
       "lastDailyQuest": 0,
       "lastWeeklyQuest": 0,
       "lastDungeon": 0,
@@ -192,7 +280,7 @@
     },
     "achievements": [],
     "joinDate": 1755491250975,
-    "lastActive": 1755589297570,
+    "lastActive": 1756978526541,
     "stats": {
       "attack": 12,
       "defense": 15,

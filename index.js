@@ -179,6 +179,22 @@ client.on('interactionCreate', async interaction => {
       await forgeCommand.handleSelectMenu(interaction);
       return;
     }
+
+    if (customId === 'craft_select_equipment' || customId.startsWith('craft_select_qty:')) {
+      const craftCommand = require('./commands/craft.js');
+      const playerManager = require('./systems/player.js');
+
+      const userId = interaction.user.id;
+
+      if (!playerManager.hasStartedGame(userId)) {
+        const notStartedEmbed = playerManager.createNotStartedEmbed();
+        await interaction.reply({ embeds: [notStartedEmbed], ephemeral: true });
+        return;
+      }
+
+      await craftCommand.handleSelectMenu(interaction);
+      return;
+    }
   } catch (error) {
     console.error('Select menu interaction error:', error);
     if (!interaction.replied && !interaction.deferred) {
@@ -365,6 +381,38 @@ async function handleButtonInteraction(interaction) {
       console.error('Error handling forge button:', error);
       await interaction.reply({
         content: '❌ Có lỗi xảy ra khi xử lý button forge!',
+        ephemeral: true
+      });
+    }
+    return;
+  }
+
+  // Xử lý button craft (trang bị)
+  if (customId.startsWith('craft_')) {
+    try {
+      const craftCommand = require('./commands/craft.js');
+      const playerManager = require('./systems/player.js');
+
+      const userId = interaction.user.id;
+
+      if (!playerManager.hasStartedGame(userId)) {
+        const notStartedEmbed = playerManager.createNotStartedEmbed();
+        await interaction.reply({ embeds: [notStartedEmbed], ephemeral: true });
+        return;
+      }
+
+      if (customId === 'craft_back_main') {
+        await craftCommand.showCraftMenu(interaction, userId);
+      } else if (customId.startsWith('craft_type_')) {
+        const type = customId.replace('craft_type_', '');
+        await craftCommand.showEquipmentByType(interaction, type, userId);
+      } else {
+        await craftCommand.handleButton(interaction);
+      }
+    } catch (error) {
+      console.error('Error handling craft button:', error);
+      await interaction.reply({
+        content: '❌ Có lỗi xảy ra khi xử lý button craft!',
         ephemeral: true
       });
     }

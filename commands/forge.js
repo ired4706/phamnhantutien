@@ -38,6 +38,48 @@ module.exports = {
     return emojis[rarity] || '⚪';
   },
 
+  // Randomize weapon stats based on rarity
+  randomizeWeaponStats(rarity) {
+    const stats = {};
+
+    // Define stat pools for each rarity
+    const statPools = {
+      'common': ['attack', 'defense', 'hp', 'mana'],
+      'uncommon': ['attack', 'defense', 'hp', 'mana', 'critical', 'regen', 'evasion', 'speed'],
+      'rare': ['attack', 'defense', 'hp', 'mana', 'critical', 'regen', 'evasion', 'speed'],
+      'epic': ['attack', 'defense', 'hp', 'mana', 'critical', 'regen', 'evasion', 'speed'],
+      'legendary': ['attack', 'defense', 'hp', 'mana', 'critical', 'regen', 'evasion', 'speed']
+    };
+
+    // Define number of stat lines and value ranges
+    const rarityConfig = {
+      'common': { lines: 2, minValue: 1, maxValue: 4 },
+      'uncommon': { lines: 3, minValue: 3, maxValue: 6 },
+      'rare': { lines: 4, minValue: 5, maxValue: 8 },
+      'epic': { lines: 5, minValue: 7, maxValue: 10 },
+      'legendary': { lines: 6, minValue: 9, maxValue: 12 }
+    };
+
+    const config = rarityConfig[rarity] || rarityConfig['common'];
+    const availableStats = statPools[rarity] || statPools['common'];
+
+    // Randomly select stats to roll
+    const selectedStats = [];
+    const shuffledStats = [...availableStats].sort(() => Math.random() - 0.5);
+
+    for (let i = 0; i < Math.min(config.lines, shuffledStats.length); i++) {
+      selectedStats.push(shuffledStats[i]);
+    }
+
+    // Roll values for selected stats (always positive)
+    selectedStats.forEach(stat => {
+      const value = Math.floor(Math.random() * (config.maxValue - config.minValue + 1)) + config.minValue;
+      stats[stat] = value; // Always positive
+    });
+
+    return stats;
+  },
+
   // Lấy emoji theo ngũ hành
   getElementEmoji(element) {
     const elementEmojis = {
@@ -597,16 +639,15 @@ module.exports = {
         }
       }
 
-      // Thêm vũ khí vào inventory
-      const existingWeapon = player.inventory.weapons.find(item => item.id === weaponId);
-      if (existingWeapon) {
-        existingWeapon.quantity += 1;
-      } else {
-        player.inventory.weapons.push({
-          id: weaponId,
-          quantity: 1
-        });
-      }
+      // Thêm vũ khí vào inventory dưới dạng instance (không stack)
+      const weaponInstance = {
+        uid: `${Date.now().toString(36).slice(-4)}${Math.random().toString(36).slice(2, 6)}`,
+        id: weaponId,
+        createdAt: Date.now(),
+        bonuses: this.randomizeWeaponStats(weaponInfo.rarity)
+      };
+      player.inventory.weapons = player.inventory.weapons || [];
+      player.inventory.weapons.push(weaponInstance);
 
       // Cập nhật thống kê chế tạo
       if (!player.forge) player.forge = {};
@@ -773,16 +814,15 @@ module.exports = {
     const isSuccess = Math.random() < successRate;
 
     if (isSuccess) {
-      // Thành công: thêm vũ khí vào inventory
-      const existingWeapon = player.inventory.weapons.find(item => item.id === weaponId);
-      if (existingWeapon) {
-        existingWeapon.quantity += 1;
-      } else {
-        player.inventory.weapons.push({
-          id: weaponId,
-          quantity: 1
-        });
-      }
+      // Thành công: thêm vũ khí vào inventory (instance-based)
+      const weaponInstance = {
+        uid: `${Date.now().toString(36).slice(-4)}${Math.random().toString(36).slice(2, 6)}`,
+        id: weaponId,
+        createdAt: Date.now(),
+        bonuses: this.randomizeWeaponStats(weaponInfo.rarity)
+      };
+      player.inventory.weapons = player.inventory.weapons || [];
+      player.inventory.weapons.push(weaponInstance);
 
       // Cập nhật thống kê forge
       if (!player.forge) player.forge = { forgeLevel: 1, totalCrafted: 0, successCount: 0, failureCount: 0, lastForge: 0 };
@@ -894,15 +934,14 @@ module.exports = {
 
       crafted++;
       if (Math.random() < successRate) {
-        const existingWeapon = player.inventory.weapons.find(item => item.id === weaponId);
-        if (existingWeapon) {
-          existingWeapon.quantity += 1;
-        } else {
-          player.inventory.weapons.push({
-            id: weaponId,
-            quantity: 1
-          });
-        }
+        const weaponInstance = {
+          uid: `${Date.now().toString(36).slice(-4)}${Math.random().toString(36).slice(2, 6)}`,
+          id: weaponId,
+          createdAt: Date.now(),
+          bonuses: this.randomizeWeaponStats(weaponInfo.rarity)
+        };
+        player.inventory.weapons = player.inventory.weapons || [];
+        player.inventory.weapons.push(weaponInstance);
         successCount++;
       } else {
         failureCount++;
