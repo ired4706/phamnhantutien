@@ -56,7 +56,7 @@
 ## 👑 **Khoáng Thạch Thần Cấp (Legendary)**
 
 ### **🟠 Thần Kim Thánh Thiết**
-- **ID**: `than_kim_than_thiet`
+- **ID**: `than_kim_thanh_thiet`
 - **Tên**: Thần Kim Thánh Thiết
 - **Emoji**: 🟠
 - **Rarity**: Legendary (Thần cấp)

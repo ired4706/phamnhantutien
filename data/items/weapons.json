@@ -56,7 +56,7 @@
     "description": "Thần kiếm được rèn từ xương của vạn linh, có sức mạnh hủy diệt",
     "crafting": {
       "thien_tinh_than_khi": 15,
-      "than_kim_than_thiet": 3
+      "than_kim_thanh_thiet": 3
     },
     "type": "sword",
     "element": "kim"
@@ -118,7 +118,7 @@
     "description": "Thần thương có thể trấn áp cả thiên địa",
     "crafting": {
       "thien_tinh_than_khi": 15,
-      "than_kim_than_thiet": 3
+      "than_kim_thanh_thiet": 3
     },
     "type": "spear",
     "element": "kim"

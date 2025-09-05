@@ -39,7 +39,7 @@ module.exports = {
   },
 
   // Randomize weapon stats based on rarity
-  randomizeWeaponStats(rarity) {
+  randomizeWeaponStats(rarity, weaponName, weaponElement) {
     const stats = {};
 
     // Define stat pools for each rarity
@@ -77,7 +77,45 @@ module.exports = {
       stats[stat] = value; // Always positive
     });
 
+    // Add main ATK bonus for all rarities
+    const mainAtkBonus = this.getMainAtkBonus(rarity);
+    if (mainAtkBonus > 0) {
+      stats['main_attack'] = mainAtkBonus;
+    }
+
+    // Add elemental resistance reduction for epic+ weapons (as negative resistance)
+    if (['epic', 'legendary'].includes(rarity)) {
+      const resistanceReduction = this.getResistanceReduction(rarity);
+      if (resistanceReduction > 0) {
+        stats[`${weaponElement}_res`] = -resistanceReduction; // Negative value
+      }
+    }
+
     return stats;
+  },
+
+  // Get main ATK bonus based on rarity
+  getMainAtkBonus(rarity) {
+    const bonuses = {
+      'common': 10,
+      'uncommon': 25,
+      'rare': 50,
+      'epic': 80,
+      'legendary': 120
+    };
+    return bonuses[rarity] || 0;
+  },
+
+  // Get elemental resistance reduction based on rarity
+  getResistanceReduction(rarity) {
+    if (rarity === 'epic') {
+      // Thiên: 5-10%
+      return Math.floor(Math.random() * 6) + 5; // 5-10%
+    } else if (rarity === 'legendary') {
+      // Thần: 15-20%
+      return Math.floor(Math.random() * 6) + 15; // 15-20%
+    }
+    return 0;
   },
 
   // Lấy emoji theo ngũ hành
@@ -644,7 +682,7 @@ module.exports = {
         uid: `${Date.now().toString(36).slice(-4)}${Math.random().toString(36).slice(2, 6)}`,
         id: weaponId,
         createdAt: Date.now(),
-        bonuses: this.randomizeWeaponStats(weaponInfo.rarity)
+        bonuses: this.randomizeWeaponStats(weaponInfo.rarity, weaponInfo.name, weaponInfo.element)
       };
       player.inventory.weapons = player.inventory.weapons || [];
       player.inventory.weapons.push(weaponInstance);
@@ -819,7 +857,7 @@ module.exports = {
         uid: `${Date.now().toString(36).slice(-4)}${Math.random().toString(36).slice(2, 6)}`,
         id: weaponId,
         createdAt: Date.now(),
-        bonuses: this.randomizeWeaponStats(weaponInfo.rarity)
+        bonuses: this.randomizeWeaponStats(weaponInfo.rarity, weaponInfo.name, weaponInfo.element)
       };
       player.inventory.weapons = player.inventory.weapons || [];
       player.inventory.weapons.push(weaponInstance);
@@ -938,7 +976,7 @@ module.exports = {
           uid: `${Date.now().toString(36).slice(-4)}${Math.random().toString(36).slice(2, 6)}`,
           id: weaponId,
           createdAt: Date.now(),
-          bonuses: this.randomizeWeaponStats(weaponInfo.rarity)
+          bonuses: this.randomizeWeaponStats(weapon.rarity, weapon.name, weapon.element)
         };
         player.inventory.weapons = player.inventory.weapons || [];
         player.inventory.weapons.push(weaponInstance);

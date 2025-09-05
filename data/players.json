@@ -78,9 +78,78 @@
         {
           "id": "hon_thach_nguyen",
           "quantity": 960
+        },
+        {
+          "id": "thien_tinh_than_khi",
+          "quantity": 885
+        },
+        {
+          "id": "than_kim_thanh_thiet",
+          "quantity": 945
         }
       ],
-      "weapons": [],
+      "weapons": [
+        {
+          "uid": "zzlykc7z",
+          "id": "tran_thien_than_thuong",
+          "createdAt": 1757066452486,
+          "bonuses": {
+            "critical": 11,
+            "hp": 10,
+            "defense": 11,
+            "evasion": 11,
+            "regen": 9,
+            "mana": 12,
+            "main_attack": 120,
+            "kim_res": -16
+          }
+        },
+        {
+          "uid": "zzlyagpq",
+          "id": "tran_thien_than_thuong",
+          "createdAt": 1757066452486,
+          "bonuses": {
+            "hp": 12,
+            "attack": 10,
+            "evasion": 12,
+            "defense": 11,
+            "mana": 9,
+            "critical": 12,
+            "main_attack": 120,
+            "kim_res": -15
+          }
+        },
+        {
+          "uid": "zzly7070",
+          "id": "tran_thien_than_thuong",
+          "createdAt": 1757066452486,
+          "bonuses": {
+            "critical": 9,
+            "speed": 12,
+            "defense": 10,
+            "regen": 11,
+            "evasion": 12,
+            "attack": 9,
+            "main_attack": 120,
+            "kim_res": -15
+          }
+        },
+        {
+          "uid": "zzlyn6sy",
+          "id": "tran_thien_than_thuong",
+          "createdAt": 1757066452486,
+          "bonuses": {
+            "attack": 9,
+            "defense": 12,
+            "critical": 12,
+            "regen": 10,
+            "speed": 9,
+            "mana": 12,
+            "main_attack": 120,
+            "kim_res": -17
+          }
+        }
+      ],
       "armors": [
         {
           "uid": "n6dim5st",
@@ -215,10 +284,10 @@
     },
     "forge": {
       "forgeLevel": 1,
-      "totalCrafted": 10,
-      "successCount": 6,
-      "failureCount": 4,
-      "lastForge": 1756978324952
+      "totalCrafted": 15,
+      "successCount": 10,
+      "failureCount": 5,
+      "lastForge": 1757066452486
     }
   },
   "558528163244802089": {

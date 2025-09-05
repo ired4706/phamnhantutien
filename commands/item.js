@@ -39,7 +39,7 @@ module.exports = {
   // Format stat value
   formatStatValue(stat, value) {
     if (stat.includes('_res')) {
-      return `${value}%`;
+      return value >= 0 ? `+${value}%` : `${value}%`; // Show + for positive, - for negative
     }
     if (stat.includes('main_')) {
       const mainStat = stat.replace('main_', '');
@@ -77,7 +77,7 @@ module.exports = {
       'main_speed': '💨 Chỉ Số Chính: Tốc Độ',
       'main_critical': '💥 Chỉ Số Chính: Bạo Kích',
       'main_regen': '🔄 Chỉ Số Chính: Hồi Phục',
-      'main_evasion': '🌪️ Chỉ Số Chính: Né Tránh'
+      'main_evasion': '🌪️ Chỉ Số Chính: Né Tránh',
     };
     return statNames[stat] || stat;
   },

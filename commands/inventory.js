@@ -283,7 +283,11 @@ module.exports = {
       if (itemInfo) {
         const rarityInfo = itemLoader.getItemRarity(item.id);
         const rarityEmoji = rarityInfo ? rarityInfo.emoji : '';
-        return `${itemInfo.emoji} **${itemInfo.name}** ${rarityEmoji}`;
+
+        // Hiển thị UID nếu có (cho crafted items)
+        const uidDisplay = item.uid ? ` \`${item.uid}\`` : '';
+
+        return `${itemInfo.emoji} **${itemInfo.name}** ${rarityEmoji}${uidDisplay}`;
       }
       return `📦 **${item.id}**`;
     }).join('\n');
@@ -552,7 +556,11 @@ module.exports = {
             const weaponInfo = itemLoader.getItemInfo(weapon.id);
             const rarityInfo = itemLoader.getItemRarity(weapon.id);
             const rarityEmoji = rarityInfo ? rarityInfo.emoji : '';
-            return `${weaponInfo.emoji} **${weaponInfo.name}** ${rarityEmoji}\n   └ ${weaponInfo.description || 'Không có mô tả'}`;
+
+            // Hiển thị UID nếu có (cho crafted weapons)
+            const uidDisplay = weapon.uid ? ` \`${weapon.uid}\`` : '';
+
+            return `${weaponInfo.emoji} **${weaponInfo.name}** ${rarityEmoji}${uidDisplay}\n   └ ${weaponInfo.description || 'Không có mô tả'}`;
           });
 
           embed.addFields({
@@ -573,7 +581,11 @@ module.exports = {
             const armorInfo = itemLoader.getItemInfo(armor.id);
             const rarityInfo = itemLoader.getItemRarity(armor.id);
             const rarityEmoji = rarityInfo ? rarityInfo.emoji : '';
-            return `${armorInfo.emoji} **${armorInfo.name}** ${rarityEmoji}\n   └ ${armorInfo.description || 'Không có mô tả'}`;
+
+            // Hiển thị UID nếu có (cho crafted armors)
+            const uidDisplay = armor.uid ? ` \`${armor.uid}\`` : '';
+
+            return `${armorInfo.emoji} **${armorInfo.name}** ${rarityEmoji}${uidDisplay}\n   └ ${armorInfo.description || 'Không có mô tả'}`;
           });
 
           embed.addFields({
