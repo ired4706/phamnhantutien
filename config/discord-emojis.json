@@ -30,7 +30,14 @@
       "health": "<:health:EMOJI_ID_HERE>",
       "mana": "<:mana:EMOJI_ID_HERE>",
       "experience": "<:experience:EMOJI_ID_HERE>",
-      "level": "<:level:EMOJI_ID_HERE>"
+      "level": "<:level:EMOJI_ID_HERE>",
+      "error": "<:error:EMOJI_ID_HERE>",
+      "warning": "<:warning:EMOJI_ID_HERE>",
+      "info": "<:info:EMOJI_ID_HERE>",
+      "check": "<:check:EMOJI_ID_HERE>",
+      "cross": "<:cross:EMOJI_ID_HERE>",
+      "clock": "<:clock:EMOJI_ID_HERE>",
+      "skill": "<:skill:EMOJI_ID_HERE>"
     }
   },
   "fallback_emojis": {
@@ -64,7 +71,14 @@
       "health": "❤️",
       "mana": "🔮",
       "experience": "⭐",
-      "level": "📊"
+      "level": "📊",
+      "error": "❌",
+      "warning": "⚠️",
+      "info": "ℹ️",
+      "check": "✅",
+      "cross": "❌",
+      "clock": "⏰",
+      "skill": "🎯"
     }
   },
   "instructions": {

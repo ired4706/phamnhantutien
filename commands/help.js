@@ -26,7 +26,7 @@ module.exports = {
       },
       {
         name: '🏮 **Lệnh Thông Tin**',
-        value: '• **`fstatus`** - Xem trạng thái tu luyện và tiến độ đột phá\n• **`fspiritroot`** - Xem thông tin linh căn\n• **`fcultivation`** - Xem thông tin hệ thống tu vi\n• **`fbreakthrough`** - Xem chi tiết tiến độ đột phá và vật phẩm cần thiết\n• **`finventory`** - Xem inventory và vật phẩm của bạn',
+        value: '• **`fstatus`** - Xem trạng thái tu luyện và tiến độ đột phá\n• **`fspiritroot`** - Xem thông tin linh căn\n• **`fcultivation`** - Xem thông tin hệ thống tu vi\n• **`fbreakthrough`** - Xem chi tiết tiến độ đột phá và vật phẩm cần thiết\n• **`finventory`** - Xem inventory và vật phẩm của bạn\n• **`fskills`** - Quản lý kỹ năng tu luyện',
         inline: false
       }
     );
@@ -291,7 +291,7 @@ module.exports = {
         },
         {
           name: '🏮 **Lệnh Thông Tin**',
-          value: '`fstatus` - Trạng thái tu luyện\n`fspiritroot` - Thông tin linh căn\n`fcultivation` - Hệ thống tu vi\n`fbreakthrough` - Tiến độ đột phá\n`finventory` - Xem inventory',
+          value: '`fstatus` - Trạng thái tu luyện\n`fspiritroot` - Thông tin linh căn\n`fcultivation` - Hệ thống tu vi\n`fbreakthrough` - Tiến độ đột phá\n`finventory` - Xem inventory\n`fskills` - Quản lý kỹ năng',
           inline: false
         },
         {

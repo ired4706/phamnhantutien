@@ -1,0 +1,430 @@
+{
+  "kim_skills": {
+    "luyen_khi": [
+      {
+        "id": "kim_quang_tram",
+        "name": "Kim Quang Trảm",
+        "description": "Công kích đơn lẻ với kim thuộc tính, có khả năng xuyên giáp nhẹ",
+        "required_realm": "luyen_khi",
+        "required_level": 1,
+        "required_spirit_root": "kim",
+        "effects": {
+          "damage_multiplier": 1.1,
+          "armor_penetration": 0.15,
+          "mana_cost": 15
+        },
+        "cooldown": 0,
+        "type": "attack",
+        "target": "single",
+        "rarity": "common"
+      }
+    ],
+    "truc_co": [
+      {
+        "id": "kim_cang_ho_the",
+        "name": "Kim Cang Hộ Thể",
+        "description": "Tăng phòng thủ và kháng trạng thái bất lợi",
+        "required_realm": "truc_co",
+        "required_level": 10,
+        "required_spirit_root": "kim",
+        "effects": {
+          "defense_bonus": 0.25,
+          "status_resistance": 0.3,
+          "duration": 3,
+          "mana_cost": 30
+        },
+        "cooldown": 5,
+        "type": "buff",
+        "target": "self",
+        "rarity": "uncommon"
+      }
+    ],
+    "ket_dan": [
+      {
+        "id": "thiet_cot_ho_than",
+        "name": "Thiết Cốt Hộ Thân",
+        "description": "Giảm 30% sát thương nhận vào trong 1 lượt",
+        "required_realm": "ket_dan",
+        "required_level": 20,
+        "required_spirit_root": "kim",
+        "effects": {
+          "damage_reduction": 0.3,
+          "duration": 1,
+          "mana_cost": 40
+        },
+        "cooldown": 4,
+        "type": "defense",
+        "target": "self",
+        "rarity": "rare"
+      }
+    ],
+    "nguyen_anh": [
+      {
+        "id": "kim_pha_thien_quang",
+        "name": "Kim Phá Thiên Quang",
+        "description": "Ultimate skill - Công kích cân bằng công thủ, có khả năng xuyên giáp cao",
+        "required_realm": "nguyen_anh",
+        "required_level": 30,
+        "required_spirit_root": "kim",
+        "effects": {
+          "damage_multiplier": 2.5,
+          "armor_penetration": 0.4,
+          "defense_bonus": 0.2,
+          "mana_cost": 80
+        },
+        "cooldown": 8,
+        "type": "ultimate",
+        "target": "single",
+        "rarity": "epic"
+      }
+    ]
+  },
+  "hoa_skills": {
+    "luyen_khi": [
+      {
+        "id": "hoa_diem_dan",
+        "name": "Hỏa Diệm Đạn",
+        "description": "Công kích đơn lẻ với hỏa thuộc tính, có 30% khả năng gây thiêu đốt",
+        "required_realm": "luyen_khi",
+        "required_level": 1,
+        "required_spirit_root": "hoa",
+        "effects": {
+          "damage_multiplier": 1.3,
+          "burn_chance": 0.3,
+          "burn_damage": 0.1,
+          "burn_duration": 3,
+          "mana_cost": 20
+        },
+        "cooldown": 0,
+        "type": "attack",
+        "target": "single",
+        "rarity": "common"
+      }
+    ],
+    "truc_co": [
+      {
+        "id": "liet_diem_bo_phat",
+        "name": "Liệt Diệm Bộc Phát",
+        "description": "Tăng chỉ số chí mạng và tấn công trong 2 lượt",
+        "required_realm": "truc_co",
+        "required_level": 10,
+        "required_spirit_root": "hoa",
+        "effects": {
+          "critical_chance_bonus": 0.25,
+          "attack_bonus": 0.3,
+          "duration": 2,
+          "mana_cost": 35
+        },
+        "cooldown": 6,
+        "type": "buff",
+        "target": "self",
+        "rarity": "uncommon"
+      }
+    ],
+    "ket_dan": [
+      {
+        "id": "hoa_anh_dich",
+        "name": "Hỏa Ảnh Dịch",
+        "description": "Né tránh skill tiếp theo và phản sát thương nhẹ",
+        "required_realm": "ket_dan",
+        "required_level": 20,
+        "required_spirit_root": "hoa",
+        "effects": {
+          "dodge_next_attack": true,
+          "reflect_damage": 0.2,
+          "duration": 1,
+          "mana_cost": 45
+        },
+        "cooldown": 5,
+        "type": "defense",
+        "target": "self",
+        "rarity": "rare"
+      }
+    ],
+    "nguyen_anh": [
+      {
+        "id": "liet_hoa_diet_the",
+        "name": "Liệt Hỏa Diệt Thế",
+        "description": "Ultimate skill - AoE burst damage lớn với hỏa thuộc tính",
+        "required_realm": "nguyen_anh",
+        "required_level": 30,
+        "required_spirit_root": "hoa",
+        "effects": {
+          "damage_multiplier": 3.0,
+          "area_of_effect": true,
+          "burn_chance": 0.5,
+          "burn_damage": 0.15,
+          "burn_duration": 4,
+          "mana_cost": 100
+        },
+        "cooldown": 10,
+        "type": "ultimate",
+        "target": "all_enemies",
+        "rarity": "epic"
+      }
+    ]
+  },
+  "tho_skills": {
+    "luyen_khi": [
+      {
+        "id": "thach_phi_chuy",
+        "name": "Thạch Phi Chùy",
+        "description": "Công kích đơn lẻ với thổ thuộc tính, có 20% khả năng gây choáng",
+        "required_realm": "luyen_khi",
+        "required_level": 1,
+        "required_spirit_root": "tho",
+        "effects": {
+          "damage_multiplier": 1.0,
+          "stun_chance": 0.2,
+          "stun_duration": 1,
+          "mana_cost": 18
+        },
+        "cooldown": 0,
+        "type": "attack",
+        "target": "single",
+        "rarity": "common"
+      }
+    ],
+    "truc_co": [
+      {
+        "id": "tho_chi_chuong",
+        "name": "Thổ Chi Chướng",
+        "description": "Dựng tường đất, giảm sát thương AoE cho toàn team",
+        "required_realm": "truc_co",
+        "required_level": 10,
+        "required_spirit_root": "tho",
+        "effects": {
+          "aoe_damage_reduction": 0.4,
+          "duration": 4,
+          "mana_cost": 40
+        },
+        "cooldown": 7,
+        "type": "support",
+        "target": "all_allies",
+        "rarity": "uncommon"
+      }
+    ],
+    "ket_dan": [
+      {
+        "id": "thiet_giap_tho_than",
+        "name": "Thiết Giáp Thổ Thân",
+        "description": "Buff HP và phòng thủ trong nhiều lượt",
+        "required_realm": "ket_dan",
+        "required_level": 20,
+        "required_spirit_root": "tho",
+        "effects": {
+          "hp_bonus": 0.3,
+          "defense_bonus": 0.4,
+          "duration": 5,
+          "mana_cost": 50
+        },
+        "cooldown": 8,
+        "type": "buff",
+        "target": "self",
+        "rarity": "rare"
+      }
+    ],
+    "nguyen_anh": [
+      {
+        "id": "van_thach_tran_lam",
+        "name": "Vạn Thạch Trấn Lâm",
+        "description": "Ultimate skill - AoE damage vừa phải kèm slow nặng",
+        "required_realm": "nguyen_anh",
+        "required_level": 30,
+        "required_spirit_root": "tho",
+        "effects": {
+          "damage_multiplier": 2.0,
+          "area_of_effect": true,
+          "slow_effect": 0.5,
+          "slow_duration": 3,
+          "mana_cost": 90
+        },
+        "cooldown": 9,
+        "type": "ultimate",
+        "target": "all_enemies",
+        "rarity": "epic"
+      }
+    ]
+  },
+  "thuy_skills": {
+    "luyen_khi": [
+      {
+        "id": "thuy_luu_tien",
+        "name": "Thủy Lưu Tiễn",
+        "description": "Công kích đơn lẻ với thủy thuộc tính, có 15% khả năng giảm tốc độ",
+        "required_realm": "luyen_khi",
+        "required_level": 1,
+        "required_spirit_root": "thuy",
+        "effects": {
+          "damage_multiplier": 1.1,
+          "slow_chance": 0.15,
+          "slow_effect": 0.3,
+          "slow_duration": 2,
+          "mana_cost": 16
+        },
+        "cooldown": 0,
+        "type": "attack",
+        "target": "single",
+        "rarity": "common"
+      }
+    ],
+    "truc_co": [
+      {
+        "id": "bang_phong_tram",
+        "name": "Băng Phong Trảm",
+        "description": "Công kích với khả năng đóng băng địch trong 1 lượt",
+        "required_realm": "truc_co",
+        "required_level": 10,
+        "required_spirit_root": "thuy",
+        "effects": {
+          "damage_multiplier": 1.4,
+          "freeze_chance": 0.3,
+          "freeze_duration": 1,
+          "mana_cost": 25
+        },
+        "cooldown": 3,
+        "type": "attack",
+        "target": "single",
+        "rarity": "uncommon"
+      }
+    ],
+    "ket_dan": [
+      {
+        "id": "thuy_anh_phan_than",
+        "name": "Thủy Ảnh Phân Thân",
+        "description": "Né tránh 1 đòn tấn công và tăng tốc độ bản thân",
+        "required_realm": "ket_dan",
+        "required_level": 20,
+        "required_spirit_root": "thuy",
+        "effects": {
+          "dodge_next_attack": true,
+          "speed_bonus": 0.4,
+          "duration": 3,
+          "mana_cost": 35
+        },
+        "cooldown": 4,
+        "type": "defense",
+        "target": "self",
+        "rarity": "rare"
+      }
+    ],
+    "nguyen_anh": [
+      {
+        "id": "bang_hai_vo_tan",
+        "name": "Băng Hải Vô Tận",
+        "description": "Ultimate skill - AoE damage kèm đóng băng toàn bộ team địch",
+        "required_realm": "nguyen_anh",
+        "required_level": 30,
+        "required_spirit_root": "thuy",
+        "effects": {
+          "damage_multiplier": 2.2,
+          "area_of_effect": true,
+          "freeze_chance": 0.6,
+          "freeze_duration": 2,
+          "mana_cost": 85
+        },
+        "cooldown": 8,
+        "type": "ultimate",
+        "target": "all_enemies",
+        "rarity": "epic"
+      }
+    ]
+  },
+  "moc_skills": {
+    "luyen_khi": [
+      {
+        "id": "moc_lang_tien",
+        "name": "Mộc Lăng Tiễn",
+        "description": "Công kích đơn lẻ với mộc thuộc tính, có khả năng gây độc nhẹ",
+        "required_realm": "luyen_khi",
+        "required_level": 1,
+        "required_spirit_root": "moc",
+        "effects": {
+          "damage_multiplier": 1.0,
+          "poison_chance": 0.2,
+          "poison_damage": 0.08,
+          "poison_duration": 3,
+          "mana_cost": 14
+        },
+        "cooldown": 0,
+        "type": "attack",
+        "target": "single",
+        "rarity": "common"
+      }
+    ],
+    "truc_co": [
+      {
+        "id": "sinh_co_moc_thu",
+        "name": "Sinh Cơ Mộc Thụ",
+        "description": "Hồi HP cho đồng minh yếu nhất trong team",
+        "required_realm": "truc_co",
+        "required_level": 10,
+        "required_spirit_root": "moc",
+        "effects": {
+          "heal_amount": 0.3,
+          "target": "weakest_ally",
+          "mana_cost": 30
+        },
+        "cooldown": 4,
+        "type": "heal",
+        "target": "weakest_ally",
+        "rarity": "uncommon"
+      }
+    ],
+    "ket_dan": [
+      {
+        "id": "tu_van_doc_khi",
+        "name": "Tử Vân Độc Khí",
+        "description": "Debuff giảm tấn công và phòng thủ của kẻ địch bị đánh trúng",
+        "required_realm": "ket_dan",
+        "required_level": 20,
+        "required_spirit_root": "moc",
+        "effects": {
+          "attack_debuff": 0.25,
+          "defense_debuff": 0.2,
+          "duration": 4,
+          "mana_cost": 40
+        },
+        "cooldown": 5,
+        "type": "debuff",
+        "target": "single",
+        "rarity": "rare"
+      }
+    ],
+    "nguyen_anh": [
+      {
+        "id": "moc_diet_van_quan",
+        "name": "Mộc Diệt Vạn Quân",
+        "description": "Ultimate skill - AoE damage vừa phải kèm hồi máu nhẹ cho team",
+        "required_realm": "nguyen_anh",
+        "required_level": 30,
+        "required_spirit_root": "moc",
+        "effects": {
+          "damage_multiplier": 1.8,
+          "area_of_effect": true,
+          "team_heal": 0.15,
+          "mana_cost": 75
+        },
+        "cooldown": 7,
+        "type": "ultimate",
+        "target": "all_enemies",
+        "rarity": "epic"
+      }
+    ]
+  },
+  "skill_categories": {
+    "attack": "Công kích",
+    "defense": "Phòng thủ",
+    "buff": "Tăng cường",
+    "debuff": "Làm suy yếu",
+    "heal": "Hồi máu",
+    "support": "Hỗ trợ",
+    "ultimate": "Tuyệt kỹ"
+  },
+  "skill_rarities": {
+    "common": "Thường",
+    "uncommon": "Hiếm",
+    "rare": "Quý",
+    "epic": "Thần"
+  }
+}

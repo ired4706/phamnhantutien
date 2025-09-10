@@ -370,6 +370,9 @@ module.exports = {
         player.realmLevel = breakthroughInfo.nextRealmLevel;
         player.experience = Math.max(0, player.experience - breakthroughInfo.linhKhiRequired);
 
+        // Tự động học kỹ năng mới khi đạt tu vi mới
+        const learnedSkills = this.autoLearnSkills(player);
+
         // Tính toán lại stats
         playerManager.calculatePlayerStats(player);
         playerManager.savePlayers();
@@ -388,14 +391,26 @@ module.exports = {
               name: '✨ **Linh Khí Còn Lại**',
               value: `${player.experience.toLocaleString()} Linh Khí`,
               inline: true
-            },
-            {
-              name: '🚀 **Tiếp Theo**',
-              value: 'Sử dụng `fstatus` để xem thông tin mới',
-              inline: false
             }
-          )
-          .setTimestamp();
+          );
+
+        // Thêm thông tin kỹ năng mới nếu có
+        if (learnedSkills.length > 0) {
+          const skillNames = learnedSkills.map(skill => `**${skill.name}**`).join('\n');
+          successEmbed.addFields({
+            name: '🎯 **Kỹ Năng Mới Đã Học**',
+            value: skillNames,
+            inline: false
+          });
+        }
+
+        successEmbed.addFields({
+          name: '🚀 **Tiếp Theo**',
+          value: 'Sử dụng `fstatus` để xem thông tin mới\nSử dụng `fskills my_skills` để xem kỹ năng đã học',
+          inline: false
+        });
+
+        successEmbed.setTimestamp();
 
         await interaction.update({
           embeds: [successEmbed],
@@ -515,5 +530,51 @@ module.exports = {
       return itemName;
     }
     return itemId;
+  },
+
+  // Tự động học kỹ năng khi đạt tu vi mới
+  autoLearnSkills(player) {
+    const fs = require('fs');
+    const path = require('path');
+    
+    try {
+      const skillsData = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/skills.json'), 'utf8'));
+      const learnedSkills = [];
+      
+      // Lấy kỹ năng của linh căn và tu vi hiện tại
+      const spiritRoot = player.spiritRoot;
+      const realm = player.realm;
+      const realmSkills = skillsData[`${spiritRoot}_skills`][realm] || [];
+      
+      // Khởi tạo skills nếu chưa có
+      if (!player.skills) {
+        player.skills = {};
+      }
+      
+      // Học tất cả kỹ năng của tu vi mới
+      realmSkills.forEach(skill => {
+        // Kiểm tra xem đã học chưa
+        if (!player.skills[skill.id]) {
+          // Kiểm tra điều kiện học (tu vi và cấp độ)
+          if (skill.required_realm === realm && 
+              skill.required_level <= player.realmLevel && 
+              skill.required_spirit_root === spiritRoot) {
+            
+            // Học kỹ năng
+            player.skills[skill.id] = {
+              learned_at: new Date().toISOString()
+            };
+            
+            learnedSkills.push(skill);
+            console.log(`Auto-learned skill: ${skill.name} for player ${player.username}`);
+          }
+        }
+      });
+      
+      return learnedSkills;
+    } catch (error) {
+      console.error('Error auto-learning skills:', error);
+      return [];
+    }
   }
 };

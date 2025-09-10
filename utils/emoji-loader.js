@@ -21,9 +21,35 @@ class EmojiLoader {
         console.log('✅ Discord emojis loaded successfully');
       } else {
         console.log('⚠️ Discord emojis config not found, using fallback emojis only');
+        // Khởi tạo fallback emojis nếu file không tồn tại
+        this.discordEmojis = {};
+        this.fallbackEmojis = {
+          status: {
+            error: '❌',
+            warning: '⚠️',
+            info: 'ℹ️',
+            check: '✅',
+            cross: '❌',
+            clock: '⏰',
+            skill: '🎯'
+          }
+        };
       }
     } catch (error) {
       console.error('❌ Error loading Discord emojis:', error);
+      // Khởi tạo fallback emojis nếu có lỗi
+      this.discordEmojis = {};
+      this.fallbackEmojis = {
+        status: {
+          error: '❌',
+          warning: '⚠️',
+          info: 'ℹ️',
+          check: '✅',
+          cross: '❌',
+          clock: '⏰',
+          skill: '🎯'
+        }
+      };
     }
   }
 
@@ -123,6 +149,22 @@ class EmojiLoader {
   }
 
   /**
+   * Lấy emojis cơ bản cho commands
+   * @returns {Object} Object chứa các emoji cơ bản
+   */
+  getBasicEmojis() {
+    return {
+      error: this.getStatusEmoji('error') || '❌',
+      warning: this.getStatusEmoji('warning') || '⚠️',
+      info: this.getStatusEmoji('info') || 'ℹ️',
+      check: this.getStatusEmoji('check') || '✅',
+      cross: this.getStatusEmoji('cross') || '❌',
+      clock: this.getStatusEmoji('clock') || '⏰',
+      skill: this.getStatusEmoji('skill') || '🎯'
+    };
+  }
+
+  /**
    * Reload emoji từ file cấu hình
    */
   reloadEmojis() {
@@ -203,4 +245,5 @@ class EmojiLoader {
 }
 
 // Export singleton instance
-module.exports = new EmojiLoader(); 
+const emojiLoader = new EmojiLoader();
+module.exports = emojiLoader; 

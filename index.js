@@ -223,6 +223,10 @@ async function handleButtonInteraction(interaction) {
 
     if (result.success) {
       const spiritRoot = result.spiritRoot;
+      
+      // Tự động học kỹ năng ban đầu cho Luyện Khí
+      const player = playerManager.getPlayer(interaction.user.id);
+      const learnedSkills = autoLearnInitialSkills(player);
 
       const successEmbed = new (require('discord.js')).EmbedBuilder()
         .setColor('#00FF00')
@@ -258,10 +262,23 @@ async function handleButtonInteraction(interaction) {
             name: '📈 Growth Rates',
             value: `**ATK**: +${spiritRoot.growth_rates.attack}\n**DEF**: +${spiritRoot.growth_rates.defense}\n**HP**: +${spiritRoot.growth_rates.hp}\n**MP**: +${spiritRoot.growth_rates.mana}\n**SPD**: +${spiritRoot.growth_rates.speed}\n**CRT**: +${spiritRoot.growth_rates.critical}%\n**RGN**: +${spiritRoot.growth_rates.regen}\n**EVA**: +${spiritRoot.growth_rates.evasion}%\n**REP**: +${spiritRoot.growth_rates.reputation}\n**KAR**: +${spiritRoot.growth_rates.karma}`,
             inline: true
-          },
-        )
-        .setFooter({ text: 'Bây giờ bạn có thể sử dụng fstatus để xem thông tin chi tiết!' })
-        .setTimestamp();
+          }
+        );
+
+      // Thêm thông tin kỹ năng ban đầu nếu có
+      if (learnedSkills.length > 0) {
+        const skillNames = learnedSkills.map(skill => `**${skill.name}**`).join('\n');
+        successEmbed.addFields({
+          name: '🎯 **Kỹ Năng Ban Đầu**',
+          value: skillNames,
+          inline: false
+        });
+      }
+
+      successEmbed.setFooter({ 
+        text: 'Bây giờ bạn có thể sử dụng fstatus để xem thông tin chi tiết!\nSử dụng fskills để xem kỹ năng đã học!' 
+      });
+      successEmbed.setTimestamp();
 
       await interaction.update({
         content: '🎯 **Linh căn đã được chọn thành công!**',
@@ -534,6 +551,56 @@ async function handleButtonInteraction(interaction) {
       embeds: [spiritEmbed],
       ephemeral: true
     });
+  }
+}
+
+// Tự động học kỹ năng ban đầu cho Luyện Khí
+function autoLearnInitialSkills(player) {
+  const fs = require('fs');
+  const path = require('path');
+  
+  try {
+    const skillsData = JSON.parse(fs.readFileSync(path.join(__dirname, 'data/skills.json'), 'utf8'));
+    const learnedSkills = [];
+    
+    // Lấy kỹ năng của linh căn và tu vi Luyện Khí
+    const spiritRoot = player.spiritRoot;
+    const realm = 'luyen_khi';
+    const realmSkills = skillsData[`${spiritRoot}_skills`][realm] || [];
+    
+    // Khởi tạo skills nếu chưa có
+    if (!player.skills) {
+      player.skills = {};
+    }
+    
+    // Học tất cả kỹ năng Luyện Khí
+    realmSkills.forEach(skill => {
+      // Kiểm tra xem đã học chưa
+      if (!player.skills[skill.id]) {
+        // Kiểm tra điều kiện học (tu vi và cấp độ)
+        if (skill.required_realm === realm && 
+            skill.required_level <= player.realmLevel && 
+            skill.required_spirit_root === spiritRoot) {
+          
+          // Học kỹ năng
+          player.skills[skill.id] = {
+            learned_at: new Date().toISOString()
+          };
+          
+          learnedSkills.push(skill);
+          console.log(`Auto-learned initial skill: ${skill.name} for player ${player.username}`);
+        }
+      }
+    });
+    
+    // Lưu player data
+    const playerManager = require('./systems/player.js');
+    playerManager.savePlayers();
+    
+    return learnedSkills;
+  } catch (error) {
+    console.error('Error auto-learning initial skills:', error);
+    return [];
   }
 }
 

@@ -197,6 +197,7 @@ class PlayerManager {
         lastPick: 0,
         lastExplore: 0
       },
+      skills: {},
       // Hệ thống luyện đan
       alchemy: {
         furnaceLevel: 1, // Level lò luyện (mặc định 1)
@@ -786,6 +787,131 @@ class PlayerManager {
     await itemLoader.loadAllItems();
     const rarityInfo = itemLoader.rarityLevels[rarity];
     return rarityInfo ? rarityInfo.name : 'Không xác định';
+  }
+
+  // ===== SKILL MANAGEMENT FUNCTIONS =====
+
+  // Kiểm tra xem player có thể học skill không
+  canLearnSkill(player, skillId) {
+    const fs = require('fs');
+    const path = require('path');
+    
+    try {
+      const skillsData = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/skills.json'), 'utf8'));
+      
+      // Tìm skill trong tất cả các realm
+      let skill = null;
+      for (const spiritRoot of ['kim', 'hoa', 'tho', 'thuy', 'moc']) {
+        for (const realm of ['luyen_khi', 'truc_co', 'ket_dan', 'nguyen_anh']) {
+          const realmSkills = skillsData[`${spiritRoot}_skills`][realm];
+          const foundSkill = realmSkills.find(s => s.id === skillId);
+          if (foundSkill) {
+            skill = foundSkill;
+            break;
+          }
+        }
+        if (skill) break;
+      }
+      
+      if (!skill) return false;
+      
+      // Kiểm tra requirements
+      if (skill.required_realm !== player.realm) return false;
+      if (skill.required_level > player.realmLevel) return false;
+      if (skill.required_spirit_root !== player.spiritRoot) return false;
+      
+      return true;
+    } catch (error) {
+      console.error('Error checking skill requirements:', error);
+      return false;
+    }
+  }
+
+  // Học skill mới
+  learnSkill(player, skillId) {
+    if (!player.skills) {
+      player.skills = {};
+    }
+    
+    if (player.skills[skillId]) {
+      return { success: false, message: 'Bạn đã học kỹ năng này rồi!' };
+    }
+    
+    if (!this.canLearnSkill(player, skillId)) {
+      return { success: false, message: 'Bạn chưa đủ điều kiện để học kỹ năng này!' };
+    }
+    
+    player.skills[skillId] = {
+      learned_at: new Date().toISOString()
+    };
+    
+    this.savePlayers();
+    return { success: true, message: 'Học kỹ năng thành công!' };
+  }
+
+
+  // Lấy danh sách skill đã học
+  getLearnedSkills(player) {
+    if (!player.skills) return [];
+    
+    const fs = require('fs');
+    const path = require('path');
+    
+    try {
+      const skillsData = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/skills.json'), 'utf8'));
+      const learnedSkills = [];
+      
+      Object.keys(player.skills).forEach(skillId => {
+        // Tìm skill trong data
+        let skill = null;
+        for (const spiritRoot of ['kim', 'hoa', 'tho', 'thuy', 'moc']) {
+          for (const realm of ['luyen_khi', 'truc_co', 'ket_dan', 'nguyen_anh']) {
+            const realmSkills = skillsData[`${spiritRoot}_skills`][realm];
+            const foundSkill = realmSkills.find(s => s.id === skillId);
+            if (foundSkill) {
+              skill = foundSkill;
+              break;
+            }
+          }
+          if (skill) break;
+        }
+        
+        if (skill) {
+          learnedSkills.push({
+            ...skill,
+            playerSkill: player.skills[skillId]
+          });
+        }
+      });
+      
+      return learnedSkills;
+    } catch (error) {
+      console.error('Error getting learned skills:', error);
+      return [];
+    }
+  }
+
+  // Lấy skill info theo ID
+  getSkillInfo(skillId) {
+    const fs = require('fs');
+    const path = require('path');
+    
+    try {
+      const skillsData = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/skills.json'), 'utf8'));
+      
+      for (const spiritRoot of ['kim', 'hoa', 'tho', 'thuy', 'moc']) {
+        for (const realm of ['luyen_khi', 'truc_co', 'ket_dan', 'nguyen_anh']) {
+          const realmSkills = skillsData[`${spiritRoot}_skills`][realm];
+          const skill = realmSkills.find(s => s.id === skillId);
+          if (skill) return skill;
+        }
+      }
+      
+      return null;
+    } catch (error) {
+      console.error('Error getting skill info:', error);
+      return null;
+    }
   }
 }
 
