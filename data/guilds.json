@@ -1,0 +1,29 @@
+{
+  "fthnf": {
+    "id": "fthnf",
+    "name": "f_Thần_f",
+    "description": "",
+    "ownerId": "504705413682298891",
+    "ownerName": "ired0806",
+    "createdAt": 1757500499074,
+    "members": [
+      "504705413682298891",
+      "558528163244802089",
+      "397226790709624834"
+    ],
+    "roles": {
+      "504705413682298891": "sect_master",
+      "558528163244802089": "elder",
+      "397226790709624834": "deacon"
+    },
+    "requests": [],
+    "applications": [],
+    "level": 1,
+    "exp": 0,
+    "stats": {
+      "totalMembers": 3,
+      "totalDonations": 0,
+      "totalPower": 0
+    }
+  }
+}

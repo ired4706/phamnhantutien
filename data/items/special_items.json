@@ -55,6 +55,13 @@
       "description": "Vật phẩm huyền bí, chứa linh khí huyền ảo",
       "rarity": "uncommon",
       "value": 9500
+    },
+    "tong_mon_lenh_bai": {
+      "name": "Tông Môn Lệnh Bài",
+      "emoji": "🏛️",
+      "description": "Lệnh bài tông môn, cần thiết để thành lập bang phái",
+      "rarity": "rare",
+      "value": 50000
     }
   }
 }
