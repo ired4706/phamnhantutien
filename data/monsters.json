@@ -1,0 +1,496 @@
+{
+  "monster_tiers": {
+    "nhat_cap": {
+      "name": "Yêu Thú Nhất Cấp",
+      "realm_equivalent": "luyen_khi",
+      "tier_equivalent": 1,
+      "stage_multiplier": 1,
+      "tier_multiplier": 1,
+      "base_exp_reward": 50,
+      "base_spirit_stones": 10,
+      "encounter_rates": {
+        "normal": 0.7,
+        "mutated": 0.25,
+        "super_mutated": 0.05
+      },
+      "power_multipliers": {
+        "normal": 1.0,
+        "mutated": 1.3,
+        "super_mutated": 1.6
+      },
+      "loot_multipliers": {
+        "normal": 1.0,
+        "mutated": 1.5,
+        "super_mutated": 2.0
+      }
+    },
+    "nhi_cap": {
+      "name": "Yêu Thú Nhị Cấp",
+      "realm_equivalent": "truc_co",
+      "tier_equivalent": 1,
+      "stage_multiplier": 5,
+      "tier_multiplier": 1.0,
+      "base_exp_reward": 200,
+      "base_spirit_stones": 50,
+      "encounter_rates": {
+        "normal": 0.7,
+        "mutated": 0.25,
+        "super_mutated": 0.05
+      },
+      "power_multipliers": {
+        "normal": 1.0,
+        "mutated": 1.3,
+        "super_mutated": 1.6
+      },
+      "loot_multipliers": {
+        "normal": 1.0,
+        "mutated": 1.5,
+        "super_mutated": 2.0
+      }
+    },
+    "tam_cap": {
+      "name": "Yêu Thú Tam Cấp",
+      "realm_equivalent": "truc_co",
+      "tier_equivalent": 2,
+      "stage_multiplier": 5,
+      "tier_multiplier": 1.5,
+      "base_exp_reward": 400,
+      "base_spirit_stones": 100,
+      "encounter_rates": {
+        "normal": 0.7,
+        "mutated": 0.25,
+        "super_mutated": 0.05
+      },
+      "power_multipliers": {
+        "normal": 1.0,
+        "mutated": 1.3,
+        "super_mutated": 1.6
+      },
+      "loot_multipliers": {
+        "normal": 1.0,
+        "mutated": 1.5,
+        "super_mutated": 2.0
+      }
+    },
+    "tu_cap": {
+      "name": "Yêu Thú Tứ Cấp",
+      "realm_equivalent": "truc_co",
+      "tier_equivalent": 3,
+      "stage_multiplier": 5,
+      "tier_multiplier": 2.0,
+      "base_exp_reward": 800,
+      "base_spirit_stones": 200,
+      "encounter_rates": {
+        "normal": 0.7,
+        "mutated": 0.25,
+        "super_mutated": 0.05
+      },
+      "power_multipliers": {
+        "normal": 1.0,
+        "mutated": 1.3,
+        "super_mutated": 1.6
+      },
+      "loot_multipliers": {
+        "normal": 1.0,
+        "mutated": 1.5,
+        "super_mutated": 2.0
+      }
+    },
+    "ngu_cap": {
+      "name": "Yêu Thú Ngũ Cấp",
+      "realm_equivalent": "ket_dan",
+      "tier_equivalent": 1,
+      "stage_multiplier": 25,
+      "tier_multiplier": 1.0,
+      "base_exp_reward": 2000,
+      "base_spirit_stones": 500,
+      "encounter_rates": {
+        "normal": 0.7,
+        "mutated": 0.25,
+        "super_mutated": 0.05
+      },
+      "power_multipliers": {
+        "normal": 1.0,
+        "mutated": 1.3,
+        "super_mutated": 1.6
+      },
+      "loot_multipliers": {
+        "normal": 1.0,
+        "mutated": 1.5,
+        "super_mutated": 2.0
+      }
+    },
+    "luc_cap": {
+      "name": "Yêu Thú Lục Cấp",
+      "realm_equivalent": "ket_dan",
+      "tier_equivalent": 2,
+      "stage_multiplier": 25,
+      "tier_multiplier": 1.5,
+      "base_exp_reward": 4000,
+      "base_spirit_stones": 1000,
+      "encounter_rates": {
+        "normal": 0.7,
+        "mutated": 0.25,
+        "super_mutated": 0.05
+      },
+      "power_multipliers": {
+        "normal": 1.0,
+        "mutated": 1.3,
+        "super_mutated": 1.6
+      },
+      "loot_multipliers": {
+        "normal": 1.0,
+        "mutated": 1.5,
+        "super_mutated": 2.0
+      }
+    },
+    "that_cap": {
+      "name": "Yêu Thú Thất Cấp",
+      "realm_equivalent": "ket_dan",
+      "tier_equivalent": 3,
+      "stage_multiplier": 25,
+      "tier_multiplier": 2.0,
+      "base_exp_reward": 8000,
+      "base_spirit_stones": 2000,
+      "encounter_rates": {
+        "normal": 0.7,
+        "mutated": 0.25,
+        "super_mutated": 0.05
+      },
+      "power_multipliers": {
+        "normal": 1.0,
+        "mutated": 1.3,
+        "super_mutated": 1.6
+      },
+      "loot_multipliers": {
+        "normal": 1.0,
+        "mutated": 1.5,
+        "super_mutated": 2.0
+      }
+    },
+    "bat_cap": {
+      "name": "Yêu Thú Bát Cấp",
+      "realm_equivalent": "nguyen_anh",
+      "tier_equivalent": 1,
+      "stage_multiplier": 125,
+      "tier_multiplier": 1.0,
+      "base_exp_reward": 20000,
+      "base_spirit_stones": 5000,
+      "encounter_rates": {
+        "normal": 0.7,
+        "mutated": 0.25,
+        "super_mutated": 0.05
+      },
+      "power_multipliers": {
+        "normal": 1.0,
+        "mutated": 1.3,
+        "super_mutated": 1.6
+      },
+      "loot_multipliers": {
+        "normal": 1.0,
+        "mutated": 1.5,
+        "super_mutated": 2.0
+      }
+    },
+    "cuu_cap": {
+      "name": "Yêu Thú Cửu Cấp",
+      "realm_equivalent": "nguyen_anh",
+      "tier_equivalent": 2,
+      "stage_multiplier": 125,
+      "tier_multiplier": 1.5,
+      "base_exp_reward": 40000,
+      "base_spirit_stones": 10000,
+      "encounter_rates": {
+        "normal": 0.7,
+        "mutated": 0.25,
+        "super_mutated": 0.05
+      },
+      "power_multipliers": {
+        "normal": 1.0,
+        "mutated": 1.3,
+        "super_mutated": 1.6
+      },
+      "loot_multipliers": {
+        "normal": 1.0,
+        "mutated": 1.5,
+        "super_mutated": 2.0
+      }
+    },
+    "thap_cap": {
+      "name": "Yêu Thú Thập Cấp",
+      "realm_equivalent": "nguyen_anh",
+      "tier_equivalent": 3,
+      "stage_multiplier": 125,
+      "tier_multiplier": 2.0,
+      "base_exp_reward": 80000,
+      "base_spirit_stones": 20000,
+      "encounter_rates": {
+        "normal": 0.7,
+        "mutated": 0.25,
+        "super_mutated": 0.05
+      },
+      "power_multipliers": {
+        "normal": 1.0,
+        "mutated": 1.3,
+        "super_mutated": 1.6
+      },
+      "loot_multipliers": {
+        "normal": 1.0,
+        "mutated": 1.5,
+        "super_mutated": 2.0
+      }
+    }
+  },
+  "monster_templates": {
+    "nhat_cap": [
+      {
+        "id": "tho_hoang_nhat",
+        "name": "Thỏ Hoang",
+        "emoji": "🐰",
+        "description": "Thỏ hoang nhỏ bé nhưng nhanh nhẹn"
+      },
+      {
+        "id": "chim_so_nhat",
+        "name": "Chim Sẻ",
+        "emoji": "🐦",
+        "description": "Chim sẻ bay lượn trên không trung"
+      },
+      {
+        "id": "ca_chep_nhat",
+        "name": "Cá Chép",
+        "emoji": "🐟",
+        "description": "Cá chép bơi lội trong nước"
+      }
+    ],
+    "nhi_cap": [
+      {
+        "id": "ho_den_nhi",
+        "name": "Hổ Đen",
+        "emoji": "🐅",
+        "description": "Hổ đen hung dữ với móng vuốt sắc bén"
+      },
+      {
+        "id": "rong_lua_nhi",
+        "name": "Rồng Lửa",
+        "emoji": "🐲",
+        "description": "Rồng lửa phun ra ngọn lửa thiêu đốt"
+      },
+      {
+        "id": "ky_lan_nhi",
+        "name": "Kỳ Lân",
+        "emoji": "🦄",
+        "description": "Kỳ lân thần thánh với sừng phát sáng"
+      }
+    ],
+    "tam_cap": [
+      {
+        "id": "phuong_hoang_tam",
+        "name": "Phượng Hoàng",
+        "emoji": "🔥",
+        "description": "Phượng hoàng tái sinh từ tro tàn"
+      },
+      {
+        "id": "than_long_tam",
+        "name": "Thần Long",
+        "emoji": "🐉",
+        "description": "Thần long điều khiển nước và mây"
+      },
+      {
+        "id": "bach_hu_tam",
+        "name": "Bạch Hổ",
+        "emoji": "🐯",
+        "description": "Bạch hổ với bộ lông trắng như tuyết"
+      }
+    ],
+    "tu_cap": [
+      {
+        "id": "than_ngu_tu",
+        "name": "Thần Ngư",
+        "emoji": "🐠",
+        "description": "Thần ngư cai quản biển cả"
+      },
+      {
+        "id": "phong_thien_tu",
+        "name": "Phong Thiên",
+        "emoji": "🌪️",
+        "description": "Phong thiên điều khiển gió bão"
+      },
+      {
+        "id": "loi_dien_tu",
+        "name": "Lôi Điện",
+        "emoji": "⚡",
+        "description": "Lôi điện sấm sét"
+      }
+    ],
+    "ngu_cap": [
+      {
+        "id": "thien_ma_ngu",
+        "name": "Thiên Ma",
+        "emoji": "👹",
+        "description": "Thiên ma hung ác"
+      },
+      {
+        "id": "dia_nguc_ngu",
+        "name": "Địa Ngục",
+        "emoji": "🔥",
+        "description": "Địa ngục thiêu đốt"
+      },
+      {
+        "id": "thien_cung_ngu",
+        "name": "Thiên Cung",
+        "emoji": "🏰",
+        "description": "Thiên cung thần thánh"
+      }
+    ],
+    "luc_cap": [
+      {
+        "id": "van_than_luc",
+        "name": "Vạn Thần",
+        "emoji": "👑",
+        "description": "Vạn thần tối cao"
+      },
+      {
+        "id": "thien_dao_luc",
+        "name": "Thiên Đạo",
+        "emoji": "☯️",
+        "description": "Thiên đạo vô thượng"
+      },
+      {
+        "id": "dia_phu_luc",
+        "name": "Địa Phủ",
+        "emoji": "🏛️",
+        "description": "Địa phủ uy nghiêm"
+      }
+    ],
+    "that_cap": [
+      {
+        "id": "thien_hoang_that",
+        "name": "Thiên Hoàng",
+        "emoji": "👑",
+        "description": "Thiên hoàng cai quản thiên đình"
+      },
+      {
+        "id": "dia_hoang_that",
+        "name": "Địa Hoàng",
+        "emoji": "🏔️",
+        "description": "Địa hoàng cai quản địa phủ"
+      },
+      {
+        "id": "nhan_hoang_that",
+        "name": "Nhân Hoàng",
+        "emoji": "👤",
+        "description": "Nhân hoàng cai quản nhân gian"
+      }
+    ],
+    "bat_cap": [
+      {
+        "id": "thien_di_bat",
+        "name": "Thiên Đế",
+        "emoji": "👑",
+        "description": "Thiên đế tối cao"
+      },
+      {
+        "id": "dia_di_bat",
+        "name": "Địa Đế",
+        "emoji": "🏔️",
+        "description": "Địa đế uy nghiêm"
+      },
+      {
+        "id": "nhan_di_bat",
+        "name": "Nhân Đế",
+        "emoji": "👤",
+        "description": "Nhân đế vĩ đại"
+      }
+    ],
+    "cuu_cap": [
+      {
+        "id": "thien_than_cuu",
+        "name": "Thiên Thần",
+        "emoji": "👼",
+        "description": "Thiên thần tối cao"
+      },
+      {
+        "id": "dia_than_cuu",
+        "name": "Địa Thần",
+        "emoji": "🌍",
+        "description": "Địa thần uy nghiêm"
+      },
+      {
+        "id": "nhan_than_cuu",
+        "name": "Nhân Thần",
+        "emoji": "🧙",
+        "description": "Nhân thần vĩ đại"
+      }
+    ],
+    "thap_cap": [
+      {
+        "id": "thien_to_thap",
+        "name": "Thiên Tổ",
+        "emoji": "👑",
+        "description": "Thiên tổ tối cao"
+      },
+      {
+        "id": "dia_to_thap",
+        "name": "Địa Tổ",
+        "emoji": "🏔️",
+        "description": "Địa tổ uy nghiêm"
+      },
+      {
+        "id": "nhan_to_thap",
+        "name": "Nhân Tổ",
+        "emoji": "👤",
+        "description": "Nhân tổ vĩ đại"
+      }
+    ]
+  },
+  "element_affinities": {
+    "kim": {
+      "crit_affinity": 1.0,
+      "eva_affinity": 0.9,
+      "weakness": "hoa",
+      "strength": "moc"
+    },
+    "moc": {
+      "crit_affinity": 1.15,
+      "eva_affinity": 1.15,
+      "weakness": "kim",
+      "strength": "tho"
+    },
+    "thuy": {
+      "crit_affinity": 1.3,
+      "eva_affinity": 1.65,
+      "weakness": "tho",
+      "strength": "hoa"
+    },
+    "hoa": {
+      "crit_affinity": 1.6,
+      "eva_affinity": 1.3,
+      "weakness": "thuy",
+      "strength": "kim"
+    },
+    "tho": {
+      "crit_affinity": 0.8,
+      "eva_affinity": 0.9,
+      "weakness": "moc",
+      "strength": "thuy"
+    },
+    "phong": {
+      "crit_affinity": 1.4,
+      "eva_affinity": 1.8,
+      "weakness": "tho",
+      "strength": "thuy"
+    },
+    "loi": {
+      "crit_affinity": 1.7,
+      "eva_affinity": 1.2,
+      "weakness": "tho",
+      "strength": "thuy"
+    },
+    "vo_he": {
+      "crit_affinity": 1.0,
+      "eva_affinity": 1.0,
+      "weakness": "none",
+      "strength": "none"
+    }
+  }
+}
