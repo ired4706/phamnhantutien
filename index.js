@@ -294,6 +294,18 @@ async function handleButtonInteraction(interaction) {
     return;
   }
 
+  // Xử lý combat buttons
+  if (customId.startsWith('combat_')) {
+    const combatSystem = require('./systems/combat.js');
+    const parts = customId.split('_');
+    const action = parts[1];
+    const combatId = parts.slice(2).join('_'); // Lấy tất cả phần sau action
+
+    console.log(`Combat button clicked: action=${action}, combatId=${combatId}`);
+    await combatSystem.handlePlayerAction(combatId, action, interaction);
+    return;
+  }
+
   // Xử lý button inventory
   if (customId.startsWith('inventory_')) {
     try {

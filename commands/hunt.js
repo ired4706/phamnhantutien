@@ -4,6 +4,8 @@ const expCalculator = require('../systems/exp-calculator.js');
 const cooldownManager = require('../utils/cooldown.js');
 const SpiritStonesCalculator = require('../utils/spirit-stones-calculator.js');
 const ItemDropCalculator = require('../utils/item-drop-calculator.js');
+const monsterManager = require('../systems/monster.js');
+const combatSystem = require('../systems/combat.js');
 
 module.exports = {
   name: 'hunt',
@@ -33,63 +35,31 @@ module.exports = {
       return;
     }
 
-    // Tính toán EXP theo hệ thống mới
-    const expResult = expCalculator.calculateHuntExp(player, 'none');
-    const expGained = expResult.finalExp;
+    try {
+      // Tạo quái dựa trên tu vi người chơi
+      const monsterTier = monsterManager.getPlayerEquivalentTier(player.realm, player.realmLevel);
+      const monster = monsterManager.generateRandomMonster(monsterTier, player);
 
-    // Tính toán phần thưởng khác
-    const spiritStones = SpiritStonesCalculator.calculateHunt();
-    const huntItems = ItemDropCalculator.calculateHuntItems(player);
+      // Thêm thông tin cần thiết vào player object
+      player.id = userId;
+      player.username = username;
 
-    // Cập nhật player
-    playerManager.addExperience(userId, expGained);
+      // Khởi tạo trận chiến turn-based
+      const combat = combatSystem.startCombat(player, monster, interaction);
 
-    // Cập nhật linh thạch theo format mới
-    SpiritStonesCalculator.updatePlayerSpiritStones(player, spiritStones);
+      // Tạo UI trận chiến
+      const combatUI = combatSystem.createCombatUI(combat);
+      const reply = await interaction.reply(combatUI);
 
-    // Thêm vật liệu săn được vào inventory
-    huntItems.forEach(item => {
-      playerManager.addItemToInventory(player, item.id, 1);
-    });
+      // Lưu message để có thể edit sau này
+      combat.lastMessage = reply;
 
-    // Cập nhật thời gian săn cuối
-    const lastCommandField = cooldownManager.getLastCommandField('hunt');
-    const updateData = {
-      [lastCommandField]: now,
-      ...SpiritStonesCalculator.createUpdateObject(spiritStones)
-    };
-    playerManager.updatePlayer(userId, updateData);
-
-    // Tạo embed thông báo thành công
-    const successEmbed = new EmbedBuilder()
-      .setColor('#8B4513')
-      .setTitle('🏹 Săn yêu thú thành công!')
-      .setDescription(`**${username}** đã săn được yêu thú.`)
-      .addFields(
-        {
-          name: '📊 Linh khí nhận được',
-          value: `**+${expGained} Linh khí**`,
-          inline: true
-        },
-        {
-          name: '💎 Linh thạch thu được',
-          value: SpiritStonesCalculator.formatSpiritStones(spiritStones),
-          inline: true
-        },
-        {
-          name: '🦴 Vật liệu thu được',
-          value: huntItems.length > 0 ? ItemDropCalculator.formatItems(huntItems) : 'Không có vật liệu nào',
-          inline: false
-        }
-      )
-      .addFields({
-        name: '🔍 Chi tiết tính toán Linh khí',
-        value: expResult.breakdown.calculation,
-        inline: false
-      })
-      .setFooter({ text: 'Săn yêu thú có thể thực hiện sau 30 giây' })
-      .setTimestamp();
-
-    await interaction.reply({ embeds: [successEmbed] });
+    } catch (error) {
+      console.error('Error in hunt command:', error);
+      await interaction.reply({
+        content: '❌ Có lỗi xảy ra khi săn yêu thú!',
+        flags: 64
+      });
+    }
   }
 };
