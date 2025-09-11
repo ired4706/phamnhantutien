@@ -2,7 +2,7 @@
   "504705413682298891": {
     "userId": "504705413682298891",
     "username": "ired0806",
-    "spiritRoot": "kim",
+    "spiritRoot": "hoa",
     "experience": 0,
     "realm": "luyen_khi",
     "realmLevel": 1,
@@ -254,10 +254,8 @@
       "lastExplore": 0
     },
     "skills": {
-      "kim_quang_tram": {
-        "level": 1,
-        "learned_at": "2025-09-10T18:12:41.643Z",
-        "experience": 0
+      "hoa_diem_dan": {
+        "learned_at": "2025-09-11T09:38:47.161Z"
       }
     },
     "alchemy": {
@@ -275,21 +273,24 @@
       "lastForge": 0
     },
     "achievements": [],
-    "joinDate": 1757527961640,
-    "lastActive": 1757527961640,
+    "joinDate": 1757583527158,
+    "lastActive": 1757583527158,
     "stats": {
-      "attack": 12,
-      "defense": 15,
-      "hp": 120,
-      "maxHp": 120,
-      "mp": 50,
-      "maxMp": 50,
-      "speed": 8,
-      "critical": 5,
-      "regen": 2,
-      "evasion": 3,
+      "attack": 16,
+      "defense": 9,
+      "hp": 106,
+      "maxHp": 106,
+      "mp": 66,
+      "maxMp": 66,
+      "speed": 11.4,
+      "critical": 0.8,
+      "regen": 2.1,
+      "evasion": 0.3,
       "reputation": 0,
       "karma": 0
-    }
+    },
+    "luyenKhiTiers": 1,
+    "stageMultiplier": 1,
+    "tierMultiplier": 1
   }
 }

@@ -198,12 +198,12 @@ module.exports = {
 
   // Format stats linh căn
   formatSpiritRootStats(stats) {
-    return `**ATK**: ${stats.attack}\n**DEF**: ${stats.defense}\n**HP**: ${stats.hp}\n**MP**: ${stats.mana}\n**SPD**: ${stats.speed}\n**CRIT**: ${stats.critical}%\n**REGEN**: ${stats.regen}\n**EVASION**: ${stats.evasion}%\n**REP**: ${stats.reputation}\n**KARMA**: ${stats.karma}`;
+    return `**ATK**: ${stats.attack}\n**DEF**: ${stats.defense}\n**HP**: ${stats.hp}\n**MP**: ${stats.mana}\n**SPD**: ${stats.speed}\n**CRIT (rating)**: ${stats.critical}\n**REGEN**: ${stats.regen}\n**EVA (rating)**: ${stats.evasion}`;
   },
 
   // Format growth rates linh căn
   formatSpiritRootGrowth(growth) {
-    return `**ATK**: +${growth.attack}\n**DEF**: +${growth.defense}\n**HP**: +${growth.hp}\n**MP**: +${growth.mana}\n**SPD**: +${growth.speed}\n**CRIT**: +${growth.critical}%\n**REGEN**: +${growth.regen}\n**EVASION**: +${growth.evasion}%\n**REP**: +${growth.reputation}\n**KARMA**: +${growth.karma}`;
+    return `**ATK**: +${growth.attack}\n**DEF**: +${growth.defense}\n**HP**: +${growth.hp}\n**MP**: +${growth.mana}\n**SPD**: +${growth.speed}\n**CRIT (rating)**: +${growth.critical}\n**REGEN**: +${growth.regen}\n**EVA (rating)**: +${growth.evasion}`;
   },
 
   // Format hiển thị linh thạch

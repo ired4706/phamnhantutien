@@ -258,55 +258,102 @@ class PlayerManager {
 
     const { basic_stats, growth_rates } = spiritRoot;
 
-    // Tính tổng số tầng đã qua
-    let totalTiers = 0;
+    // Tính số tầng luyện khí đã qua (1-13)
+    let luyenKhiTiers = 0;
     if (player.realm === 'luyen_khi') {
-      totalTiers = player.realmLevel - 1; // Từ 0 đến 12
+      luyenKhiTiers = player.realmLevel; // 1-13
     } else if (player.realm === 'truc_co') {
-      totalTiers = 13 + (player.realmLevel - 1); // 13 + (0,1,2)
+      luyenKhiTiers = 13; // Đã hoàn thành 13 tầng luyện khí
     } else if (player.realm === 'ket_dan') {
-      totalTiers = 16 + (player.realmLevel - 1); // 16 + (0,1,2)
+      luyenKhiTiers = 13; // Đã hoàn thành 13 tầng luyện khí
     } else if (player.realm === 'nguyen_anh') {
-      totalTiers = 19 + (player.realmLevel - 1); // 19 + (0,1,2)
+      luyenKhiTiers = 13; // Đã hoàn thành 13 tầng luyện khí
     }
 
-    // Tính bonus mốc tu vi
-    let realmBonus = 0;
-    if (player.realm === 'truc_co') {
-      const realmInfo = this.getRealmInfo(player.realm);
-      if (player.realmLevel === 1) realmBonus = realmInfo.realmBonus.so_ky;
-      else if (player.realmLevel === 2) realmBonus = realmInfo.realmBonus.trung_ky;
-      else if (player.realmLevel === 3) realmBonus = realmInfo.realmBonus.hau_ky;
+    // Tính Stage multiplier
+    let stageMultiplier = 1;
+    if (player.realm === 'luyen_khi') {
+      stageMultiplier = 1;
+    } else if (player.realm === 'truc_co') {
+      stageMultiplier = 5;
     } else if (player.realm === 'ket_dan') {
-      const realmInfo = this.getRealmInfo(player.realm);
-      if (player.realmLevel === 1) realmBonus = realmInfo.realmBonus.so_ky;
-      else if (player.realmLevel === 2) realmBonus = realmInfo.realmBonus.trung_ky;
-      else if (player.realmLevel === 3) realmBonus = realmInfo.realmBonus.hau_ky;
+      stageMultiplier = 25;
     } else if (player.realm === 'nguyen_anh') {
-      const realmInfo = this.getRealmInfo(player.realm);
-      if (player.realmLevel === 1) realmBonus = realmInfo.realmBonus.so_ky;
-      else if (player.realmLevel === 2) realmBonus = realmInfo.realmBonus.trung_ky;
-      else if (player.realmLevel === 3) realmBonus = realmInfo.realmBonus.hau_ky;
+      stageMultiplier = 125;
     }
 
-    // Công thức: Stat = (Basic + Growth × Tiers) × (1 + Realm Bonus)
+    // Tính Tier multiplier
+    let tierMultiplier = 1;
+    if (player.realm === 'luyen_khi') {
+      tierMultiplier = 1; // Luyện khí luôn là 1
+    } else if (player.realm === 'truc_co') {
+      if (player.realmLevel === 1) tierMultiplier = 1.0; // Sơ Kỳ
+      else if (player.realmLevel === 2) tierMultiplier = 1.5; // Trung Kỳ
+      else if (player.realmLevel === 3) tierMultiplier = 2.0; // Hậu Kỳ
+    } else if (player.realm === 'ket_dan') {
+      if (player.realmLevel === 1) tierMultiplier = 1.0; // Sơ Kỳ
+      else if (player.realmLevel === 2) tierMultiplier = 1.5; // Trung Kỳ
+      else if (player.realmLevel === 3) tierMultiplier = 2.0; // Hậu Kỳ
+    } else if (player.realm === 'nguyen_anh') {
+      if (player.realmLevel === 1) tierMultiplier = 1.0; // Sơ Kỳ
+      else if (player.realmLevel === 2) tierMultiplier = 1.5; // Trung Kỳ
+      else if (player.realmLevel === 3) tierMultiplier = 2.0; // Hậu Kỳ
+    }
+
+    // Công thức mới: Stat = (Basic + Growth × số tầng luyện khí) × (Stage multiplier × Tier multiplier)
+    // Tính raw cho tất cả chỉ số
+    const rawAttack = (basic_stats.attack + growth_rates.attack * luyenKhiTiers) * (stageMultiplier * tierMultiplier);
+    const rawDefense = (basic_stats.defense + growth_rates.defense * luyenKhiTiers) * (stageMultiplier * tierMultiplier);
+    const rawHp = (basic_stats.hp + growth_rates.hp * luyenKhiTiers) * (stageMultiplier * tierMultiplier);
+    const rawMp = (basic_stats.mana + growth_rates.mana * luyenKhiTiers) * (stageMultiplier * tierMultiplier);
+    const rawSpeed = (basic_stats.speed + growth_rates.speed * luyenKhiTiers) * (stageMultiplier * tierMultiplier);
+    const rawRegen = (basic_stats.regen + growth_rates.regen * luyenKhiTiers) * (stageMultiplier * tierMultiplier);
+    // reputation và karma không còn phụ thuộc vào basic/growth; giữ nguyên hiện trạng hoặc mặc định 0
+    const existingReputation = (player.stats && typeof player.stats.reputation === 'number') ? player.stats.reputation : 0;
+    const existingKarma = (player.stats && typeof player.stats.karma === 'number') ? player.stats.karma : 0;
+
+    // Áp dụng Affinities cho CRIT và EVA với công thức: Final% = (Raw × Affinity) / ((Raw × Affinity) + K)
+    const K = 20;
+    const critAffinityByRoot = { hoa: 1.6, thuy: 1.3, moc: 1.15, kim: 1.0, tho: 0.8 };
+    const evaAffinityByRoot = { thuy: 1.65, hoa: 1.3, moc: 1.15, kim: 0.9, tho: 0.9 };
+
+    const rawCritical = (basic_stats.critical + growth_rates.critical * luyenKhiTiers) * (stageMultiplier * tierMultiplier);
+    const rawEvasion = (basic_stats.evasion + growth_rates.evasion * luyenKhiTiers) * (stageMultiplier * tierMultiplier);
+
+    const critAffinity = critAffinityByRoot[player.spiritRoot] || 1.0;
+    const evaAffinity = evaAffinityByRoot[player.spiritRoot] || 1.0;
+
+    const critAdj = rawCritical * critAffinity;
+    const evaAdj = rawEvasion * evaAffinity;
+
+    // Chuyển đổi AdjRating về đơn vị phần trăm thô trước khi áp dụng hằng số K
+    const critAdjPercent = critAdj / 100;
+    const evaAdjPercent = evaAdj / 100;
+
+    // Lưu dưới dạng phần trăm (0-100), để đồng bộ hiển thị hiện tại `${value}%`
+    const finalCriticalPercent = (critAdjPercent / (critAdjPercent + K)) * 100;
+    const finalEvasionPercent = (evaAdjPercent / (evaAdjPercent + K)) * 100;
+
+    const round1 = (v) => Math.round(v * 10) / 10;
     const stats = {
-      attack: Math.floor((basic_stats.attack + growth_rates.attack * totalTiers) * (1 + realmBonus)),
-      defense: Math.floor((basic_stats.defense + growth_rates.defense * totalTiers) * (1 + realmBonus)),
-      hp: Math.floor((basic_stats.hp + growth_rates.hp * totalTiers) * (1 + realmBonus)),
-      maxHp: Math.floor((basic_stats.hp + growth_rates.hp * totalTiers) * (1 + realmBonus)),
-      mp: Math.floor((basic_stats.mana + growth_rates.mana * totalTiers) * (1 + realmBonus)),
-      maxMp: Math.floor((basic_stats.mana + growth_rates.mana * totalTiers) * (1 + realmBonus)),
-      speed: Math.floor((basic_stats.speed + growth_rates.speed * totalTiers) * (1 + realmBonus)),
-      critical: Math.floor((basic_stats.critical + growth_rates.critical * totalTiers) * (1 + realmBonus)),
-      regen: Math.floor((basic_stats.regen + growth_rates.regen * totalTiers) * (1 + realmBonus)),
-      evasion: Math.floor((basic_stats.evasion + growth_rates.evasion * totalTiers) * (1 + realmBonus)),
-      reputation: Math.floor((basic_stats.reputation + growth_rates.reputation * totalTiers) * (1 + realmBonus)),
-      karma: Math.floor((basic_stats.karma + growth_rates.karma * totalTiers) * (1 + realmBonus))
+      attack: round1(rawAttack),
+      defense: round1(rawDefense),
+      hp: round1(rawHp),
+      maxHp: round1(rawHp),
+      mp: round1(rawMp),
+      maxMp: round1(rawMp),
+      speed: round1(rawSpeed),
+      critical: round1(finalCriticalPercent),
+      regen: round1(rawRegen),
+      evasion: round1(finalEvasionPercent),
+      reputation: round1(existingReputation),
+      karma: round1(existingKarma)
     };
 
     player.stats = stats;
-    player.totalTiers = totalTiers;
+    player.luyenKhiTiers = luyenKhiTiers;
+    player.stageMultiplier = stageMultiplier;
+    player.tierMultiplier = tierMultiplier;
   }
 
   getPlayer(userId) {
@@ -795,10 +842,10 @@ class PlayerManager {
   canLearnSkill(player, skillId) {
     const fs = require('fs');
     const path = require('path');
-    
+
     try {
       const skillsData = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/skills.json'), 'utf8'));
-      
+
       // Tìm skill trong tất cả các realm
       let skill = null;
       for (const spiritRoot of ['kim', 'hoa', 'tho', 'thuy', 'moc']) {
@@ -812,14 +859,14 @@ class PlayerManager {
         }
         if (skill) break;
       }
-      
+
       if (!skill) return false;
-      
+
       // Kiểm tra requirements
       if (skill.required_realm !== player.realm) return false;
       if (skill.required_level > player.realmLevel) return false;
       if (skill.required_spirit_root !== player.spiritRoot) return false;
-      
+
       return true;
     } catch (error) {
       console.error('Error checking skill requirements:', error);
@@ -832,19 +879,19 @@ class PlayerManager {
     if (!player.skills) {
       player.skills = {};
     }
-    
+
     if (player.skills[skillId]) {
       return { success: false, message: 'Bạn đã học kỹ năng này rồi!' };
     }
-    
+
     if (!this.canLearnSkill(player, skillId)) {
       return { success: false, message: 'Bạn chưa đủ điều kiện để học kỹ năng này!' };
     }
-    
+
     player.skills[skillId] = {
       learned_at: new Date().toISOString()
     };
-    
+
     this.savePlayers();
     return { success: true, message: 'Học kỹ năng thành công!' };
   }
@@ -853,14 +900,14 @@ class PlayerManager {
   // Lấy danh sách skill đã học
   getLearnedSkills(player) {
     if (!player.skills) return [];
-    
+
     const fs = require('fs');
     const path = require('path');
-    
+
     try {
       const skillsData = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/skills.json'), 'utf8'));
       const learnedSkills = [];
-      
+
       Object.keys(player.skills).forEach(skillId => {
         // Tìm skill trong data
         let skill = null;
@@ -875,7 +922,7 @@ class PlayerManager {
           }
           if (skill) break;
         }
-        
+
         if (skill) {
           learnedSkills.push({
             ...skill,
@@ -883,7 +930,7 @@ class PlayerManager {
           });
         }
       });
-      
+
       return learnedSkills;
     } catch (error) {
       console.error('Error getting learned skills:', error);
@@ -895,10 +942,10 @@ class PlayerManager {
   getSkillInfo(skillId) {
     const fs = require('fs');
     const path = require('path');
-    
+
     try {
       const skillsData = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/skills.json'), 'utf8'));
-      
+
       for (const spiritRoot of ['kim', 'hoa', 'tho', 'thuy', 'moc']) {
         for (const realm of ['luyen_khi', 'truc_co', 'ket_dan', 'nguyen_anh']) {
           const realmSkills = skillsData[`${spiritRoot}_skills`][realm];
@@ -906,7 +953,7 @@ class PlayerManager {
           if (skill) return skill;
         }
       }
-      
+
       return null;
     } catch (error) {
       console.error('Error getting skill info:', error);

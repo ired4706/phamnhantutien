@@ -57,56 +57,64 @@
 ## 🚀 CHỈ SỐ THEO CẤP ĐỘ
 
 ### 💨 LUYỆN KHÍ KỲ (Cảnh giới 1)
-**Hệ số cơ bản**: 1.0x
+**Stage Multiplier**: 1x | **Tier Multiplier**: 1x
 
-| Tầng | Kinh nghiệm cần | Hệ số nhân | Bonus chỉ số |
-|------|----------------|-------------|--------------|
-| 1    | 0              | 1.0x        | +0 tất cả    |
-| 5    | 8,000          | 1.4x        | +8 tấn công, +80 HP |
-| 10   | 38,000         | 1.9x        | +18 tấn công, +180 HP |
-| 13   | 68,000         | 2.2x        | +24 tấn công, +240 HP |
+| Tầng | Số tầng đã qua | Hệ số nhân | Ví dụ Kim Linh Căn ATK |
+|------|----------------|-------------|------------------------|
+| 1    | 1              | 1.0x        | (12 + 1.8×1) × 1×1 = 14 |
+| 5    | 5              | 1.0x        | (12 + 1.8×5) × 1×1 = 21 |
+| 10   | 10             | 1.0x        | (12 + 1.8×10) × 1×1 = 30 |
+| 13   | 13             | 1.0x        | (12 + 1.8×13) × 1×1 = 35 |
 
 ### 🌱 TRÚC CƠ KỲ (Cảnh giới 2)
-**Hệ số cơ bản**: 2.0x
+**Stage Multiplier**: 5x | **Tier Multiplier**: Sơ 1.0x, Trung 1.5x, Hậu 2.0x
 
-| Cấp độ | Kinh nghiệm cần | Hệ số nhân | Bonus chỉ số |
-|---------|----------------|-------------|--------------|
-| Sơ Kỳ   | 80,000         | 2.5x        | +30 tấn công, +300 HP |
-| Trung Kỳ| 120,000        | 3.0x        | +40 tấn công, +400 HP |
-| Hậu Kỳ  | 180,000        | 3.5x        | +50 tấn công, +500 HP |
+| Cấp độ | Số tầng đã qua | Hệ số nhân | Ví dụ Kim Linh Căn ATK |
+|---------|----------------|-------------|------------------------|
+| Sơ Kỳ   | 13             | 5.0x        | (12 + 1.8×13) × 5×1.0 = 175 |
+| Trung Kỳ| 13             | 7.5x        | (12 + 1.8×13) × 5×1.5 = 263 |
+| Hậu Kỳ  | 13             | 10.0x       | (12 + 1.8×13) × 5×2.0 = 350 |
 
 ### 🔮 KẾT ĐAN KỲ (Cảnh giới 3)
-**Hệ số cơ bản**: 4.0x
+**Stage Multiplier**: 25x | **Tier Multiplier**: Sơ 1.0x, Trung 1.5x, Hậu 2.0x
 
-| Cấp độ | Kinh nghiệm cần | Hệ số nhân | Bonus chỉ số |
-|---------|----------------|-------------|--------------|
-| Sơ Kỳ   | 250,000        | 5.0x        | +80 tấn công, +800 HP |
-| Trung Kỳ| 400,000        | 6.0x        | +100 tấn công, +1000 HP |
-| Hậu Kỳ  | 600,000        | 7.0x        | +120 tấn công, +1200 HP |
+| Cấp độ | Số tầng đã qua | Hệ số nhân | Ví dụ Kim Linh Căn ATK |
+|---------|----------------|-------------|------------------------|
+| Sơ Kỳ   | 13             | 25.0x       | (12 + 1.8×13) × 25×1.0 = 875 |
+| Trung Kỳ| 13             | 37.5x       | (12 + 1.8×13) × 25×1.5 = 1313 |
+| Hậu Kỳ  | 13             | 50.0x       | (12 + 1.8×13) × 25×2.0 = 1750 |
 
 ### 👶 NGUYÊN ANH KỲ (Cảnh giới 4)
-**Hệ số cơ bản**: 8.0x
+**Stage Multiplier**: 125x | **Tier Multiplier**: Sơ 1.0x, Trung 1.5x, Hậu 2.0x
 
-| Cấp độ | Kinh nghiệm cần | Hệ số nhân | Bonus chỉ số |
-|---------|----------------|-------------|--------------|
-| Sơ Kỳ   | 1,000,000      | 10.0x       | +200 tấn công, +2000 HP |
-| Trung Kỳ| 2,000,000      | 12.0x       | +250 tấn công, +2500 HP |
-| Hậu Kỳ  | 3,500,000      | 15.0x       | +300 tấn công, +3000 HP |
+| Cấp độ | Số tầng đã qua | Hệ số nhân | Ví dụ Kim Linh Căn ATK |
+|---------|----------------|-------------|------------------------|
+| Sơ Kỳ   | 13             | 125.0x      | (12 + 1.8×13) × 125×1.0 = 4375 |
+| Trung Kỳ| 13             | 187.5x      | (12 + 1.8×13) × 125×1.5 = 6563 |
+| Hậu Kỳ  | 13             | 250.0x      | (12 + 1.8×13) × 125×2.0 = 8750 |
 
 ---
 
-## 🧮 CÔNG THỨC TÍNH CHỈ SỐ
+## 🧮 CÔNG THỨC TÍNH CHỈ SỐ MỚI
 
-**Chỉ số cuối cùng = (Chỉ số cơ bản + Bonus cấp độ + Bonus trang bị) × Hệ số cảnh giới × Bonus ngũ hành**
+**Stat cuối = (Basic Stat + Growth × số tầng luyện khí) × (Stage multiplier × Tier multiplier)**
+
+### Tham số:
+- **Basic Stat**: Chỉ số cơ bản của linh căn
+- **Growth**: Chỉ số tăng trưởng mỗi tầng
+- **Số tầng luyện khí**: 1-13 (tầng hiện tại nếu đang ở luyện khí, 13 nếu đã lên cảnh giới cao hơn)
+- **Stage multiplier**: Luyện Khí: 1, Trúc Cơ: 5, Kết Đan: 25, Nguyên Anh: 125
+- **Tier multiplier**: Luyện Khí: 1, Sơ Kỳ: 1.0, Trung Kỳ: 1.5, Hậu Kỳ: 2.0
 
 ### Ví dụ tính toán:
-**Kim Linh Căn - Luyện Khí Tầng 5:**
-- Tấn công cơ bản: 12
-- Bonus cấp độ: +8
-- Hệ số cảnh giới: 1.4x
-- Bonus ngũ hành: 1.15x (tấn công)
+**Kim Linh Căn - Trúc Cơ Trung Kỳ:**
+- Basic ATK: 12
+- Growth ATK: 1.8
+- Số tầng luyện khí: 13
+- Stage multiplier: 5
+- Tier multiplier: 1.5
 
-**Tấn công cuối cùng = (12 + 8) × 1.4 × 1.15 = 32**
+**ATK cuối = (12 + 1.8 × 13) × (5 × 1.5) = 35.4 × 7.5 = 265**
 
 ---
 

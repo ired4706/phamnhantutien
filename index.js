@@ -223,7 +223,7 @@ async function handleButtonInteraction(interaction) {
 
     if (result.success) {
       const spiritRoot = result.spiritRoot;
-      
+
       // Tự động học kỹ năng ban đầu cho Luyện Khí
       const player = playerManager.getPlayer(interaction.user.id);
       const learnedSkills = autoLearnInitialSkills(player);
@@ -255,12 +255,12 @@ async function handleButtonInteraction(interaction) {
           },
           {
             name: '🎯 Basic Stats',
-            value: `**ATK**: ${spiritRoot.basic_stats.attack}\n**DEF**: ${spiritRoot.basic_stats.defense}\n**HP**: ${spiritRoot.basic_stats.hp}\n**MP**: ${spiritRoot.basic_stats.mana}\n**SPD**: ${spiritRoot.basic_stats.speed}\n**CRT**: ${spiritRoot.basic_stats.critical}%\n**RGN**: ${spiritRoot.basic_stats.regen}\n**EVA**: ${spiritRoot.basic_stats.evasion}%\n**REP**: ${spiritRoot.basic_stats.reputation}\n**KAR**: ${spiritRoot.basic_stats.karma}`,
+            value: `**ATK**: ${spiritRoot.basic_stats.attack}\n**DEF**: ${spiritRoot.basic_stats.defense}\n**HP**: ${spiritRoot.basic_stats.hp}\n**MP**: ${spiritRoot.basic_stats.mana}\n**SPD**: ${spiritRoot.basic_stats.speed}\n**CRT (rating)**: ${spiritRoot.basic_stats.critical}\n**RGN**: ${spiritRoot.basic_stats.regen}\n**EVA (rating)**: ${spiritRoot.basic_stats.evasion}`,
             inline: true
           },
           {
             name: '📈 Growth Rates',
-            value: `**ATK**: +${spiritRoot.growth_rates.attack}\n**DEF**: +${spiritRoot.growth_rates.defense}\n**HP**: +${spiritRoot.growth_rates.hp}\n**MP**: +${spiritRoot.growth_rates.mana}\n**SPD**: +${spiritRoot.growth_rates.speed}\n**CRT**: +${spiritRoot.growth_rates.critical}%\n**RGN**: +${spiritRoot.growth_rates.regen}\n**EVA**: +${spiritRoot.growth_rates.evasion}%\n**REP**: +${spiritRoot.growth_rates.reputation}\n**KAR**: +${spiritRoot.growth_rates.karma}`,
+            value: `**ATK**: +${spiritRoot.growth_rates.attack}\n**DEF**: +${spiritRoot.growth_rates.defense}\n**HP**: +${spiritRoot.growth_rates.hp}\n**MP**: +${spiritRoot.growth_rates.mana}\n**SPD**: +${spiritRoot.growth_rates.speed}\n**CRT (rating)**: +${spiritRoot.growth_rates.critical}\n**RGN**: +${spiritRoot.growth_rates.regen}\n**EVA (rating)**: +${spiritRoot.growth_rates.evasion}`,
             inline: true
           }
         );
@@ -275,8 +275,8 @@ async function handleButtonInteraction(interaction) {
         });
       }
 
-      successEmbed.setFooter({ 
-        text: 'Bây giờ bạn có thể sử dụng fstatus để xem thông tin chi tiết!\nSử dụng fskills để xem kỹ năng đã học!' 
+      successEmbed.setFooter({
+        text: 'Bây giờ bạn có thể sử dụng fstatus để xem thông tin chi tiết!\nSử dụng fskills để xem kỹ năng đã học!'
       });
       successEmbed.setTimestamp();
 
@@ -520,12 +520,12 @@ async function handleButtonInteraction(interaction) {
       .addFields(
         {
           name: '🎯 Basic Stats',
-          value: `**ATK**: ${spiritRoot.basic_stats.attack}\n**DEF**: ${spiritRoot.basic_stats.defense}\n**HP**: ${spiritRoot.basic_stats.hp}\n**MP**: ${spiritRoot.basic_stats.mana}\n**SPD**: ${spiritRoot.basic_stats.speed}\n**CRT**: ${spiritRoot.basic_stats.critical}%\n**RGN**: ${spiritRoot.basic_stats.regen}\n**EVA**: ${spiritRoot.basic_stats.evasion}%\n**REP**: ${spiritRoot.basic_stats.reputation}\n**KAR**: ${spiritRoot.basic_stats.karma}`,
+          value: `**ATK**: ${spiritRoot.basic_stats.attack}\n**DEF**: ${spiritRoot.basic_stats.defense}\n**HP**: ${spiritRoot.basic_stats.hp}\n**MP**: ${spiritRoot.basic_stats.mana}\n**SPD**: ${spiritRoot.basic_stats.speed}\n**CRT (rating)**: ${spiritRoot.basic_stats.critical}\n**RGN**: ${spiritRoot.basic_stats.regen}\n**EVA (rating)**: ${spiritRoot.basic_stats.evasion}`,
           inline: true
         },
         {
           name: '📈 Growth Rates',
-          value: `**ATK**: +${spiritRoot.growth_rates.attack}\n**DEF**: +${spiritRoot.growth_rates.defense}\n**HP**: +${spiritRoot.growth_rates.hp}\n**MP**: +${spiritRoot.growth_rates.mana}\n**SPD**: +${spiritRoot.growth_rates.speed}\n**CRT**: +${spiritRoot.growth_rates.critical}%\n**RGN**: +${spiritRoot.growth_rates.regen}\n**EVA**: +${spiritRoot.growth_rates.evasion}%\n**REP**: +${spiritRoot.growth_rates.reputation}\n**KAR**: +${spiritRoot.growth_rates.karma}`,
+          value: `**ATK**: +${spiritRoot.growth_rates.attack}\n**DEF**: +${spiritRoot.growth_rates.defense}\n**HP**: +${spiritRoot.growth_rates.hp}\n**MP**: +${spiritRoot.growth_rates.mana}\n**SPD**: +${spiritRoot.growth_rates.speed}\n**CRT (rating)**: +${spiritRoot.growth_rates.critical}\n**RGN**: +${spiritRoot.growth_rates.regen}\n**EVA (rating)**: +${spiritRoot.growth_rates.evasion}`,
           inline: true
         },
         {
@@ -558,45 +558,45 @@ async function handleButtonInteraction(interaction) {
 function autoLearnInitialSkills(player) {
   const fs = require('fs');
   const path = require('path');
-  
+
   try {
     const skillsData = JSON.parse(fs.readFileSync(path.join(__dirname, 'data/skills.json'), 'utf8'));
     const learnedSkills = [];
-    
+
     // Lấy kỹ năng của linh căn và tu vi Luyện Khí
     const spiritRoot = player.spiritRoot;
     const realm = 'luyen_khi';
     const realmSkills = skillsData[`${spiritRoot}_skills`][realm] || [];
-    
+
     // Khởi tạo skills nếu chưa có
     if (!player.skills) {
       player.skills = {};
     }
-    
+
     // Học tất cả kỹ năng Luyện Khí
     realmSkills.forEach(skill => {
       // Kiểm tra xem đã học chưa
       if (!player.skills[skill.id]) {
         // Kiểm tra điều kiện học (tu vi và cấp độ)
-        if (skill.required_realm === realm && 
-            skill.required_level <= player.realmLevel && 
-            skill.required_spirit_root === spiritRoot) {
-          
+        if (skill.required_realm === realm &&
+          skill.required_level <= player.realmLevel &&
+          skill.required_spirit_root === spiritRoot) {
+
           // Học kỹ năng
           player.skills[skill.id] = {
             learned_at: new Date().toISOString()
           };
-          
+
           learnedSkills.push(skill);
           console.log(`Auto-learned initial skill: ${skill.name} for player ${player.username}`);
         }
       }
     });
-    
+
     // Lưu player data
     const playerManager = require('./systems/player.js');
     playerManager.savePlayers();
-    
+
     return learnedSkills;
   } catch (error) {
     console.error('Error auto-learning initial skills:', error);
