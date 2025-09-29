@@ -49,10 +49,22 @@ module.exports = {
 
       // Tạo UI trận chiến
       const combatUI = combatSystem.createCombatUI(combat);
-      const reply = await interaction.reply(combatUI);
+      const reply = await interaction.reply({ ...combatUI, fetchReply: true });
 
       // Lưu message để có thể edit sau này
       combat.lastMessage = reply;
+
+      // Nếu quái vật đi trước theo initiative, cho quái hành động ngay
+      if (combat.currentTurn === 'monster') {
+        // Trễ nhẹ để người chơi kịp thấy UI ban đầu
+        setTimeout(async () => {
+          try {
+            await combatSystem.performMonsterTurn(combat);
+          } catch (e) {
+            console.error('Error performing initial monster turn:', e);
+          }
+        }, 800);
+      }
 
     } catch (error) {
       console.error('Error in hunt command:', error);

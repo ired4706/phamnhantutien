@@ -3,13 +3,13 @@
     "userId": "504705413682298891",
     "username": "ired0806",
     "spiritRoot": "hoa",
-    "experience": 154,
+    "experience": 197,
     "realm": "luyen_khi",
     "realmLevel": 1,
     "totalTiers": 0,
     "inventory": {
       "spiritStones": {
-        "ha_pham": 7,
+        "ha_pham": 8,
         "trung_pham": 0,
         "thuong_pham": 0,
         "cuc_pham": 0
@@ -29,7 +29,7 @@
         },
         {
           "id": "thanh_van_to",
-          "quantity": 301
+          "quantity": 302
         },
         {
           "id": "tu_hau_hoa",
@@ -93,7 +93,7 @@
         },
         {
           "id": "da_thu_tho",
-          "quantity": 1
+          "quantity": 2
         },
         {
           "id": "da_linh_thu",
@@ -255,7 +255,7 @@
       "breakthroughAttempts": 0,
       "lastBreakthrough": 0,
       "lastMeditate": 0,
-      "lastHunt": 1757588499834,
+      "lastHunt": 1758700708634,
       "lastChallenge": 0,
       "lastDomain": 0,
       "lastDailyQuest": 0,
@@ -286,7 +286,7 @@
     },
     "achievements": [],
     "joinDate": 1757583527158,
-    "lastActive": 1757588499834,
+    "lastActive": 1758700708634,
     "stats": {
       "attack": 16,
       "defense": 9,
@@ -310,13 +310,13 @@
     "userId": "558528163244802089",
     "username": "just_archer",
     "spiritRoot": "thuy",
-    "experience": 17217,
+    "experience": 33193,
     "realm": "luyen_khi",
     "realmLevel": 1,
     "totalTiers": 0,
     "inventory": {
       "spiritStones": {
-        "ha_pham": 3,
+        "ha_pham": 8,
         "trung_pham": 0,
         "thuong_pham": 0,
         "cuc_pham": 0
@@ -333,6 +333,10 @@
         {
           "id": "tieu_long_lan_qua",
           "quantity": 3
+        },
+        {
+          "id": "da_thu_tho",
+          "quantity": 1
         }
       ],
       "weapons": [],
@@ -344,16 +348,16 @@
       "breakthroughAttempts": 0,
       "lastBreakthrough": 0,
       "lastMeditate": 0,
-      "lastHunt": 1757586879134,
+      "lastHunt": 1758702674883,
       "lastChallenge": 0,
-      "lastDomain": 1757586688269,
+      "lastDomain": 1758701326954,
       "lastDailyQuest": 0,
       "lastWeeklyQuest": 0,
       "lastDungeon": 0,
       "lastMine": 0,
       "lastPick": 0,
       "lastExplore": 0,
-      "lastDaily": 1757586700658
+      "lastDaily": 1758701393728
     },
     "skills": {
       "thuy_luu_tien": {
@@ -376,7 +380,7 @@
     },
     "achievements": [],
     "joinDate": 1757586658936,
-    "lastActive": 1757586879135,
+    "lastActive": 1758702674884,
     "stats": {
       "attack": 10.2,
       "defense": 10.2,
@@ -393,7 +397,8 @@
     },
     "luyenKhiTiers": 1,
     "stageMultiplier": 1,
-    "tierMultiplier": 1
+    "tierMultiplier": 1,
+    "id": "558528163244802089"
   },
   "397226790709624834": {
     "userId": "397226790709624834",

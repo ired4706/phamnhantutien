@@ -298,8 +298,17 @@ async function handleButtonInteraction(interaction) {
   if (customId.startsWith('combat_')) {
     const combatSystem = require('./systems/combat.js');
     const parts = customId.split('_');
-    const action = parts[1];
-    const combatId = parts.slice(2).join('_'); // Lấy tất cả phần sau action
+    // Hỗ trợ: combat_attack_<id>, combat_defend_<id>, combat_skill_<id>, combat_item_<id>,
+    //          combat_skilluse_<id>_<skillId>, combat_back_<id>
+    let action = parts[1];
+    let combatId = parts.slice(2).join('_');
+    if (parts[1] === 'skilluse') {
+      action = 'skilluse';
+      combatId = parts[2] + (parts[3] ? '_' + parts[3] : '');
+    } else if (parts[1] === 'back') {
+      action = 'back';
+      combatId = parts.slice(2).join('_');
+    }
 
     console.log(`Combat button clicked: action=${action}, combatId=${combatId}`);
     await combatSystem.handlePlayerAction(combatId, action, interaction);
