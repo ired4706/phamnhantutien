@@ -50,14 +50,14 @@ class MonsterManager {
     const elements = ['kim', 'moc', 'thuy', 'hoa', 'tho', 'phong', 'loi', 'vo_he'];
     const randomElement = elements[Math.floor(Math.random() * elements.length)];
 
-    // Tính power multiplier dựa trên variant
+    // Tính power multiplier dựa trên variant (theo yêu cầu mới)
     let powerMultiplier = 1.0;
     if (variant === "normal") {
-      powerMultiplier = 0.7 + Math.random() * 0.15; // 70-85%
+      powerMultiplier = 0.5 + Math.random() * 0.1; // 50-60%
     } else if (variant === "mutated") {
-      powerMultiplier = 1.1 + Math.random() * 0.2; // 110-130%
+      powerMultiplier = 0.85 + Math.random() * 0.15; // 85-100%
     } else if (variant === "super_mutated") {
-      powerMultiplier = 2.0 + Math.random() * 0.5; // 200-250%
+      powerMultiplier = 1.3 + Math.random() * 0.2; // 130-150%
     }
 
     // Tính chỉ số quái dựa trên raw stats của người chơi

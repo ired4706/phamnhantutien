@@ -3,7 +3,7 @@
     "userId": "504705413682298891",
     "username": "ired0806",
     "spiritRoot": "hoa",
-    "experience": 197,
+    "experience": 361,
     "realm": "luyen_khi",
     "realmLevel": 1,
     "totalTiers": 0,
@@ -29,7 +29,7 @@
         },
         {
           "id": "thanh_van_to",
-          "quantity": 302
+          "quantity": 304
         },
         {
           "id": "tu_hau_hoa",
@@ -93,7 +93,7 @@
         },
         {
           "id": "da_thu_tho",
-          "quantity": 2
+          "quantity": 3
         },
         {
           "id": "da_linh_thu",
@@ -102,6 +102,10 @@
         {
           "id": "anh_diep_thao",
           "quantity": 1
+        },
+        {
+          "id": "nguyet_anh_to",
+          "quantity": 2
         }
       ],
       "weapons": [
@@ -255,7 +259,7 @@
       "breakthroughAttempts": 0,
       "lastBreakthrough": 0,
       "lastMeditate": 0,
-      "lastHunt": 1758700708634,
+      "lastHunt": 1759229263497,
       "lastChallenge": 0,
       "lastDomain": 0,
       "lastDailyQuest": 0,
@@ -286,7 +290,7 @@
     },
     "achievements": [],
     "joinDate": 1757583527158,
-    "lastActive": 1758700708634,
+    "lastActive": 1759229263497,
     "stats": {
       "attack": 16,
       "defense": 9,
@@ -310,7 +314,7 @@
     "userId": "558528163244802089",
     "username": "just_archer",
     "spiritRoot": "thuy",
-    "experience": 33193,
+    "experience": 33237,
     "realm": "luyen_khi",
     "realmLevel": 1,
     "totalTiers": 0,
@@ -337,6 +341,10 @@
         {
           "id": "da_thu_tho",
           "quantity": 1
+        },
+        {
+          "id": "da_linh_thu",
+          "quantity": 1
         }
       ],
       "weapons": [],
@@ -348,7 +356,7 @@
       "breakthroughAttempts": 0,
       "lastBreakthrough": 0,
       "lastMeditate": 0,
-      "lastHunt": 1758702674883,
+      "lastHunt": 1759226195665,
       "lastChallenge": 0,
       "lastDomain": 1758701326954,
       "lastDailyQuest": 0,
@@ -380,7 +388,7 @@
     },
     "achievements": [],
     "joinDate": 1757586658936,
-    "lastActive": 1758702674884,
+    "lastActive": 1759226195666,
     "stats": {
       "attack": 10.2,
       "defense": 10.2,

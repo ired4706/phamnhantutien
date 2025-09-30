@@ -268,6 +268,12 @@ class CombatSystem {
           combat.battleLog.push(result.message);
           result._pushed = true;
         }
+        // Nếu quái đã chết, kết thúc trận ngay lập tức
+        if (this.checkCombatEnd(combat)) {
+          combat.actionLock = false;
+          await this.endCombat(combat, interaction);
+          return;
+        }
         // không còn giới hạn 1 lần/turn, chỉ trừ AP
         combat.playerAp = Math.max(0, (combat.playerAp || 0) - 1);
         console.log('[COMBAT] after ATTACK: AP=', combat.playerAp, 'turn=', combat.turn);
@@ -318,6 +324,12 @@ class CombatSystem {
         // không còn giới hạn 1 lần/turn; chỉ trừ AP và kiểm tra cooldown
         combat.uiLock = 'skill_resolve';
         result = await this.usePlayerSkill(combat, skillId, interaction);
+        // Nếu quái đã chết sau khi dùng skill, kết thúc trận ngay lập tức
+        if (this.checkCombatEnd(combat)) {
+          combat.actionLock = false;
+          await this.endCombat(combat, interaction);
+          return;
+        }
         combat.playerAp = Math.max(0, (combat.playerAp || 0) - 1);
         console.log('[COMBAT] after SKILL: AP=', combat.playerAp, 'turn=', combat.turn);
         // Nếu hết AP, chuyển lượt ngay cho quái hành động lập tức
@@ -730,10 +742,11 @@ class CombatSystem {
       const spiritStones = { ha_pham: combat.monster.spiritStonesReward, trung_pham: 0, thuong_pham: 0, cuc_pham: 0 };
       SpiritStonesCalculator.updatePlayerSpiritStones(combat.player, spiritStones);
 
-      // Thêm vật phẩm
-      const huntItems = ItemDropCalculator.calculateHuntItems(combat.player);
+      // Thêm vật phẩm (sử dụng bản ghi player trong PlayerManager để đảm bảo lưu đúng)
+      const storePlayer = playerManager.getPlayer(combat.player.userId) || combat.player;
+      const huntItems = ItemDropCalculator.calculateHuntItems(storePlayer);
       huntItems.forEach(item => {
-        playerManager.addItemToInventory(combat.player, item.id, 1);
+        playerManager.addItemToInventory(storePlayer, item.id, 1);
       });
 
       // Cập nhật cooldown
@@ -764,6 +777,20 @@ class CombatSystem {
       )
       .setFooter({ text: 'Trận chiến đã kết thúc' })
       .setTimestamp();
+
+    // Nếu thắng và có item rơi, thêm field hiển thị vật phẩm
+    if (playerWon) {
+      try {
+        const ItemDropCalculator = require('../utils/item-drop-calculator.js');
+        const droppedItems = ItemDropCalculator.calculateHuntItems(combat.player) || [];
+        if (droppedItems.length > 0) {
+          const itemLines = droppedItems.map(it => `• ${it.name || it.id}${it.quantity ? ` x${it.quantity}` : ''}`).join('\n');
+          embed.addFields({ name: '🦴 Vật phẩm', value: itemLines, inline: false });
+        }
+      } catch (e) {
+        console.error('Error formatting dropped items:', e);
+      }
+    }
 
     const row = new ActionRowBuilder()
       .addComponents(
