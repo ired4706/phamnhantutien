@@ -33,19 +33,26 @@ const config = {
 // Collection để lưu trữ commands
 client.commands = new Collection();
 
-// Load commands
-const commandsPath = path.join(__dirname, 'commands');
-const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
+// Load commands from new structure
+const commandsPath = path.join(__dirname, 'src/commands');
+const commandCategories = fs.readdirSync(commandsPath, { withFileTypes: true })
+  .filter(dirent => dirent.isDirectory())
+  .map(dirent => dirent.name);
 
-for (const file of commandFiles) {
-  const filePath = path.join(commandsPath, file);
-  const command = require(filePath);
+for (const category of commandCategories) {
+  const categoryPath = path.join(commandsPath, category);
+  const commandFiles = fs.readdirSync(categoryPath).filter(file => file.endsWith('.js'));
 
-  if ('name' in command && 'execute' in command) {
-    client.commands.set(command.name, command);
-    console.log(`✅ Loaded command: ${command.name}`);
-  } else {
-    console.log(`❌ Command at ${filePath} is missing required properties`);
+  for (const file of commandFiles) {
+    const filePath = path.join(categoryPath, file);
+    const command = require(filePath);
+
+    if ('name' in command && 'execute' in command) {
+      client.commands.set(command.name, command);
+      console.log(`✅ Loaded command: ${command.name} (${category})`);
+    } else {
+      console.log(`❌ Command at ${filePath} is missing required properties`);
+    }
   }
 }
 
@@ -148,7 +155,7 @@ client.on('interactionCreate', async interaction => {
   try {
     if (customId === 'falchemy_select_elixir' || customId.startsWith('falchemy_select_qty:')) {
       const falchemyCommand = require('./commands/alchemy.js');
-      const playerManager = require('./systems/player.js');
+      const playerManager = require('./src/systems/player.js');
 
       const userId = interaction.user.id;
 
@@ -165,7 +172,7 @@ client.on('interactionCreate', async interaction => {
 
     if (customId === 'forge_select_weapon' || customId.startsWith('forge_select_qty:')) {
       const forgeCommand = require('./commands/forge.js');
-      const playerManager = require('./systems/player.js');
+      const playerManager = require('./src/systems/player.js');
 
       const userId = interaction.user.id;
 
@@ -182,7 +189,7 @@ client.on('interactionCreate', async interaction => {
 
     if (customId === 'craft_select_equipment' || customId.startsWith('craft_select_qty:')) {
       const craftCommand = require('./commands/craft.js');
-      const playerManager = require('./systems/player.js');
+      const playerManager = require('./src/systems/player.js');
 
       const userId = interaction.user.id;
 
@@ -213,7 +220,7 @@ async function handleButtonInteraction(interaction) {
   // Xử lý chọn linh căn
   if (customId.startsWith('choose_')) {
     const spiritRootType = customId.replace('choose_', '');
-    const playerManager = require('./systems/player.js');
+    const playerManager = require('./src/systems/player.js');
 
     const result = playerManager.chooseSpiritRoot(
       interaction.user.id,
@@ -296,7 +303,7 @@ async function handleButtonInteraction(interaction) {
 
   // Xử lý combat buttons
   if (customId.startsWith('combat_')) {
-    const combatSystem = require('./systems/combat.js');
+    const combatSystem = require('./src/systems/combat.js');
     const parts = customId.split('_');
     // Hỗ trợ: combat_attack_<id>, combat_defend_<id>, combat_skill_<id>, combat_item_<id>,
     //          combat_skilluse_<id>_<skillId>, combat_back_<id>
@@ -319,7 +326,7 @@ async function handleButtonInteraction(interaction) {
   if (customId.startsWith('inventory_')) {
     try {
       const inventoryCommand = require('./commands/inventory.js');
-      const playerManager = require('./systems/player.js');
+      const playerManager = require('./src/systems/player.js');
 
       const userId = interaction.user.id;
       const username = interaction.user.username;
@@ -353,7 +360,7 @@ async function handleButtonInteraction(interaction) {
   if (customId.startsWith('falchemy_')) {
     try {
       const falchemyCommand = require('./commands/alchemy.js');
-      const playerManager = require('./systems/player.js');
+      const playerManager = require('./src/systems/player.js');
 
       const userId = interaction.user.id;
       const username = interaction.user.username;
@@ -391,7 +398,7 @@ async function handleButtonInteraction(interaction) {
   if (customId.startsWith('forge_')) {
     try {
       const forgeCommand = require('./commands/forge.js');
-      const playerManager = require('./systems/player.js');
+      const playerManager = require('./src/systems/player.js');
 
       const userId = interaction.user.id;
       const username = interaction.user.username;
@@ -429,7 +436,7 @@ async function handleButtonInteraction(interaction) {
   if (customId.startsWith('craft_')) {
     try {
       const craftCommand = require('./commands/craft.js');
-      const playerManager = require('./systems/player.js');
+      const playerManager = require('./src/systems/player.js');
 
       const userId = interaction.user.id;
 
@@ -461,7 +468,7 @@ async function handleButtonInteraction(interaction) {
   if (customId === 'falchemy_select_elixir') {
     try {
       const falchemyCommand = require('./commands/alchemy.js');
-      const playerManager = require('./systems/player.js');
+      const playerManager = require('./src/systems/player.js');
 
       const userId = interaction.user.id;
       const username = interaction.user.username;
@@ -523,7 +530,7 @@ async function handleButtonInteraction(interaction) {
   // Xử lý xem thông tin linh căn (từ command spiritroot)
   if (customId.startsWith('spirit_')) {
     const spiritType = customId.replace('spirit_', '');
-    const playerManager = require('./systems/player.js');
+    const playerManager = require('./src/systems/player.js');
     const spiritRoot = playerManager.getSpiritRootInfo(spiritType);
 
     if (!spiritRoot) {
@@ -615,7 +622,7 @@ function autoLearnInitialSkills(player) {
     });
 
     // Lưu player data
-    const playerManager = require('./systems/player.js');
+    const playerManager = require('./src/systems/player.js');
     playerManager.savePlayers();
 
     return learnedSkills;
