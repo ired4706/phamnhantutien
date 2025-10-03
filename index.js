@@ -2,6 +2,7 @@ const { Client, GatewayIntentBits, Collection } = require('discord.js');
 const fs = require('fs');
 const path = require('path');
 require('dotenv').config();
+const { getContainer } = require('./src/container/ServiceContainer');
 
 // Kiểm tra các biến môi trường bắt buộc
 if (!process.env.BOT_TOKEN) {
@@ -16,6 +17,10 @@ const client = new Client({
     GatewayIntentBits.MessageContent
   ]
 });
+
+// Initialize DI container and attach to client
+const container = getContainer();
+client.container = container;
 
 // Cấu hình từ biến môi trường
 const config = {
@@ -154,7 +159,7 @@ client.on('interactionCreate', async interaction => {
 
   try {
     if (customId === 'falchemy_select_elixir' || customId.startsWith('falchemy_select_qty:')) {
-      const falchemyCommand = require('./commands/alchemy.js');
+      const falchemyCommand = require('./src/commands/crafting/alchemy.js');
       const playerManager = require('./src/systems/player.js');
 
       const userId = interaction.user.id;
@@ -171,7 +176,7 @@ client.on('interactionCreate', async interaction => {
     }
 
     if (customId === 'forge_select_weapon' || customId.startsWith('forge_select_qty:')) {
-      const forgeCommand = require('./commands/forge.js');
+      const forgeCommand = require('./src/commands/crafting/forge.js');
       const playerManager = require('./src/systems/player.js');
 
       const userId = interaction.user.id;
@@ -188,7 +193,7 @@ client.on('interactionCreate', async interaction => {
     }
 
     if (customId === 'craft_select_equipment' || customId.startsWith('craft_select_qty:')) {
-      const craftCommand = require('./commands/craft.js');
+      const craftCommand = require('./src/commands/crafting/craft.js');
       const playerManager = require('./src/systems/player.js');
 
       const userId = interaction.user.id;
@@ -257,7 +262,7 @@ async function handleButtonInteraction(interaction) {
           },
           {
             name: '💎 Linh Thạch',
-            value: '100',
+            value: String(player.inventory && player.inventory.spiritStones ? player.inventory.spiritStones.ha_pham : 100),
             inline: true
           },
           {
@@ -325,7 +330,7 @@ async function handleButtonInteraction(interaction) {
   // Xử lý button inventory
   if (customId.startsWith('inventory_')) {
     try {
-      const inventoryCommand = require('./commands/inventory.js');
+      const inventoryCommand = require('./src/commands/management/inventory.js');
       const playerManager = require('./src/systems/player.js');
 
       const userId = interaction.user.id;
@@ -359,7 +364,7 @@ async function handleButtonInteraction(interaction) {
   // Xử lý button falchemy
   if (customId.startsWith('falchemy_')) {
     try {
-      const falchemyCommand = require('./commands/alchemy.js');
+      const falchemyCommand = require('./src/commands/crafting/alchemy.js');
       const playerManager = require('./src/systems/player.js');
 
       const userId = interaction.user.id;
@@ -397,7 +402,7 @@ async function handleButtonInteraction(interaction) {
   // Xử lý button forge
   if (customId.startsWith('forge_')) {
     try {
-      const forgeCommand = require('./commands/forge.js');
+      const forgeCommand = require('./src/commands/crafting/forge.js');
       const playerManager = require('./src/systems/player.js');
 
       const userId = interaction.user.id;
@@ -435,7 +440,7 @@ async function handleButtonInteraction(interaction) {
   // Xử lý button craft (trang bị)
   if (customId.startsWith('craft_')) {
     try {
-      const craftCommand = require('./commands/craft.js');
+      const craftCommand = require('./src/commands/crafting/craft.js');
       const playerManager = require('./src/systems/player.js');
 
       const userId = interaction.user.id;
@@ -467,7 +472,7 @@ async function handleButtonInteraction(interaction) {
   // Xử lý select menu falchemy
   if (customId === 'falchemy_select_elixir') {
     try {
-      const falchemyCommand = require('./commands/alchemy.js');
+      const falchemyCommand = require('./src/commands/crafting/alchemy.js');
       const playerManager = require('./src/systems/player.js');
 
       const userId = interaction.user.id;

@@ -17,7 +17,8 @@ class ItemLoader {
     try {
       if (this.loaded) return this.items;
 
-      const itemsDir = path.join(__dirname, '../data/items');
+      // Point to project data/items directory
+      const itemsDir = path.join(__dirname, '../../../data/items');
       const indexPath = path.join(itemsDir, 'index.json');
 
       // Load file index để biết cấu trúc
@@ -49,7 +50,7 @@ class ItemLoader {
         }
       } else {
         // Fallback: load file items.json cũ nếu có
-        const oldItemsPath = path.join(__dirname, '../data/items.json');
+        const oldItemsPath = path.join(__dirname, '../../../data/items.json');
         if (fs.existsSync(oldItemsPath)) {
           const oldData = JSON.parse(fs.readFileSync(oldItemsPath, 'utf8'));
           this.mergeItems(oldData, 'legacy');
