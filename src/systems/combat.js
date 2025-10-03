@@ -97,6 +97,237 @@ class CombatSystem {
     return combat;
   }
 
+  // Khởi tạo trận chiến theo nhiều ải (waves)
+  startWaveCombat(player, monsters, interaction) {
+    if (!Array.isArray(monsters) || monsters.length === 0) {
+      throw new Error('startWaveCombat cần mảng quái hợp lệ');
+    }
+
+    // Bắt đầu với quái đầu tiên
+    const firstMonster = monsters[0];
+    const combat = this.startCombat(player, firstMonster, interaction);
+    combat.waves = monsters;
+    combat.currentWaveIndex = 0;
+    combat.battleLog.push(`📣 Bắt đầu ải 1/${monsters.length}: ${firstMonster.name}`);
+
+    return combat;
+  }
+
+  // ===== RAID (NHIỀU NGƯỜI VS 1+ QUÁI, NHIỀU ẢI) =====
+  startRaidCombat(partyPlayers, wavesMonsters, interaction) {
+    if (!Array.isArray(partyPlayers) || partyPlayers.length === 0) {
+      throw new Error('startRaidCombat cần danh sách người chơi hợp lệ');
+    }
+    if (!Array.isArray(wavesMonsters) || wavesMonsters.length === 0) {
+      throw new Error('startRaidCombat cần danh sách các ải quái hợp lệ');
+    }
+
+    const combatId = `raid_${Date.now()}`;
+    const party = partyPlayers.map(p => ({
+      ...p,
+      userId: p.id,
+      name: p.username || 'Người chơi',
+      currentHp: parseFloat(p.stats.hp),
+      currentMp: parseFloat(p.stats.mp),
+      statusEffects: [],
+      cooldowns: {}
+    }));
+
+    const initWave = wavesMonsters[0].map(m => ({
+      ...m,
+      currentHp: parseFloat(m.stats.hp),
+      currentMp: parseFloat(m.stats.mp),
+      statusEffects: [],
+      cooldowns: {}
+    }));
+
+    const combat = {
+      id: combatId,
+      mode: 'raid',
+      party: party,
+      monsters: initWave,
+      waves: wavesMonsters,
+      currentWaveIndex: 0,
+      turn: 1,
+      currentTurn: 'party', // 'party' hoặc 'monster'
+      currentActorIndex: 0,
+      currentActorUserId: party[0].userId,
+      battleLog: [],
+      interaction: interaction,
+      channel: interaction.channel,
+      isActive: true
+    };
+
+    this.activeCombats.set(combatId, combat);
+    combat.battleLog.push(`📣 Bắt đầu RAID - Ải 1/${wavesMonsters.length}`);
+    return combat;
+  }
+
+  createRaidUI(combat) {
+    const waveInfo = `Ải ${(combat.currentWaveIndex || 0) + 1}/${combat.waves.length}`;
+    const partyLines = combat.party.map(p => `• ${p.name}: ${p.currentHp.toFixed(1)}/${p.stats.hp} HP, ${p.currentMp.toFixed(1)}/${p.stats.mp} MP`).join('\n');
+    const monsterLines = combat.monsters.map((m, i) => `• ${m.emoji || '👹'} ${m.name}: ${m.currentHp.toFixed(1)}/${m.stats.hp} HP`).join('\n');
+
+    const embed = new EmbedBuilder()
+      .setColor('#F1C40F')
+      .setTitle('🏰 Domain Raid')
+      .setDescription(`**Turn ${combat.turn}** - ${combat.currentTurn === 'party' ? `Lượt của: ${combat.party[combat.currentActorIndex]?.name}` : 'Lượt của quái'}`)
+      .addFields(
+        { name: '👥 Party', value: partyLines || '—', inline: false },
+        { name: '👹 Địch', value: monsterLines || '—', inline: false },
+        { name: '🚪 Tiến độ', value: waveInfo, inline: true },
+        { name: '📜 Diễn Biến', value: combat.battleLog.slice(-5).join('\n') || 'Bắt đầu RAID!', inline: false }
+      )
+      .setFooter({ text: 'Chọn hành động để tiếp tục' })
+      .setTimestamp();
+
+    const isPlayerTurn = combat.currentTurn === 'party';
+    const row = new ActionRowBuilder()
+      .addComponents(
+        new ButtonBuilder().setCustomId(`combat_attack_${combat.id}`).setLabel('⚔️ Tấn Công').setStyle(ButtonStyle.Danger).setDisabled(!isPlayerTurn),
+        new ButtonBuilder().setCustomId(`combat_defend_${combat.id}`).setLabel('🛡️ Phòng Thủ').setStyle(ButtonStyle.Secondary).setDisabled(!isPlayerTurn),
+        new ButtonBuilder().setCustomId(`combat_skill_${combat.id}`).setLabel('✨ Kỹ Năng').setStyle(ButtonStyle.Primary).setDisabled(!isPlayerTurn),
+        new ButtonBuilder().setCustomId(`combat_item_${combat.id}`).setLabel('🧪 Vật Phẩm').setStyle(ButtonStyle.Success).setDisabled(!isPlayerTurn),
+        new ButtonBuilder().setCustomId(`combat_flee_${combat.id}`).setLabel('🏃 Rời Raid').setStyle(ButtonStyle.Danger).setDisabled(!isPlayerTurn)
+      );
+
+    return { embeds: [embed], components: [row] };
+  }
+
+  // Tiến lượt RAID cho party
+  nextRaidActor(combat) {
+    // chuyển sang actor party tiếp theo còn sống
+    const aliveParty = combat.party.filter(p => p.currentHp > 0);
+    if (aliveParty.length === 0) return;
+    let idx = combat.currentActorIndex;
+    let loops = 0;
+    do {
+      idx = (idx + 1) % combat.party.length;
+      loops++;
+      if (loops > combat.party.length + 2) break;
+    } while (combat.party[idx].currentHp <= 0);
+    combat.currentActorIndex = idx;
+    combat.currentActorUserId = combat.party[idx].userId;
+  }
+
+  // Lượt quái tấn công cả nhóm
+  async performMonsterGroupTurn(combat) {
+    if (!combat.isActive) return;
+    if (!combat.monsters || combat.monsters.length === 0) return;
+
+    // mỗi quái tấn công ngẫu nhiên một người chơi còn sống
+    for (const m of combat.monsters) {
+      if (m.currentHp <= 0) continue;
+      const alive = combat.party.filter(p => p.currentHp > 0);
+      if (alive.length === 0) break;
+      const target = alive[Math.floor(Math.random() * alive.length)];
+      const result = this.performAttack(m, target, combat);
+      if (result && result.message) {
+        combat.battleLog.push(result.message.replace(m.name, `${m.name}`).replace('⚔️', '💥'));
+      }
+      if (this.checkRaidEnd(combat)) break;
+    }
+
+    // Kiểm tra kết thúc ải (lọc quái chết)
+    combat.monsters = combat.monsters.filter(m => m.currentHp > 0);
+    const allMonstersDown = combat.monsters.length === 0;
+    if (allMonstersDown) {
+      // Nếu còn ải tiếp theo thì chuyển ải
+      const nextIdx = (combat.currentWaveIndex || 0) + 1;
+      if (nextIdx < combat.waves.length) {
+        combat.currentWaveIndex = nextIdx;
+        combat.monsters = combat.waves[nextIdx].map(x => ({
+          ...x,
+          currentHp: parseFloat(x.stats.hp),
+          currentMp: parseFloat(x.stats.mp),
+          statusEffects: [],
+          cooldowns: {}
+        }));
+        combat.turn++;
+        combat.currentTurn = 'party';
+        this.nextRaidRound(combat);
+        combat.battleLog.push(`🚪 Sang ải ${nextIdx + 1}/${combat.waves.length}`);
+        const ui = this.createRaidUI(combat);
+        await this.updateCombatUI(combat, ui, combat.interaction);
+        return;
+      } else {
+        // RAID kết thúc thắng lợi
+        combat.isActive = false;
+        this.activeCombats.delete(combat.id);
+        const embed = new (require('discord.js')).EmbedBuilder()
+          .setColor('#00FF00')
+          .setTitle('🏆 RAID Chiến Thắng!')
+          .setDescription('Toàn bộ ải đã bị đánh bại!')
+          .setTimestamp();
+        await this.updateCombatUI(combat, { embeds: [embed], components: [] }, combat.interaction);
+        return;
+      }
+    }
+
+    // Kiểm tra kết thúc, nếu chưa thì trả lượt về party
+    if (!this.checkRaidEnd(combat)) {
+      combat.currentTurn = 'party';
+      this.nextRaidRound(combat);
+    }
+
+    // Cập nhật UI sau khi quái hành động
+    try {
+      const ui = this.createRaidUI(combat);
+      await this.updateCombatUI(combat, ui, combat.interaction);
+    } catch (e) {
+      console.error('Error updating raid UI after monster turn:', e);
+    }
+  }
+
+  nextRaidRound(combat) {
+    combat.turn++;
+    // actor đầu tiên còn sống
+    const firstAliveIdx = combat.party.findIndex(p => p.currentHp > 0);
+    combat.currentActorIndex = Math.max(0, firstAliveIdx);
+    combat.currentActorUserId = combat.party[combat.currentActorIndex]?.userId;
+    // regen theo lượt
+    combat.party.forEach(p => this.applyRegeneration(p));
+    combat.monsters.forEach(m => this.applyRegeneration(m));
+  }
+
+  checkRaidEnd(combat) {
+    const allPlayersDown = combat.party.every(p => p.currentHp <= 0);
+    const allMonstersDown = combat.monsters.every(m => m.currentHp <= 0);
+    if (allPlayersDown) return true;
+    if (allMonstersDown) return true;
+    return false;
+  }
+
+  // Chuyển sang ải tiếp theo
+  advanceToNextWave(combat) {
+    if (!combat || !Array.isArray(combat.waves)) return false;
+    const nextIndex = (combat.currentWaveIndex || 0) + 1;
+    if (nextIndex >= combat.waves.length) {
+      return false;
+    }
+
+    // Thiết lập quái mới
+    const nextMonster = combat.waves[nextIndex];
+    combat.currentWaveIndex = nextIndex;
+    combat.monster = {
+      ...nextMonster,
+      currentHp: parseFloat(nextMonster.stats.hp),
+      currentMp: parseFloat(nextMonster.stats.mp),
+      statusEffects: [],
+      cooldowns: {}
+    };
+
+    // Reset một số trạng thái khi sang ải mới
+    combat.turn++;
+    combat.currentTurn = 'player';
+    combat.playerAp = combat.playerApMax;
+    combat.monsterAp = 1;
+    combat.turnActions = { attacked: false, usedSkill: false, usedWeaponSkill: false };
+
+    combat.battleLog.push(`🚪 Sang ải ${nextIndex + 1}/${combat.waves.length}: ${nextMonster.name}`);
+    return true;
+  }
+
   // Tính initiative dựa trên speed
   calculateInitiative(combat) {
     const playerSpeed = parseFloat(combat.player.stats.speed);
@@ -127,7 +358,7 @@ class CombatSystem {
     const embed = new EmbedBuilder()
       .setColor('#FF6B6B')
       .setTitle(`⚔️ Trận Chiến: ${combat.player.name} vs ${combat.monster.name}`)
-      .setDescription(`**Turn ${combat.turn}** - ${combat.currentTurn === 'player' ? 'Lượt của bạn' : `Lượt của ${combat.monster.name}`}`)
+      .setDescription(`**Turn ${combat.turn}** - ${combat.currentTurn === 'player' ? 'Lượt của bạn' : `Lượt của ${combat.monster.name}`}` + (Array.isArray(combat.waves) ? `\n**Ải**: ${(combat.currentWaveIndex || 0) + 1}/${combat.waves.length}` : ''))
       .addFields(
         {
           name: '👤 Người Chơi',
@@ -257,6 +488,110 @@ class CombatSystem {
         'attacked=', !!ta.attacked, 'usedSkill=', !!ta.usedSkill,
         'lock=', !!combat.actionLock, 'uiLock=', combat.uiLock);
     } catch (e) { }
+
+    // RAID MODE: xử lý riêng cho nhiều người
+    if (combat.mode === 'raid') {
+      // Chỉ cho phép actor hiện tại thao tác
+      if (interaction.user?.id && combat.currentActorUserId && interaction.user.id !== combat.currentActorUserId) {
+        if (!interaction.replied && !interaction.deferred) {
+          await interaction.reply({ content: '❌ Không phải lượt của bạn!', flags: 64 });
+        }
+        return;
+      }
+
+      if (combat.currentTurn !== 'party') {
+        // Lượt quái: để quái đánh rồi cập nhật UI
+        await this.performMonsterGroupTurn(combat);
+        await this.updateCombatUI(combat, this.createRaidUI(combat), interaction);
+        return;
+      }
+
+      const actor = combat.party[combat.currentActorIndex];
+      let result = null;
+      switch (action) {
+        case 'attack': {
+          // Tấn công quái còn sống đầu tiên
+          const target = combat.monsters.find(m => m.currentHp > 0);
+          if (!target) return;
+          result = this.performAttack(actor, target, combat);
+          if (result && result.message) combat.battleLog.push(`👤 ${actor.name}: ${result.message}`);
+          break;
+        }
+        case 'defend':
+          result = this.performDefend(actor, combat);
+          if (result && result.message) combat.battleLog.push(`👤 ${actor.name}: ${result.message}`);
+          break;
+        case 'skill':
+          // Tạm thời dùng menu kỹ năng đơn như PvE, nhưng đối tượng là raid UI
+          await this.updateCombatUI(combat, this.createRaidUI(combat), interaction);
+          result = await this.showSkillMenu(combat, interaction);
+          return; // đã update UI bên trong
+        case 'item':
+          result = { action: 'item', message: '🧪 Sử dụng vật phẩm (đang phát triển)...' };
+          combat.battleLog.push(`👤 ${actor.name}: ${result.message}`);
+          break;
+        case 'back':
+          await this.updateCombatUI(combat, this.createRaidUI(combat), interaction);
+          return;
+      }
+
+      // Kiểm tra kết thúc ải/quái
+      const allMonstersDown = combat.monsters.every(m => m.currentHp <= 0);
+      if (allMonstersDown) {
+        // Nếu còn ải tiếp theo
+        const nextIdx = (combat.currentWaveIndex || 0) + 1;
+        if (nextIdx < combat.waves.length) {
+          combat.currentWaveIndex = nextIdx;
+          // Tạo quái ải mới
+          combat.monsters = combat.waves[nextIdx].map(m => ({
+            ...m,
+            currentHp: parseFloat(m.stats.hp),
+            currentMp: parseFloat(m.stats.mp),
+            statusEffects: [],
+            cooldowns: {}
+          }));
+          combat.turn++;
+          combat.currentTurn = 'party';
+          this.nextRaidRound(combat);
+          combat.battleLog.push(`🚪 Sang ải ${nextIdx + 1}/${combat.waves.length}`);
+          await this.updateCombatUI(combat, this.createRaidUI(combat), interaction);
+          return;
+        } else {
+          // RAID thắng
+          combat.isActive = false;
+          this.activeCombats.delete(combat.id);
+          const embed = new EmbedBuilder()
+            .setColor('#00FF00')
+            .setTitle('🏆 RAID Chiến Thắng!')
+            .setDescription('Toàn bộ ải đã bị đánh bại!')
+            .addFields(
+              { name: '👥 Party', value: combat.party.map(p => `• ${p.name}`).join('\n') || '—', inline: true },
+              { name: 'Ải', value: `${(combat.currentWaveIndex || 0) + 1}/${combat.waves.length}`, inline: true }
+            )
+            .setTimestamp();
+          await this.updateCombatUI(combat, { embeds: [embed], components: [] }, interaction);
+          return;
+        }
+      }
+
+      // Chuyển sang actor tiếp theo hoặc lượt quái
+      const prevIdx = combat.currentActorIndex;
+      this.nextRaidActor(combat);
+      // Nếu đã đến cuối vòng (prev >= current) hoặc không còn actor sống khác → lượt quái
+      const aliveCount = combat.party.filter(p => p.currentHp > 0).length;
+      if (combat.currentActorIndex <= prevIdx || aliveCount <= 1) {
+        combat.currentTurn = 'monster';
+        // ACK trước khi quái hành động để tránh interaction failed
+        await this.updateCombatUI(combat, this.createRaidUI(combat), interaction);
+        setTimeout(async () => {
+          try { await this.performMonsterGroupTurn(combat); } catch (e) { console.error(e); }
+        }, 800);
+        return;
+      }
+
+      await this.updateCombatUI(combat, this.createRaidUI(combat), interaction);
+      return;
+    }
 
     // Nếu là lượt của quái mà người chơi bấm nút, cho quái hành động trước rồi mới trả lượt
     if (combat.currentTurn !== 'player') {
@@ -718,6 +1053,11 @@ class CombatSystem {
 
   // Cập nhật status effects
   updateStatusEffects(entity) {
+    // Không cập nhật status cho thực thể đã chết
+    if (!entity || entity.currentHp <= 0) {
+      entity.statusEffects = [];
+      return;
+    }
     entity.statusEffects = entity.statusEffects.filter(effect => {
       effect.duration--;
       return effect.duration > 0;
@@ -726,6 +1066,7 @@ class CombatSystem {
 
   // Áp dụng hồi phục
   applyRegeneration(entity) {
+    if (!entity || entity.currentHp <= 0) return; // Đã chết thì không hồi phục
     const regen = parseFloat(entity.stats.regen) || 0;
     entity.currentHp = Math.min(entity.stats.hp, entity.currentHp + regen);
     entity.currentMp = Math.min(entity.stats.mp, entity.currentMp + regen);
@@ -749,10 +1090,21 @@ class CombatSystem {
 
   // Kết thúc trận chiến
   async endCombat(combat, interaction) {
+    const playerWon = combat.monster.currentHp <= 0;
+
+    // Nếu là dạng nhiều ải và còn ải tiếp theo, chuyển ải thay vì kết thúc
+    if (playerWon && Array.isArray(combat.waves) && (combat.currentWaveIndex + 1) < combat.waves.length) {
+      const progressed = this.advanceToNextWave(combat);
+      if (progressed) {
+        // Cập nhật UI cho ải mới và tiếp tục combat
+        const ui = this.createCombatUI(combat);
+        await this.updateCombatUI(combat, ui, interaction);
+        return;
+      }
+    }
+
     combat.isActive = false;
     this.activeCombats.delete(combat.id);
-
-    const playerWon = combat.monster.currentHp <= 0;
     const color = playerWon ? '#00FF00' : '#FF0000';
     const title = playerWon ? '🏆 Chiến Thắng!' : '💀 Thất Bại!';
 
@@ -802,7 +1154,7 @@ class CombatSystem {
           inline: true
         }
       )
-      .setFooter({ text: 'Trận chiến đã kết thúc' })
+      .setFooter({ text: Array.isArray(combat.waves) ? `Kết thúc ải ${(combat.currentWaveIndex || 0) + 1}/${combat.waves.length}` : 'Trận chiến đã kết thúc' })
       .setTimestamp();
 
     // Nếu thắng và có item rơi, thêm field hiển thị vật phẩm

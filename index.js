@@ -98,24 +98,29 @@ client.on('messageCreate', async message => {
       reply: async (content) => {
         try {
           if (typeof content === 'string') {
-            await message.channel.send(content);
+            const sent = await message.channel.send(content);
+            return sent;
           } else if (content.embeds && content.components) {
             // Hỗ trợ cả embeds và components
-            await message.channel.send({
+            const sent = await message.channel.send({
               content: content.content || null,
               embeds: content.embeds || [],
               components: content.components || []
             });
+            return sent;
           } else if (content.embeds) {
-            await message.channel.send({ embeds: content.embeds });
+            const sent = await message.channel.send({ embeds: content.embeds });
+            return sent;
           } else if (content.content) {
-            await message.channel.send(content.content);
+            const sent = await message.channel.send(content.content);
+            return sent;
           }
         } catch (error) {
           console.error('Error sending message:', error);
           // Fallback: gửi message đơn giản
           try {
-            await message.channel.send('❌ Có lỗi xảy ra khi hiển thị thông tin!');
+            const sent = await message.channel.send('❌ Có lỗi xảy ra khi hiển thị thông tin!');
+            return sent;
           } catch (fallbackError) {
             console.error('Fallback error:', fallbackError);
           }
@@ -361,6 +366,102 @@ async function handleButtonInteraction(interaction) {
     return;
   }
 
+  // ===== DOMAIN LOBBY BUTTONS =====
+  if (customId.startsWith('domain_')) {
+    const raidManager = require('./src/systems/raid.js');
+    const monsterManager = require('./src/systems/monster.js');
+    const combatSystem = require('./src/systems/combat.js');
+    const playerManager = require('./src/systems/player.js');
+
+    try {
+      const [prefix, action, lobbyId] = customId.split('_');
+      const userId = interaction.user.id;
+
+      if (action === 'join') {
+        const res = raidManager.joinLobby(lobbyId, userId);
+        if (!res.ok) {
+          await interaction.reply({ content: `❌ ${res.reason}`, ephemeral: true });
+          return;
+        }
+        // update message
+        const ui = raidManager.buildInviteUI(raidManager.getLobby(lobbyId));
+        await interaction.update(ui);
+        return;
+      }
+
+      if (action === 'leave') {
+        const res = raidManager.leaveLobby(lobbyId, userId);
+        if (!res.ok) {
+          await interaction.reply({ content: `❌ ${res.reason}`, ephemeral: true });
+          return;
+        }
+        const lobby = raidManager.getLobby(lobbyId);
+        if (!lobby || lobby.party.size === 0) {
+          // destroy and disable UI
+          raidManager.destroyLobby(lobbyId);
+          await interaction.update({ content: '🛑 Lobby đã đóng.', components: [] });
+          return;
+        }
+        const ui = raidManager.buildInviteUI(lobby);
+        await interaction.update(ui);
+        return;
+      }
+
+      if (action === 'cancel') {
+        raidManager.destroyLobby(lobbyId);
+        await interaction.update({ content: '🛑 Host đã hủy lobby.', components: [] });
+        return;
+      }
+
+      if (action === 'start') {
+        const lobby = raidManager.getLobby(lobbyId);
+        if (!lobby) {
+          await interaction.reply({ content: '❌ Lobby không tồn tại!', ephemeral: true });
+          return;
+        }
+        if (lobby.hostId !== userId) {
+          await interaction.reply({ content: '❌ Chỉ host mới có thể bắt đầu!', ephemeral: true });
+          return;
+        }
+        // Build party data
+        const partyUsers = Array.from(lobby.party);
+        const party = partyUsers.map(uid => {
+          const p = playerManager.getPlayer(uid);
+          return { ...p, id: uid, username: p?.username || uid };
+        }).filter(Boolean);
+        if (party.length === 0) {
+          await interaction.reply({ content: '❌ Không có người chơi hợp lệ trong party!', ephemeral: true });
+          return;
+        }
+        // Waves: 2 mob waves + 1 boss wave
+        const leader = party[0];
+        const tier = require('./src/systems/monster.js').getPlayerEquivalentTier(leader.realm, leader.realmLevel);
+        const waves = [];
+        for (let w = 0; w < 2; w++) {
+          const m1 = await monsterManager.generateRandomMonster(tier, leader);
+          const m2 = await monsterManager.generateRandomMonster(tier, leader);
+          waves.push([m1, m2]);
+        }
+        const boss = await monsterManager.generateRandomMonster(tier, leader);
+        boss.name = `👑 ${boss.name} (BOSS)`;
+        const add = await monsterManager.generateRandomMonster(tier, leader);
+        waves.push([boss, add]);
+
+        // Start raid combat
+        const combat = combatSystem.startRaidCombat(party, waves, interaction);
+        const ui = combatSystem.createRaidUI(combat);
+        await interaction.update(ui);
+        raidManager.destroyLobby(lobbyId);
+        return;
+      }
+    } catch (e) {
+      console.error('Domain lobby error:', e);
+      if (!interaction.replied && !interaction.deferred) {
+        await interaction.reply({ content: '❌ Lỗi xử lý domain lobby!', ephemeral: true });
+      }
+    }
+    return;
+  }
   // Xử lý button falchemy
   if (customId.startsWith('falchemy_')) {
     try {

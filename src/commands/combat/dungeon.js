@@ -3,6 +3,8 @@ const playerManager = require('../../systems/player.js');
 const cooldownManager = require('../../utils/game/cooldown.js');
 const expCalculator = require('../../systems/exp-calculator.js');
 const SpiritStonesCalculator = require('../../utils/game/spirit-stones-calculator.js');
+const monsterManager = require('../../systems/monster.js');
+const combatSystem = require('../../systems/combat.js');
 
 module.exports = {
   name: 'dungeon',
@@ -32,73 +34,32 @@ module.exports = {
       return;
     }
 
-    // Tính toán EXP theo hệ thống mới
-    const expResult = expCalculator.calculateDungeonExp(player, 'none');
-    const expGained = expResult.finalExp;
+    // Tạo danh sách quái cho nhiều ải (3 ải mặc định)
+    const tier = monsterManager.getPlayerEquivalentTier(player.realm, player.realmLevel);
+    const waveCount = 3;
+    const monsters = [];
+    for (let i = 0; i < waveCount; i++) {
+      const m = await monsterManager.generateRandomMonster(tier, player);
+      monsters.push(m);
+    }
 
-    // Tính toán kết quả khám phá hầm ngục
-    const isVictory = Math.random() > 0.3; // 70% cơ hội thành công
-    const spiritStones = SpiritStonesCalculator.calculateDungeon();
-    const loot = this.getDungeonLoot();
+    // Khởi tạo combat theo cơ chế nhiều ải
+    // Gắn thông tin người chơi cần thiết
+    player.id = userId;
+    player.username = username;
+    const combat = combatSystem.startWaveCombat(player, monsters, interaction);
 
-    // Cập nhật player
-    playerManager.addExperience(userId, expGained);
+    // Gửi UI đầu tiên
+    const ui = combatSystem.createCombatUI(combat);
+    const reply = await interaction.reply({ ...ui, fetchReply: true });
+    combat.lastMessage = reply;
 
-    // Cập nhật linh thạch theo format mới
-    SpiritStonesCalculator.updatePlayerSpiritStones(player, spiritStones);
-
-    // Cập nhật thời gian command cuối
-    const lastCommandField = cooldownManager.getLastCommandField('dungeon');
-    const updateData = {
-      [lastCommandField]: now,
-      ...SpiritStonesCalculator.createUpdateObject(spiritStones)
-    };
-    playerManager.updatePlayer(userId, updateData);
-
-    // Tạo embed thông báo kết quả
-    const resultColor = isVictory ? '#00FF00' : '#FF4500';
-    const resultTitle = isVictory ? '🐉 Khám phá hầm ngục thành công!' : '💀 Khám phá hầm ngục thất bại!';
-    const resultDescription = isVictory
-      ? `**${username}** đã khám phá thành công hầm ngục!`
-      : `**${username}** đã gặp khó khăn trong hầm ngục.`;
-
-    const successEmbed = new EmbedBuilder()
-      .setColor(resultColor)
-      .setTitle(resultTitle)
-      .setDescription(resultDescription)
-      .addFields(
-        {
-          name: '📊 Linh khí nhận được',
-          value: `**+${expGained} Linh khí**`,
-          inline: true
-        },
-        {
-          name: '💎 Linh thạch thu được',
-          value: SpiritStonesCalculator.formatSpiritStones(spiritStones),
-          inline: true
-        },
-        {
-          name: '⚔️ Kết quả khám phá',
-          value: isVictory ? '**Thành công** 🐉' : '**Thất bại** 💀',
-          inline: true
-        }
-      )
-      .addFields(
-        {
-          name: '🏆 Chiến lợi phẩm',
-          value: loot.join(', '),
-          inline: false
-        },
-        {
-          name: '🔍 Chi tiết tính toán Linh khí',
-          value: expResult.breakdown.calculation,
-          inline: false
-        }
-      )
-      .setFooter({ text: 'Khám phá hầm ngục có thể thực hiện sau 6 giờ' })
-      .setTimestamp();
-
-    await interaction.reply({ embeds: [successEmbed] });
+    // Nếu quái đi trước, cho hành động ngay
+    if (combat.currentTurn === 'monster') {
+      setTimeout(async () => {
+        try { await combatSystem.performMonsterTurn(combat); } catch (e) { console.error(e); }
+      }, 800);
+    }
   },
 
   /**
