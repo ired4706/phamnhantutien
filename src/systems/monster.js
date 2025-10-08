@@ -7,6 +7,7 @@ const RetryHandler = require('../utils/core/retry-handler');
 const CacheManager = require('../utils/data/cache-manager');
 const CONSTANTS = require('../../config/constants');
 const { getContainer } = require('../container/ServiceContainer');
+const StatsCalculator = require('../utils/game/stats-calculator');
 
 class MonsterManager {
   constructor() {
@@ -62,39 +63,55 @@ class MonsterManager {
     return this.monstersData.element_affinities[element] || { crit_affinity: 1.0, eva_affinity: 1.0, weakness: "none", strength: "none" };
   }
 
-  // Tính chỉ số quái dựa trên raw stats của người chơi
+  // Tính chỉ số quái dựa trên hệ và cấp bậc
   async calculateMonsterStats(player, template, tierInfo, variant = "normal") {
-    // Lấy raw stats của người chơi (trước khi áp dụng Stage/Tier multiplier)
-    const playerRawStats = await this.getPlayerRawStats(player);
-
-    // Chọn element ngẫu nhiên
+    // 1. Xác định hệ của quái (ngũ hành + phong + lôi + vô)
     const elements = ['kim', 'moc', 'thuy', 'hoa', 'tho', 'phong', 'loi', 'vo_he'];
     const randomElement = elements[Math.floor(Math.random() * elements.length)];
 
-    // Tính power multiplier dựa trên variant (theo yêu cầu mới)
+    // 2. Xác định cấp bậc của quái dựa trên tier
+    const tierToRealm = {
+      'nhat_cap': { realm: 'luyen_khi', level: 1 },
+      'nhi_cap': { realm: 'truc_co', level: 1 },
+      'tam_cap': { realm: 'truc_co', level: 2 },
+      'tu_cap': { realm: 'truc_co', level: 3 },
+      'ngu_cap': { realm: 'ket_dan', level: 1 },
+      'luc_cap': { realm: 'ket_dan', level: 2 },
+      'that_cap': { realm: 'ket_dan', level: 3 },
+      'bat_cap': { realm: 'nguyen_anh', level: 1 },
+      'cuu_cap': { realm: 'nguyen_anh', level: 2 },
+      'thap_cap': { realm: 'nguyen_anh', level: 3 }
+    };
+
+    const monsterRealm = tierToRealm[template.tier] || { realm: 'luyen_khi', level: 1 };
+
+    // 3. Lấy chỉ số cơ bản của player hệ tương ứng
+    const playerStats = await StatsCalculator.calculateMonsterBaseStats(randomElement, monsterRealm.realm, monsterRealm.level);
+
+    // 4. Tính power multiplier dựa trên variant
     let powerMultiplier = 1.0;
     if (variant === "normal") {
-      powerMultiplier = 0.5 + Math.random() * 0.1; // 50-60%
+      powerMultiplier = 0.7 + Math.random() * 0.2; // 70-90%
     } else if (variant === "mutated") {
-      powerMultiplier = 0.85 + Math.random() * 0.15; // 85-100%
+      powerMultiplier = 1.0 + Math.random() * 0.2; // 100-120%
     } else if (variant === "super_mutated") {
       powerMultiplier = 1.3 + Math.random() * 0.2; // 130-150%
     }
 
-    // Tính chỉ số quái dựa trên raw stats của người chơi
-    const monsterAttack = playerRawStats.attack * powerMultiplier;
-    const monsterDefense = playerRawStats.defense * powerMultiplier;
-    const monsterHp = playerRawStats.hp * powerMultiplier;
-    const monsterMp = playerRawStats.mp * powerMultiplier;
-    const monsterSpeed = playerRawStats.speed * powerMultiplier;
-    const monsterRegen = playerRawStats.regen * powerMultiplier;
+    // 5. Áp dụng powerMultiplier cho 6 chỉ số: atk, def, hp, mp, speed, regen
+    const monsterAttack = playerStats.attack * powerMultiplier;
+    const monsterDefense = playerStats.defense * powerMultiplier;
+    const monsterHp = playerStats.hp * powerMultiplier;
+    const monsterMp = playerStats.mp * powerMultiplier;
+    const monsterSpeed = playerStats.speed * powerMultiplier;
+    const monsterRegen = playerStats.regen * powerMultiplier;
 
-    // Tính CRIT và EVA với Affinity
+    // 6. CRIT và EVA giữ nguyên (không áp dụng powerMultiplier)
     const elementAffinity = this.getElementAffinity(randomElement);
     const K = 20;
 
-    const critAdj = playerRawStats.critical * powerMultiplier * elementAffinity.crit_affinity;
-    const evaAdj = playerRawStats.evasion * powerMultiplier * elementAffinity.eva_affinity;
+    const critAdj = playerStats.critical * elementAffinity.crit_affinity;
+    const evaAdj = playerStats.evasion * elementAffinity.eva_affinity;
 
     const critAdjPercent = critAdj / 100;
     const evaAdjPercent = evaAdj / 100;
@@ -124,6 +141,7 @@ class MonsterManager {
       elementAffinity: elementAffinity
     };
   }
+
 
   // Lấy raw stats của người chơi (trước khi áp dụng Stage/Tier multiplier)
   async getPlayerRawStats(player) {
@@ -179,11 +197,12 @@ class MonsterManager {
 
     // Chọn template ngẫu nhiên
     const template = templates[Math.floor(Math.random() * templates.length)];
+    template.tier = tierKey; // Thêm tier vào template
 
-    // Chọn variant dựa trên tỉ lệ
-    const variant = this.selectVariant(tierInfo.encounter_rates);
+    // Chọn variant dựa trên tỉ lệ cố định
+    const variant = this.selectVariant();
 
-    // Tính chỉ số dựa trên raw stats của người chơi
+    // Tính chỉ số dựa trên hệ và cấp bậc
     const monsterData = await this.calculateMonsterStats(player, template, tierInfo, variant);
 
     // Tạo tên variant
@@ -226,19 +245,18 @@ class MonsterManager {
     return monster;
   }
 
-  // Chọn variant dựa trên tỉ lệ
-  selectVariant(encounterRates) {
+  // Chọn variant dựa trên tỉ lệ cố định
+  selectVariant() {
     const random = Math.random();
-    let cumulative = 0;
 
-    for (const [variant, rate] of Object.entries(encounterRates)) {
-      cumulative += rate;
-      if (random <= cumulative) {
-        return variant;
-      }
+    // Tỉ lệ cố định: Normal 70%, Mutated 25%, Super Mutated 5%
+    if (random < 0.7) {
+      return "normal";
+    } else if (random < 0.95) {
+      return "mutated";
+    } else {
+      return "super_mutated";
     }
-
-    return "normal"; // Fallback
   }
 
   // Lấy danh sách tất cả tier có sẵn

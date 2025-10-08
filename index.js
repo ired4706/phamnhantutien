@@ -311,6 +311,40 @@ async function handleButtonInteraction(interaction) {
     return;
   }
 
+  // Xử lý raid combat buttons
+  if (customId.startsWith('raid_')) {
+    const combatSystem = require('./src/systems/combat.js');
+    const parts = customId.split('_');
+    // Hỗ trợ: raid_skilluse_<combatId>_<actorId>_<ts>_<skillId>, raid_back_<combatId>
+    let action = parts[1];
+    let combatId = parts[2];
+
+    if (parts[1] === 'skilluse') {
+      action = 'raid_skilluse';
+      combatId = parts[2] + '_' + parts[3]; // combatId = raid_<timestamp>
+      const actorId = parts[4];
+      const skillId = parts.slice(6).join('_');
+
+      // Kiểm tra quyền sử dụng skill
+      const combat = combatSystem.activeCombats.get(combatId);
+      if (combat && combat.party) {
+        const actor = combat.party.find(p => p.id === actorId);
+        if (!actor || interaction.user.id !== actor.id) {
+          await interaction.reply({ content: '❌ Bạn không thể sử dụng kỹ năng của người khác!', ephemeral: true });
+          return;
+        }
+      }
+
+      await combatSystem.handlePlayerAction(combatId, action, interaction);
+      return;
+    } else if (parts[1] === 'back') {
+      action = 'raid_back';
+      combatId = parts[2] + '_' + parts[3]; // combatId = raid_<timestamp>
+      await combatSystem.handlePlayerAction(combatId, action, interaction);
+      return;
+    }
+  }
+
   // Xử lý combat buttons
   if (customId.startsWith('combat_')) {
     const combatSystem = require('./src/systems/combat.js');

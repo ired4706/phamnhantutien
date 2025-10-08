@@ -108,12 +108,14 @@ module.exports = {
       for (let w = 0; w < 2; w++) {
         const m1 = await monsterManager.generateRandomMonster(tier, leader);
         const m2 = await monsterManager.generateRandomMonster(tier, leader);
-        waves.push([m1, m2]);
+        const m3 = await monsterManager.generateRandomMonster(tier, leader);
+        waves.push([m1, m2, m3]);
       }
       const boss = await monsterManager.generateRandomMonster(tier, leader);
       boss.name = `👑 ${boss.name} (BOSS)`;
-      const add = await monsterManager.generateRandomMonster(tier, leader);
-      waves.push([boss, add]);
+      const add1 = await monsterManager.generateRandomMonster(tier, leader);
+      const add2 = await monsterManager.generateRandomMonster(tier, leader);
+      waves.push([boss, add1, add2]);
 
       const combat = combatSystem.startRaidCombat(party, waves, interaction);
       const ui = combatSystem.createRaidUI(combat);

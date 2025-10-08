@@ -19,7 +19,8 @@ pntt/
 │   │   ├── 📁 combat/              # Chiến đấu
 │   │   │   ├── hunt.js
 │   │   │   ├── challenge.js
-│   │   │   └── dungeon.js
+│   │   │   ├── dungeon.js
+│   │   │   └── domain.js
 │   │   ├── 📁 crafting/            # Chế tạo
 │   │   │   ├── alchemy.js
 │   │   │   ├── forge.js
@@ -29,7 +30,6 @@ pntt/
 │   │   │   ├── explore.js
 │   │   │   ├── mine.js
 │   │   │   ├── pick.js
-│   │   │   └── domain.js
 │   │   ├── 📁 management/          # Quản lý
 │   │   │   ├── inventory.js
 │   │   │   ├── skills.js

@@ -40,9 +40,9 @@ console.log('\n📋 Checking command categories...');
 const commandCategories = {
   'core': ['start.js', 'status.js', 'help.js', 'ping.js', 'test.js'],
   'cultivation': ['cultivation.js', 'breakthrough.js', 'meditate.js', 'spiritroot.js'],
-  'combat': ['hunt.js', 'challenge.js', 'dungeon.js'],
+  'combat': ['hunt.js', 'challenge.js', 'dungeon.js', 'domain.js'],
   'crafting': ['alchemy.js', 'forge.js', 'craft.js', 'equipment.js'],
-  'exploration': ['explore.js', 'mine.js', 'pick.js', 'domain.js'],
+  'exploration': ['explore.js', 'mine.js', 'pick.js'],
   'management': ['inventory.js', 'skills.js', 'wallet.js', 'item.js', 'rarity.js'],
   'quests': ['daily.js', 'weekly.js', 'guild.js']
 };

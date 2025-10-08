@@ -20,7 +20,8 @@ pntt/
 │   │   ├── 📁 combat/              # Chiến đấu
 │   │   │   ├── hunt.js             # Săn yêu thú
 │   │   │   ├── challenge.js        # Thách đấu
-│   │   │   └── dungeon.js          # Thí luyện
+│   │   │   ├── dungeon.js          # Thí luyện
+│   │   │   └── domain.js           # Khám phá lãnh địa
 │   │   ├── 📁 crafting/            # Chế tạo
 │   │   │   ├── alchemy.js          # Luyện đan
 │   │   │   ├── forge.js            # Rèn vũ khí
@@ -30,7 +31,6 @@ pntt/
 │   │   │   ├── explore.js          # Khám phá
 │   │   │   ├── mine.js             # Khai thác
 │   │   │   ├── pick.js             # Thu thập thảo dược
-│   │   │   └── domain.js           # Khám phá lãnh địa
 │   │   ├── 📁 management/          # Quản lý
 │   │   │   ├── inventory.js        # Quản lý kho đồ
 │   │   │   ├── skills.js           # Quản lý kỹ năng

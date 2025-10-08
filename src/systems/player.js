@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const itemLoader = require('../utils/data/item-loader.js');
+const StatsCalculator = require('../utils/game/stats-calculator');
 
 class PlayerManager {
   constructor() {
@@ -142,7 +143,7 @@ class PlayerManager {
     }
   }
 
-  createPlayer(userId, username, chosenSpiritRoot = null) {
+  async createPlayer(userId, username, chosenSpiritRoot = null) {
     if (this.players.has(userId)) {
       return this.players.get(userId);
     }
@@ -220,7 +221,7 @@ class PlayerManager {
     };
 
     // Tính toán stats dựa trên công thức mới
-    this.calculatePlayerStats(player);
+    await this.calculatePlayerStats(player);
 
     this.players.set(userId, player);
     this.savePlayers();
@@ -230,7 +231,7 @@ class PlayerManager {
     return player;
   }
 
-  chooseSpiritRoot(userId, username, spiritRootType) {
+  async chooseSpiritRoot(userId, username, spiritRootType) {
     // Kiểm tra linh căn hợp lệ
     if (!this.getSpiritRootInfo(spiritRootType)) {
       return { success: false, message: 'Linh căn không hợp lệ!' };
@@ -243,7 +244,7 @@ class PlayerManager {
     }
 
     // Tạo player mới với linh căn được chọn
-    const player = this.createPlayer(userId, username, spiritRootType);
+    const player = await this.createPlayer(userId, username, spiritRootType);
 
     return {
       success: true,
@@ -252,7 +253,7 @@ class PlayerManager {
     };
   }
 
-  calculatePlayerStats(player) {
+  async calculatePlayerStats(player) {
     const spiritRoot = this.getSpiritRootInfo(player.spiritRoot);
     if (!spiritRoot) return;
 
@@ -300,14 +301,16 @@ class PlayerManager {
       else if (player.realmLevel === 3) tierMultiplier = 2.0; // Hậu Kỳ
     }
 
-    // Công thức mới: Stat = (Basic + Growth × số tầng luyện khí) × (Stage multiplier × Tier multiplier)
-    // Tính raw cho tất cả chỉ số
-    const rawAttack = (basic_stats.attack + growth_rates.attack * luyenKhiTiers) * (stageMultiplier * tierMultiplier);
-    const rawDefense = (basic_stats.defense + growth_rates.defense * luyenKhiTiers) * (stageMultiplier * tierMultiplier);
-    const rawHp = (basic_stats.hp + growth_rates.hp * luyenKhiTiers) * (stageMultiplier * tierMultiplier);
-    const rawMp = (basic_stats.mana + growth_rates.mana * luyenKhiTiers) * (stageMultiplier * tierMultiplier);
-    const rawSpeed = (basic_stats.speed + growth_rates.speed * luyenKhiTiers) * (stageMultiplier * tierMultiplier);
-    const rawRegen = (basic_stats.regen + growth_rates.regen * luyenKhiTiers) * (stageMultiplier * tierMultiplier);
+    // Sử dụng StatsCalculator để tính chỉ số cơ bản
+    const baseStats = await StatsCalculator.calculateBaseStats(player.spiritRoot, player.realm, player.realmLevel);
+    if (!baseStats) return;
+
+    const rawAttack = baseStats.attack;
+    const rawDefense = baseStats.defense;
+    const rawHp = baseStats.hp;
+    const rawMp = baseStats.mp;
+    const rawSpeed = baseStats.speed;
+    const rawRegen = baseStats.regen;
     // reputation và karma không còn phụ thuộc vào basic/growth; giữ nguyên hiện trạng hoặc mặc định 0
     const existingReputation = (player.stats && typeof player.stats.reputation === 'number') ? player.stats.reputation : 0;
     const existingKarma = (player.stats && typeof player.stats.karma === 'number') ? player.stats.karma : 0;
@@ -360,10 +363,10 @@ class PlayerManager {
     return this.players.get(userId);
   }
 
-  getOrCreatePlayer(userId, username) {
+  async getOrCreatePlayer(userId, username) {
     let player = this.getPlayer(userId);
     if (!player) {
-      player = this.createPlayer(userId, username);
+      player = await this.createPlayer(userId, username);
     }
     return player;
   }
@@ -474,14 +477,14 @@ class PlayerManager {
     return true;
   }
 
-  addExperience(userId, exp) {
+  async addExperience(userId, exp) {
     const player = this.getPlayer(userId);
     if (!player) return false;
 
     player.experience += exp;
 
     // Tính toán lại stats dựa trên EXP mới
-    this.calculatePlayerStats(player);
+    await this.calculatePlayerStats(player);
 
     // Khôi phục HP/MP nếu cần
     if (player.stats.hp < player.stats.maxHp) {

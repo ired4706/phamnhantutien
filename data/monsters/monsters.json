@@ -2,444 +2,374 @@
   "monster_tiers": {
     "nhat_cap": {
       "name": "Yêu Thú Nhất Cấp",
-      "realm_equivalent": "luyen_khi",
-      "tier_equivalent": 1,
-      "stage_multiplier": 1,
-      "tier_multiplier": 1,
       "base_exp_reward": 50,
-      "base_spirit_stones": 10,
-      "encounter_rates": {
-        "normal": 0.7,
-        "mutated": 0.25,
-        "super_mutated": 0.05
-      },
-      "power_multipliers": {
-        "normal": 1.0,
-        "mutated": 1.3,
-        "super_mutated": 1.6
-      },
-      "loot_multipliers": {
-        "normal": 1.0,
-        "mutated": 1.5,
-        "super_mutated": 2.0
-      }
+      "base_spirit_stones": 10
     },
     "nhi_cap": {
       "name": "Yêu Thú Nhị Cấp",
-      "realm_equivalent": "truc_co",
-      "tier_equivalent": 1,
-      "stage_multiplier": 5,
-      "tier_multiplier": 1.0,
       "base_exp_reward": 200,
-      "base_spirit_stones": 50,
-      "encounter_rates": {
-        "normal": 0.7,
-        "mutated": 0.25,
-        "super_mutated": 0.05
-      },
-      "power_multipliers": {
-        "normal": 1.0,
-        "mutated": 1.3,
-        "super_mutated": 1.6
-      },
-      "loot_multipliers": {
-        "normal": 1.0,
-        "mutated": 1.5,
-        "super_mutated": 2.0
-      }
+      "base_spirit_stones": 50
     },
     "tam_cap": {
       "name": "Yêu Thú Tam Cấp",
-      "realm_equivalent": "truc_co",
-      "tier_equivalent": 2,
-      "stage_multiplier": 5,
-      "tier_multiplier": 1.5,
       "base_exp_reward": 400,
-      "base_spirit_stones": 100,
-      "encounter_rates": {
-        "normal": 0.7,
-        "mutated": 0.25,
-        "super_mutated": 0.05
-      },
-      "power_multipliers": {
-        "normal": 1.0,
-        "mutated": 1.3,
-        "super_mutated": 1.6
-      },
-      "loot_multipliers": {
-        "normal": 1.0,
-        "mutated": 1.5,
-        "super_mutated": 2.0
-      }
+      "base_spirit_stones": 100
     },
     "tu_cap": {
       "name": "Yêu Thú Tứ Cấp",
-      "realm_equivalent": "truc_co",
-      "tier_equivalent": 3,
-      "stage_multiplier": 5,
-      "tier_multiplier": 2.0,
       "base_exp_reward": 800,
-      "base_spirit_stones": 200,
-      "encounter_rates": {
-        "normal": 0.7,
-        "mutated": 0.25,
-        "super_mutated": 0.05
-      },
-      "power_multipliers": {
-        "normal": 1.0,
-        "mutated": 1.3,
-        "super_mutated": 1.6
-      },
-      "loot_multipliers": {
-        "normal": 1.0,
-        "mutated": 1.5,
-        "super_mutated": 2.0
-      }
+      "base_spirit_stones": 200
     },
     "ngu_cap": {
       "name": "Yêu Thú Ngũ Cấp",
-      "realm_equivalent": "ket_dan",
-      "tier_equivalent": 1,
-      "stage_multiplier": 25,
-      "tier_multiplier": 1.0,
       "base_exp_reward": 2000,
-      "base_spirit_stones": 500,
-      "encounter_rates": {
-        "normal": 0.7,
-        "mutated": 0.25,
-        "super_mutated": 0.05
-      },
-      "power_multipliers": {
-        "normal": 1.0,
-        "mutated": 1.3,
-        "super_mutated": 1.6
-      },
-      "loot_multipliers": {
-        "normal": 1.0,
-        "mutated": 1.5,
-        "super_mutated": 2.0
-      }
+      "base_spirit_stones": 500
     },
     "luc_cap": {
       "name": "Yêu Thú Lục Cấp",
-      "realm_equivalent": "ket_dan",
-      "tier_equivalent": 2,
-      "stage_multiplier": 25,
-      "tier_multiplier": 1.5,
       "base_exp_reward": 4000,
-      "base_spirit_stones": 1000,
-      "encounter_rates": {
-        "normal": 0.7,
-        "mutated": 0.25,
-        "super_mutated": 0.05
-      },
-      "power_multipliers": {
-        "normal": 1.0,
-        "mutated": 1.3,
-        "super_mutated": 1.6
-      },
-      "loot_multipliers": {
-        "normal": 1.0,
-        "mutated": 1.5,
-        "super_mutated": 2.0
-      }
+      "base_spirit_stones": 1000
     },
     "that_cap": {
       "name": "Yêu Thú Thất Cấp",
-      "realm_equivalent": "ket_dan",
-      "tier_equivalent": 3,
-      "stage_multiplier": 25,
-      "tier_multiplier": 2.0,
       "base_exp_reward": 8000,
-      "base_spirit_stones": 2000,
-      "encounter_rates": {
-        "normal": 0.7,
-        "mutated": 0.25,
-        "super_mutated": 0.05
-      },
-      "power_multipliers": {
-        "normal": 1.0,
-        "mutated": 1.3,
-        "super_mutated": 1.6
-      },
-      "loot_multipliers": {
-        "normal": 1.0,
-        "mutated": 1.5,
-        "super_mutated": 2.0
-      }
+      "base_spirit_stones": 2000
     },
     "bat_cap": {
       "name": "Yêu Thú Bát Cấp",
-      "realm_equivalent": "nguyen_anh",
-      "tier_equivalent": 1,
-      "stage_multiplier": 125,
-      "tier_multiplier": 1.0,
       "base_exp_reward": 20000,
-      "base_spirit_stones": 5000,
-      "encounter_rates": {
-        "normal": 0.7,
-        "mutated": 0.25,
-        "super_mutated": 0.05
-      },
-      "power_multipliers": {
-        "normal": 1.0,
-        "mutated": 1.3,
-        "super_mutated": 1.6
-      },
-      "loot_multipliers": {
-        "normal": 1.0,
-        "mutated": 1.5,
-        "super_mutated": 2.0
-      }
+      "base_spirit_stones": 5000
     },
     "cuu_cap": {
       "name": "Yêu Thú Cửu Cấp",
-      "realm_equivalent": "nguyen_anh",
-      "tier_equivalent": 2,
-      "stage_multiplier": 125,
-      "tier_multiplier": 1.5,
       "base_exp_reward": 40000,
-      "base_spirit_stones": 10000,
-      "encounter_rates": {
-        "normal": 0.7,
-        "mutated": 0.25,
-        "super_mutated": 0.05
-      },
-      "power_multipliers": {
-        "normal": 1.0,
-        "mutated": 1.3,
-        "super_mutated": 1.6
-      },
-      "loot_multipliers": {
-        "normal": 1.0,
-        "mutated": 1.5,
-        "super_mutated": 2.0
-      }
+      "base_spirit_stones": 10000
     },
     "thap_cap": {
       "name": "Yêu Thú Thập Cấp",
-      "realm_equivalent": "nguyen_anh",
-      "tier_equivalent": 3,
-      "stage_multiplier": 125,
-      "tier_multiplier": 2.0,
       "base_exp_reward": 80000,
-      "base_spirit_stones": 20000,
-      "encounter_rates": {
-        "normal": 0.7,
-        "mutated": 0.25,
-        "super_mutated": 0.05
-      },
-      "power_multipliers": {
-        "normal": 1.0,
-        "mutated": 1.3,
-        "super_mutated": 1.6
-      },
-      "loot_multipliers": {
-        "normal": 1.0,
-        "mutated": 1.5,
-        "super_mutated": 2.0
-      }
+      "base_spirit_stones": 20000
     }
   },
   "monster_templates": {
     "nhat_cap": [
       {
-        "id": "tho_hoang_nhat",
-        "name": "Thỏ Hoang",
-        "emoji": "🐰",
-        "description": "Thỏ hoang nhỏ bé nhưng nhanh nhẹn"
+        "id": "spirit_monkey_1",
+        "name": "Linh Hầu",
+        "emoji": "🐒",
+        "description": "Khỉ nhỏ lanh lợi, đôi mắt sáng chứa linh tính."
       },
       {
-        "id": "chim_so_nhat",
-        "name": "Chim Sẻ",
+        "id": "spirit_frog_1",
+        "name": "Tiêu Thiềm",
+        "emoji": "🐸",
+        "description": "Cóc con kêu vang, cộng hưởng cùng linh khí."
+      },
+      {
+        "id": "spirit_wolf_1",
+        "name": "Tử Lang",
+        "emoji": "🐺",
+        "description": "Sói non lông tím, mang khí tức bất phàm."
+      },
+      {
+        "id": "spirit_bird_1",
+        "name": "Thanh Tước",
         "emoji": "🐦",
-        "description": "Chim sẻ bay lượn trên không trung"
+        "description": "Chim nhỏ màu xanh, ẩn hiện trong tán rừng."
       },
       {
-        "id": "ca_chep_nhat",
-        "name": "Cá Chép",
-        "emoji": "🐟",
-        "description": "Cá chép bơi lội trong nước"
+        "id": "spirit_fox_1",
+        "name": "Hồng Hồ",
+        "emoji": "🦊",
+        "description": "Cáo con lông đỏ, nhanh nhẹn và tinh ranh."
       }
     ],
     "nhi_cap": [
       {
-        "id": "ho_den_nhi",
-        "name": "Hổ Đen",
-        "emoji": "🐅",
-        "description": "Hổ đen hung dữ với móng vuốt sắc bén"
+        "id": "shadow_cat_2",
+        "name": "U Miêu",
+        "emoji": "🐈",
+        "description": "Mèo đêm, ánh mắt phát sáng trong bóng tối."
       },
       {
-        "id": "rong_lua_nhi",
-        "name": "Rồng Lửa",
-        "emoji": "🐲",
-        "description": "Rồng lửa phun ra ngọn lửa thiêu đốt"
+        "id": "iron_boar_2",
+        "name": "Thiết Trư",
+        "emoji": "🐗",
+        "description": "Heo rừng da cứng như sắt, sức mạnh phi thường."
       },
       {
-        "id": "ky_lan_nhi",
-        "name": "Kỳ Lân",
-        "emoji": "🦄",
-        "description": "Kỳ lân thần thánh với sừng phát sáng"
+        "id": "jade_serpent_2",
+        "name": "Ngọc Xà",
+        "emoji": "🐍",
+        "description": "Rắn lục vảy xanh, thân hình uốn lượn mê hoặc."
+      },
+      {
+        "id": "wind_owl_2",
+        "name": "Phong Điểu",
+        "emoji": "🦉",
+        "description": "Cú lớn cánh rộng, bay lượn tựa cơn gió."
+      },
+      {
+        "id": "rock_turtle_2",
+        "name": "Thạch Quy",
+        "emoji": "🐢",
+        "description": "Rùa mai đá, phòng ngự kiên cố."
       }
     ],
     "tam_cap": [
       {
-        "id": "phuong_hoang_tam",
-        "name": "Phượng Hoàng",
-        "emoji": "🔥",
-        "description": "Phượng hoàng tái sinh từ tro tàn"
+        "id": "ghost_hound_3",
+        "name": "U Khuyển",
+        "emoji": "🐕",
+        "description": "Chó săn âm giới, sủa vang như hồn ma."
       },
       {
-        "id": "than_long_tam",
-        "name": "Thần Long",
-        "emoji": "🐉",
-        "description": "Thần long điều khiển nước và mây"
+        "id": "frost_bear_3",
+        "name": "Băng Hùng",
+        "emoji": "🐻",
+        "description": "Gấu trắng to lớn, mang theo hơi lạnh cực hàn."
       },
       {
-        "id": "bach_hu_tam",
-        "name": "Bạch Hổ",
-        "emoji": "🐯",
-        "description": "Bạch hổ với bộ lông trắng như tuyết"
+        "id": "flame_leopard_3",
+        "name": "Hỏa Báo",
+        "emoji": "🐆",
+        "description": "Báo săn nhanh như chớp, toàn thân rực lửa."
+      },
+      {
+        "id": "storm_crane_3",
+        "name": "Lôi Hạc",
+        "emoji": "🦩",
+        "description": "Hạc cao quý, cánh vỗ phát ra sấm sét."
+      },
+      {
+        "id": "venom_spider_3",
+        "name": "Độc Chu",
+        "emoji": "🕷️",
+        "description": "Nhện độc to lớn, tơ chứa kịch độc."
       }
     ],
     "tu_cap": [
       {
-        "id": "than_ngu_tu",
-        "name": "Thần Ngư",
-        "emoji": "🐠",
-        "description": "Thần ngư cai quản biển cả"
+        "id": "spirit_tiger_4",
+        "name": "Ảnh Hổ",
+        "emoji": "🐅",
+        "description": "Hổ đen ẩn hiện trong bóng tối, ra tay chí mạng."
       },
       {
-        "id": "phong_thien_tu",
-        "name": "Phong Thiên",
-        "emoji": "🌪️",
-        "description": "Phong thiên điều khiển gió bão"
+        "id": "spirit_stag_4",
+        "name": "Ngân Lộc",
+        "emoji": "🦌",
+        "description": "Hươu bạc, sừng tỏa linh quang dịu nhẹ."
       },
       {
-        "id": "loi_dien_tu",
-        "name": "Lôi Điện",
-        "emoji": "⚡",
-        "description": "Lôi điện sấm sét"
+        "id": "spirit_crow_4",
+        "name": "Huyết Ô",
+        "emoji": "🐦",
+        "description": "Quạ máu, tiếng kêu mang điềm gở."
+      },
+      {
+        "id": "spirit_snake_4",
+        "name": "Ảnh Mãng",
+        "emoji": "🐍",
+        "description": "Mãng xà khổng lồ, thân dài cuộn tròn vạn vật."
+      },
+      {
+        "id": "spirit_fish_4",
+        "name": "Lam Ngư",
+        "emoji": "🐟",
+        "description": "Cá lam phát sáng dưới đáy hồ linh khí."
       }
     ],
     "ngu_cap": [
       {
-        "id": "thien_ma_ngu",
-        "name": "Thiên Ma",
-        "emoji": "👹",
-        "description": "Thiên ma hung ác"
+        "id": "dragonling_5",
+        "name": "Long Tử",
+        "emoji": "🐉",
+        "description": "Hậu duệ của thần long, tiềm năng vô tận."
       },
       {
-        "id": "dia_nguc_ngu",
-        "name": "Địa Ngục",
+        "id": "phoenixling_5",
+        "name": "Hoàng Điểu",
         "emoji": "🔥",
-        "description": "Địa ngục thiêu đốt"
+        "description": "Chim lửa nhỏ, thân thể bất diệt."
       },
       {
-        "id": "thien_cung_ngu",
-        "name": "Thiên Cung",
-        "emoji": "🏰",
-        "description": "Thiên cung thần thánh"
+        "id": "kirinling_5",
+        "name": "Lân Thú",
+        "emoji": "🦄",
+        "description": "Kỳ lân non, pháp lực trời ban."
+      },
+      {
+        "id": "spirit_tortoise_5",
+        "name": "Huyền Quy",
+        "emoji": "🐢",
+        "description": "Quy cổ, mai cứng bất phá."
+      },
+      {
+        "id": "giant_eagle_5",
+        "name": "Thương Ưng",
+        "emoji": "🦅",
+        "description": "Đại ưng sải cánh vượt ngàn dặm."
       }
     ],
     "luc_cap": [
       {
-        "id": "van_than_luc",
-        "name": "Vạn Thần",
-        "emoji": "👑",
-        "description": "Vạn thần tối cao"
+        "id": "dragon_elder_6",
+        "name": "Cổ Long",
+        "emoji": "🐉",
+        "description": "Long tộc thời cổ, khí thế áp đảo."
       },
       {
-        "id": "thien_dao_luc",
-        "name": "Thiên Đạo",
-        "emoji": "☯️",
-        "description": "Thiên đạo vô thượng"
+        "id": "phoenix_elder_6",
+        "name": "Minh Hoàng",
+        "emoji": "🔥",
+        "description": "Phượng hoàng ánh sáng, lửa chiếu cửu thiên."
       },
       {
-        "id": "dia_phu_luc",
-        "name": "Địa Phủ",
-        "emoji": "🏛️",
-        "description": "Địa phủ uy nghiêm"
+        "id": "kirin_elder_6",
+        "name": "Hạo Lân",
+        "emoji": "🦄",
+        "description": "Kỳ lân trời giáng, bước đi rung động sơn hà."
+      },
+      {
+        "id": "tortoise_elder_6",
+        "name": "Cự Quy",
+        "emoji": "🐢",
+        "description": "Rùa khổng lồ, mai như bích thành."
+      },
+      {
+        "id": "roc_elder_6",
+        "name": "Côn Bằng",
+        "emoji": "🦅",
+        "description": "Chim cá biến hóa, một ngày bay vạn dặm."
       }
     ],
     "that_cap": [
       {
-        "id": "thien_hoang_that",
-        "name": "Thiên Hoàng",
-        "emoji": "👑",
-        "description": "Thiên hoàng cai quản thiên đình"
+        "id": "dragon_scarlet_7",
+        "name": "Huyết Long",
+        "emoji": "🐉",
+        "description": "Rồng đỏ máu, uy nghi và dữ tợn."
       },
       {
-        "id": "dia_hoang_that",
-        "name": "Địa Hoàng",
-        "emoji": "🏔️",
-        "description": "Địa hoàng cai quản địa phủ"
+        "id": "phoenix_scarlet_7",
+        "name": "Hồng Phượng",
+        "emoji": "🔥",
+        "description": "Phượng đỏ, bất tử trong ngọn hỏa diễm."
       },
       {
-        "id": "nhan_hoang_that",
-        "name": "Nhân Hoàng",
-        "emoji": "👤",
-        "description": "Nhân hoàng cai quản nhân gian"
+        "id": "kirin_scarlet_7",
+        "name": "Huyền Lân",
+        "emoji": "🦄",
+        "description": "Kỳ lân huyền bí, bước đi tỏa hào quang."
+      },
+      {
+        "id": "tortoise_scarlet_7",
+        "name": "Chu Quy",
+        "emoji": "🐢",
+        "description": "Rùa đỏ, trấn thủ linh hải."
+      },
+      {
+        "id": "roc_scarlet_7",
+        "name": "Huyết Bằng",
+        "emoji": "🦅",
+        "description": "Đại bằng đỏ, cánh xé rách thiên không."
       }
     ],
     "bat_cap": [
       {
-        "id": "thien_di_bat",
-        "name": "Thiên Đế",
-        "emoji": "👑",
-        "description": "Thiên đế tối cao"
+        "id": "dragon_shadow_8",
+        "name": "Hắc Long",
+        "emoji": "🐉",
+        "description": "Rồng đen, uy áp tựa hắc ám."
       },
       {
-        "id": "dia_di_bat",
-        "name": "Địa Đế",
-        "emoji": "🏔️",
-        "description": "Địa đế uy nghiêm"
+        "id": "phoenix_shadow_8",
+        "name": "U Phượng",
+        "emoji": "🔥",
+        "description": "Phượng đen, hồi sinh từ tro tàn."
       },
       {
-        "id": "nhan_di_bat",
-        "name": "Nhân Đế",
-        "emoji": "👤",
-        "description": "Nhân đế vĩ đại"
+        "id": "kirin_shadow_8",
+        "name": "Ảnh Lân",
+        "emoji": "🦄",
+        "description": "Kỳ lân bóng tối, pháp lực tà dị."
+      },
+      {
+        "id": "tortoise_shadow_8",
+        "name": "Huyền Hắc Quy",
+        "emoji": "🐢",
+        "description": "Rùa đen cổ xưa, mai che thiên địa."
+      },
+      {
+        "id": "roc_shadow_8",
+        "name": "U Minh Bằng",
+        "emoji": "🦅",
+        "description": "Đại bằng u minh, lướt đi như bóng ma."
       }
     ],
     "cuu_cap": [
       {
-        "id": "thien_than_cuu",
-        "name": "Thiên Thần",
-        "emoji": "👼",
-        "description": "Thiên thần tối cao"
+        "id": "dragon_gold_9",
+        "name": "Kim Long",
+        "emoji": "🐉",
+        "description": "Rồng vàng, thống lĩnh tứ hải bát hoang."
       },
       {
-        "id": "dia_than_cuu",
-        "name": "Địa Thần",
-        "emoji": "🌍",
-        "description": "Địa thần uy nghiêm"
+        "id": "phoenix_gold_9",
+        "name": "Kim Phượng",
+        "emoji": "🔥",
+        "description": "Phượng vàng, lửa chiếu vạn giới."
       },
       {
-        "id": "nhan_than_cuu",
-        "name": "Nhân Thần",
-        "emoji": "🧙",
-        "description": "Nhân thần vĩ đại"
+        "id": "kirin_gold_9",
+        "name": "Kim Lân",
+        "emoji": "🦄",
+        "description": "Kỳ lân vàng, uy nghi bất khả xâm phạm."
+      },
+      {
+        "id": "tortoise_gold_9",
+        "name": "Kim Quy",
+        "emoji": "🐢",
+        "description": "Rùa vàng, mai cứng như thần khí."
+      },
+      {
+        "id": "roc_gold_9",
+        "name": "Kim Bằng",
+        "emoji": "🦅",
+        "description": "Đại bằng vàng, tung cánh che phủ nhật nguyệt."
       }
     ],
     "thap_cap": [
       {
-        "id": "thien_to_thap",
-        "name": "Thiên Tổ",
-        "emoji": "👑",
-        "description": "Thiên tổ tối cao"
+        "id": "dragon_supreme_10",
+        "name": "Thái Cổ Long",
+        "emoji": "🐉",
+        "description": "Long thái cổ, sinh ra từ thời hồng hoang."
       },
       {
-        "id": "dia_to_thap",
-        "name": "Địa Tổ",
-        "emoji": "🏔️",
-        "description": "Địa tổ uy nghiêm"
+        "id": "phoenix_supreme_10",
+        "name": "Vĩnh Diễm Phượng",
+        "emoji": "🔥",
+        "description": "Phượng vĩnh diễm, lửa bất diệt muôn đời."
       },
       {
-        "id": "nhan_to_thap",
-        "name": "Nhân Tổ",
-        "emoji": "👤",
-        "description": "Nhân tổ vĩ đại"
+        "id": "kirin_supreme_10",
+        "name": "Nguyên Hoang Lân",
+        "emoji": "🦄",
+        "description": "Lân từ thời nguyên hoang, thần bí vô biên."
+      },
+      {
+        "id": "tortoise_supreme_10",
+        "name": "Càn Khôn Quy",
+        "emoji": "🐢",
+        "description": "Quy trấn giữ càn khôn, mai chống đỡ vũ trụ."
+      },
+      {
+        "id": "roc_supreme_10",
+        "name": "Hạo Thiên Bằng",
+        "emoji": "🦅",
+        "description": "Đại bằng hạo thiên, một cánh che trời."
       }
     ]
   },

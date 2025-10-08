@@ -155,7 +155,11 @@ class CombatSystem {
       battleLog: [],
       interaction: interaction,
       channel: interaction.channel,
-      isActive: true
+      isActive: true,
+      // Thêm AP system cho raid
+      playerApMax: this.getApForRealm(party[0].realm), // Dùng realm của leader
+      playerAp: this.getApForRealm(party[0].realm),
+      playerCooldowns: {} // { skillId: remainingTurns }
     };
 
     this.activeCombats.set(combatId, combat);
@@ -165,13 +169,19 @@ class CombatSystem {
 
   createRaidUI(combat) {
     const waveInfo = `Ải ${(combat.currentWaveIndex || 0) + 1}/${combat.waves.length}`;
-    const partyLines = combat.party.map(p => `• ${p.name}: ${p.currentHp.toFixed(1)}/${p.stats.hp} HP, ${p.currentMp.toFixed(1)}/${p.stats.mp} MP`).join('\n');
+    const currentActor = combat.party[combat.currentActorIndex];
+    const apInfo = combat.currentTurn === 'party' ? `AP: ${combat.playerAp || 0}/${combat.playerApMax || 1}` : '';
+    const partyLines = combat.party.map(p => {
+      const isCurrent = p === currentActor;
+      const apText = isCurrent ? ` (AP: ${combat.playerAp || 0}/${combat.playerApMax || 1})` : '';
+      return `• ${p.name}: ${p.currentHp.toFixed(1)}/${p.stats.hp} HP, ${p.currentMp.toFixed(1)}/${p.stats.mp} MP${apText}`;
+    }).join('\n');
     const monsterLines = combat.monsters.map((m, i) => `• ${m.emoji || '👹'} ${m.name}: ${m.currentHp.toFixed(1)}/${m.stats.hp} HP`).join('\n');
 
     const embed = new EmbedBuilder()
       .setColor('#F1C40F')
       .setTitle('🏰 Domain Raid')
-      .setDescription(`**Turn ${combat.turn}** - ${combat.currentTurn === 'party' ? `Lượt của: ${combat.party[combat.currentActorIndex]?.name}` : 'Lượt của quái'}`)
+      .setDescription(`**Turn ${combat.turn}** - ${combat.currentTurn === 'party' ? `Lượt của: ${currentActor?.name} ${apInfo}` : 'Lượt của quái'}`)
       .addFields(
         { name: '👥 Party', value: partyLines || '—', inline: false },
         { name: '👹 Địch', value: monsterLines || '—', inline: false },
@@ -208,6 +218,10 @@ class CombatSystem {
     } while (combat.party[idx].currentHp <= 0);
     combat.currentActorIndex = idx;
     combat.currentActorUserId = combat.party[idx].userId;
+
+    // Reset AP cho người chơi mới (chỉ khi chuyển sang người chơi khác)
+    combat.playerAp = combat.playerApMax;
+    console.log(`[RAID] nextRaidActor: Reset AP to ${combat.playerAp}/${combat.playerApMax} for ${combat.party[combat.currentActorIndex]?.name}`);
   }
 
   // Lượt quái tấn công cả nhóm
@@ -215,15 +229,15 @@ class CombatSystem {
     if (!combat.isActive) return;
     if (!combat.monsters || combat.monsters.length === 0) return;
 
-    // mỗi quái tấn công ngẫu nhiên một người chơi còn sống
-    for (const m of combat.monsters) {
-      if (m.currentHp <= 0) continue;
-      const alive = combat.party.filter(p => p.currentHp > 0);
-      if (alive.length === 0) break;
-      const target = alive[Math.floor(Math.random() * alive.length)];
-      const result = this.performAttack(m, target, combat);
+    // mỗi quái tấn công đối xứng theo thứ tự
+    for (let i = 0; i < combat.monsters.length; i++) {
+      const monster = combat.monsters[i];
+      if (monster.currentHp <= 0) continue;
+      const target = this.getSymmetricTargetForMonster(monster, i, combat);
+      if (!target) continue;
+      const result = this.performAttack(monster, target, combat);
       if (result && result.message) {
-        combat.battleLog.push(result.message.replace(m.name, `${m.name}`).replace('⚔️', '💥'));
+        combat.battleLog.push(result.message.replace(monster.name, `${monster.name}`).replace('⚔️', '💥'));
       }
       if (this.checkRaidEnd(combat)) break;
     }
@@ -285,6 +299,17 @@ class CombatSystem {
     const firstAliveIdx = combat.party.findIndex(p => p.currentHp > 0);
     combat.currentActorIndex = Math.max(0, firstAliveIdx);
     combat.currentActorUserId = combat.party[combat.currentActorIndex]?.userId;
+    // Reset AP cho lượt mới (sau khi quái hành động)
+    combat.playerAp = combat.playerApMax;
+    // Giảm cooldown theo lượt cho kỹ năng
+    Object.keys(combat.playerCooldowns || {}).forEach(id => {
+      const left = Math.max(0, (combat.playerCooldowns[id] || 0) - 1);
+      if (left <= 0) {
+        delete combat.playerCooldowns[id];
+      } else {
+        combat.playerCooldowns[id] = left;
+      }
+    });
     // regen theo lượt
     combat.party.forEach(p => this.applyRegeneration(p));
     combat.monsters.forEach(m => this.applyRegeneration(m));
@@ -452,6 +477,38 @@ class CombatSystem {
     return map[key] || (key ? key.replace(/_/g, ' ').toUpperCase() : '');
   }
 
+  // Lấy mục tiêu đối xứng cho người chơi
+  getSymmetricTarget(actor, combat) {
+    const aliveParty = combat.party.filter(p => p.currentHp > 0);
+    const aliveMonsters = combat.monsters.filter(m => m.currentHp > 0);
+
+    if (aliveMonsters.length === 0) return null;
+
+    // Tìm vị trí của actor trong danh sách party còn sống
+    const actorIndex = aliveParty.findIndex(p => p.id === actor.id);
+    if (actorIndex === -1) return null;
+
+    // Tính toán vị trí mục tiêu đối xứng
+    const targetIndex = actorIndex % aliveMonsters.length;
+    return aliveMonsters[targetIndex];
+  }
+
+  // Lấy mục tiêu đối xứng cho quái vật
+  getSymmetricTargetForMonster(monster, monsterIndex, combat) {
+    const aliveParty = combat.party.filter(p => p.currentHp > 0);
+    const aliveMonsters = combat.monsters.filter(m => m.currentHp > 0);
+
+    if (aliveParty.length === 0) return null;
+
+    // Tìm vị trí của monster trong danh sách quái còn sống
+    const monsterAliveIndex = aliveMonsters.findIndex(m => m === monster);
+    if (monsterAliveIndex === -1) return null;
+
+    // Tính toán vị trí mục tiêu đối xứng
+    const targetIndex = monsterAliveIndex % aliveParty.length;
+    return aliveParty[targetIndex];
+  }
+
   // Xử lý hành động của người chơi
   async handlePlayerAction(combatId, action, interaction) {
     console.log(`Looking for combat with ID: ${combatId}`);
@@ -510,11 +567,19 @@ class CombatSystem {
       let result = null;
       switch (action) {
         case 'attack': {
-          // Tấn công quái còn sống đầu tiên
-          const target = combat.monsters.find(m => m.currentHp > 0);
+          // Kiểm tra AP
+          if ((combat.playerAp || 0) <= 0) {
+            await interaction.reply({ content: '⚠️ Bạn đã hết Action Point!', ephemeral: true });
+            return;
+          }
+          // Tấn công đối xứng theo thứ tự
+          const target = this.getSymmetricTarget(actor, combat);
           if (!target) return;
           result = this.performAttack(actor, target, combat);
           if (result && result.message) combat.battleLog.push(`👤 ${actor.name}: ${result.message}`);
+          // Trừ AP
+          combat.playerAp = Math.max(0, (combat.playerAp || 0) - 1);
+          console.log(`[RAID] After ATTACK: AP=${combat.playerAp}/${combat.playerApMax}`);
           break;
         }
         case 'defend':
@@ -522,14 +587,121 @@ class CombatSystem {
           if (result && result.message) combat.battleLog.push(`👤 ${actor.name}: ${result.message}`);
           break;
         case 'skill':
-          // Tạm thời dùng menu kỹ năng đơn như PvE, nhưng đối tượng là raid UI
-          await this.updateCombatUI(combat, this.createRaidUI(combat), interaction);
-          result = await this.showSkillMenu(combat, interaction);
+          // Kiểm tra AP
+          if ((combat.playerAp || 0) <= 0) {
+            await interaction.reply({ content: '⚠️ Bạn đã hết Action Point!', ephemeral: true });
+            return;
+          }
+          // Hiển thị menu kỹ năng cho raid
+          result = await this.showRaidSkillMenu(combat, interaction);
           return; // đã update UI bên trong
         case 'item':
           result = { action: 'item', message: '🧪 Sử dụng vật phẩm (đang phát triển)...' };
           combat.battleLog.push(`👤 ${actor.name}: ${result.message}`);
           break;
+        case 'raid_skilluse': {
+          const parts = interaction.customId.split('_');
+          const skillId = parts.slice(6).join('_');
+          const actor = combat.party[combat.currentActorIndex];
+
+          // Kiểm tra AP
+          if ((combat.playerAp || 0) <= 0) {
+            await interaction.reply({ content: '⚠️ Bạn đã hết Action Point!', ephemeral: true });
+            return;
+          }
+
+          // Kiểm tra quyền sử dụng skill
+          if (interaction.user.id !== actor.id) {
+            await interaction.reply({ content: '❌ Bạn không thể sử dụng kỹ năng của người khác!', ephemeral: true });
+            return;
+          }
+
+          if (combat.actionLock || combat.uiLock !== 'skill_menu') {
+            await interaction.reply({ content: '⚠️ Không thể dùng kỹ năng lúc này!', ephemeral: true });
+            return;
+          }
+
+          combat.actionLock = true;
+          combat.uiLock = 'skill_resolve';
+          result = await this.useRaidSkill(combat, skillId, interaction);
+
+          // Chỉ trừ AP nếu skill được dùng thành công (không bị CD)
+          if (result && result.success) {
+            combat.playerAp = Math.max(0, (combat.playerAp || 0) - 1);
+            console.log(`[RAID] After SKILL: AP=${combat.playerAp}/${combat.playerApMax}`);
+          } else {
+            console.log(`[RAID] SKILL failed, no AP consumed: ${result?.message || 'unknown error'}`);
+            // Không chuyển lượt nếu skill thất bại
+            await this.updateCombatUI(combat, this.createRaidUI(combat), interaction);
+            combat.actionLock = false;
+            return;
+          }
+
+          // Kiểm tra kết thúc ải/quái
+          const allMonstersDown = combat.monsters.every(m => m.currentHp <= 0);
+          if (allMonstersDown) {
+            // Nếu còn ải tiếp theo
+            const nextIdx = (combat.currentWaveIndex || 0) + 1;
+            if (nextIdx < combat.waves.length) {
+              combat.currentWaveIndex = nextIdx;
+              combat.monsters = combat.waves[nextIdx].map(m => ({
+                ...m,
+                currentHp: parseFloat(m.stats.hp),
+                currentMp: parseFloat(m.stats.mp),
+                statusEffects: [],
+                cooldowns: {}
+              }));
+              combat.turn++;
+              combat.currentTurn = 'party';
+              this.nextRaidRound(combat);
+              combat.battleLog.push(`🚪 Sang ải ${nextIdx + 1}/${combat.waves.length}`);
+              const ui = this.createRaidUI(combat);
+              await this.updateCombatUI(combat, ui, interaction);
+              combat.actionLock = false;
+              return;
+            } else {
+              // RAID kết thúc thắng lợi
+              combat.isActive = false;
+              this.activeCombats.delete(combat.id);
+              const embed = new (require('discord.js')).EmbedBuilder()
+                .setColor('#00FF00')
+                .setTitle('🏆 RAID Chiến Thắng!')
+                .setDescription('Toàn bộ ải đã bị đánh bại!')
+                .setTimestamp();
+              await this.updateCombatUI(combat, { embeds: [embed], components: [] }, interaction);
+              combat.actionLock = false;
+              return;
+            }
+          }
+
+          // Kiểm tra nếu hết AP thì chuyển lượt
+          if ((combat.playerAp || 0) <= 0) {
+            // Chuyển lượt cho người tiếp theo hoặc quái
+            const prevIdx = combat.currentActorIndex;
+            this.nextRaidActor(combat);
+
+            // Nếu đã đến cuối vòng (prev >= current) hoặc không còn actor sống khác → lượt quái
+            const aliveCount = combat.party.filter(p => p.currentHp > 0).length;
+            if (combat.currentActorIndex <= prevIdx || aliveCount <= 1) {
+              combat.currentTurn = 'monster_group';
+              combat.actionLock = false;
+              await this.updateCombatUI(combat, this.createRaidUI(combat), interaction);
+              setTimeout(async () => {
+                await this.performMonsterGroupTurn(combat);
+                await this.updateCombatUI(combat, this.createRaidUI(combat), interaction);
+              }, 1000);
+              return;
+            }
+          }
+
+          await this.updateCombatUI(combat, this.createRaidUI(combat), interaction);
+          combat.actionLock = false;
+          return;
+        }
+        case 'raid_back':
+          combat.uiLock = null;
+          await this.updateCombatUI(combat, this.createRaidUI(combat), interaction);
+          return;
         case 'back':
           await this.updateCombatUI(combat, this.createRaidUI(combat), interaction);
           return;
@@ -574,19 +746,22 @@ class CombatSystem {
         }
       }
 
-      // Chuyển sang actor tiếp theo hoặc lượt quái
-      const prevIdx = combat.currentActorIndex;
-      this.nextRaidActor(combat);
-      // Nếu đã đến cuối vòng (prev >= current) hoặc không còn actor sống khác → lượt quái
-      const aliveCount = combat.party.filter(p => p.currentHp > 0).length;
-      if (combat.currentActorIndex <= prevIdx || aliveCount <= 1) {
-        combat.currentTurn = 'monster';
-        // ACK trước khi quái hành động để tránh interaction failed
-        await this.updateCombatUI(combat, this.createRaidUI(combat), interaction);
-        setTimeout(async () => {
-          try { await this.performMonsterGroupTurn(combat); } catch (e) { console.error(e); }
-        }, 800);
-        return;
+      // Kiểm tra nếu hết AP thì chuyển lượt
+      if ((combat.playerAp || 0) <= 0) {
+        // Chuyển sang actor tiếp theo hoặc lượt quái
+        const prevIdx = combat.currentActorIndex;
+        this.nextRaidActor(combat);
+        // Nếu đã đến cuối vòng (prev >= current) hoặc không còn actor sống khác → lượt quái
+        const aliveCount = combat.party.filter(p => p.currentHp > 0).length;
+        if (combat.currentActorIndex <= prevIdx || aliveCount <= 1) {
+          combat.currentTurn = 'monster_group';
+          // ACK trước khi quái hành động để tránh interaction failed
+          await this.updateCombatUI(combat, this.createRaidUI(combat), interaction);
+          setTimeout(async () => {
+            try { await this.performMonsterGroupTurn(combat); } catch (e) { console.error(e); }
+          }, 800);
+          return;
+        }
       }
 
       await this.updateCombatUI(combat, this.createRaidUI(combat), interaction);
@@ -1247,6 +1422,57 @@ class CombatSystem {
     }
   }
 
+  // Hiển thị menu kỹ năng cho raid
+  async showRaidSkillMenu(combat, interaction) {
+    // Khóa UI để tránh refresh/auto-turn ghi đè
+    combat.uiLock = 'skill_menu';
+    const actor = combat.party[combat.currentActorIndex];
+    const learned = actor.skills ? Object.keys(actor.skills) : [];
+    const available = learned
+      .map(id => this.findSkillById(id))
+      .filter(Boolean)
+      .slice(0, 4);
+
+    if (available.length === 0) {
+      await this.updateCombatUI(combat, { content: '❌ Bạn chưa có kỹ năng để dùng!', components: [] }, interaction);
+      return { action: 'menu', message: 'No skills' };
+    }
+
+    const embed = new EmbedBuilder()
+      .setColor('#9B59B6')
+      .setTitle(`✨ Chọn Kỹ Năng - ${actor.name}`)
+      .setDescription(`MP: ${actor.currentMp.toFixed(1)}/${actor.stats.mp}`);
+
+    embed.addFields(available.map((s, idx) => {
+      const remainCD = combat.playerCooldowns?.[s.id] || 0;
+      const cdText = remainCD > 0 ? `⏳ ${remainCD} lượt` : `✅ Sẵn sàng`;
+      return {
+        name: `${idx + 1}. ${s.name}`,
+        value: `MP: ${s.effects?.mana_cost || 0} | CD: ${cdText}\n${s.description || 'Không có mô tả'}`,
+        inline: false
+      };
+    }));
+
+    const buttons = available.map((s, idx) => {
+      const remainCD = combat.playerCooldowns?.[s.id] || 0;
+      const isOnCD = remainCD > 0;
+      return new ButtonBuilder()
+        .setCustomId(`raid_skilluse_${combat.id}_${actor.id}_${Date.now()}_${s.id}`)
+        .setLabel(`${idx + 1}. ${s.name}`)
+        .setStyle(ButtonStyle.Primary)
+        .setDisabled(isOnCD);
+    });
+
+    const backButton = new ButtonBuilder()
+      .setCustomId(`raid_back_${combat.id}`)
+      .setLabel('🔙 Quay lại')
+      .setStyle(ButtonStyle.Secondary);
+
+    const row = new ActionRowBuilder().addComponents([...buttons, backButton]);
+    await this.updateCombatUI(combat, { embeds: [embed], components: [row] }, interaction);
+    return { action: 'menu', message: 'Skill menu shown' };
+  }
+
   // Hiển thị menu kỹ năng
   async showSkillMenu(combat, interaction) {
     // Khóa UI để tránh refresh/auto-turn ghi đè
@@ -1301,6 +1527,69 @@ class CombatSystem {
   async showItemMenu(combat, interaction) {
     // TODO: Implement item menu
     return { action: 'menu', message: 'Menu vật phẩm đang được phát triển...' };
+  }
+
+  // === RAID SKILL EXECUTION ===
+  async useRaidSkill(combat, skillId, interaction) {
+    const actor = combat.party[combat.currentActorIndex];
+    const skill = this.findSkillById(skillId);
+    if (!skill) {
+      await interaction.reply({ content: '❌ Kỹ năng không tồn tại!', ephemeral: true });
+      return { action: 'skill', message: 'invalid skill' };
+    }
+
+    // cooldown check
+    const cdTurns = skill.cooldown || 0;
+    const remainTurns = combat.playerCooldowns?.[skill.id] || 0;
+    if (remainTurns > 0) {
+      await interaction.reply({ content: `⏳ Kỹ năng đang hồi (${remainTurns} lượt)!`, ephemeral: true });
+      return { action: 'skill', message: 'on cd', success: false };
+    }
+
+    // mana check
+    const manaCost = skill.effects?.mana_cost || 0;
+    if (actor.currentMp < manaCost) {
+      await interaction.reply({ content: '❌ Không đủ MP!', ephemeral: true });
+      return { action: 'skill', message: 'no mp', success: false };
+    }
+
+    // spend mana
+    actor.currentMp = Math.max(0, actor.currentMp - manaCost);
+
+    // apply effect
+    const type = skill.type || skill.effects?.type || 'attack';
+    let log = `✨ ${actor.name} dùng ${skill.name}!`;
+
+    if (type === 'attack') {
+      const power = skill.effects?.power || skill.effects?.damage_multiplier || 1.2;
+      const target = this.getSymmetricTarget(actor, combat);
+      if (target) {
+        const dmg = this.calculateDamage(actor, target, false) * power;
+        target.currentHp = Math.max(0, target.currentHp - dmg);
+        log += ` Gây **${dmg.toFixed(1)}** sát thương cho ${target.name}!`;
+      }
+    } else if (type === 'heal') {
+      const healAmount = actor.stats.hp * (skill.effects?.power || 0.3);
+      actor.currentHp = Math.min(actor.stats.hp, actor.currentHp + healAmount);
+      log += ` Hồi phục **${healAmount.toFixed(1)}** HP!`;
+    } else if (type === 'buff') {
+      const buffValue = skill.effects?.power || 1.2;
+      actor.statusEffects.push({
+        type: 'attack_boost',
+        duration: 3,
+        value: buffValue
+      });
+      log += ` Tăng sát thương **${((buffValue - 1) * 100).toFixed(0)}%** trong 3 lượt!`;
+    }
+
+    // apply cooldown
+    if (cdTurns > 0) {
+      if (!combat.playerCooldowns) combat.playerCooldowns = {};
+      combat.playerCooldowns[skill.id] = cdTurns;
+    }
+
+    combat.battleLog.push(log);
+    return { action: 'skill', message: log, success: true };
   }
 
   // === PLAYER SKILL EXECUTION ===

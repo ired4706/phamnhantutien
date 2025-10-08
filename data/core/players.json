@@ -3,7 +3,7 @@
     "userId": "504705413682298891",
     "username": "ired0806",
     "spiritRoot": "hoa",
-    "experience": 642,
+    "experience": 782,
     "realm": "luyen_khi",
     "realmLevel": 1,
     "totalTiers": 0,
@@ -29,7 +29,7 @@
         },
         {
           "id": "thanh_van_to",
-          "quantity": 307
+          "quantity": 309
         },
         {
           "id": "tu_hau_hoa",
@@ -93,7 +93,7 @@
         },
         {
           "id": "da_thu_tho",
-          "quantity": 5
+          "quantity": 6
         },
         {
           "id": "da_linh_thu",
@@ -259,7 +259,7 @@
       "breakthroughAttempts": 0,
       "lastBreakthrough": 0,
       "lastMeditate": 0,
-      "lastHunt": 1759486545852,
+      "lastHunt": 1759906844851,
       "lastChallenge": 0,
       "lastDomain": 0,
       "lastDailyQuest": 0,
@@ -290,7 +290,7 @@
     },
     "achievements": [],
     "joinDate": 1757583527158,
-    "lastActive": 1759486545852,
+    "lastActive": 1759906844851,
     "stats": {
       "attack": 16,
       "defense": 9,
