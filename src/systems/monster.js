@@ -248,11 +248,10 @@ class MonsterManager {
   // Chọn variant dựa trên tỉ lệ cố định
   selectVariant() {
     const random = Math.random();
-
-    // Tỉ lệ cố định: Normal 70%, Mutated 25%, Super Mutated 5%
-    if (random < 0.7) {
+    // Tỉ lệ cố định cho hunt: Normal 82%, Mutated 15%, Super Mutated 3%
+    if (random < 0.82) {
       return "normal";
-    } else if (random < 0.95) {
+    } else if (random < 0.97) {
       return "mutated";
     } else {
       return "super_mutated";

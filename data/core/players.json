@@ -3,13 +3,13 @@
     "userId": "504705413682298891",
     "username": "ired0806",
     "spiritRoot": "hoa",
-    "experience": 1200,
+    "experience": 210583,
     "realm": "nguyen_anh",
     "realmLevel": 2,
     "totalTiers": 0,
     "inventory": {
       "spiritStones": {
-        "ha_pham": 16,
+        "ha_pham": 8800,
         "trung_pham": 0,
         "thuong_pham": 0,
         "cuc_pham": 0
@@ -29,7 +29,7 @@
         },
         {
           "id": "thanh_van_to",
-          "quantity": 311
+          "quantity": 315
         },
         {
           "id": "tu_hau_hoa",
@@ -93,11 +93,11 @@
         },
         {
           "id": "da_thu_tho",
-          "quantity": 7
+          "quantity": 13
         },
         {
           "id": "da_linh_thu",
-          "quantity": 1
+          "quantity": 7
         },
         {
           "id": "anh_diep_thao",
@@ -105,7 +105,7 @@
         },
         {
           "id": "nguyet_anh_to",
-          "quantity": 2
+          "quantity": 6
         },
         {
           "id": "ban_do_thi_luyen",
@@ -117,15 +117,15 @@
         },
         {
           "id": "dia_ha_to",
-          "quantity": 1
+          "quantity": 4
         },
         {
           "id": "da_dia_thu",
-          "quantity": 2
+          "quantity": 5
         },
         {
           "id": "tinh_ha_to",
-          "quantity": 2
+          "quantity": 3
         }
       ],
       "weapons": [
@@ -279,9 +279,9 @@
       "breakthroughAttempts": 0,
       "lastBreakthrough": 0,
       "lastMeditate": 0,
-      "lastHunt": 1759906844851,
+      "lastHunt": 1760005762364,
       "lastChallenge": 0,
-      "lastDomain": 1760000696801,
+      "lastDomain": 1760003119805,
       "lastDailyQuest": 0,
       "lastWeeklyQuest": 0,
       "lastDungeon": 0,
@@ -310,7 +310,7 @@
     },
     "achievements": [],
     "joinDate": 1757583527158,
-    "lastActive": 1760000696802,
+    "lastActive": 1760005762364,
     "stats": {
       "attack": 7500,
       "defense": 3937.5,
@@ -436,13 +436,13 @@
     "userId": "397226790709624834",
     "username": "i_am_tsyu",
     "spiritRoot": "thuy",
-    "experience": 36628,
+    "experience": 36672,
     "realm": "luyen_khi",
     "realmLevel": 1,
     "totalTiers": 0,
     "inventory": {
       "spiritStones": {
-        "ha_pham": 2,
+        "ha_pham": 8,
         "trung_pham": 0,
         "thuong_pham": 0,
         "cuc_pham": 0
@@ -470,7 +470,7 @@
         },
         {
           "id": "thanh_van_to",
-          "quantity": 2
+          "quantity": 3
         },
         {
           "id": "da_thu_tho",
@@ -490,7 +490,7 @@
       "breakthroughAttempts": 0,
       "lastBreakthrough": 0,
       "lastMeditate": 1757587712992,
-      "lastHunt": 1757587814918,
+      "lastHunt": 1760002287668,
       "lastChallenge": 1757587721265,
       "lastDomain": 1757587676836,
       "lastDailyQuest": 0,
@@ -523,7 +523,7 @@
     },
     "achievements": [],
     "joinDate": 1757587591503,
-    "lastActive": 1757587814920,
+    "lastActive": 1760002287668,
     "stats": {
       "attack": 10.2,
       "defense": 10.2,
@@ -540,6 +540,7 @@
     },
     "luyenKhiTiers": 1,
     "stageMultiplier": 1,
-    "tierMultiplier": 1
+    "tierMultiplier": 1,
+    "id": "397226790709624834"
   }
 }
