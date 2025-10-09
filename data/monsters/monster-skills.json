@@ -1,0 +1,834 @@
+{
+  "fire_skills": {
+    "tier_1": [
+      {
+        "id": "hoa_cau",
+        "name": "Hỏa Cầu",
+        "description": "Tạo quả cầu lửa, gây sát thương phép đơn mục tiêu",
+        "type": "active",
+        "tier": 1,
+        "element": "fire",
+        "damage": 1.2,
+        "cost": 20,
+        "target": "single",
+        "effects": []
+      },
+      {
+        "id": "thieu_dot",
+        "name": "Thiêu Đốt",
+        "description": "Đốt cháy mục tiêu, gây sát thương theo thời gian (DOT) trong 2 lượt",
+        "type": "active",
+        "tier": 1,
+        "element": "fire",
+        "damage": 0.8,
+        "cost": 25,
+        "target": "single",
+        "effects": [
+          {
+            "type": "dot",
+            "duration": 2,
+            "damage": 0.3,
+            "name": "Burning"
+          }
+        ]
+      }
+    ],
+    "tier_2_4": [
+      {
+        "id": "bung_no",
+        "name": "Bùng Nổ",
+        "description": "Gây nổ lửa diện rộng, sát thương lan sang các mục tiêu phụ (30-50% dmg)",
+        "type": "active",
+        "tier": "2-4",
+        "element": "fire",
+        "damage": 1.5,
+        "cost": 35,
+        "target": "aoe",
+        "effects": [
+          {
+            "type": "splash",
+            "damage_percent": 0.4,
+            "radius": 2
+          }
+        ]
+      }
+    ],
+    "tier_5_7": [
+      {
+        "id": "hoa_vu",
+        "name": "Hỏa Vụ",
+        "description": "Gọi mưa lửa, gây sát thương AoE + giảm DEF của kẻ địch trong 1 lượt",
+        "type": "active",
+        "tier": "5-7",
+        "element": "fire",
+        "damage": 1.8,
+        "cost": 45,
+        "target": "aoe",
+        "effects": [
+          {
+            "type": "debuff",
+            "stat": "defense",
+            "value": -0.2,
+            "duration": 1,
+            "name": "DEF Reduction"
+          }
+        ]
+      }
+    ],
+    "tier_8_10": [
+      {
+        "id": "tan_diet",
+        "name": "Tàn Diệt",
+        "description": "Khi HP < 30%, sát thương tăng +20%",
+        "type": "passive",
+        "tier": "8-10",
+        "element": "fire",
+        "trigger": "low_hp",
+        "threshold": 0.3,
+        "effects": [
+          {
+            "type": "damage_boost",
+            "value": 0.2,
+            "name": "Berserker"
+          }
+        ]
+      }
+    ]
+  },
+  "water_skills": {
+    "tier_1": [
+      {
+        "id": "bang_manh",
+        "name": "Băng Mảnh",
+        "description": "Phóng mảnh băng, gây sát thương + 10% làm chậm Speed 1 lượt",
+        "type": "active",
+        "tier": 1,
+        "element": "water",
+        "damage": 1.1,
+        "cost": 18,
+        "target": "single",
+        "effects": [
+          {
+            "type": "debuff",
+            "stat": "speed",
+            "value": -0.1,
+            "duration": 1,
+            "chance": 0.1,
+            "name": "Slow"
+          }
+        ]
+      },
+      {
+        "id": "suong_mu",
+        "name": "Sương Mù",
+        "description": "Gọi sương che phủ, tăng EVA bản thân/đồng minh 10% trong 2 lượt",
+        "type": "active",
+        "tier": 1,
+        "element": "water",
+        "damage": 0,
+        "cost": 20,
+        "target": "self_and_allies",
+        "effects": [
+          {
+            "type": "buff",
+            "stat": "evasion",
+            "value": 0.1,
+            "duration": 2,
+            "name": "Mist Cover"
+          }
+        ]
+      }
+    ],
+    "tier_2_4": [
+      {
+        "id": "thuy_kich",
+        "name": "Thủy Kích",
+        "description": "Dùng dòng nước mạnh đánh trúng mục tiêu, có 20% đẩy lùi lượt đi",
+        "type": "active",
+        "tier": "2-4",
+        "element": "water",
+        "damage": 1.4,
+        "cost": 30,
+        "target": "single",
+        "effects": [
+          {
+            "type": "knockback",
+            "chance": 0.2,
+            "name": "Water Push"
+          }
+        ]
+      }
+    ],
+    "tier_5_7": [
+      {
+        "id": "song_lon",
+        "name": "Sóng Lớn",
+        "description": "Sóng quét AoE, giảm Speed tất cả kẻ địch 15% trong 2 lượt",
+        "type": "active",
+        "tier": "5-7",
+        "element": "water",
+        "damage": 1.6,
+        "cost": 40,
+        "target": "aoe_enemies",
+        "effects": [
+          {
+            "type": "debuff",
+            "stat": "speed",
+            "value": -0.15,
+            "duration": 2,
+            "name": "Wave Slow"
+          }
+        ]
+      }
+    ],
+    "tier_8_10": [
+      {
+        "id": "phan_anh",
+        "name": "Phản Ảnh",
+        "description": "Khi né thành công, phản đòn gây 30% sát thương cơ bản",
+        "type": "passive",
+        "tier": "8-10",
+        "element": "water",
+        "trigger": "dodge",
+        "effects": [
+          {
+            "type": "counter_attack",
+            "damage": 0.3,
+            "name": "Water Reflection"
+          }
+        ]
+      }
+    ]
+  },
+  "wood_skills": {
+    "tier_1": [
+      {
+        "id": "gai_doc",
+        "name": "Gai Độc",
+        "description": "Tấn công bằng gai nhọn, gây sát thương + hiệu ứng trúng độc (DOT nhẹ)",
+        "type": "active",
+        "tier": 1,
+        "element": "wood",
+        "damage": 1.0,
+        "cost": 15,
+        "target": "single",
+        "effects": [
+          {
+            "type": "dot",
+            "duration": 3,
+            "damage": 0.2,
+            "name": "Poison"
+          }
+        ]
+      },
+      {
+        "id": "sinh_khi",
+        "name": "Sinh Khí",
+        "description": "Hồi phục 5-10% HP cho bản thân hoặc đồng minh ngẫu nhiên",
+        "type": "active",
+        "tier": 1,
+        "element": "wood",
+        "damage": 0,
+        "cost": 25,
+        "target": "self_or_random_ally",
+        "effects": [
+          {
+            "type": "heal",
+            "value": 0.075,
+            "name": "Life Force"
+          }
+        ]
+      }
+    ],
+    "tier_2_4": [
+      {
+        "id": "re_troi",
+        "name": "Rễ Trói",
+        "description": "Gốc rễ mọc lên, trói mục tiêu trong 1 lượt (stun/immobilize)",
+        "type": "active",
+        "tier": "2-4",
+        "element": "wood",
+        "damage": 0.8,
+        "cost": 30,
+        "target": "single",
+        "effects": [
+          {
+            "type": "stun",
+            "duration": 1,
+            "name": "Root Bind"
+          }
+        ]
+      }
+    ],
+    "tier_5_7": [
+      {
+        "id": "la_ho_the",
+        "name": "Lá Hộ Thể",
+        "description": "Bọc lá hộ thể, tăng DEF + regen máu nhỏ trong 2 lượt",
+        "type": "active",
+        "tier": "5-7",
+        "element": "wood",
+        "damage": 0,
+        "cost": 35,
+        "target": "self",
+        "effects": [
+          {
+            "type": "buff",
+            "stat": "defense",
+            "value": 0.25,
+            "duration": 2,
+            "name": "Leaf Shield"
+          },
+          {
+            "type": "regen",
+            "value": 0.05,
+            "duration": 2,
+            "name": "Leaf Regen"
+          }
+        ]
+      }
+    ],
+    "tier_8_10": [
+      {
+        "id": "tai_sinh",
+        "name": "Tái Sinh",
+        "description": "Khi tử vong, có 20% cơ hội hồi sinh với 30% HP",
+        "type": "passive",
+        "tier": "8-10",
+        "element": "wood",
+        "trigger": "death",
+        "effects": [
+          {
+            "type": "revive",
+            "chance": 0.2,
+            "hp_percent": 0.3,
+            "name": "Rebirth"
+          }
+        ]
+      }
+    ]
+  },
+  "metal_skills": {
+    "tier_1": [
+      {
+        "id": "vuot_sat",
+        "name": "Vuốt Sắt",
+        "description": "Tấn công vật lý mạnh, tăng +10% tỉ lệ chí mạng",
+        "type": "active",
+        "tier": 1,
+        "element": "metal",
+        "damage": 1.3,
+        "cost": 20,
+        "target": "single",
+        "effects": [
+          {
+            "type": "crit_boost",
+            "value": 0.1,
+            "name": "Iron Claw"
+          }
+        ]
+      },
+      {
+        "id": "cung_cap",
+        "name": "Cứng Cáp",
+        "description": "Tăng DEF bản thân thêm 15% trong 2 lượt",
+        "type": "active",
+        "tier": 1,
+        "element": "metal",
+        "damage": 0,
+        "cost": 18,
+        "target": "self",
+        "effects": [
+          {
+            "type": "buff",
+            "stat": "defense",
+            "value": 0.15,
+            "duration": 2,
+            "name": "Iron Will"
+          }
+        ]
+      }
+    ],
+    "tier_2_4": [
+      {
+        "id": "chan_dong",
+        "name": "Chấn Động",
+        "description": "Gây sóng xung kích, sát thương AoE nhỏ, 20% làm choáng",
+        "type": "active",
+        "tier": "2-4",
+        "element": "metal",
+        "damage": 1.2,
+        "cost": 30,
+        "target": "aoe",
+        "effects": [
+          {
+            "type": "stun",
+            "chance": 0.2,
+            "duration": 1,
+            "name": "Shock Wave"
+          }
+        ]
+      }
+    ],
+    "tier_5_7": [
+      {
+        "id": "cuong_lien_kich",
+        "name": "Cương Liên Kích",
+        "description": "Đánh liên tiếp 2-3 lần một mục tiêu",
+        "type": "active",
+        "tier": "5-7",
+        "element": "metal",
+        "damage": 1.0,
+        "cost": 40,
+        "target": "single",
+        "effects": [
+          {
+            "type": "multi_attack",
+            "min_hits": 2,
+            "max_hits": 3,
+            "name": "Iron Combo"
+          }
+        ]
+      }
+    ],
+    "tier_8_10": [
+      {
+        "id": "bat_hoai",
+        "name": "Bất Hoại",
+        "description": "Giảm sát thương nhận vào 10% vĩnh viễn",
+        "type": "passive",
+        "tier": "8-10",
+        "element": "metal",
+        "effects": [
+          {
+            "type": "damage_reduction",
+            "value": 0.1,
+            "name": "Indestructible"
+          }
+        ]
+      }
+    ]
+  },
+  "earth_skills": {
+    "tier_1": [
+      {
+        "id": "dap_da",
+        "name": "Đập Đá",
+        "description": "Cú đánh mạnh bằng đá, sát thương lớn lên mục tiêu đơn",
+        "type": "active",
+        "tier": 1,
+        "element": "earth",
+        "damage": 1.4,
+        "cost": 22,
+        "target": "single",
+        "effects": []
+      },
+      {
+        "id": "da_da",
+        "name": "Da Đá",
+        "description": "Tăng DEF bản thân + kháng chí mạng trong 2 lượt",
+        "type": "active",
+        "tier": 1,
+        "element": "earth",
+        "damage": 0,
+        "cost": 20,
+        "target": "self",
+        "effects": [
+          {
+            "type": "buff",
+            "stat": "defense",
+            "value": 0.2,
+            "duration": 2,
+            "name": "Stone Skin"
+          },
+          {
+            "type": "crit_resistance",
+            "value": 0.15,
+            "duration": 2,
+            "name": "Crit Resistance"
+          }
+        ]
+      }
+    ],
+    "tier_2_4": [
+      {
+        "id": "dia_chan",
+        "name": "Địa Chấn",
+        "description": "Rung chuyển đất, AoE + 20% làm choáng tất cả địch",
+        "type": "active",
+        "tier": "2-4",
+        "element": "earth",
+        "damage": 1.5,
+        "cost": 35,
+        "target": "aoe_enemies",
+        "effects": [
+          {
+            "type": "stun",
+            "chance": 0.2,
+            "duration": 1,
+            "name": "Earthquake"
+          }
+        ]
+      }
+    ],
+    "tier_5_7": [
+      {
+        "id": "tuong_da",
+        "name": "Tường Đá",
+        "description": "Dựng tường chắn, giảm 20% damage cho đồng minh trong 1 lượt",
+        "type": "active",
+        "tier": "5-7",
+        "element": "earth",
+        "damage": 0,
+        "cost": 40,
+        "target": "all_allies",
+        "effects": [
+          {
+            "type": "damage_reduction",
+            "value": 0.2,
+            "duration": 1,
+            "name": "Stone Wall"
+          }
+        ]
+      }
+    ],
+    "tier_8_10": [
+      {
+        "id": "kien_co",
+        "name": "Kiên Cố",
+        "description": "Kháng hiệu ứng xấu (stun/poison/slow) thêm 25%",
+        "type": "passive",
+        "tier": "8-10",
+        "element": "earth",
+        "effects": [
+          {
+            "type": "status_resistance",
+            "value": 0.25,
+            "name": "Steadfast"
+          }
+        ]
+      }
+    ]
+  },
+  "wind_skills": {
+    "tier_1": [
+      {
+        "id": "trao_gio",
+        "name": "Trảo Gió",
+        "description": "Vuốt gió nhanh, tăng Speed +5% trong 1 lượt sau khi tấn công",
+        "type": "active",
+        "tier": 1,
+        "element": "wind",
+        "damage": 1.1,
+        "cost": 15,
+        "target": "single",
+        "effects": [
+          {
+            "type": "buff",
+            "stat": "speed",
+            "value": 0.05,
+            "duration": 1,
+            "name": "Wind Claw"
+          }
+        ]
+      },
+      {
+        "id": "gio_nhanh",
+        "name": "Gió Nhanh",
+        "description": "Buff tốc độ cho toàn đội +10% trong 2 lượt",
+        "type": "active",
+        "tier": 1,
+        "element": "wind",
+        "damage": 0,
+        "cost": 25,
+        "target": "all_allies",
+        "effects": [
+          {
+            "type": "buff",
+            "stat": "speed",
+            "value": 0.1,
+            "duration": 2,
+            "name": "Swift Wind"
+          }
+        ]
+      }
+    ],
+    "tier_2_4": [
+      {
+        "id": "gio_loan",
+        "name": "Gió Loạn",
+        "description": "Gió xoáy AoE, 15% làm giảm Accuracy của địch",
+        "type": "active",
+        "tier": "2-4",
+        "element": "wind",
+        "damage": 1.3,
+        "cost": 30,
+        "target": "aoe_enemies",
+        "effects": [
+          {
+            "type": "debuff",
+            "stat": "accuracy",
+            "value": -0.15,
+            "duration": 2,
+            "name": "Wind Chaos"
+          }
+        ]
+      }
+    ],
+    "tier_5_7": [
+      {
+        "id": "phong_anh",
+        "name": "Phong Ảnh",
+        "description": "Khi né thành công, phản công lại 50% dmg",
+        "type": "active",
+        "tier": "5-7",
+        "element": "wind",
+        "damage": 0,
+        "cost": 35,
+        "target": "self",
+        "effects": [
+          {
+            "type": "counter_attack",
+            "damage": 0.5,
+            "trigger": "dodge",
+            "name": "Wind Counter"
+          }
+        ]
+      }
+    ],
+    "tier_8_10": [
+      {
+        "id": "song_kich",
+        "name": "Song Kích",
+        "description": "15% tỉ lệ tấn công thêm 1 lần vào mục tiêu",
+        "type": "passive",
+        "tier": "8-10",
+        "element": "wind",
+        "effects": [
+          {
+            "type": "double_attack",
+            "chance": 0.15,
+            "name": "Wind Strike"
+          }
+        ]
+      }
+    ]
+  },
+  "lightning_skills": {
+    "tier_1": [
+      {
+        "id": "dien_giat",
+        "name": "Điện Giật",
+        "description": "Gây sát thương điện đơn mục tiêu, 15% tê liệt trong 1 lượt",
+        "type": "active",
+        "tier": 1,
+        "element": "lightning",
+        "damage": 1.2,
+        "cost": 20,
+        "target": "single",
+        "effects": [
+          {
+            "type": "stun",
+            "chance": 0.15,
+            "duration": 1,
+            "name": "Electric Shock"
+          }
+        ]
+      },
+      {
+        "id": "tia_chop",
+        "name": "Tia Chớp",
+        "description": "Tăng Speed bản thân +15% trong 1 lượt, đồng thời gây sát thương nhẹ",
+        "type": "active",
+        "tier": 1,
+        "element": "lightning",
+        "damage": 0.8,
+        "cost": 18,
+        "target": "single",
+        "effects": [
+          {
+            "type": "buff",
+            "stat": "speed",
+            "value": 0.15,
+            "duration": 1,
+            "name": "Lightning Speed"
+          }
+        ]
+      }
+    ],
+    "tier_2_4": [
+      {
+        "id": "sam_no",
+        "name": "Sấm Nổ",
+        "description": "Nổ điện AoE, 20% gây choáng",
+        "type": "active",
+        "tier": "2-4",
+        "element": "lightning",
+        "damage": 1.6,
+        "cost": 35,
+        "target": "aoe",
+        "effects": [
+          {
+            "type": "stun",
+            "chance": 0.2,
+            "duration": 1,
+            "name": "Thunder Blast"
+          }
+        ]
+      }
+    ],
+    "tier_5_7": [
+      {
+        "id": "loi_xuyen",
+        "name": "Lôi Xuyên",
+        "description": "Sét đánh xuyên qua DEF, bỏ qua 20% giáp địch",
+        "type": "active",
+        "tier": "5-7",
+        "element": "lightning",
+        "damage": 1.8,
+        "cost": 40,
+        "target": "single",
+        "effects": [
+          {
+            "type": "armor_penetration",
+            "value": 0.2,
+            "name": "Lightning Pierce"
+          }
+        ]
+      }
+    ],
+    "tier_8_10": [
+      {
+        "id": "loi_linh",
+        "name": "Lôi Linh",
+        "description": "Khi Speed cao hơn địch, tăng crit rate thêm 15%",
+        "type": "passive",
+        "tier": "8-10",
+        "element": "lightning",
+        "trigger": "speed_advantage",
+        "effects": [
+          {
+            "type": "crit_boost",
+            "value": 0.15,
+            "name": "Lightning Spirit"
+          }
+        ]
+      }
+    ]
+  },
+  "void_skills": {
+    "tier_1": [
+      {
+        "id": "tap_kich",
+        "name": "Tập Kích",
+        "description": "Đòn đánh bất ngờ, sát thương +10% khi tấn công đầu tiên",
+        "type": "active",
+        "tier": 1,
+        "element": "void",
+        "damage": 1.1,
+        "cost": 18,
+        "target": "single",
+        "effects": [
+          {
+            "type": "first_attack_boost",
+            "value": 0.1,
+            "name": "Surprise Attack"
+          }
+        ]
+      },
+      {
+        "id": "roi_loan",
+        "name": "Rối Loạn",
+        "description": "Làm rối tâm trí địch, giảm Accuracy và ATK trong 1 lượt",
+        "type": "active",
+        "tier": 1,
+        "element": "void",
+        "damage": 0,
+        "cost": 20,
+        "target": "single",
+        "effects": [
+          {
+            "type": "debuff",
+            "stat": "accuracy",
+            "value": -0.2,
+            "duration": 1,
+            "name": "Confusion"
+          },
+          {
+            "type": "debuff",
+            "stat": "attack",
+            "value": -0.15,
+            "duration": 1,
+            "name": "Attack Debuff"
+          }
+        ]
+      }
+    ],
+    "tier_2_4": [
+      {
+        "id": "hu_vo_troi",
+        "name": "Hư Vô Trói",
+        "description": "Hút sức mạnh, giảm DEF và ATK 10% trong 2 lượt",
+        "type": "active",
+        "tier": "2-4",
+        "element": "void",
+        "damage": 0,
+        "cost": 30,
+        "target": "single",
+        "effects": [
+          {
+            "type": "debuff",
+            "stat": "defense",
+            "value": -0.1,
+            "duration": 2,
+            "name": "Void Drain"
+          },
+          {
+            "type": "debuff",
+            "stat": "attack",
+            "value": -0.1,
+            "duration": 2,
+            "name": "Power Drain"
+          }
+        ]
+      }
+    ],
+    "tier_5_7": [
+      {
+        "id": "xe_rach",
+        "name": "Xé Rách",
+        "description": "Công kích hư vô, AoE + delay lượt đi của mục tiêu",
+        "type": "active",
+        "tier": "5-7",
+        "element": "void",
+        "damage": 1.7,
+        "cost": 40,
+        "target": "aoe",
+        "effects": [
+          {
+            "type": "turn_delay",
+            "value": 1,
+            "name": "Void Tear"
+          }
+        ]
+      }
+    ],
+    "tier_8_10": [
+      {
+        "id": "anh_nguyet",
+        "name": "Ảnh Nguyệt",
+        "description": "10% tỉ lệ né hoàn toàn mọi sát thương",
+        "type": "passive",
+        "tier": "8-10",
+        "element": "void",
+        "effects": [
+          {
+            "type": "perfect_dodge",
+            "chance": 0.1,
+            "name": "Void Dodge"
+          }
+        ]
+      }
+    ]
+  }
+}

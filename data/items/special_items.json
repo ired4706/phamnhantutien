@@ -62,6 +62,34 @@
       "description": "Lệnh bài tông môn, cần thiết để thành lập bang phái",
       "rarity": "rare",
       "value": 50000
+    },
+    "ban_do_thi_luyen": {
+      "name": "Bản đồ Thí Luyện",
+      "emoji": "🗺️",
+      "description": "Bản đồ dẫn lối vào Thí Luyện Bí Cảnh (Sơ cấp)",
+      "rarity": "uncommon",
+      "value": 3000
+    },
+    "ban_do_van_dao": {
+      "name": "Bản đồ Vấn Đạo",
+      "emoji": "🗺️",
+      "description": "Bản đồ dẫn lối vào Vấn Đạo Bí Cảnh (Trung cấp)",
+      "rarity": "rare",
+      "value": 8000
+    },
+    "ban_do_huyet_nguyet": {
+      "name": "Bản đồ Huyết Nguyệt",
+      "emoji": "🗺️",
+      "description": "Bản đồ dẫn lối vào Huyết Nguyệt Bí Cảnh (Cao cấp)",
+      "rarity": "epic",
+      "value": 20000
+    },
+    "ban_do_thai_hu": {
+      "name": "Bản đồ Thái Hư",
+      "emoji": "🗺️",
+      "description": "Bản đồ dẫn lối vào Thái Hư Bí Cảnh (Thượng cấp)",
+      "rarity": "legendary",
+      "value": 50000
     }
   }
 }

@@ -1,0 +1,979 @@
+{
+  "basic": [
+    {
+      "id": "huyet_xa",
+      "name": "Huyết Xà",
+      "elements": [
+        "hoa"
+      ],
+      "skills": [
+        {
+          "id": "hoa_tuc",
+          "name": "Hỏa Tức",
+          "type": "active",
+          "target": "single_enemy",
+          "description": "Phun lửa thiêu đốt kẻ địch, gây DoT",
+          "effects": [
+            {
+              "type": "damage",
+              "multiplier": 1.2
+            },
+            {
+              "type": "dot",
+              "name": "Burning",
+              "duration": 2,
+              "damage_ratio": 0.3
+            }
+          ]
+        },
+        {
+          "id": "siet_quan",
+          "name": "Siết Quấn",
+          "type": "active",
+          "target": "single_enemy",
+          "description": "Quấn quanh mục tiêu, làm giảm tốc độ",
+          "effects": [
+            {
+              "type": "damage",
+              "multiplier": 0.9
+            },
+            {
+              "type": "debuff",
+              "stat": "speed",
+              "value": -0.2,
+              "duration": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "thiet_giap_quy",
+      "name": "Thiết Giáp Quy",
+      "elements": [
+        "tho"
+      ],
+      "skills": [
+        {
+          "id": "tho_giap",
+          "name": "Thổ Giáp",
+          "type": "active",
+          "target": "self",
+          "description": "Tăng DEF bản thân",
+          "effects": [
+            {
+              "type": "buff",
+              "stat": "defense",
+              "value": 0.3,
+              "duration": 2
+            }
+          ]
+        },
+        {
+          "id": "dap_mai",
+          "name": "Đập Mai",
+          "type": "active",
+          "target": "aoe_enemies",
+          "description": "Cú đập mai gây sát thương diện rộng",
+          "effects": [
+            {
+              "type": "damage",
+              "multiplier": 1.3,
+              "aoe": true
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "intermediate": [
+    {
+      "id": "lam_van_ho",
+      "name": "Lam Vân Hổ",
+      "elements": [
+        "moc"
+      ],
+      "skills": [
+        {
+          "id": "van_an",
+          "name": "Vân Ẩn",
+          "type": "active",
+          "target": "self",
+          "description": "Tăng EVA trong 1 lượt",
+          "effects": [
+            {
+              "type": "buff",
+              "stat": "evasion",
+              "value": 0.2,
+              "duration": 1
+            }
+          ]
+        },
+        {
+          "id": "trao_kich",
+          "name": "Trảo Kích",
+          "type": "active",
+          "target": "single_enemy",
+          "description": "Tấn công đơn, tỷ lệ chí mạng cao",
+          "effects": [
+            {
+              "type": "damage",
+              "multiplier": 1.4
+            },
+            {
+              "type": "crit_boost_once",
+              "value": 0.25
+            }
+          ]
+        },
+        {
+          "id": "moc_linh_ho_the",
+          "name": "Mộc Linh Hộ Thể",
+          "type": "active",
+          "target": "self",
+          "description": "Hồi HP dựa trên mộc khí",
+          "effects": [
+            {
+              "type": "heal_ratio",
+              "value": 0.2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "loi_dinh_dieu",
+      "name": "Lôi Đình Điểu",
+      "elements": [
+        "loi",
+        "kim"
+      ],
+      "skills": [
+        {
+          "id": "loi_tien",
+          "name": "Lôi Tiễn",
+          "type": "active",
+          "target": "single_enemy",
+          "description": "Sét đơn mục tiêu, xuyên DEF",
+          "effects": [
+            {
+              "type": "damage",
+              "multiplier": 1.5,
+              "armor_penetration": 0.2
+            }
+          ]
+        },
+        {
+          "id": "canh_bao",
+          "name": "Cánh Bão",
+          "type": "active",
+          "target": "aoe_enemies",
+          "description": "AoE kèm đẩy lùi",
+          "effects": [
+            {
+              "type": "damage",
+              "multiplier": 1.2,
+              "aoe": true
+            },
+            {
+              "type": "knockback",
+              "chance": 0.25
+            }
+          ]
+        },
+        {
+          "id": "sam_dong",
+          "name": "Sấm Động",
+          "type": "active",
+          "target": "self",
+          "description": "Tăng ATK 2 lượt",
+          "effects": [
+            {
+              "type": "buff",
+              "stat": "attack",
+              "value": 0.25,
+              "duration": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hac_thuy_mieu",
+      "name": "Hắc Thủy Miêu",
+      "elements": [
+        "thuy"
+      ],
+      "skills": [
+        {
+          "id": "thuy_anh",
+          "name": "Thủy Ảnh",
+          "type": "active",
+          "target": "self",
+          "description": "Giảm sát thương nhận vào",
+          "effects": [
+            {
+              "type": "damage_reduction",
+              "value": 0.25,
+              "duration": 2
+            }
+          ]
+        },
+        {
+          "id": "thuy_trao",
+          "name": "Thủy Trảo",
+          "type": "active",
+          "target": "chain_enemies",
+          "description": "Sát thương lan",
+          "effects": [
+            {
+              "type": "damage",
+              "multiplier": 1.1,
+              "chain": 2,
+              "splash": 0.5
+            }
+          ]
+        },
+        {
+          "id": "ngap_thuy",
+          "name": "Ngập Thủy",
+          "type": "active",
+          "target": "aoe_enemies",
+          "description": "Làm chậm toàn bộ",
+          "effects": [
+            {
+              "type": "debuff",
+              "stat": "speed",
+              "value": -0.2,
+              "duration": 1
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "advanced": [
+    {
+      "id": "huyet_nguyet_bao",
+      "name": "Huyết Nguyệt Báo",
+      "elements": [
+        "hoa"
+      ],
+      "skills": [
+        {
+          "id": "hoa_vu_boss",
+          "name": "Hỏa Vũ",
+          "type": "active",
+          "target": "aoe_enemies",
+          "description": "Thiêu đốt toàn trường (DoT AoE)",
+          "effects": [
+            {
+              "type": "damage",
+              "multiplier": 1.1,
+              "aoe": true
+            },
+            {
+              "type": "dot",
+              "name": "Burning",
+              "duration": 2,
+              "damage_ratio": 0.25,
+              "aoe": true
+            }
+          ]
+        },
+        {
+          "id": "bao_trao",
+          "name": "Bạo Trảo",
+          "type": "active",
+          "target": "single_enemy",
+          "description": "Sát thương chí mạng",
+          "effects": [
+            {
+              "type": "damage",
+              "multiplier": 1.6
+            },
+            {
+              "type": "crit_boost_once",
+              "value": 0.35
+            }
+          ]
+        },
+        {
+          "id": "nguyet_hong",
+          "name": "Nguyệt Hống",
+          "type": "active",
+          "target": "aoe_enemies",
+          "description": "Giảm DEF toàn bộ",
+          "effects": [
+            {
+              "type": "debuff",
+              "stat": "defense",
+              "value": -0.2,
+              "duration": 2
+            }
+          ]
+        },
+        {
+          "id": "liet_no",
+          "name": "Liệt Nộ",
+          "type": "passive",
+          "target": "self",
+          "description": "ATK tăng khi HP thấp",
+          "effects": [
+            {
+              "type": "berserk",
+              "threshold": 0.3,
+              "attack_bonus": 0.2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "thach_lan_ngu",
+      "name": "Thạch Lân Ngưu",
+      "elements": [
+        "tho"
+      ],
+      "skills": [
+        {
+          "id": "dia_chan_boss",
+          "name": "Địa Chấn",
+          "type": "active",
+          "target": "aoe_enemies",
+          "description": "AoE, giảm tốc",
+          "effects": [
+            {
+              "type": "damage",
+              "multiplier": 1.4,
+              "aoe": true
+            },
+            {
+              "type": "debuff",
+              "stat": "speed",
+              "value": -0.15,
+              "duration": 2
+            }
+          ]
+        },
+        {
+          "id": "nguuxung",
+          "name": "Ngưu Xung",
+          "type": "active",
+          "target": "single_enemy",
+          "description": "Xông thẳng, sát thương cao",
+          "effects": [
+            {
+              "type": "damage",
+              "multiplier": 1.8
+            }
+          ]
+        },
+        {
+          "id": "dia_giap",
+          "name": "Địa Giáp",
+          "type": "active",
+          "target": "self",
+          "description": "Tăng DEF cực cao",
+          "effects": [
+            {
+              "type": "buff",
+              "stat": "defense",
+              "value": 0.6,
+              "duration": 1
+            }
+          ]
+        },
+        {
+          "id": "noi_tho",
+          "name": "Nội Thổ",
+          "type": "active",
+          "target": "self",
+          "description": "Hồi phục nhỏ theo lượt",
+          "effects": [
+            {
+              "type": "regen",
+              "value": 0.05,
+              "duration": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phong_duc_ung",
+      "name": "Phong Dực Ưng",
+      "elements": [
+        "phong",
+        "moc"
+      ],
+      "skills": [
+        {
+          "id": "phong_nhan",
+          "name": "Phong Nhận",
+          "type": "active",
+          "target": "multi_enemies",
+          "description": "Bắn lưỡi gió nhiều mục tiêu",
+          "effects": [
+            {
+              "type": "damage",
+              "multiplier": 1.2,
+              "multi": 3
+            }
+          ]
+        },
+        {
+          "id": "canh_loc",
+          "name": "Cánh Lốc",
+          "type": "active",
+          "target": "aoe_enemies",
+          "description": "Bão nhỏ, đẩy lui toàn bộ",
+          "effects": [
+            {
+              "type": "damage",
+              "multiplier": 1.0,
+              "aoe": true
+            },
+            {
+              "type": "knockback",
+              "chance": 0.3
+            }
+          ]
+        },
+        {
+          "id": "lang_khong",
+          "name": "Lăng Không",
+          "type": "active",
+          "target": "self",
+          "description": "Né toàn bộ sát thương 1 lượt",
+          "effects": [
+            {
+              "type": "invulnerable",
+              "duration": 1
+            }
+          ]
+        },
+        {
+          "id": "than_toc",
+          "name": "Thần Tốc",
+          "type": "active",
+          "target": "self",
+          "description": "Tăng Speed 3 lượt",
+          "effects": [
+            {
+              "type": "buff",
+              "stat": "speed",
+              "value": 0.25,
+              "duration": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "huyen_thuy_yeu",
+      "name": "Huyễn Thủy Yêu",
+      "elements": [
+        "thuy"
+      ],
+      "skills": [
+        {
+          "id": "thuy_lao",
+          "name": "Thủy Lao",
+          "type": "active",
+          "target": "single_enemy",
+          "description": "Trói mục tiêu 1 vòng",
+          "effects": [
+            {
+              "type": "stun",
+              "duration": 1
+            }
+          ]
+        },
+        {
+          "id": "song_than",
+          "name": "Sóng Thần",
+          "type": "active",
+          "target": "aoe_enemies",
+          "description": "AoE trung bình",
+          "effects": [
+            {
+              "type": "damage",
+              "multiplier": 1.3,
+              "aoe": true
+            }
+          ]
+        },
+        {
+          "id": "thuy_giap",
+          "name": "Thủy Giáp",
+          "type": "active",
+          "target": "self",
+          "description": "Giảm sát thương nhận vào",
+          "effects": [
+            {
+              "type": "damage_reduction",
+              "value": 0.3,
+              "duration": 2
+            }
+          ]
+        },
+        {
+          "id": "thuy_sinh",
+          "name": "Thủy Sinh",
+          "type": "active",
+          "target": "ally_or_self",
+          "description": "Hồi máu bản thân hoặc đồng loại",
+          "effects": [
+            {
+              "type": "heal_ratio",
+              "value": 0.25
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "supreme": [
+    {
+      "id": "thai_hu_long_anh",
+      "name": "Thái Hư Long Ảnh",
+      "elements": [
+        "hoa",
+        "thuy"
+      ],
+      "note": "Hắc Long",
+      "skills": [
+        {
+          "id": "hac_viem",
+          "name": "Hắc Viêm",
+          "type": "active",
+          "target": "single_enemy",
+          "description": "Lửa đen, DoT cực mạnh, xuyên DEF",
+          "effects": [
+            {
+              "type": "damage",
+              "multiplier": 1.5
+            },
+            {
+              "type": "dot",
+              "name": "Dark Flame",
+              "duration": 3,
+              "damage_ratio": 0.4
+            },
+            {
+              "type": "armor_penetration",
+              "value": 0.25
+            }
+          ]
+        },
+        {
+          "id": "long_hong",
+          "name": "Long Hống",
+          "type": "active",
+          "target": "aoe_enemies",
+          "description": "Choáng toàn bộ 1 lượt",
+          "effects": [
+            {
+              "type": "stun",
+              "duration": 1,
+              "aoe": true
+            }
+          ]
+        },
+        {
+          "id": "anh_an",
+          "name": "Ảnh Ẩn",
+          "type": "active",
+          "target": "self",
+          "description": "Né toàn bộ sát thương 1 lượt",
+          "effects": [
+            {
+              "type": "invulnerable",
+              "duration": 1
+            }
+          ]
+        },
+        {
+          "id": "long_trao",
+          "name": "Long Trảo",
+          "type": "active",
+          "target": "single_enemy",
+          "description": "Chí mạng lên mục tiêu",
+          "effects": [
+            {
+              "type": "damage",
+              "multiplier": 1.7
+            },
+            {
+              "type": "crit_boost_once",
+              "value": 0.4
+            }
+          ]
+        },
+        {
+          "id": "hac_lan",
+          "name": "Hắc Lân",
+          "type": "active",
+          "target": "self",
+          "description": "Tăng DEF và kháng nguyên tố",
+          "effects": [
+            {
+              "type": "buff",
+              "stat": "defense",
+              "value": 0.35,
+              "duration": 2
+            },
+            {
+              "type": "element_resist",
+              "value": 0.2,
+              "duration": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cuu_vi_ho",
+      "name": "Cửu Vỹ Hồ",
+      "elements": [
+        "hoa",
+        "moc"
+      ],
+      "skills": [
+        {
+          "id": "yeu_huyen",
+          "name": "Yêu Huyễn",
+          "type": "active",
+          "target": "single_enemy",
+          "description": "Gây hỗn loạn",
+          "effects": [
+            {
+              "type": "confuse",
+              "duration": 1
+            }
+          ]
+        },
+        {
+          "id": "liet_diem_ho_vi",
+          "name": "Liệt Diễm Hồ Vĩ",
+          "type": "active",
+          "target": "aoe_enemies",
+          "description": "Đa đuôi lửa, sát thương diện rộng",
+          "effects": [
+            {
+              "type": "damage",
+              "multiplier": 1.4,
+              "aoe": true
+            }
+          ]
+        },
+        {
+          "id": "hap_hon",
+          "name": "Hấp Hồn",
+          "type": "active",
+          "target": "single_enemy",
+          "description": "Hút MP mục tiêu",
+          "effects": [
+            {
+              "type": "mana_drain",
+              "value": 25
+            }
+          ]
+        },
+        {
+          "id": "ho_ve",
+          "name": "Hồ Vệ",
+          "type": "active",
+          "target": "ally_or_self",
+          "description": "Tạo lá chắn hấp thụ",
+          "effects": [
+            {
+              "type": "shield",
+              "value_ratio": 0.25,
+              "duration": 2
+            }
+          ]
+        },
+        {
+          "id": "ho_diem",
+          "name": "Hồ Diễm",
+          "type": "active",
+          "target": "all_allies",
+          "description": "Buff ATK toàn đội",
+          "effects": [
+            {
+              "type": "buff",
+              "stat": "attack",
+              "value": 0.2,
+              "duration": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "kim_giap_cu_nhan",
+      "name": "Kim Giáp Cự Nhân",
+      "elements": [
+        "kim",
+        "tho"
+      ],
+      "skills": [
+        {
+          "id": "cu_luc",
+          "name": "Cự Lực",
+          "type": "active",
+          "target": "single_enemy",
+          "description": "Đòn cực mạnh, xuyên DEF",
+          "effects": [
+            {
+              "type": "damage",
+              "multiplier": 2.0
+            },
+            {
+              "type": "armor_penetration",
+              "value": 0.3
+            }
+          ]
+        },
+        {
+          "id": "kim_giap",
+          "name": "Kim Giáp",
+          "type": "active",
+          "target": "self",
+          "description": "Giảm sát thương nhận vào",
+          "effects": [
+            {
+              "type": "damage_reduction",
+              "value": 0.35,
+              "duration": 2
+            }
+          ]
+        },
+        {
+          "id": "dia_liet",
+          "name": "Địa Liệt",
+          "type": "active",
+          "target": "aoe_enemies",
+          "description": "AoE làm chậm",
+          "effects": [
+            {
+              "type": "damage",
+              "multiplier": 1.3,
+              "aoe": true
+            },
+            {
+              "type": "debuff",
+              "stat": "speed",
+              "value": -0.2,
+              "duration": 2
+            }
+          ]
+        },
+        {
+          "id": "kim_phong",
+          "name": "Kim Phong",
+          "type": "active",
+          "target": "self",
+          "description": "Phản đòn vật lý",
+          "effects": [
+            {
+              "type": "counter_attack",
+              "damage_ratio": 0.5,
+              "duration": 2
+            }
+          ]
+        },
+        {
+          "id": "thiet_quyen",
+          "name": "Thiết Quyền",
+          "type": "active",
+          "target": "multi_enemies",
+          "description": "Đánh liên hoàn nhiều mục tiêu",
+          "effects": [
+            {
+              "type": "damage",
+              "multiplier": 1.1,
+              "multi": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "huyen_thuy_long_quy",
+      "name": "Huyễn Thủy Long Quy",
+      "elements": [
+        "thuy",
+        "tho"
+      ],
+      "skills": [
+        {
+          "id": "thuy_lao_sup",
+          "name": "Thủy Lao",
+          "type": "active",
+          "target": "all_enemies",
+          "description": "Trói toàn đội 1 lượt",
+          "effects": [
+            {
+              "type": "stun",
+              "duration": 1,
+              "aoe": true
+            }
+          ]
+        },
+        {
+          "id": "song_lu",
+          "name": "Sóng Lũ",
+          "type": "active",
+          "target": "aoe_enemies",
+          "description": "AoE đẩy lùi",
+          "effects": [
+            {
+              "type": "damage",
+              "multiplier": 1.2,
+              "aoe": true
+            },
+            {
+              "type": "knockback",
+              "chance": 0.35
+            }
+          ]
+        },
+        {
+          "id": "thuy_giap_sup",
+          "name": "Thủy Giáp",
+          "type": "active",
+          "target": "self",
+          "description": "Giảm sát thương nhận vào",
+          "effects": [
+            {
+              "type": "damage_reduction",
+              "value": 0.3,
+              "duration": 2
+            }
+          ]
+        },
+        {
+          "id": "hoi_thuy",
+          "name": "Hồi Thủy",
+          "type": "active",
+          "target": "self",
+          "description": "Hồi HP liên tục 3 lượt",
+          "effects": [
+            {
+              "type": "regen",
+              "value": 0.06,
+              "duration": 3
+            }
+          ]
+        },
+        {
+          "id": "huyen_anh",
+          "name": "Huyễn Ảnh",
+          "type": "active",
+          "target": "summon_clone",
+          "description": "Tạo phân thân đánh phụ",
+          "effects": [
+            {
+              "type": "clone",
+              "duration": 2,
+              "damage_ratio": 0.4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "thien_loi_chi_dieu",
+      "name": "Thiên Lôi Chi Điểu",
+      "elements": [
+        "loi",
+        "phong"
+      ],
+      "skills": [
+        {
+          "id": "thien_kich",
+          "name": "Thiên Kích",
+          "type": "active",
+          "target": "single_enemy",
+          "description": "Sét đánh thẳng, xuyên thủ",
+          "effects": [
+            {
+              "type": "damage",
+              "multiplier": 1.7
+            },
+            {
+              "type": "armor_penetration",
+              "value": 0.25
+            }
+          ]
+        },
+        {
+          "id": "phong_loi_vu",
+          "name": "Phong Lôi Vũ",
+          "type": "active",
+          "target": "aoe_enemies",
+          "description": "AoE + DoT",
+          "effects": [
+            {
+              "type": "damage",
+              "multiplier": 1.2,
+              "aoe": true
+            },
+            {
+              "type": "dot",
+              "name": "Storm",
+              "duration": 2,
+              "damage_ratio": 0.25,
+              "aoe": true
+            }
+          ]
+        },
+        {
+          "id": "dien_anh",
+          "name": "Điện Ảnh",
+          "type": "active",
+          "target": "self",
+          "description": "Né hoàn toàn 1 lượt",
+          "effects": [
+            {
+              "type": "invulnerable",
+              "duration": 1
+            }
+          ]
+        },
+        {
+          "id": "loi_dục",
+          "name": "Lôi Dực",
+          "type": "active",
+          "target": "all_allies",
+          "description": "Tăng Speed toàn đội boss",
+          "effects": [
+            {
+              "type": "buff",
+              "stat": "speed",
+              "value": 0.2,
+              "duration": 2
+            }
+          ]
+        },
+        {
+          "id": "sam_troi",
+          "name": "Sấm Trời",
+          "type": "active",
+          "target": "single_enemy_low_hp",
+          "description": "Đòn kết liễu sát thương cực cao",
+          "effects": [
+            {
+              "type": "execute",
+              "threshold": 0.25,
+              "multiplier": 2.2
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

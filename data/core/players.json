@@ -3,13 +3,13 @@
     "userId": "504705413682298891",
     "username": "ired0806",
     "spiritRoot": "hoa",
-    "experience": 782,
-    "realm": "luyen_khi",
-    "realmLevel": 1,
+    "experience": 1200,
+    "realm": "nguyen_anh",
+    "realmLevel": 2,
     "totalTiers": 0,
     "inventory": {
       "spiritStones": {
-        "ha_pham": 8,
+        "ha_pham": 16,
         "trung_pham": 0,
         "thuong_pham": 0,
         "cuc_pham": 0
@@ -29,7 +29,7 @@
         },
         {
           "id": "thanh_van_to",
-          "quantity": 309
+          "quantity": 311
         },
         {
           "id": "tu_hau_hoa",
@@ -93,7 +93,7 @@
         },
         {
           "id": "da_thu_tho",
-          "quantity": 6
+          "quantity": 7
         },
         {
           "id": "da_linh_thu",
@@ -105,6 +105,26 @@
         },
         {
           "id": "nguyet_anh_to",
+          "quantity": 2
+        },
+        {
+          "id": "ban_do_thi_luyen",
+          "quantity": 200
+        },
+        {
+          "id": "da_thien_thu",
+          "quantity": 2
+        },
+        {
+          "id": "dia_ha_to",
+          "quantity": 1
+        },
+        {
+          "id": "da_dia_thu",
+          "quantity": 2
+        },
+        {
+          "id": "tinh_ha_to",
           "quantity": 2
         }
       ],
@@ -261,7 +281,7 @@
       "lastMeditate": 0,
       "lastHunt": 1759906844851,
       "lastChallenge": 0,
-      "lastDomain": 0,
+      "lastDomain": 1760000696801,
       "lastDailyQuest": 0,
       "lastWeeklyQuest": 0,
       "lastDungeon": 0,
@@ -290,24 +310,24 @@
     },
     "achievements": [],
     "joinDate": 1757583527158,
-    "lastActive": 1759906844851,
+    "lastActive": 1760000696802,
     "stats": {
-      "attack": 16,
-      "defense": 9,
-      "hp": 106,
-      "maxHp": 106,
-      "mp": 66,
-      "maxMp": 66,
-      "speed": 11.4,
-      "critical": 0.8,
-      "regen": 2.1,
-      "evasion": 0.3,
+      "attack": 7500,
+      "defense": 3937.5,
+      "hp": 44625,
+      "maxHp": 44625,
+      "mp": 25875,
+      "maxMp": 25875,
+      "speed": 2915.6,
+      "critical": 69.5,
+      "regen": 618.8,
+      "evasion": 48.1,
       "reputation": 0,
       "karma": 0
     },
-    "luyenKhiTiers": 1,
-    "stageMultiplier": 1,
-    "tierMultiplier": 1,
+    "luyenKhiTiers": 13,
+    "stageMultiplier": 125,
+    "tierMultiplier": 1.5,
     "id": "504705413682298891"
   },
   "558528163244802089": {
@@ -345,6 +365,10 @@
         {
           "id": "da_linh_thu",
           "quantity": 1
+        },
+        {
+          "id": "ban_do_thi_luyen",
+          "quantity": 200
         }
       ],
       "weapons": [],
@@ -451,6 +475,10 @@
         {
           "id": "da_thu_tho",
           "quantity": 2
+        },
+        {
+          "id": "ban_do_thi_luyen",
+          "quantity": 200
         }
       ],
       "weapons": [],

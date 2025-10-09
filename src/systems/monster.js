@@ -306,20 +306,10 @@ class MonsterManager {
       finalDamage *= 1.8; // 80% bonus damage on crit
     }
 
-    // Element affinity bonus/penalty
+    // Áp dụng hệ số ngũ hành theo bảng tương sinh tương khắc (attacker vs defender)
     const attackerElement = attacker.element || 'vo_he';
     const defenderElement = defender.element || 'vo_he';
-
-    let elementMultiplier = 1.0;
-    if (attackerElement !== 'vo_he' && defenderElement !== 'vo_he') {
-      const attackerAffinity = this.getElementAffinity(attackerElement);
-      if (attackerAffinity.strength === defenderElement) {
-        elementMultiplier = 1.15; // +15% damage
-      } else if (attackerAffinity.weakness === defenderElement) {
-        elementMultiplier = 0.85; // -15% damage
-      }
-    }
-
+    const elementMultiplier = this.getElementDamageMultiplier(attackerElement, defenderElement);
     finalDamage *= elementMultiplier;
 
     return {
@@ -328,6 +318,23 @@ class MonsterManager {
       isCritical: isCritical,
       elementMultiplier: elementMultiplier
     };
+  }
+
+  // Bảng hệ số sát thương ngũ hành (attacker -> defender)
+  getElementDamageMultiplier(att, def) {
+    const table = {
+      kim: { kim: 1.0, moc: 1.25, thuy: 1.0, hoa: 0.80, tho: 1.0, phong: 1.0, loi: 1.0, vo_he: 1.0 },
+      moc: { kim: 0.80, moc: 1.0, thuy: 1.0, hoa: 1.0, tho: 1.25, phong: 1.0, loi: 1.0, vo_he: 1.0 },
+      thuy: { kim: 1.0, moc: 1.0, thuy: 1.0, hoa: 1.25, tho: 0.80, phong: 1.0, loi: 1.0, vo_he: 1.0 },
+      hoa: { kim: 1.25, moc: 1.0, thuy: 0.80, hoa: 1.0, tho: 1.0, phong: 1.0, loi: 1.0, vo_he: 1.0 },
+      tho: { kim: 1.0, moc: 0.80, thuy: 1.25, hoa: 1.0, tho: 1.0, phong: 1.0, loi: 1.0, vo_he: 1.0 },
+      phong: { kim: 1.0, moc: 1.0, thuy: 1.0, hoa: 1.0, tho: 1.0, phong: 1.0, loi: 1.25, vo_he: 1.0 },
+      loi: { kim: 1.0, moc: 1.0, thuy: 1.0, hoa: 1.0, tho: 1.0, phong: 1.25, loi: 1.0, vo_he: 1.0 },
+      vo_he: { kim: 1.0, moc: 1.0, thuy: 1.0, hoa: 1.0, tho: 1.0, phong: 1.0, loi: 1.0, vo_he: 1.0 }
+    };
+    const a = (att in table) ? att : 'vo_he';
+    const d = (def in table[a]) ? def : 'vo_he';
+    return table[a][d];
   }
 
   // Kiểm tra critical hit
