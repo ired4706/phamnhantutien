@@ -149,10 +149,9 @@ class CombatSystem {
       waves: wavesMonsters,
       currentWaveIndex: 0,
       turn: 1,
-      currentTurn: 'party', // will be set from initiative
+      currentTurn: 'party', // 'party' hoặc 'monster'
       currentActorIndex: 0,
       currentActorUserId: party[0].userId,
-      currentMonsterIndex: 0,
       battleLog: [],
       interaction: interaction,
       channel: interaction.channel,
@@ -160,16 +159,10 @@ class CombatSystem {
       // Thêm AP system cho raid
       playerApMax: this.getApForRealm(party[0].realm), // Dùng realm của leader
       playerAp: this.getApForRealm(party[0].realm),
-      playerCooldowns: {}, // { skillId: remainingTurns }
-      // Initiative queue
-      initiative: [],
-      initiativeIndex: 0
+      playerCooldowns: {} // { skillId: remainingTurns }
     };
 
     this.activeCombats.set(combatId, combat);
-    // Build initiative and set first actor
-    this.buildRaidInitiative(combat);
-    this.setRaidActorFromInitiative(combat);
     combat.battleLog.push(`📣 Bắt đầu RAID - Ải 1/${wavesMonsters.length}`);
     return combat;
   }
@@ -223,9 +216,22 @@ class CombatSystem {
 
   // Tiến lượt RAID cho party
   nextRaidActor(combat) {
-    // Dựa trên initiative: chuyển sang entity kế tiếp còn sống
-    this.advanceRaidInitiative(combat);
-    this.setRaidActorFromInitiative(combat);
+    // chuyển sang actor party tiếp theo còn sống
+    const aliveParty = combat.party.filter(p => p.currentHp > 0);
+    if (aliveParty.length === 0) return;
+    let idx = combat.currentActorIndex;
+    let loops = 0;
+    do {
+      idx = (idx + 1) % combat.party.length;
+      loops++;
+      if (loops > combat.party.length + 2) break;
+    } while (combat.party[idx].currentHp <= 0);
+    combat.currentActorIndex = idx;
+    combat.currentActorUserId = combat.party[idx].userId;
+
+    // Reset AP cho người chơi mới (chỉ khi chuyển sang người chơi khác)
+    combat.playerAp = combat.playerApMax;
+    console.log(`[RAID] nextRaidActor: Reset AP to ${combat.playerAp}/${combat.playerApMax} for ${combat.party[combat.currentActorIndex]?.name}`);
   }
 
   // Lượt quái tấn công cả nhóm
@@ -925,7 +931,7 @@ class CombatSystem {
 
     if (result && result.action !== 'menu') {
       if (!result._pushed) {
-        combat.battleLog.push(result.message);
+      combat.battleLog.push(result.message);
       }
 
       // Kiểm tra kết thúc trận chiến
@@ -1329,8 +1335,8 @@ class CombatSystem {
     // Xử lý damage cơ bản
     if (skill.damage > 0) {
       const damage = this.calculateDamage(caster, target, false) * skill.damage;
-      target.currentHp = Math.max(0, target.currentHp - damage);
-      message += ` Gây **${damage.toFixed(1)}** sát thương!`;
+        target.currentHp = Math.max(0, target.currentHp - damage);
+        message += ` Gây **${damage.toFixed(1)}** sát thương!`;
     }
 
     // Xử lý các effects
