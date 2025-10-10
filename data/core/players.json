@@ -3,13 +3,13 @@
     "userId": "504705413682298891",
     "username": "ired0806",
     "spiritRoot": "hoa",
-    "experience": 210583,
+    "experience": 281073,
     "realm": "nguyen_anh",
     "realmLevel": 2,
     "totalTiers": 0,
     "inventory": {
       "spiritStones": {
-        "ha_pham": 8800,
+        "ha_pham": 19,
         "trung_pham": 0,
         "thuong_pham": 0,
         "cuc_pham": 0
@@ -29,7 +29,7 @@
         },
         {
           "id": "thanh_van_to",
-          "quantity": 315
+          "quantity": 317
         },
         {
           "id": "tu_hau_hoa",
@@ -93,11 +93,11 @@
         },
         {
           "id": "da_thu_tho",
-          "quantity": 13
+          "quantity": 14
         },
         {
           "id": "da_linh_thu",
-          "quantity": 7
+          "quantity": 10
         },
         {
           "id": "anh_diep_thao",
@@ -105,7 +105,7 @@
         },
         {
           "id": "nguyet_anh_to",
-          "quantity": 6
+          "quantity": 14
         },
         {
           "id": "ban_do_thi_luyen",
@@ -117,15 +117,15 @@
         },
         {
           "id": "dia_ha_to",
-          "quantity": 4
+          "quantity": 10
         },
         {
           "id": "da_dia_thu",
-          "quantity": 5
+          "quantity": 14
         },
         {
           "id": "tinh_ha_to",
-          "quantity": 3
+          "quantity": 6
         }
       ],
       "weapons": [
@@ -279,9 +279,9 @@
       "breakthroughAttempts": 0,
       "lastBreakthrough": 0,
       "lastMeditate": 0,
-      "lastHunt": 1760005762364,
+      "lastHunt": 1760082530271,
       "lastChallenge": 0,
-      "lastDomain": 1760003119805,
+      "lastDomain": 0,
       "lastDailyQuest": 0,
       "lastWeeklyQuest": 0,
       "lastDungeon": 0,
@@ -292,6 +292,15 @@
     "skills": {
       "hoa_diem_dan": {
         "learned_at": "2025-09-11T09:38:47.161Z"
+      },
+      "liet_diem_bo_phat": {
+        "learned_at": "2025-10-10T07:30:00.000Z"
+      },
+      "hoa_anh_dich": {
+        "learned_at": "2025-10-10T07:30:00.000Z"
+      },
+      "liet_hoa_diet_the": {
+        "learned_at": "2025-10-10T07:30:00.000Z"
       }
     },
     "alchemy": {
@@ -310,7 +319,7 @@
     },
     "achievements": [],
     "joinDate": 1757583527158,
-    "lastActive": 1760005762364,
+    "lastActive": 1760082611808,
     "stats": {
       "attack": 7500,
       "defense": 3937.5,
@@ -334,13 +343,13 @@
     "userId": "558528163244802089",
     "username": "just_archer",
     "spiritRoot": "thuy",
-    "experience": 33277,
+    "experience": 51535,
     "realm": "luyen_khi",
     "realmLevel": 1,
     "totalTiers": 0,
     "inventory": {
       "spiritStones": {
-        "ha_pham": 8,
+        "ha_pham": 4,
         "trung_pham": 0,
         "thuong_pham": 0,
         "cuc_pham": 0
@@ -379,17 +388,18 @@
       "cultivateCooldown": 300000,
       "breakthroughAttempts": 0,
       "lastBreakthrough": 0,
-      "lastMeditate": 0,
+      "lastMeditate": 1760080874777,
       "lastHunt": 1759397180871,
       "lastChallenge": 0,
       "lastDomain": 1758701326954,
       "lastDailyQuest": 0,
       "lastWeeklyQuest": 0,
       "lastDungeon": 0,
-      "lastMine": 0,
+      "lastMine": 1760080732643,
       "lastPick": 0,
-      "lastExplore": 0,
-      "lastDaily": 1758701393728
+      "lastExplore": 1760080766401,
+      "lastDaily": 1760080801097,
+      "lastWeekly": 1760080805637
     },
     "skills": {
       "thuy_luu_tien": {
@@ -412,7 +422,7 @@
     },
     "achievements": [],
     "joinDate": 1757586658936,
-    "lastActive": 1759397180871,
+    "lastActive": 1760080874778,
     "stats": {
       "attack": 10.2,
       "defense": 10.2,
@@ -436,13 +446,13 @@
     "userId": "397226790709624834",
     "username": "i_am_tsyu",
     "spiritRoot": "thuy",
-    "experience": 36672,
+    "experience": 36801,
     "realm": "luyen_khi",
     "realmLevel": 1,
     "totalTiers": 0,
     "inventory": {
       "spiritStones": {
-        "ha_pham": 8,
+        "ha_pham": 25,
         "trung_pham": 0,
         "thuong_pham": 0,
         "cuc_pham": 0
@@ -479,6 +489,10 @@
         {
           "id": "ban_do_thi_luyen",
           "quantity": 200
+        },
+        {
+          "id": "nguyet_anh_to",
+          "quantity": 1
         }
       ],
       "weapons": [],
@@ -492,7 +506,7 @@
       "lastMeditate": 1757587712992,
       "lastHunt": 1760002287668,
       "lastChallenge": 1757587721265,
-      "lastDomain": 1757587676836,
+      "lastDomain": 1760065573130,
       "lastDailyQuest": 0,
       "lastWeeklyQuest": 0,
       "lastDungeon": 1757587687402,
@@ -523,7 +537,7 @@
     },
     "achievements": [],
     "joinDate": 1757587591503,
-    "lastActive": 1760002287668,
+    "lastActive": 1760065573130,
     "stats": {
       "attack": 10.2,
       "defense": 10.2,

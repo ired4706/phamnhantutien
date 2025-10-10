@@ -122,12 +122,12 @@ class CombatService extends BaseService {
 
   getApForRealm(realm) {
     const apMap = {
-      'luyen_khi': 2,
-      'truc_co': 3,
-      'ket_dan': 4,
-      'nguyen_anh': 5
+      'luyen_khi': 1,
+      'truc_co': 2,
+      'ket_dan': 3,
+      'nguyen_anh': 4
     };
-    return apMap[realm] || 2;
+    return apMap[realm] || 1;
   }
 
   getCombat(combatId) {
