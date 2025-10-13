@@ -174,7 +174,9 @@ class PlayerService extends BaseService {
     const spiritRoot = await this.spiritRootService.getSpiritRootInfo(player.spiritRoot);
     if (!spiritRoot) return;
 
-    const { basic_stats, growth_rates } = spiritRoot;
+    // Hỗ trợ cấu trúc mới sử dụng core_stats (STR/INT/DEX/VIT/LUK)
+    const core = spiritRoot.core_stats || spiritRoot.basic_stats || {};
+    const growth = spiritRoot.growth_rates || {};
 
     // Calculate luyen khi tiers
     let luyenKhiTiers = 0;
@@ -214,33 +216,26 @@ class PlayerService extends BaseService {
       else if (player.realmLevel === 3) tierMultiplier = 2.0;
     }
 
-    // Calculate raw stats
-    const rawAttack = (basic_stats.attack + growth_rates.attack * luyenKhiTiers) * (stageMultiplier * tierMultiplier);
-    const rawDefense = (basic_stats.defense + growth_rates.defense * luyenKhiTiers) * (stageMultiplier * tierMultiplier);
-    const rawHp = (basic_stats.hp + growth_rates.hp * luyenKhiTiers) * (stageMultiplier * tierMultiplier);
-    const rawMp = (basic_stats.mana + growth_rates.mana * luyenKhiTiers) * (stageMultiplier * tierMultiplier);
-    const rawSpeed = (basic_stats.speed + growth_rates.speed * luyenKhiTiers) * (stageMultiplier * tierMultiplier);
-    const rawRegen = (basic_stats.regen + growth_rates.regen * luyenKhiTiers) * (stageMultiplier * tierMultiplier);
+    // Bước 1: 5 chỉ số chính
+    const STR = ((core.STR || 0) + (growth.STR || 0) * luyenKhiTiers) * (stageMultiplier * tierMultiplier);
+    const INT = ((core.INT || 0) + (growth.INT || 0) * luyenKhiTiers) * (stageMultiplier * tierMultiplier);
+    const DEX = ((core.DEX || 0) + (growth.DEX || 0) * luyenKhiTiers) * (stageMultiplier * tierMultiplier);
+    const VIT = ((core.VIT || 0) + (growth.VIT || 0) * luyenKhiTiers) * (stageMultiplier * tierMultiplier);
+    const LUK = ((core.LUK || 0) + (growth.LUK || 0) * luyenKhiTiers) * (stageMultiplier * tierMultiplier);
 
-    // Calculate CRIT and EVA with Affinity
-    const K = 20;
-    const critAffinityByRoot = { hoa: 1.6, thuy: 1.3, moc: 1.15, kim: 1.0, tho: 0.8 };
-    const evaAffinityByRoot = { thuy: 1.65, hoa: 1.3, moc: 1.15, kim: 0.9, tho: 0.9 };
+    // Bước 2: Quy đổi combat stats
+    const rawAttack = STR * 1.8 + INT * 0.6 + LUK * 0.3;
+    const rawDefense = VIT * 2.0 + STR * 0.5;
+    const rawHp = VIT * 20 + STR * 5;
+    const rawMp = INT * 15 + LUK * 3;
+    const rawSpeed = DEX * 1.5 + LUK * 0.5;
+    const rawRegen = INT * 0.4 + VIT * 0.2;
+    const rawCritical = LUK * 0.4 + DEX * 0.2;
+    const rawEvasion = DEX * 0.3 + LUK * 0.3;
+    const rawAccuracy = DEX * 0.6;
+    const rawPenetration = STR * 0.4 + INT * 0.2;
 
-    const rawCritical = (basic_stats.critical + growth_rates.critical * luyenKhiTiers) * (stageMultiplier * tierMultiplier);
-    const rawEvasion = (basic_stats.evasion + growth_rates.evasion * luyenKhiTiers) * (stageMultiplier * tierMultiplier);
-
-    const critAffinity = critAffinityByRoot[player.spiritRoot] || 1.0;
-    const evaAffinity = evaAffinityByRoot[player.spiritRoot] || 1.0;
-
-    const critAdj = rawCritical * critAffinity;
-    const evaAdj = rawEvasion * evaAffinity;
-
-    const critAdjPercent = critAdj / 100;
-    const evaAdjPercent = evaAdj / 100;
-
-    const finalCriticalPercent = (critAdjPercent / (critAdjPercent + K)) * 100;
-    const finalEvasionPercent = (evaAdjPercent / (evaAdjPercent + K)) * 100;
+    console.log(rawCritical, rawEvasion);
 
     const round1 = (v) => Math.round(v * 10) / 10;
     const stats = {
@@ -251,9 +246,11 @@ class PlayerService extends BaseService {
       mp: round1(rawMp),
       maxMp: round1(rawMp),
       speed: round1(rawSpeed),
-      critical: round1(finalCriticalPercent),
+      critical: round1(rawCritical),
       regen: round1(rawRegen),
-      evasion: round1(finalEvasionPercent),
+      evasion: round1(rawEvasion),
+      accuracy: round1(rawAccuracy),
+      penetration: round1(rawPenetration),
       reputation: 0,
       karma: 0
     };

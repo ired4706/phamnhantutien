@@ -257,7 +257,9 @@ class PlayerManager {
     const spiritRoot = this.getSpiritRootInfo(player.spiritRoot);
     if (!spiritRoot) return;
 
-    const { basic_stats, growth_rates } = spiritRoot;
+    // Hỗ trợ cấu trúc mới: core_stats (STR/INT/DEX/VIT/LUK)
+    const core = spiritRoot.core_stats || spiritRoot.basic_stats || {};
+    const growth = spiritRoot.growth_rates || {};
 
     // Tính số tầng luyện khí đã qua (1-13)
     let luyenKhiTiers = 0;
@@ -301,7 +303,7 @@ class PlayerManager {
       else if (player.realmLevel === 3) tierMultiplier = 2.0; // Hậu Kỳ
     }
 
-    // Sử dụng StatsCalculator để tính chỉ số cơ bản
+    // Sử dụng StatsCalculator (đã cập nhật công thức mới)
     const baseStats = await StatsCalculator.calculateBaseStats(player.spiritRoot, player.realm, player.realmLevel);
     if (!baseStats) return;
 
@@ -311,31 +313,15 @@ class PlayerManager {
     const rawMp = baseStats.mp;
     const rawSpeed = baseStats.speed;
     const rawRegen = baseStats.regen;
+    const rawAccuracy = baseStats.accuracy;
+    const rawPenetration = baseStats.penetration;
     // reputation và karma không còn phụ thuộc vào basic/growth; giữ nguyên hiện trạng hoặc mặc định 0
     const existingReputation = (player.stats && typeof player.stats.reputation === 'number') ? player.stats.reputation : 0;
     const existingKarma = (player.stats && typeof player.stats.karma === 'number') ? player.stats.karma : 0;
 
-    // Áp dụng Affinities cho CRIT và EVA với công thức: Final% = (Raw × Affinity) / ((Raw × Affinity) + K)
-    const K = 20;
-    const critAffinityByRoot = { hoa: 1.6, thuy: 1.3, moc: 1.15, kim: 1.0, tho: 0.8 };
-    const evaAffinityByRoot = { thuy: 1.65, hoa: 1.3, moc: 1.15, kim: 0.9, tho: 0.9 };
-
-    const rawCritical = (basic_stats.critical + growth_rates.critical * luyenKhiTiers) * (stageMultiplier * tierMultiplier);
-    const rawEvasion = (basic_stats.evasion + growth_rates.evasion * luyenKhiTiers) * (stageMultiplier * tierMultiplier);
-
-    const critAffinity = critAffinityByRoot[player.spiritRoot] || 1.0;
-    const evaAffinity = evaAffinityByRoot[player.spiritRoot] || 1.0;
-
-    const critAdj = rawCritical * critAffinity;
-    const evaAdj = rawEvasion * evaAffinity;
-
-    // Chuyển đổi AdjRating về đơn vị phần trăm thô trước khi áp dụng hằng số K
-    const critAdjPercent = critAdj / 100;
-    const evaAdjPercent = evaAdj / 100;
-
-    // Lưu dưới dạng phần trăm (0-100), để đồng bộ hiển thị hiện tại `${value}%`
-    const finalCriticalPercent = (critAdjPercent / (critAdjPercent + K)) * 100;
-    const finalEvasionPercent = (evaAdjPercent / (evaAdjPercent + K)) * 100;
+    // Dùng rating thô cho CRIT/EVA theo hệ mới
+    const rawCritical = baseStats.critical;
+    const rawEvasion = baseStats.evasion;
 
     const round1 = (v) => Math.round(v * 10) / 10;
     const stats = {
@@ -346,9 +332,11 @@ class PlayerManager {
       mp: round1(rawMp),
       maxMp: round1(rawMp),
       speed: round1(rawSpeed),
-      critical: round1(finalCriticalPercent),
+      critical: round1(rawCritical),
       regen: round1(rawRegen),
-      evasion: round1(finalEvasionPercent),
+      evasion: round1(rawEvasion),
+      accuracy: round1(rawAccuracy),
+      penetration: round1(rawPenetration),
       reputation: round1(existingReputation),
       karma: round1(existingKarma)
     };

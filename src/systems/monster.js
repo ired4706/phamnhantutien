@@ -98,26 +98,18 @@ class MonsterManager {
       powerMultiplier = 1.3 + Math.random() * 0.2; // 130-150%
     }
 
-    // 5. Áp dụng powerMultiplier cho 6 chỉ số: atk, def, hp, mp, speed, regen
+    // 5. Áp dụng powerMultiplier cho các chỉ số chính (không nhân vào CRIT/EVA/ACC/PEN)
     const monsterAttack = playerStats.attack * powerMultiplier;
     const monsterDefense = playerStats.defense * powerMultiplier;
     const monsterHp = playerStats.hp * powerMultiplier;
     const monsterMp = playerStats.mp * powerMultiplier;
     const monsterSpeed = playerStats.speed * powerMultiplier;
     const monsterRegen = playerStats.regen * powerMultiplier;
+    const monsterAccuracy = playerStats.accuracy; // giữ nguyên theo công thức quy đổi
+    const monsterPenetration = playerStats.penetration; // giữ nguyên theo công thức quy đổi
 
-    // 6. CRIT và EVA giữ nguyên (không áp dụng powerMultiplier)
+    // 6. CRIT và EVA dùng rating thô (không %), giữ nguyên theo hệ mới
     const elementAffinity = this.getElementAffinity(randomElement);
-    const K = 20;
-
-    const critAdj = playerStats.critical * elementAffinity.crit_affinity;
-    const evaAdj = playerStats.evasion * elementAffinity.eva_affinity;
-
-    const critAdjPercent = critAdj / 100;
-    const evaAdjPercent = evaAdj / 100;
-
-    const finalCriticalPercent = (critAdjPercent / (critAdjPercent + K)) * 100;
-    const finalEvasionPercent = (evaAdjPercent / (evaAdjPercent + K)) * 100;
 
     // Làm tròn
     const round1 = (v) => Math.round(v * 10) / 10;
@@ -130,9 +122,11 @@ class MonsterManager {
       mp: round1(monsterMp),
       maxMp: round1(monsterMp),
       speed: round1(monsterSpeed),
-      critical: round1(finalCriticalPercent),
+      critical: round1(playerStats.critical),
       regen: round1(monsterRegen),
-      evasion: round1(finalEvasionPercent)
+      evasion: round1(playerStats.evasion),
+      accuracy: round1(monsterAccuracy),
+      penetration: round1(monsterPenetration)
     };
 
     return {
@@ -288,21 +282,44 @@ class MonsterManager {
     return tierMapping[playerRealm]?.[playerRealmLevel] || 'nhat_cap';
   }
 
-  // Tính toán damage và hit check
-  calculateDamage(attacker, defender, isCritical = false) {
-    // Hit check
-    const hitRoll = Math.random() * 100;
-    if (hitRoll < defender.stats.evasion) {
-      return { hit: false, damage: 0, isCritical: false };
+  // Tính toán damage và hit check (hệ chỉ số mới)
+  calculateDamage(attacker, defender, isCritical = undefined) {
+    const REALM_CONFIG = {
+      luyen_khi: { Kcrit: 200, PEN_BASE: 150 },
+      truc_co: { Kcrit: 800, PEN_BASE: 500 },
+      ket_dan: { Kcrit: 2000, PEN_BASE: 1500 },
+      nguyen_anh: { Kcrit: 3000, PEN_BASE: 3500 }
+    };
+
+    const realm = attacker.realm || 'luyen_khi';
+    const cfg = REALM_CONFIG[realm] || REALM_CONFIG.luyen_khi;
+
+    const attack = parseFloat(attacker.stats.attack) || 0;
+    const defense = parseFloat(defender.stats.defense) || 0;
+    const acc = parseFloat(attacker.stats.accuracy) || 0;
+    const eva = parseFloat(defender.stats.evasion) || 0;
+    const pen = parseFloat(attacker.stats.penetration) || 0;
+
+    // Hit check ACC vs EVA
+    const hitChance = Math.min(Math.max(0.05 + 0.95 * (acc / (acc + Math.max(1, eva))), 0.05), 0.95);
+    if (Math.random() > hitChance) {
+      return { hit: false, damage: 0, isCritical: false, elementMultiplier: 1 };
     }
 
-    // Base damage calculation
-    const baseDamage = Math.max(5, attacker.stats.attack - defender.stats.defense * 0.5);
+    // Penetration reduces defender defense
+    const penReduction = pen / (pen + cfg.PEN_BASE);
+    const effectiveDEF = defense * (1 - penReduction);
+    let finalDamage = Math.max(1, attack - effectiveDEF);
 
-    // Critical damage
-    let finalDamage = baseDamage;
-    if (isCritical) {
-      finalDamage *= 1.8; // 80% bonus damage on crit
+    // Crit using realm-specific Kcrit
+    const critRating = parseFloat(attacker.stats.critical) || 0;
+    const critChance = critRating / (critRating + cfg.Kcrit);
+    const doCrit = (typeof isCritical === 'boolean') ? isCritical : (Math.random() < critChance);
+    if (doCrit) {
+      const CRIT_MIN = 1.4;
+      const CRIT_MAX = 1.7;
+      const critMultiplier = CRIT_MIN + Math.random() * (CRIT_MAX - CRIT_MIN);
+      finalDamage *= critMultiplier;
     }
 
     // Áp dụng hệ số ngũ hành theo bảng tương sinh tương khắc (attacker vs defender)
@@ -314,7 +331,7 @@ class MonsterManager {
     return {
       hit: true,
       damage: Math.floor(finalDamage),
-      isCritical: isCritical,
+      isCritical: !!doCrit,
       elementMultiplier: elementMultiplier
     };
   }
@@ -338,8 +355,17 @@ class MonsterManager {
 
   // Kiểm tra critical hit
   checkCritical(attacker) {
-    const critRoll = Math.random() * 100;
-    return critRoll < attacker.stats.critical;
+    const REALM_CONFIG = {
+      luyen_khi: { Kcrit: 200 },
+      truc_co: { Kcrit: 800 },
+      ket_dan: { Kcrit: 2000 },
+      nguyen_anh: { Kcrit: 3000 }
+    };
+    const realm = attacker.realm || 'luyen_khi';
+    const cfg = REALM_CONFIG[realm] || REALM_CONFIG.luyen_khi;
+    const critRating = parseFloat(attacker.stats.critical) || 0;
+    const critChance = critRating / (critRating + cfg.Kcrit);
+    return Math.random() < critChance;
   }
 }
 

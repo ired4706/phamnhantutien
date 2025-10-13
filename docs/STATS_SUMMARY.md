@@ -1,54 +1,36 @@
 # BẢNG CHỈ SỐ NGŨ HÀNH HỆ - TU TIÊN GAME
 
-## 📊 CHỈ SỐ CƠ BẢN THEO NGŨ HÀNH
+## 📊 CHỈ SỐ CƠ BẢN THEO NGŨ HÀNH (Cấu trúc mới)
 
 ### ⚔️ KIM LINH CĂN (Kim)
 - **Chuyên môn**: Công kích sắc bén, phòng thủ cứng cáp
-- **Chỉ số cơ bản**:
-  - Tấn công: 12 | Phòng thủ: 15 | HP: 120 | MP: 50
-  - Tốc độ: 8 | Chí mạng: 5 | Hồi phục: 2 | Né tránh: 3
-- **Tốc độ tăng trưởng**:
-  - Tấn công: +1.8/level | Phòng thủ: +2.0/level | HP: +15/level
+- **Core stats**: STR/INT/DEX/VIT/LUK theo `data/core/spirit-roots.json`
+- **Growth**: tăng theo `growth_rates` (STR/INT/DEX/VIT/LUK)
 - **Ưu điểm**: Tấn công cao, phòng thủ tốt
 - **Nhược điểm**: Yếu với Hỏa, mạnh với Mộc
 
 ### 🌳 MỘC LINH CĂN (Mộc)
-- **Chuyên môn**: Hồi phục và né tránh
-- **Chỉ số cơ bản**:
-  - Tấn công: 10 | Phòng thủ: 10 | HP: 100 | MP: 70
-  - Tốc độ: 9 | Chí mạng: 7 | Hồi phục: 4 | Né tránh: 4
-- **Tốc độ tăng trưởng**:
-  - HP: +12/level | MP: +7/level | Hồi phục: +0.3/level
+- **Chuyên môn**: Hồi phục và sinh trưởng
+- **Core stats**: STR/INT/DEX/VIT/LUK theo file data
+- **Growth**: theo `growth_rates`
 - **Ưu điểm**: Hồi phục tốt, né tránh cao
 - **Nhược điểm**: Yếu với Kim, mạnh với Thổ
 
 ### 💧 THỦY LINH CĂN (Thủy)
-- **Chuyên môn**: Tốc độ và né tránh
-- **Chỉ số cơ bản**:
-  - Tấn công: 9 | Phòng thủ: 9 | HP: 90 | MP: 90
-  - Tốc độ: 10 | Chí mạng: 6 | Hồi phục: 3 | Né tránh: 6
-- **Tốc độ tăng trưởng**:
-  - Tốc độ: +0.3/level | MP: +9/level | Né tránh: +0.25/level
+- **Chuyên môn**: Tốc độ và pháp lực
+- **Core/Growth**: theo file data
 - **Ưu điểm**: Tốc độ cao nhất, né tránh tốt
 - **Nhược điểm**: Yếu với Thổ, mạnh với Hỏa
 
 ### 🔥 HỎA LINH CĂN (Hỏa)
-- **Chuyên môn**: Công kích mãnh liệt và chí mạng
-- **Chỉ số cơ bản**:
-  - Tấn công: 14 | Phòng thủ: 8 | HP: 95 | MP: 60
-  - Tốc độ: 11 | Chí mạng: 10 | Hồi phục: 2 | Né tránh: 5
-- **Tốc độ tăng trưởng**:
-  - Tấn công: +2.0/level | Chí mạng: +0.4/level | Tốc độ: +0.35/level
+- **Chuyên môn**: Công kích và chí mạng
+- **Core/Growth**: theo file data
 - **Ưu điểm**: Tấn công cao nhất, chí mạng cao
 - **Nhược điểm**: Yếu với Thủy, mạnh với Kim
 
 ### 🏔️ THỔ LINH CĂN (Thổ)
-- **Chuyên môn**: Phòng thủ và hồi phục
-- **Chỉ số cơ bản**:
-  - Tấn công: 11 | Phòng thủ: 14 | HP: 140 | MP: 40
-  - Tốc độ: 7 | Chí mạng: 4 | Hồi phục: 3 | Né tránh: 2
-- **Tốc độ tăng trưởng**:
-  - HP: +18/level | Phòng thủ: +1.8/level | Hồi phục: +0.2/level
+- **Chuyên môn**: Phòng thủ và thể lực
+- **Core/Growth**: theo file data
 - **Ưu điểm**: HP cao nhất, phòng thủ tốt
 - **Nhược điểm**: Yếu với Mộc, mạnh với Thủy
 
@@ -95,26 +77,38 @@
 
 ---
 
-## 🧮 CÔNG THỨC TÍNH CHỈ SỐ MỚI
+## 🧮 CÔNG THỨC TÍNH CHỈ SỐ (Cập nhật STR/INT/DEX/VIT/LUK)
 
-**Stat cuối = (Basic Stat + Growth × số tầng luyện khí) × (Stage multiplier × Tier multiplier)**
+### Bước 1: Tính 5 chỉ số chính
+```
+STR = (base.STR + growth.STR × luyenKhiTiers) × (Stage × Tier)
+INT = (base.INT + growth.INT × luyenKhiTiers) × (Stage × Tier)
+DEX = (base.DEX + growth.DEX × luyenKhiTiers) × (Stage × Tier)
+VIT = (base.VIT + growth.VIT × luyenKhiTiers) × (Stage × Tier)
+LUK = (base.LUK + growth.LUK × luyenKhiTiers) × (Stage × Tier)
+```
+
+### Bước 2: Quy đổi sang combat stats
+```
+ATK = STR × 1.8 + INT × 0.6 + LUK × 0.3
+DEF = VIT × 2.0 + STR × 0.5
+HP  = VIT × 20  + STR × 5
+MP  = INT × 15  + LUK × 3
+SPD = DEX × 1.5 + LUK × 0.5
+REGEN = INT × 0.4 + VIT × 0.2
+CRIT  = LUK × 0.4 + DEX × 0.2
+EVA   = DEX × 0.3 + LUK × 0.3
+ACC   = DEX × 0.6
+PEN   = STR × 0.4 + INT × 0.2
+```
 
 ### Tham số:
-- **Basic Stat**: Chỉ số cơ bản của linh căn
-- **Growth**: Chỉ số tăng trưởng mỗi tầng
-- **Số tầng luyện khí**: 1-13 (tầng hiện tại nếu đang ở luyện khí, 13 nếu đã lên cảnh giới cao hơn)
-- **Stage multiplier**: Luyện Khí: 1, Trúc Cơ: 5, Kết Đan: 25, Nguyên Anh: 125
-- **Tier multiplier**: Luyện Khí: 1, Sơ Kỳ: 1.0, Trung Kỳ: 1.5, Hậu Kỳ: 2.0
+- Số tầng luyện khí (luyenKhiTiers): 1-13 (Luyện Khí dùng level hiện tại; các cảnh giới trên mặc định 13)
+- Stage multiplier: Luyện Khí 1, Trúc Cơ 5, Kết Đan 25, Nguyên Anh 125
+- Tier multiplier: Luyện Khí 1; Sơ 1.0, Trung 1.5, Hậu 2.0
 
-### Ví dụ tính toán:
-**Kim Linh Căn - Trúc Cơ Trung Kỳ:**
-- Basic ATK: 12
-- Growth ATK: 1.8
-- Số tầng luyện khí: 13
-- Stage multiplier: 5
-- Tier multiplier: 1.5
-
-**ATK cuối = (12 + 1.8 × 13) × (5 × 1.5) = 35.4 × 7.5 = 265**
+### Ví dụ nhanh (mô phỏng):
+- Cho sẵn STR/INT/DEX/VIT/LUK từ file data và growth tương ứng, áp dụng công thức trên để ra ATK/DEF/HP/MP/SPD/REGEN/CRIT/EVA/ACC/PEN.
 
 ---
 

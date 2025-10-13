@@ -24,7 +24,9 @@ class StatsCalculator {
       spiritRoot = kimRoot;
     }
 
-    const { basic_stats, growth_rates } = spiritRoot;
+    // Hỗ trợ cấu trúc mới: core_stats (STR/INT/DEX/VIT/LUK) + growth_rates tương ứng
+    const core = spiritRoot.core_stats || spiritRoot.basic_stats || {};
+    const growth = spiritRoot.growth_rates || {};
 
     // Tính số tầng luyện khí đã qua
     let luyenKhiTiers = 0;
@@ -68,17 +70,33 @@ class StatsCalculator {
       else if (level === 3) tierMultiplier = 2.0; // Hậu Kỳ
     }
 
-    // Công thức: Stat = (Basic + Growth × số tầng luyện khí) × (Stage multiplier × Tier multiplier)
-    const rawAttack = (basic_stats.attack + growth_rates.attack * luyenKhiTiers) * (stageMultiplier * tierMultiplier);
-    const rawDefense = (basic_stats.defense + growth_rates.defense * luyenKhiTiers) * (stageMultiplier * tierMultiplier);
-    const rawHp = (basic_stats.hp + growth_rates.hp * luyenKhiTiers) * (stageMultiplier * tierMultiplier);
-    const rawMp = (basic_stats.mana + growth_rates.mana * luyenKhiTiers) * (stageMultiplier * tierMultiplier);
-    const rawSpeed = (basic_stats.speed + growth_rates.speed * luyenKhiTiers) * (stageMultiplier * tierMultiplier);
-    const rawCritical = (basic_stats.critical + growth_rates.critical * luyenKhiTiers) * (stageMultiplier * tierMultiplier);
-    const rawRegen = (basic_stats.regen + growth_rates.regen * luyenKhiTiers) * (stageMultiplier * tierMultiplier);
-    const rawEvasion = (basic_stats.evasion + growth_rates.evasion * luyenKhiTiers) * (stageMultiplier * tierMultiplier);
+    // Bước 1: Tính 5 chỉ số chính theo công thức mới
+    const STR = ((core.STR || 0) + (growth.STR || 0) * luyenKhiTiers) * (stageMultiplier * tierMultiplier);
+    const INT = ((core.INT || 0) + (growth.INT || 0) * luyenKhiTiers) * (stageMultiplier * tierMultiplier);
+    const DEX = ((core.DEX || 0) + (growth.DEX || 0) * luyenKhiTiers) * (stageMultiplier * tierMultiplier);
+    const VIT = ((core.VIT || 0) + (growth.VIT || 0) * luyenKhiTiers) * (stageMultiplier * tierMultiplier);
+    const LUK = ((core.LUK || 0) + (growth.LUK || 0) * luyenKhiTiers) * (stageMultiplier * tierMultiplier);
+
+    // Bước 2: Quy đổi sang combat stats
+    const rawAttack = STR * 1.8 + INT * 0.6 + LUK * 0.3;
+    const rawDefense = VIT * 2.0 + STR * 0.5;
+    const rawHp = VIT * 20 + STR * 5;
+    const rawMp = INT * 15 + LUK * 3;
+    const rawSpeed = DEX * 1.5 + LUK * 0.5;
+    const rawRegen = INT * 0.4 + VIT * 0.2;
+    const rawCritical = LUK * 0.4 + DEX * 0.2;
+    const rawEvasion = DEX * 0.3 + LUK * 0.3;
+    const rawAccuracy = DEX * 0.6;
+    const rawPenetration = STR * 0.4 + INT * 0.2;
 
     return {
+      // Core (tham khảo nếu cần debug)
+      STR,
+      INT,
+      DEX,
+      VIT,
+      LUK,
+      // Combat raws
       attack: rawAttack,
       defense: rawDefense,
       hp: rawHp,
@@ -86,7 +104,9 @@ class StatsCalculator {
       speed: rawSpeed,
       critical: rawCritical,
       regen: rawRegen,
-      evasion: rawEvasion
+      evasion: rawEvasion,
+      accuracy: rawAccuracy,
+      penetration: rawPenetration
     };
   }
 

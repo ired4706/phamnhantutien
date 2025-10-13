@@ -115,32 +115,37 @@ module.exports = {
       });
       mainEmbed.setTimestamp();
 
-      // Tạo embed thứ hai cho stats chi tiết
+      // Tạo embed thứ hai cho stats chi tiết (bố cục 3xN đối xứng)
       const statsEmbed = new EmbedBuilder()
         .setColor(this.getRealmColor(player.realm))
         .setTitle('⚔️ **Thuộc Tính Chiến Đấu**')
         .setDescription(`${this.createSeparator()}\n**Thông số chi tiết của tu sĩ**`);
 
-      // Nhóm stats theo chức năng
-      const combatStats = [
+      const zws = '\u200B';
+      const fields = [
+        // Row 1
         { name: '❤️ **Sinh Mệnh**', value: `${player.stats.hp.toLocaleString()}/${player.stats.maxHp.toLocaleString()}`, inline: true },
         { name: '🔮 **Linh Lực**', value: `${player.stats.mp.toLocaleString()}/${player.stats.maxMp.toLocaleString()}`, inline: true },
-        { name: '⚔️ **Công Kích**', value: `**${player.stats.attack.toLocaleString()}**`, inline: true }
-      ];
-
-      const defenseStats = [
+        { name: '⚔️ **Công Kích**', value: `**${player.stats.attack.toLocaleString()}**`, inline: true },
+        // Row 2
         { name: '🛡️ **Phòng Thủ**', value: `**${player.stats.defense.toLocaleString()}**`, inline: true },
         { name: '⚡ **Tốc Độ**', value: `**${player.stats.speed.toLocaleString()}**`, inline: true },
-        { name: '🎯 **Chí Mạng**', value: `**${player.stats.critical}%**`, inline: true }
-      ];
-
-      const utilityStats = [
+        { name: '🎯 **Chí Mạng**', value: `**${(player.stats.critical ?? 0).toLocaleString()}**`, inline: true },
+        // Row 3
+        { name: '🎯 **Chính Xác**', value: `**${(player.stats.accuracy ?? 0).toLocaleString()}**`, inline: true },
+        { name: '🗡️ **Xuyên Giáp**', value: `**${(player.stats.penetration ?? 0).toLocaleString()}**`, inline: true },
+        { name: '🦅 **Né Tránh**', value: `**${(player.stats.evasion ?? 0).toLocaleString()}**`, inline: true },
+        // Row 4
         { name: '💚 **Hồi Phục**', value: `**${player.stats.regen.toLocaleString()}**`, inline: true },
-        { name: '🦅 **Né Tránh**', value: `**${player.stats.evasion}%**`, inline: true },
-        { name: '✨ **Danh Tiếng**', value: `**${player.stats.reputation.toLocaleString()}**`, inline: true }
+        { name: '✨ **Danh Tiếng**', value: `**${(player.stats.reputation ?? 0).toLocaleString()}**`, inline: true },
+        { name: '🪙 **Nghiệp**', value: `**${(player.stats.karma ?? 0).toLocaleString()}**`, inline: true }
       ];
 
-      statsEmbed.addFields(...combatStats, ...defenseStats, ...utilityStats);
+      while (fields.length % 3 !== 0) {
+        fields.push({ name: zws, value: zws, inline: true });
+      }
+
+      statsEmbed.addFields(...fields);
 
       // Tạo embed thứ ba cho linh căn chi tiết
       const spiritRootEmbed = new EmbedBuilder()
@@ -150,7 +155,7 @@ module.exports = {
 
       // Nhóm thông tin linh căn
       const basicStats = [
-        { name: '🎯 **Basic Stats**', value: this.formatSpiritRootStats(spiritRoot.basic_stats), inline: true },
+        { name: '🧬 **Core Stats**', value: this.formatSpiritRootStats(spiritRoot.core_stats), inline: true },
         { name: '📈 **Growth Rates**', value: this.formatSpiritRootGrowth(spiritRoot.growth_rates), inline: true }
       ];
 
@@ -201,14 +206,16 @@ module.exports = {
     return `Tầng ${realmLevel}`;
   },
 
-  // Format stats linh căn
+  // Format core stats linh căn (STR/INT/DEX/VIT/LUK)
   formatSpiritRootStats(stats) {
-    return `**ATK**: ${stats.attack}\n**DEF**: ${stats.defense}\n**HP**: ${stats.hp}\n**MP**: ${stats.mana}\n**SPD**: ${stats.speed}\n**CRIT (rating)**: ${stats.critical}\n**REGEN**: ${stats.regen}\n**EVA (rating)**: ${stats.evasion}`;
+    if (!stats) return 'Không có dữ liệu';
+    return `**STR**: ${stats.STR}\n**INT**: ${stats.INT}\n**DEX**: ${stats.DEX}\n**VIT**: ${stats.VIT}\n**LUK**: ${stats.LUK}`;
   },
 
-  // Format growth rates linh căn
+  // Format growth rates (STR/INT/DEX/VIT/LUK)
   formatSpiritRootGrowth(growth) {
-    return `**ATK**: +${growth.attack}\n**DEF**: +${growth.defense}\n**HP**: +${growth.hp}\n**MP**: +${growth.mana}\n**SPD**: +${growth.speed}\n**CRIT (rating)**: +${growth.critical}\n**REGEN**: +${growth.regen}\n**EVA (rating)**: +${growth.evasion}`;
+    if (!growth) return 'Không có dữ liệu';
+    return `**STR**: +${growth.STR}\n**INT**: +${growth.INT}\n**DEX**: +${growth.DEX}\n**VIT**: +${growth.VIT}\n**LUK**: +${growth.LUK}`;
   },
 
   // Format hiển thị linh thạch

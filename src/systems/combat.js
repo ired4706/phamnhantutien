@@ -27,6 +27,14 @@ class CombatSystem {
     }
   }
 
+  // Realm-based config for crit and penetration baselines
+  REALM_CONFIG = {
+    luyen_khi: { Kcrit: 200, PEN_BASE: 150 },
+    truc_co: { Kcrit: 800, PEN_BASE: 500 },
+    ket_dan: { Kcrit: 2000, PEN_BASE: 1500 },
+    nguyen_anh: { Kcrit: 3000, PEN_BASE: 3500 }
+  };
+
   cleanupExpiredCombats() {
     const now = Date.now();
     for (const [combatId, combat] of this.activeCombats.entries()) {
@@ -1354,10 +1362,9 @@ class CombatSystem {
 
   // Thực hiện tấn công
   performAttack(attacker, defender, combat) {
-    const hitChance = this.calculateHitChance(attacker, defender);
-    const isHit = Math.random() * 100 < hitChance;
-
-    if (!isHit) {
+    // Dùng ACC/EVA mới trong calculateDamage, nên bỏ hitChance cũ
+    const dmgObj = this.calculateDamage(attacker, defender, undefined);
+    if (!dmgObj.hit) {
       return {
         action: 'attack',
         message: `❌ ${attacker.name} tấn công nhưng **MISS!**`,
@@ -1365,20 +1372,18 @@ class CombatSystem {
       };
     }
 
-    const isCritical = this.checkCritical(attacker);
-    const baseDamage = this.calculateDamage(attacker, defender, isCritical);
-    const finalDamage = Math.max(1, baseDamage);
+    const finalDamage = Math.max(1, dmgObj.damage);
 
     defender.currentHp = Math.max(0, defender.currentHp - finalDamage);
 
-    const critText = isCritical ? ' **CRITICAL!**' : '';
+    const critText = dmgObj.isCritical ? ' **CRITICAL!**' : '';
     const message = `⚔️ ${attacker.name} tấn công gây **${finalDamage.toFixed(1)}** sát thương${critText}!`;
 
     return {
       action: 'attack',
       message: message,
       damage: finalDamage,
-      isCritical: isCritical
+      isCritical: !!dmgObj.isCritical
     };
   }
 
@@ -1453,53 +1458,71 @@ class CombatSystem {
 
   // Kiểm tra critical hit
   checkCritical(attacker) {
-    const critChance = parseFloat(attacker.stats.critical) || 0;
-    return Math.random() * 100 < critChance;
+    const realm = attacker.realm || 'luyen_khi';
+    const cfg = this.REALM_CONFIG[realm] || this.REALM_CONFIG.luyen_khi;
+    const critRating = parseFloat(attacker.stats.critical) || 0; // rating
+    const critChance = critRating / (critRating + cfg.Kcrit);
+    return Math.random() < critChance;
   }
 
-  // Tính toán sát thương
+  // Tính toán sát thương theo hệ chỉ số mới
   calculateDamage(attacker, defender, isCritical) {
-    const attack = parseFloat(attacker.stats.attack);
-    const defense = parseFloat(defender.stats.defense);
+    const realm = attacker.realm || 'luyen_khi';
+    const cfg = this.REALM_CONFIG[realm] || this.REALM_CONFIG.luyen_khi;
 
-    // Áp dụng status effects
+    const attack = parseFloat(attacker.stats.attack) || 0;
+    const defense = parseFloat(defender.stats.defense) || 0;
+    const acc = parseFloat(attacker.stats.accuracy) || 0;
+    const eva = parseFloat(defender.stats.evasion) || 0;
+    const pen = parseFloat(attacker.stats.penetration) || 0;
+
     let finalAttack = attack;
     let finalDefense = defense;
 
     attacker.statusEffects.forEach(effect => {
-      if (effect.type === 'attack_boost') {
-        finalAttack *= (1 + effect.value);
-      }
-      if (effect.type === 'attack_debuff') {
-        finalAttack *= Math.max(0, 1 - effect.value);
-      }
+      if (effect.type === 'attack_boost') finalAttack *= (1 + effect.value);
+      if (effect.type === 'attack_debuff') finalAttack *= Math.max(0, 1 - effect.value);
     });
 
     defender.statusEffects.forEach(effect => {
-      if (effect.type === 'defend') {
-        finalDefense *= (1 + effect.defenseBonus);
-      }
-      if (effect.type === 'defense_bonus') {
-        finalDefense *= (1 + effect.value);
-      }
+      if (effect.type === 'defend') finalDefense *= (1 + effect.defenseBonus);
+      if (effect.type === 'defense_bonus') finalDefense *= (1 + effect.value);
     });
 
-    const baseDamage = Math.max(1, finalAttack - finalDefense * 0.5);
-    const criticalMultiplier = isCritical ? 1.8 : 1.0;
-    let damage = baseDamage * criticalMultiplier;
-    // Apply defender damage reduction statuses
+    // Hit check ACC vs EVA
+    const hitChance = Math.min(Math.max(0.05 + 0.95 * (acc / (acc + Math.max(1, eva))), 0.05), 0.95);
+    if (Math.random() > hitChance) {
+      return { hit: false, damage: 0, isCritical: false, elementMultiplier: 1 };
+    }
+
+    // Penetration reduces defender defense
+    const penReduction = pen / (pen + cfg.PEN_BASE);
+    const effectiveDEF = finalDefense * (1 - penReduction);
+    let baseDamage = Math.max(1, finalAttack - effectiveDEF);
+
+    // Crit using realm-specific Kcrit
+    const critRating = parseFloat(attacker.stats.critical) || 0;
+    const critChance = critRating / (critRating + cfg.Kcrit);
+    const doCrit = (typeof isCritical === 'boolean') ? isCritical : (Math.random() < critChance);
+    if (doCrit) {
+      const CRIT_MIN = 1.4;
+      const CRIT_MAX = 1.7;
+      const critMultiplier = CRIT_MIN + Math.random() * (CRIT_MAX - CRIT_MIN);
+      baseDamage *= critMultiplier;
+    }
+
     defender.statusEffects.forEach(effect => {
       if (effect.type === 'damage_reduction') {
-        damage *= Math.max(0, 1 - effect.value);
+        baseDamage *= Math.max(0, 1 - effect.value);
       }
     });
-    // Áp dụng hệ số ngũ hành theo bảng tương sinh tương khắc (attacker vs defender)
+
     const attackerElement = (attacker.element || 'vo_he');
     const defenderElement = (defender.element || 'vo_he');
     const elementMultiplier = this.getElementDamageMultiplier(attackerElement, defenderElement);
-    damage *= elementMultiplier;
+    baseDamage *= elementMultiplier;
 
-    return damage;
+    return { hit: true, damage: baseDamage, isCritical: !!doCrit, elementMultiplier };
   }
 
   // Bảng hệ số sát thương ngũ hành (attacker -> defender)
@@ -1759,9 +1782,15 @@ class CombatSystem {
 
     // Xử lý damage cơ bản
     if (skill.damage > 0) {
-      const damage = this.calculateDamage(caster, target, false) * skill.damage;
-      target.currentHp = Math.max(0, target.currentHp - damage);
-      message += ` Gây **${damage.toFixed(1)}** sát thương!`;
+      const dmgObj = this.calculateDamage(caster, target, false);
+      if (!dmgObj.hit) {
+        message += ` ⚠️ Đòn đánh trượt!`;
+      } else {
+        const damage = dmgObj.damage * skill.damage;
+        target.currentHp = Math.max(0, target.currentHp - damage);
+        const critTag = dmgObj.isCritical ? ' (CRIT)' : '';
+        message += ` Gây **${damage.toFixed(1)}** sát thương${critTag}!`;
+      }
     }
 
     // Xử lý các effects

@@ -3,13 +3,13 @@
     "userId": "504705413682298891",
     "username": "ired0806",
     "spiritRoot": "hoa",
-    "experience": 281073,
+    "experience": 346180,
     "realm": "nguyen_anh",
     "realmLevel": 2,
     "totalTiers": 0,
     "inventory": {
       "spiritStones": {
-        "ha_pham": 19,
+        "ha_pham": 8498,
         "trung_pham": 0,
         "thuong_pham": 0,
         "cuc_pham": 0
@@ -29,7 +29,7 @@
         },
         {
           "id": "thanh_van_to",
-          "quantity": 317
+          "quantity": 318
         },
         {
           "id": "tu_hau_hoa",
@@ -93,11 +93,11 @@
         },
         {
           "id": "da_thu_tho",
-          "quantity": 14
+          "quantity": 18
         },
         {
           "id": "da_linh_thu",
-          "quantity": 10
+          "quantity": 14
         },
         {
           "id": "anh_diep_thao",
@@ -105,7 +105,7 @@
         },
         {
           "id": "nguyet_anh_to",
-          "quantity": 14
+          "quantity": 16
         },
         {
           "id": "ban_do_thi_luyen",
@@ -113,15 +113,15 @@
         },
         {
           "id": "da_thien_thu",
-          "quantity": 2
+          "quantity": 3
         },
         {
           "id": "dia_ha_to",
-          "quantity": 10
+          "quantity": 12
         },
         {
           "id": "da_dia_thu",
-          "quantity": 14
+          "quantity": 17
         },
         {
           "id": "tinh_ha_to",
@@ -279,9 +279,9 @@
       "breakthroughAttempts": 0,
       "lastBreakthrough": 0,
       "lastMeditate": 0,
-      "lastHunt": 1760082530271,
+      "lastHunt": 1760352346077,
       "lastChallenge": 0,
-      "lastDomain": 0,
+      "lastDomain": 1760349808964,
       "lastDailyQuest": 0,
       "lastWeeklyQuest": 0,
       "lastDungeon": 0,
@@ -319,18 +319,20 @@
     },
     "achievements": [],
     "joinDate": 1757583527158,
-    "lastActive": 1760082611808,
+    "lastActive": 1760352346077,
     "stats": {
-      "attack": 7500,
-      "defense": 3937.5,
-      "hp": 44625,
-      "maxHp": 44625,
-      "mp": 25875,
-      "maxMp": 25875,
-      "speed": 2915.6,
-      "critical": 69.5,
-      "regen": 618.8,
-      "evasion": 48.1,
+      "attack": 17881.9,
+      "defense": 10490.6,
+      "hp": 104906.3,
+      "maxHp": 104906.3,
+      "mp": 88875,
+      "maxMp": 88875,
+      "speed": 10209.4,
+      "critical": 2955,
+      "regen": 2662.5,
+      "evasion": 2998.1,
+      "accuracy": 3127.5,
+      "penetration": 3986.3,
       "reputation": 0,
       "karma": 0
     },
@@ -424,16 +426,18 @@
     "joinDate": 1757586658936,
     "lastActive": 1760080874778,
     "stats": {
-      "attack": 10.2,
-      "defense": 10.2,
-      "hp": 100,
-      "maxHp": 100,
-      "mp": 99,
-      "maxMp": 99,
-      "speed": 10.3,
-      "critical": 0.4,
-      "regen": 3.2,
-      "evasion": 0.5,
+      "attack": 17.8,
+      "defense": 16.9,
+      "hp": 169,
+      "maxHp": 169,
+      "mp": 187.2,
+      "maxMp": 187.2,
+      "speed": 18.4,
+      "critical": 4.9,
+      "regen": 5.8,
+      "evasion": 5.2,
+      "accuracy": 5.9,
+      "penetration": 4.2,
       "reputation": 0,
       "karma": 0
     },
@@ -539,16 +543,18 @@
     "joinDate": 1757587591503,
     "lastActive": 1760065573130,
     "stats": {
-      "attack": 10.2,
-      "defense": 10.2,
-      "hp": 100,
-      "maxHp": 100,
-      "mp": 99,
-      "maxMp": 99,
-      "speed": 10.3,
-      "critical": 0.4,
-      "regen": 3.2,
-      "evasion": 0.5,
+      "attack": 17.8,
+      "defense": 16.9,
+      "hp": 169,
+      "maxHp": 169,
+      "mp": 187.2,
+      "maxMp": 187.2,
+      "speed": 18.4,
+      "critical": 4.9,
+      "regen": 5.8,
+      "evasion": 5.2,
+      "accuracy": 5.9,
+      "penetration": 4.2,
       "reputation": 1,
       "karma": 0
     },
