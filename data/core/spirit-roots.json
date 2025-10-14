@@ -2,20 +2,20 @@
   "kim": {
     "name": "Kim Linh Căn",
     "emoji": "⚔️",
-    "description": "Linh căn kim thuộc tính, chuyên về công kích sắc bén và phòng thủ cứng cáp.",
+    "description": "Linh căn kim thuộc tính, đại diện cho sức mạnh và ý chí kiên cường. Giỏi tấn công cận chiến và phòng ngự.",
     "core_stats": {
       "STR": 9,
       "INT": 5,
       "DEX": 6,
       "VIT": 8,
-      "LUK": 4
+      "LUK": 5
     },
     "growth_rates": {
-      "STR": 2.0,
+      "STR": 2.1,
       "INT": 1.2,
       "DEX": 1.4,
-      "VIT": 1.8,
-      "LUK": 0.9
+      "VIT": 1.9,
+      "LUK": 1.0
     },
     "special_abilities": [
       "Kim Kiếm Vô Song",
@@ -28,20 +28,20 @@
   "moc": {
     "name": "Mộc Linh Căn",
     "emoji": "🌳",
-    "description": "Linh căn mộc thuộc tính, chuyên về hồi phục và tốc độ sinh trưởng.",
+    "description": "Linh căn mộc thuộc tính, đại diện cho sự sinh trưởng và hồi phục. Bền bỉ và linh hoạt.",
     "core_stats": {
-      "STR": 5,
+      "STR": 6,
       "INT": 7,
       "DEX": 7,
       "VIT": 8,
       "LUK": 5
     },
     "growth_rates": {
-      "STR": 1.3,
-      "INT": 1.7,
-      "DEX": 1.6,
-      "VIT": 1.9,
-      "LUK": 1.3
+      "STR": 1.4,
+      "INT": 1.8,
+      "DEX": 1.7,
+      "VIT": 2.0,
+      "LUK": 1.2
     },
     "special_abilities": [
       "Mộc Linh Hồi Phục",
@@ -54,7 +54,7 @@
   "thuy": {
     "name": "Thủy Linh Căn",
     "emoji": "💧",
-    "description": "Linh căn thủy thuộc tính, linh hoạt, pháp lực mạnh và né tránh cao.",
+    "description": "Linh căn thủy thuộc tính, biến hóa linh hoạt, giỏi phép thuật và né tránh.",
     "core_stats": {
       "STR": 4,
       "INT": 9,
@@ -64,10 +64,10 @@
     },
     "growth_rates": {
       "STR": 1.0,
-      "INT": 2.0,
-      "DEX": 1.8,
-      "VIT": 1.2,
-      "LUK": 1.4
+      "INT": 2.1,
+      "DEX": 1.9,
+      "VIT": 1.3,
+      "LUK": 1.5
     },
     "special_abilities": [
       "Thủy Nguyệt Vô Biên",
@@ -80,20 +80,20 @@
   "hoa": {
     "name": "Hỏa Linh Căn",
     "emoji": "🔥",
-    "description": "Linh căn hỏa thuộc tính, chuyên về công kích mãnh liệt và chí mạng cao.",
+    "description": "Linh căn hỏa thuộc tính, tấn công mạnh, chí mạng cao nhưng phòng thủ yếu.",
     "core_stats": {
       "STR": 10,
-      "INT": 7,
-      "DEX": 7,
+      "INT": 6,
+      "DEX": 8,
       "VIT": 5,
       "LUK": 6
     },
     "growth_rates": {
-      "STR": 2.3,
-      "INT": 1.5,
-      "DEX": 1.6,
+      "STR": 2.4,
+      "INT": 1.3,
+      "DEX": 1.8,
       "VIT": 1.0,
-      "LUK": 1.5
+      "LUK": 1.6
     },
     "special_abilities": [
       "Hỏa Long Phá Thiên",
@@ -106,7 +106,7 @@
   "tho": {
     "name": "Thổ Linh Căn",
     "emoji": "🏔️",
-    "description": "Linh căn thổ thuộc tính, phòng thủ vững chắc và hồi phục bền bỉ.",
+    "description": "Linh căn thổ thuộc tính, kiên cố và hồi phục chậm mà chắc. Phòng ngự hàng đầu.",
     "core_stats": {
       "STR": 7,
       "INT": 5,
@@ -116,9 +116,9 @@
     },
     "growth_rates": {
       "STR": 1.6,
-      "INT": 1.1,
+      "INT": 1.2,
       "DEX": 1.0,
-      "VIT": 2.2,
+      "VIT": 2.3,
       "LUK": 1.0
     },
     "special_abilities": [
@@ -132,7 +132,7 @@
   "phong": {
     "name": "Phong Linh Căn",
     "emoji": "🌪️",
-    "description": "Linh căn phong thuộc tính, tốc độ nhanh và khả năng né tránh siêu việt.",
+    "description": "Linh căn phong thuộc tính, nhanh nhẹn, né tránh và bạo kích cao.",
     "core_stats": {
       "STR": 6,
       "INT": 6,
@@ -141,11 +141,11 @@
       "LUK": 6
     },
     "growth_rates": {
-      "STR": 1.3,
+      "STR": 1.4,
       "INT": 1.5,
-      "DEX": 2.3,
-      "VIT": 1.1,
-      "LUK": 1.4
+      "DEX": 2.4,
+      "VIT": 1.0,
+      "LUK": 1.6
     },
     "special_abilities": [
       "Phong Ảnh Truy Phong",
@@ -158,20 +158,20 @@
   "loi": {
     "name": "Lôi Linh Căn",
     "emoji": "⚡",
-    "description": "Linh căn lôi thuộc tính, bộc phát mạnh mẽ với sát thương chí mạng.",
+    "description": "Linh căn lôi thuộc tính, thiên về bạo phát và chí mạng, sát thương dồn cực mạnh.",
     "core_stats": {
-      "STR": 9,
+      "STR": 8,
       "INT": 8,
       "DEX": 7,
       "VIT": 6,
       "LUK": 7
     },
     "growth_rates": {
-      "STR": 2.1,
+      "STR": 2.0,
       "INT": 1.8,
       "DEX": 1.6,
-      "VIT": 1.2,
-      "LUK": 1.7
+      "VIT": 1.3,
+      "LUK": 1.8
     },
     "special_abilities": [
       "Lôi Đình Vạn Quân",
@@ -184,7 +184,7 @@
   "vo": {
     "name": "Vô Linh Căn",
     "emoji": "🌀",
-    "description": "Linh căn vô thuộc tính, huyền bí khó lường, không khắc cũng không bị khắc.",
+    "description": "Linh căn vô thuộc tính, trung hòa, có thể hấp thu năng lượng của mọi hệ nhưng khó bộc phát sức mạnh cực đại.",
     "core_stats": {
       "STR": 7,
       "INT": 7,

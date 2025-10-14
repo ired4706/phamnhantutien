@@ -336,7 +336,7 @@
       "da_thu_tho": 8,
       "tinh_thiet_tho": 2
     },
-    "type": "armor"
+    "type": "pants"
   },
   "ha_y_dong_giap": {
     "name": "Hạ Y Đồng Giáp",
@@ -348,7 +348,7 @@
       "dong_tinh_luyen": 3,
       "da_thu_tho": 4
     },
-    "type": "armor"
+    "type": "pants"
   },
   "ha_y_hac_thiet": {
     "name": "Hạ Y Hắc Thiết",
@@ -360,7 +360,7 @@
       "huyen_tinh_dia_tam": 2,
       "ho_linh_tam_ket": 1
     },
-    "type": "armor"
+    "type": "pants"
   },
   "ha_y_bach_ngoc": {
     "name": "Hạ Y Bạch Ngọc",
@@ -372,7 +372,7 @@
       "ngan_tinh_thien_khoi": 2,
       "huyen_giap_lan": 1
     },
-    "type": "armor"
+    "type": "pants"
   },
   "than_y_kim_cang": {
     "name": "Thần Y Kim Cang",
@@ -384,7 +384,7 @@
       "thien_tinh_than_khi": 3,
       "hon_thach_nguyen": 2
     },
-    "type": "armor"
+    "type": "pants"
   },
   "ha_y_to_thuong": {
     "name": "Hạ Y Tơ Thường",
@@ -395,7 +395,7 @@
       "vai_to_tho": 6,
       "da_thu_tho": 2
     },
-    "type": "armor"
+    "type": "pants"
   },
   "ha_y_nguyet_anh": {
     "name": "Hạ Y Nguyệt Ảnh",
@@ -406,7 +406,7 @@
       "nguyet_anh_to": 3,
       "da_linh_thu": 6
     },
-    "type": "armor"
+    "type": "pants"
   },
   "ha_y_dia_ha": {
     "name": "Hạ Y Địa Hà",
@@ -417,7 +417,7 @@
       "da_dia_thu": 10,
       "dia_ha_to": 3
     },
-    "type": "armor"
+    "type": "pants"
   },
   "ha_y_tinh_ha": {
     "name": "Hạ Y Tinh Hà",
@@ -428,7 +428,7 @@
       "tinh_ha_to": 3,
       "da_thien_thu": 8
     },
-    "type": "armor"
+    "type": "pants"
   },
   "than_y_tien_ha": {
     "name": "Thần Y Tiên Hà",
@@ -440,6 +440,6 @@
       "tien_ha_van_to": 4,
       "hon_thach_nguyen": 2
     },
-    "type": "armor"
+    "type": "pants"
   }
 }

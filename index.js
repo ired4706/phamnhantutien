@@ -687,13 +687,13 @@ async function handleButtonInteraction(interaction) {
       .setDescription(spiritRoot.description)
       .addFields(
         {
-          name: '🎯 Basic Stats',
-          value: `**ATK**: ${spiritRoot.basic_stats.attack}\n**DEF**: ${spiritRoot.basic_stats.defense}\n**HP**: ${spiritRoot.basic_stats.hp}\n**MP**: ${spiritRoot.basic_stats.mana}\n**SPD**: ${spiritRoot.basic_stats.speed}\n**CRT (rating)**: ${spiritRoot.basic_stats.critical}\n**RGN**: ${spiritRoot.basic_stats.regen}\n**EVA (rating)**: ${spiritRoot.basic_stats.evasion}`,
+          name: '🎯 Core Stats',
+          value: `**STR**: ${spiritRoot.core_stats.STR}\n**INT**: ${spiritRoot.core_stats.INT}\n**DEX**: ${spiritRoot.core_stats.DEX}\n**VIT**: ${spiritRoot.core_stats.VIT}\n**LUK**: ${spiritRoot.core_stats.LUK}`,
           inline: true
         },
         {
           name: '📈 Growth Rates',
-          value: `**ATK**: +${spiritRoot.growth_rates.attack}\n**DEF**: +${spiritRoot.growth_rates.defense}\n**HP**: +${spiritRoot.growth_rates.hp}\n**MP**: +${spiritRoot.growth_rates.mana}\n**SPD**: +${spiritRoot.growth_rates.speed}\n**CRT (rating)**: +${spiritRoot.growth_rates.critical}\n**RGN**: +${spiritRoot.growth_rates.regen}\n**EVA (rating)**: +${spiritRoot.growth_rates.evasion}`,
+          value: `**STR**: +${spiritRoot.growth_rates.STR}\n**INT**: +${spiritRoot.growth_rates.INT}\n**DEX**: +${spiritRoot.growth_rates.DEX}\n**VIT**: +${spiritRoot.growth_rates.VIT}\n**LUK**: +${spiritRoot.growth_rates.LUK}`,
           inline: true
         },
         {

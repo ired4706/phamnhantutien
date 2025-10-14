@@ -192,6 +192,7 @@ module.exports = {
   getEquipTypeDisplayName(type) {
     const map = {
       'armor': 'Áo Giáp',
+      'pants': 'Quần',
       'boots': 'Giày',
       'ring': 'Nhẫn',
       'pendant': 'Ngọc Bội',
@@ -230,6 +231,7 @@ module.exports = {
 
     const buttons = [
       new ButtonBuilder().setCustomId('craft_type_armor').setLabel('🛡️ Áo Giáp').setStyle(ButtonStyle.Primary),
+      new ButtonBuilder().setCustomId('craft_type_pants').setLabel('👖 Quần').setStyle(ButtonStyle.Secondary),
       new ButtonBuilder().setCustomId('craft_type_boots').setLabel('👟 Giày').setStyle(ButtonStyle.Secondary),
       new ButtonBuilder().setCustomId('craft_type_ring').setLabel('💍 Nhẫn').setStyle(ButtonStyle.Secondary),
       new ButtonBuilder().setCustomId('craft_type_pendant').setLabel('🔮 Ngọc Bội').setStyle(ButtonStyle.Secondary),

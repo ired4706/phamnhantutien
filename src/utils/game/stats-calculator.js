@@ -40,16 +40,16 @@ class StatsCalculator {
       luyenKhiTiers = 13; // Đã hoàn thành 13 tầng luyện khí
     }
 
-    // Tính Stage multiplier
+    // Tính Stage multiplier (mới): 1, 4, 16, 64
     let stageMultiplier = 1;
     if (realm === 'luyen_khi') {
       stageMultiplier = 1;
     } else if (realm === 'truc_co') {
-      stageMultiplier = 5;
+      stageMultiplier = 4;
     } else if (realm === 'ket_dan') {
-      stageMultiplier = 25;
+      stageMultiplier = 16;
     } else if (realm === 'nguyen_anh') {
-      stageMultiplier = 125;
+      stageMultiplier = 64;
     }
 
     // Tính Tier multiplier
