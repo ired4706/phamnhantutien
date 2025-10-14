@@ -186,16 +186,16 @@ class PlayerService extends BaseService {
       luyenKhiTiers = 13; // Completed 13 tiers
     }
 
-    // Calculate stage multiplier
+    // Calculate stage multiplier (1, 4, 16, 64)
     let stageMultiplier = 1;
     if (player.realm === 'luyen_khi') {
       stageMultiplier = 1;
     } else if (player.realm === 'truc_co') {
-      stageMultiplier = 5;
+      stageMultiplier = 4;
     } else if (player.realm === 'ket_dan') {
-      stageMultiplier = 25;
+      stageMultiplier = 16;
     } else if (player.realm === 'nguyen_anh') {
-      stageMultiplier = 125;
+      stageMultiplier = 64;
     }
 
     // Calculate tier multiplier

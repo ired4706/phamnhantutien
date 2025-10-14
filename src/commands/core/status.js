@@ -1,6 +1,7 @@
 const { EmbedBuilder } = require('discord.js');
 const { getContainer } = require('../../container/ServiceContainer');
 const SharedUtils = require('../../utils/core/shared-utils');
+const StatsCalculator = require('../../utils/game/stats-calculator');
 
 module.exports = {
   name: 'status',
@@ -115,6 +116,9 @@ module.exports = {
       });
       mainEmbed.setTimestamp();
 
+      // Tính core stats hiện tại (STR/INT/DEX/VIT/LUK) theo cảnh giới + tầng
+      const baseStats = await StatsCalculator.calculateBaseStats(player.spiritRoot, player.realm, player.realmLevel);
+
       // Tạo embed thứ hai cho stats chi tiết (bố cục 3xN đối xứng)
       const statsEmbed = new EmbedBuilder()
         .setColor(this.getRealmColor(player.realm))
@@ -123,6 +127,8 @@ module.exports = {
 
       const zws = '\u200B';
       const fields = [
+        // Core hiện tại
+        { name: '🧬 **Core (Hiện Tại)**', value: this.formatCoreCurrent(baseStats), inline: false },
         // Row 1
         { name: '❤️ **Sinh Mệnh**', value: `${player.stats.hp.toLocaleString()}/${player.stats.maxHp.toLocaleString()}`, inline: true },
         { name: '🔮 **Linh Lực**', value: `${player.stats.mp.toLocaleString()}/${player.stats.maxMp.toLocaleString()}`, inline: true },
@@ -210,6 +216,19 @@ module.exports = {
   formatSpiritRootStats(stats) {
     if (!stats) return 'Không có dữ liệu';
     return `**STR**: ${stats.STR}\n**INT**: ${stats.INT}\n**DEX**: ${stats.DEX}\n**VIT**: ${stats.VIT}\n**LUK**: ${stats.LUK}`;
+  },
+
+  // Format core stats hiện tại (từ StatsCalculator)
+  formatCoreCurrent(baseStats) {
+    if (!baseStats) return 'Không có dữ liệu';
+    // Tính ngược ước lượng core theo tỉ lệ quy đổi là không khả thi chính xác;
+    // hiển thị trực tiếp 5 chỉ số core đã tính trong StatsCalculator (STR/INT/DEX/VIT/LUK)
+    const STR = Math.round(baseStats.STR * 10) / 10;
+    const INT = Math.round(baseStats.INT * 10) / 10;
+    const DEX = Math.round(baseStats.DEX * 10) / 10;
+    const VIT = Math.round(baseStats.VIT * 10) / 10;
+    const LUK = Math.round(baseStats.LUK * 10) / 10;
+    return `**STR**: ${STR}\n**INT**: ${INT}\n**DEX**: ${DEX}\n**VIT**: ${VIT}\n**LUK**: ${LUK}`;
   },
 
   // Format growth rates (STR/INT/DEX/VIT/LUK)

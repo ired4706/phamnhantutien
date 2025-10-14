@@ -372,55 +372,5 @@
         "description": "Đại bằng hạo thiên, một cánh che trời."
       }
     ]
-  },
-  "element_affinities": {
-    "kim": {
-      "crit_affinity": 1.0,
-      "eva_affinity": 0.9,
-      "weakness": "hoa",
-      "strength": "moc"
-    },
-    "moc": {
-      "crit_affinity": 1.15,
-      "eva_affinity": 1.15,
-      "weakness": "kim",
-      "strength": "tho"
-    },
-    "thuy": {
-      "crit_affinity": 1.3,
-      "eva_affinity": 1.65,
-      "weakness": "tho",
-      "strength": "hoa"
-    },
-    "hoa": {
-      "crit_affinity": 1.6,
-      "eva_affinity": 1.3,
-      "weakness": "thuy",
-      "strength": "kim"
-    },
-    "tho": {
-      "crit_affinity": 0.8,
-      "eva_affinity": 0.9,
-      "weakness": "moc",
-      "strength": "thuy"
-    },
-    "phong": {
-      "crit_affinity": 1.4,
-      "eva_affinity": 1.8,
-      "weakness": "tho",
-      "strength": "thuy"
-    },
-    "loi": {
-      "crit_affinity": 1.7,
-      "eva_affinity": 1.2,
-      "weakness": "tho",
-      "strength": "thuy"
-    },
-    "vo_he": {
-      "crit_affinity": 1.0,
-      "eva_affinity": 1.0,
-      "weakness": "none",
-      "strength": "none"
-    }
   }
 }

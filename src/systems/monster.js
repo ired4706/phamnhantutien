@@ -55,13 +55,7 @@ class MonsterManager {
     return this.monstersData.monster_templates[tierKey] || [];
   }
 
-  // Lấy thông tin element affinity
-  getElementAffinity(element) {
-    if (!this.monstersData || !this.monstersData.element_affinities) {
-      return { crit_affinity: 1.0, eva_affinity: 1.0, weakness: "none", strength: "none" };
-    }
-    return this.monstersData.element_affinities[element] || { crit_affinity: 1.0, eva_affinity: 1.0, weakness: "none", strength: "none" };
-  }
+  // (Removed) Element affinity support has been dropped
 
   // Tính chỉ số quái dựa trên hệ và cấp bậc
   async calculateMonsterStats(player, template, tierInfo, variant = "normal") {
@@ -87,6 +81,7 @@ class MonsterManager {
 
     // 3. Lấy chỉ số cơ bản của player hệ tương ứng
     const playerStats = await StatsCalculator.calculateMonsterBaseStats(randomElement, monsterRealm.realm, monsterRealm.level);
+    console.log("=======================", monsterRealm, playerStats);
 
     // 4. Tính power multiplier dựa trên variant
     let powerMultiplier = 1.0;
@@ -109,7 +104,6 @@ class MonsterManager {
     const monsterPenetration = playerStats.penetration; // giữ nguyên theo công thức quy đổi
 
     // 6. CRIT và EVA dùng rating thô (không %), giữ nguyên theo hệ mới
-    const elementAffinity = this.getElementAffinity(randomElement);
 
     // Làm tròn
     const round1 = (v) => Math.round(v * 10) / 10;
@@ -131,8 +125,7 @@ class MonsterManager {
 
     return {
       stats: stats,
-      element: randomElement,
-      elementAffinity: elementAffinity
+      element: randomElement
     };
   }
 
@@ -231,7 +224,7 @@ class MonsterManager {
       tier: tierKey,
       variant: variant,
       stats: monsterData.stats,
-      elementAffinity: monsterData.elementAffinity,
+
       expReward: Math.floor(tierInfo.base_exp_reward * lootMultiplier),
       spiritStonesReward: Math.floor(tierInfo.base_spirit_stones * lootMultiplier)
     };
