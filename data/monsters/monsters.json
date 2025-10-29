@@ -55,321 +55,321 @@
     "nhat_cap": [
       {
         "id": "spirit_monkey_1",
-        "name": "Linh Hầu",
+        "name": "Linh Hầu Nhi",
         "emoji": "🐒",
-        "description": "Khỉ nhỏ lanh lợi, đôi mắt sáng chứa linh tính."
+        "description": "Khỉ nhỏ nhanh nhẹn, đôi mắt loé linh quang mơ hồ. Tuy yếu ớt nhưng rất hiếu động và khó nắm bắt."
       },
       {
         "id": "spirit_frog_1",
-        "name": "Tiêu Thiềm",
+        "name": "Thanh Thiềm Tử",
         "emoji": "🐸",
-        "description": "Cóc con kêu vang, cộng hưởng cùng linh khí."
+        "description": "Cóc non da xanh, tiếng kêu rung nhẹ linh khí xung quanh. Thân thể nhỏ bé nhưng phản xạ linh hoạt."
       },
       {
         "id": "spirit_wolf_1",
-        "name": "Tử Lang",
+        "name": "Sơ Lang Nha",
         "emoji": "🐺",
-        "description": "Sói non lông tím, mang khí tức bất phàm."
+        "description": "Sói con mới sinh, lông dựng theo bản năng hoang dại. Lực cắn yếu nhưng tính cảnh giác rất cao."
       },
       {
         "id": "spirit_bird_1",
-        "name": "Thanh Tước",
+        "name": "Lạc Tước Nhi",
         "emoji": "🐦",
-        "description": "Chim nhỏ màu xanh, ẩn hiện trong tán rừng."
+        "description": "Chim nhỏ bay nhanh, cánh vỗ tựa vệt sáng mờ. Thanh âm hót mang chút linh khí thanh khiết."
       },
       {
         "id": "spirit_fox_1",
-        "name": "Hồng Hồ",
+        "name": "Hồ Miêu Tử",
         "emoji": "🦊",
-        "description": "Cáo con lông đỏ, nhanh nhẹn và tinh ranh."
+        "description": "Cáo con thông linh, bộ lông mềm như tơ. Bản tính hiếu kỳ, thường trêu chọc kẻ khác rồi vụt chạy."
       }
     ],
     "nhi_cap": [
       {
         "id": "shadow_cat_2",
-        "name": "U Miêu",
+        "name": "U Dạ Miêu",
         "emoji": "🐈",
-        "description": "Mèo đêm, ánh mắt phát sáng trong bóng tối."
+        "description": "Mèo bóng đêm, thân ảnh mờ như ẩn như hiện. Ánh mắt sáng rực, chuyên mai phục trong tịch lặng."
       },
       {
         "id": "iron_boar_2",
-        "name": "Thiết Trư",
+        "name": "Cương Trư Lâm",
         "emoji": "🐗",
-        "description": "Heo rừng da cứng như sắt, sức mạnh phi thường."
+        "description": "Heo rừng da cứng như vảy giáp tự nhiên. Thích lấy thân lao thẳng, sức bật mạnh mẽ bất ngờ."
       },
       {
         "id": "jade_serpent_2",
-        "name": "Ngọc Xà",
+        "name": "Lục Vảy Xà",
         "emoji": "🐍",
-        "description": "Rắn lục vảy xanh, thân hình uốn lượn mê hoặc."
+        "description": "Xà lục thân mềm, di chuyển uyển chuyển lạ thường. Đôi mắt lạnh lẽo như đoán biết tâm ý đối thủ."
       },
       {
         "id": "wind_owl_2",
-        "name": "Phong Điểu",
+        "name": "Lãnh Nhật Điểu",
         "emoji": "🦉",
-        "description": "Cú lớn cánh rộng, bay lượn tựa cơn gió."
+        "__description": "Cú lớn cánh rộng, thân ảnh lướt qua tựa lưỡi dao bén. Tiếng kêu trầm khàn làm kẻ yếu run rẩy."
       },
       {
         "id": "rock_turtle_2",
-        "name": "Thạch Quy",
+        "name": "Thạch Giáp Quy",
         "emoji": "🐢",
-        "description": "Rùa mai đá, phòng ngự kiên cố."
+        "description": "Rùa giáp đá, mai cứng tựa khối cổ thạch. Di chuyển chậm rãi nhưng cực kỳ bền bỉ."
       }
     ],
     "tam_cap": [
       {
         "id": "ghost_hound_3",
-        "name": "U Khuyển",
+        "name": "U Hồn Khuyển",
         "emoji": "🐕",
-        "description": "Chó săn âm giới, sủa vang như hồn ma."
+        "description": "Khuyển săn mang khí âm nhẹ, tiếng sủa vọng như tiếng hồn gào. Chạy rất nhanh và khó truy vết."
       },
       {
         "id": "frost_bear_3",
-        "name": "Băng Hùng",
+        "name": "Hàn Sương Hùng",
         "emoji": "🐻",
-        "description": "Gấu trắng to lớn, mang theo hơi lạnh cực hàn."
+        "description": "Gấu lông trắng, hơi thở phả ra khí lạnh rét buốt. Một cú vỗ có thể làm rung lắc mặt đất."
       },
       {
         "id": "flame_leopard_3",
-        "name": "Hỏa Báo",
+        "name": "Xích Văn Báo",
         "emoji": "🐆",
-        "description": "Báo săn nhanh như chớp, toàn thân rực lửa."
+        "description": "Báo thân đỏ, tốc độ lao nhanh như đường sáng đỏ. Mỗi cú vồ là một nhát cắt chí mạng."
       },
       {
         "id": "storm_crane_3",
-        "name": "Lôi Hạc",
+        "name": "Lôi Vũ Hạc",
         "emoji": "🦩",
-        "description": "Hạc cao quý, cánh vỗ phát ra sấm sét."
+        "description": "Hạc cao ngạo, cánh vỗ tạo nên tiếng oanh rung trời. Thân hình mảnh mai nhưng khí thế kinh người."
       },
       {
         "id": "venom_spider_3",
-        "name": "Độc Chu",
+        "name": "Tử Chu Nhện",
         "emoji": "🕷️",
-        "description": "Nhện độc to lớn, tơ chứa kịch độc."
+        "description": "Nhện lớn, ánh mắt tím lập lòe như độc diễm. Tơ nó tiết ra có thể ăn mòn linh thạch cấp thấp."
       }
     ],
     "tu_cap": [
       {
         "id": "spirit_tiger_4",
-        "name": "Ảnh Hổ",
+        "name": "Hắc Ảnh Hổ",
         "emoji": "🐅",
-        "description": "Hổ đen ẩn hiện trong bóng tối, ra tay chí mạng."
+        "description": "Hổ đen thân lớn, từng bước đi như nuốt bóng đêm. Khi lao lên, bóng ảnh của nó chồng lớp khó nhìn rõ."
       },
       {
         "id": "spirit_stag_4",
-        "name": "Ngân Lộc",
+        "name": "Bạch Sương Lộc",
         "emoji": "🦌",
-        "description": "Hươu bạc, sừng tỏa linh quang dịu nhẹ."
+        "description": "Hươu thân trắng, khí tức thuần hoá đến tĩnh lặng. Mỗi bước chạy như vệt sáng mờ lướt qua rừng."
       },
       {
         "id": "spirit_crow_4",
-        "name": "Huyết Ô",
+        "name": "Huyết Ô Tước",
         "emoji": "🐦",
-        "description": "Quạ máu, tiếng kêu mang điềm gở."
+        "description": "Quạ đen lông ánh đỏ, tiếng kêu khàn ám muội. Cánh chim vỗ mạnh, để lại vệt khí mờ đỏ sau lưng."
       },
       {
         "id": "spirit_snake_4",
-        "name": "Ảnh Mãng",
+        "name": "U Thần Mãng",
         "emoji": "🐍",
-        "description": "Mãng xà khổng lồ, thân dài cuộn tròn vạn vật."
+        "description": "Mãng xà to lớn, mỗi lần trườn đi đều rung cả mặt đất. Khí tức hung bạo khiến kẻ yếu run sợ."
       },
       {
         "id": "spirit_fish_4",
-        "name": "Lam Ngư",
+        "name": "Lam Quang Ngư",
         "emoji": "🐟",
-        "description": "Cá lam phát sáng dưới đáy hồ linh khí."
+        "description": "Cá dài thân lam, vảy phát sáng như lưu tinh dưới nước. Bơi nhanh dị thường, thoắt ẩn thoắt hiện."
       }
     ],
     "ngu_cap": [
       {
         "id": "dragonling_5",
-        "name": "Long Tử",
+        "name": "Thiếu Long Tượng",
         "emoji": "🐉",
-        "description": "Hậu duệ của thần long, tiềm năng vô tận."
+        "description": "Long thú non, vảy chưa cứng nhưng khí tức đã uy mãnh. Tiếng gầm nhỏ thôi đã khiến linh thú cấp thấp khiếp sợ."
       },
       {
         "id": "phoenixling_5",
-        "name": "Hoàng Điểu",
+        "name": "Viêm Minh Tước",
         "emoji": "🔥",
-        "description": "Chim lửa nhỏ, thân thể bất diệt."
+        "description": "Điểu linh thân sáng rực, lông chim lập lòe quang huy. Dù còn nhỏ nhưng sự sống lực của nó rất đáng sợ."
       },
       {
         "id": "kirinling_5",
-        "name": "Lân Thú",
+        "name": "Thiếu Lân Giác",
         "emoji": "🦄",
-        "description": "Kỳ lân non, pháp lực trời ban."
+        "description": "Lân thú non, sừng chưa dài nhưng khí thế kỳ dị. Mỗi bước đi như làm linh khí chấn động nhẹ."
       },
       {
         "id": "spirit_tortoise_5",
-        "name": "Huyền Quy",
+        "name": "Cổ Văn Quy",
         "emoji": "🐢",
-        "description": "Quy cổ, mai cứng bất phá."
+        "description": "Quy cổ tuổi trẻ, mai mang hoa văn thần bí. Sức phòng ngự vượt xa linh thú cùng cấp."
       },
       {
         "id": "giant_eagle_5",
-        "name": "Thương Ưng",
+        "name": "Thiên Sải Ưng",
         "emoji": "🦅",
-        "description": "Đại ưng sải cánh vượt ngàn dặm."
+        "description": "Ưng lớn cánh dài, bay một lần vượt ngàn mét. Ánh mắt sắc lẻm như xuyên thủng đối thủ."
       }
     ],
     "luc_cap": [
       {
         "id": "dragon_elder_6",
-        "name": "Cổ Long",
+        "name": "Cổ Minh Long",
         "emoji": "🐉",
-        "description": "Long tộc thời cổ, khí thế áp đảo."
+        "description": "Long tộc thời cổ, vảy tối như đêm sâu. Khi nó thở, khí thế đã khiến không khí vặn vẹo."
       },
       {
         "id": "phoenix_elder_6",
-        "name": "Minh Hoàng",
+        "name": "Minh Quang Hoàng",
         "emoji": "🔥",
-        "description": "Phượng hoàng ánh sáng, lửa chiếu cửu thiên."
+        "description": "Điểu linh huy hoàng, đôi cánh sáng rực như nhật luân. Mỗi nhịp vỗ đều thả ra quang trọc lóa mắt."
       },
       {
         "id": "kirin_elder_6",
-        "name": "Hạo Lân",
+        "name": "Hạo Thiên Lân",
         "emoji": "🦄",
-        "description": "Kỳ lân trời giáng, bước đi rung động sơn hà."
+        "description": "Lân thú oai nghi, sừng sáng như bảo thạch ngàn năm. Khí tức của nó khiến đất trời dao động."
       },
       {
         "id": "tortoise_elder_6",
-        "name": "Cự Quy",
+        "name": "Cự Thể Quy",
         "emoji": "🐢",
-        "description": "Rùa khổng lồ, mai như bích thành."
+        "description": "Quy khổng lồ, mỗi bước đi như rung cả sơn mạch. Mai quy mang lớp giáp cổ dày đặc."
       },
       {
         "id": "roc_elder_6",
-        "name": "Côn Bằng",
+        "name": "Thương Hải Bằng",
         "emoji": "🦅",
-        "description": "Chim cá biến hóa, một ngày bay vạn dặm."
+        "description": "Điểu hoang cổ, sải cánh che khuất cả bầu trời. Một tiếng hót vang xa hàng chục dặm."
       }
     ],
     "that_cap": [
       {
         "id": "dragon_scarlet_7",
-        "name": "Huyết Long",
+        "name": "Huyết U Long",
         "emoji": "🐉",
-        "description": "Rồng đỏ máu, uy nghi và dữ tợn."
+        "description": "Long thân đỏ thẫm, mỗi vảy như thấm huyết thù xưa. Khí tức bạo liệt khiến trời đất biến sắc."
       },
       {
         "id": "phoenix_scarlet_7",
-        "name": "Hồng Phượng",
+        "name": "Hồng Minh Hoàng",
         "emoji": "🔥",
-        "description": "Phượng đỏ, bất tử trong ngọn hỏa diễm."
+        "description": "Điểu hoàng đỏ rực, thân ảnh bay lên để lại quang vũ dài vô tận. Khí chất cao ngạo, tựa vương giả trời sinh."
       },
       {
         "id": "kirin_scarlet_7",
-        "name": "Huyền Lân",
+        "name": "Huyền Tâm Lân",
         "emoji": "🦄",
-        "description": "Kỳ lân huyền bí, bước đi tỏa hào quang."
+        "description": "Lân thú huyền ảo, cơ thể phát quang như sương mờ. Từng bước của nó mang theo uy áp tinh thần."
       },
       {
         "id": "tortoise_scarlet_7",
-        "name": "Chu Quy",
+        "name": "Chu Nguyên Quy",
         "emoji": "🐢",
-        "description": "Rùa đỏ, trấn thủ linh hải."
+        "description": "Quy đỏ cổ đại, lớp mai cứng như trụ đá thiên thu. Khi thu mình lại, tám phần công kích đều vô hiệu."
       },
       {
         "id": "roc_scarlet_7",
-        "name": "Huyết Bằng",
+        "name": "Xích Nguyệt Bằng",
         "emoji": "🦅",
-        "description": "Đại bằng đỏ, cánh xé rách thiên không."
+        "description": "Đại bằng đỏ, mỗi cú sải cánh là trận cuồng phong bạo liệt. Ánh mắt lạnh như lưỡi đao chém xuống."
       }
     ],
     "bat_cap": [
       {
         "id": "dragon_shadow_8",
-        "name": "Hắc Long",
+        "name": "Hắc Vân Long",
         "emoji": "🐉",
-        "description": "Rồng đen, uy áp tựa hắc ám."
+        "description": "Long thân đen chìm trong hắc vụ, hình dạng mơ hồ. Chỉ cần tiếp cận đã cảm thấy sức ép khủng khiếp."
       },
       {
         "id": "phoenix_shadow_8",
-        "name": "U Phượng",
+        "name": "U Huyễn Phượng",
         "emoji": "🔥",
-        "description": "Phượng đen, hồi sinh từ tro tàn."
+        "description": "Phượng tối thân ảnh méo mó như ảo ảnh. Mỗi lần vỗ cánh đều để lại tàn ảnh khó phân thật giả."
       },
       {
         "id": "kirin_shadow_8",
-        "name": "Ảnh Lân",
+        "name": "Ảnh Tuyệt Lân",
         "emoji": "🦄",
-        "description": "Kỳ lân bóng tối, pháp lực tà dị."
+        "description": "Lân thú bóng tối, mỗi bước đi khiến đất đá tan vụn. Hơi thở của nó mang theo lực lượng hủy diệt."
       },
       {
         "id": "tortoise_shadow_8",
-        "name": "Huyền Hắc Quy",
+        "name": "Huyền Khải Quy",
         "emoji": "🐢",
-        "description": "Rùa đen cổ xưa, mai che thiên địa."
+        "description": "Quy bóng đêm, mai đen phủ bóng như vực sâu. Phòng ngự gần như không thể xuyên thủng."
       },
       {
         "id": "roc_shadow_8",
-        "name": "U Minh Bằng",
+        "name": "U Minh Dực",
         "emoji": "🦅",
-        "description": "Đại bằng u minh, lướt đi như bóng ma."
+        "description": "Điểu lớn như bóng ma, bay lướt không phát ra tiếng. Mỗi cú bổ nhào đều là tử vong bất ngờ."
       }
     ],
     "cuu_cap": [
       {
         "id": "dragon_gold_9",
-        "name": "Kim Long",
+        "name": "Thần Uy Long",
         "emoji": "🐉",
-        "description": "Rồng vàng, thống lĩnh tứ hải bát hoang."
+        "description": "Long vương khí tức ngút trời, vảy sáng như bảo châu cổ. Một tiếng gầm làm mây trời cuộn động."
       },
       {
         "id": "phoenix_gold_9",
-        "name": "Kim Phượng",
+        "name": "Quang Diễm Hoàng",
         "emoji": "🔥",
-        "description": "Phượng vàng, lửa chiếu vạn giới."
+        "description": "Điểu hoàng uy nghi, thân thể như kết thành từ ánh sáng. Lửa tràn ngập mỗi sải cánh của nó."
       },
       {
         "id": "kirin_gold_9",
-        "name": "Kim Lân",
+        "name": "Lân Tượng Vương",
         "emoji": "🦄",
-        "description": "Kỳ lân vàng, uy nghi bất khả xâm phạm."
+        "description": "Kỳ lân vương giả, khí thế đủ nghiền nát tu sĩ cường giả. Đôi mắt nó nhìn thấu bản ngã vạn vật."
       },
       {
         "id": "tortoise_gold_9",
-        "name": "Kim Quy",
+        "name": "Thần Giáp Quy",
         "emoji": "🐢",
-        "description": "Rùa vàng, mai cứng như thần khí."
+        "description": "Quy thần mai sáng như thiên kim cổ thạch. Chỉ cần đứng im đã như một ngọn núi bất động."
       },
       {
         "id": "roc_gold_9",
-        "name": "Kim Bằng",
+        "name": "Hoàng Thiên Dực",
         "emoji": "🦅",
-        "description": "Đại bằng vàng, tung cánh che phủ nhật nguyệt."
+        "description": "Điểu hoang cực phẩm, cánh chim sải dài che phủ trời xanh. Một cú bổ xuống có thể hủy diệt cả sơn cốc."
       }
     ],
     "thap_cap": [
       {
         "id": "dragon_supreme_10",
-        "name": "Thái Cổ Long",
+        "name": "Thái Hư Long",
         "emoji": "🐉",
-        "description": "Long thái cổ, sinh ra từ thời hồng hoang."
+        "description": "Thần long sinh từ Thái Hư, thân thể dài tựa dải ngân hà cổ xưa. Mỗi lần vẫy đuôi, thiên địa run rẩy như sắp sụp đổ."
       },
       {
         "id": "phoenix_supreme_10",
-        "name": "Vĩnh Diễm Phượng",
+        "name": "Vạn Diễm Hoàng",
         "emoji": "🔥",
-        "description": "Phượng vĩnh diễm, lửa bất diệt muôn đời."
+        "description": "Thần điểu huy hoàng, lông vũ sáng rực như nhật nguyệt hợp nhất. Một tiếng hót cũng đủ khiến linh khí trong trời đất bùng nổ điên cuồng."
       },
       {
         "id": "kirin_supreme_10",
-        "name": "Nguyên Hoang Lân",
+        "name": "Hoang Thần Lân",
         "emoji": "🦄",
-        "description": "Lân từ thời nguyên hoang, thần bí vô biên."
+        "description": "Kỳ thú từ thời đại Hoang Thần, mỗi bước đi kéo theo rung động của càn khôn. Hơi thở nó tỏa ra mang theo uy áp ép nát mọi sinh linh yếu kém."
       },
       {
         "id": "tortoise_supreme_10",
-        "name": "Càn Khôn Quy",
+        "name": "Thiên Uy Quy",
         "emoji": "🐢",
-        "description": "Quy trấn giữ càn khôn, mai chống đỡ vũ trụ."
+        "description": "Cự quy đội trời đạp đất, mai lớn như một phương thế giới thu nhỏ. Khi nó chuyển mình, thời gian như ngưng đọng trong khoảnh khắc."
       },
       {
         "id": "roc_supreme_10",
-        "name": "Hạo Thiên Bằng",
+        "name": "Chân Vũ Bằng",
         "emoji": "🦅",
-        "description": "Đại bằng hạo thiên, một cánh che trời."
+        "description": "Đại bằng cổ thế, cánh vỗ tạo thành cuồng phong xuyên phá hư không. Tốc độ của nó nhanh đến mức để lại bóng mờ kéo dài hàng vạn trượng."
       }
     ]
   }

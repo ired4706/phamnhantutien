@@ -63,8 +63,8 @@ class CombatService extends BaseService {
       },
       monster: {
         ...monster,
-        currentHp: parseFloat(monster.stats.hp),
-        currentMp: parseFloat(monster.stats.mp),
+        currentHp: isNaN(parseFloat(monster.stats.hp)) ? 0 : parseFloat(monster.stats.hp),
+        currentMp: isNaN(parseFloat(monster.stats.mp)) ? 0 : parseFloat(monster.stats.mp),
         statusEffects: [],
         cooldowns: {}
       },
@@ -121,13 +121,8 @@ class CombatService extends BaseService {
   }
 
   getApForRealm(realm) {
-    const apMap = {
-      'luyen_khi': 1,
-      'truc_co': 2,
-      'ket_dan': 3,
-      'nguyen_anh': 4
-    };
-    return apMap[realm] || 1;
+    // Base AP cố định = 1 cho mọi tu vi
+    return 1;
   }
 
   getCombat(combatId) {

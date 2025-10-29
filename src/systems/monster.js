@@ -83,6 +83,20 @@ class MonsterManager {
     const playerStats = await StatsCalculator.calculateMonsterBaseStats(randomElement, monsterRealm.realm, monsterRealm.level);
     console.log("=======================", monsterRealm, playerStats);
 
+    // Validate playerStats to prevent NaN
+    if (!playerStats || typeof playerStats.hp !== 'number' || isNaN(playerStats.hp)) {
+      console.error('Invalid playerStats for monster generation:', { randomElement, monsterRealm, playerStats });
+      // Fallback to basic stats
+      const fallbackStats = {
+        attack: 100, defense: 100, hp: 1000, mp: 500, speed: 50,
+        critical: 10, regen: 5, evasion: 10, accuracy: 10, penetration: 5
+      };
+      return {
+        stats: fallbackStats,
+        element: randomElement
+      };
+    }
+
     // 4. Tính power multiplier dựa trên variant
     let powerMultiplier = 1.0;
     if (variant === "normal") {
@@ -94,19 +108,22 @@ class MonsterManager {
     }
 
     // 5. Áp dụng powerMultiplier cho các chỉ số chính (không nhân vào CRIT/EVA/ACC/PEN)
-    const monsterAttack = playerStats.attack * powerMultiplier;
-    const monsterDefense = playerStats.defense * powerMultiplier;
-    const monsterHp = playerStats.hp * powerMultiplier;
-    const monsterMp = playerStats.mp * powerMultiplier;
-    const monsterSpeed = playerStats.speed * powerMultiplier;
-    const monsterRegen = playerStats.regen * powerMultiplier;
-    const monsterAccuracy = playerStats.accuracy; // giữ nguyên theo công thức quy đổi
-    const monsterPenetration = playerStats.penetration; // giữ nguyên theo công thức quy đổi
+    const monsterAttack = (playerStats.attack || 0) * powerMultiplier;
+    const monsterDefense = (playerStats.defense || 0) * powerMultiplier;
+    const monsterHp = (playerStats.hp || 0) * powerMultiplier;
+    const monsterMp = (playerStats.mp || 0) * powerMultiplier;
+    const monsterSpeed = (playerStats.speed || 0) * powerMultiplier;
+    const monsterRegen = (playerStats.regen || 0) * powerMultiplier;
+    const monsterAccuracy = playerStats.accuracy || 0; // giữ nguyên theo công thức quy đổi
+    const monsterPenetration = playerStats.penetration || 0; // giữ nguyên theo công thức quy đổi
 
     // 6. CRIT và EVA dùng rating thô (không %), giữ nguyên theo hệ mới
 
-    // Làm tròn
-    const round1 = (v) => Math.round(v * 10) / 10;
+    // Làm tròn và validate để tránh NaN
+    const round1 = (v) => {
+      const val = parseFloat(v) || 0;
+      return isNaN(val) ? 0 : Math.round(val * 10) / 10;
+    };
 
     const stats = {
       attack: round1(monsterAttack),
@@ -116,9 +133,9 @@ class MonsterManager {
       mp: round1(monsterMp),
       maxMp: round1(monsterMp),
       speed: round1(monsterSpeed),
-      critical: round1(playerStats.critical),
+      critical: round1(playerStats.critical || 0),
       regen: round1(monsterRegen),
-      evasion: round1(playerStats.evasion),
+      evasion: round1(playerStats.evasion || 0),
       accuracy: round1(monsterAccuracy),
       penetration: round1(monsterPenetration)
     };

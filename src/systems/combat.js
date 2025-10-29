@@ -439,7 +439,12 @@ class CombatSystem {
     // Tính bonus AP cho người chơi
     const speedRatio = playerSpeed / minSpeed;
     let apBonus = 0;
-    if (speedRatio >= 3) {
+    // Cho phép cộng tối đa +4 AP từ speed advantage
+    if (speedRatio >= 5) {
+      apBonus = 4;
+    } else if (speedRatio >= 4) {
+      apBonus = 3;
+    } else if (speedRatio >= 3) {
       apBonus = 2;
     } else if (speedRatio >= 2) {
       apBonus = 1;
@@ -448,7 +453,10 @@ class CombatSystem {
     // Tính bonus action cho quái
     const monsterSpeedRatio = monsterSpeed / minSpeed;
     let actionBonus = 0;
-    if (monsterSpeedRatio >= 3) {
+    // Giữ nguyên cơ chế action bonus cho quái (có thể điều chỉnh về sau)
+    if (monsterSpeedRatio >= 4) {
+      actionBonus = 3;
+    } else if (monsterSpeedRatio >= 3) {
       actionBonus = 2;
     } else if (monsterSpeedRatio >= 2) {
       actionBonus = 1;
@@ -526,7 +534,12 @@ class CombatSystem {
       if (entity.type === 'player') {
         // Bonus AP cho người chơi
         let apBonus = 0;
-        if (speedRatio >= 3) {
+        // Cho phép cộng tối đa +4 AP từ speed advantage trong raid
+        if (speedRatio >= 5) {
+          apBonus = 4;
+        } else if (speedRatio >= 4) {
+          apBonus = 3;
+        } else if (speedRatio >= 3) {
           apBonus = 2;
         } else if (speedRatio >= 2) {
           apBonus = 1;
@@ -536,7 +549,9 @@ class CombatSystem {
       } else {
         // Bonus action cho quái
         let actionBonus = 0;
-        if (speedRatio >= 3) {
+        if (speedRatio >= 5) {
+          actionBonus = 3;
+        } else if (speedRatio >= 3) {
           actionBonus = 2;
         } else if (speedRatio >= 2) {
           actionBonus = 1;
@@ -738,9 +753,15 @@ class CombatSystem {
     const fmtBar = (cur, max) => this.renderTextBar(cur, max, 16);
     const fmt = (e) => {
       const s = e.stats || {};
+      // Fix NaN display issues by ensuring valid numbers
+      const currentHp = isNaN(e.currentHp) ? 0 : Math.max(0, Math.round(e.currentHp));
+      const currentMp = isNaN(e.currentMp) ? 0 : Math.max(0, Math.round(e.currentMp));
+      const maxHp = isNaN(s.hp) ? 0 : s.hp || 0;
+      const maxMp = isNaN(s.mp) ? 0 : s.mp || 0;
+
       return `${e.emoji || ''} **${e.name}**\n` +
-        `${icons.hp} ${fmtBar(e.currentHp, s.hp || 0)} ${Math.max(0, Math.round(e.currentHp))}/${s.hp || 0}\n` +
-        `${icons.mp} ${fmtBar(e.currentMp, s.mp || 0)} ${Math.max(0, Math.round(e.currentMp))}/${s.mp || 0}\n` +
+        `${icons.hp} ${fmtBar(currentHp, maxHp)} ${currentHp}/${maxHp}\n` +
+        `${icons.mp} ${fmtBar(currentMp, maxMp)} ${currentMp}/${maxMp}\n` +
         `${icons.atk} ${s.attack || 0}  • ${icons.def} ${s.defense || 0}  • ${icons.spd} ${s.speed || 0}\n` +
         `${icons.crit} ${s.critical || 0}% • ${icons.eva} ${s.evasion || 0}% • ${icons.regen} ${s.regen || 0}`;
     };
@@ -825,8 +846,8 @@ class CombatSystem {
   }
 
   getApForRealm(realm) {
-    const map = { luyen_khi: 1, truc_co: 2, ket_dan: 3, nguyen_anh: 4 };
-    return map[realm] || 1;
+    // Base AP cố định = 1 cho mọi tu vi
+    return 1;
   }
 
   getElementViName(code) {
@@ -1335,6 +1356,15 @@ class CombatSystem {
         break;
       case 'flee':
         result = this.performFlee(combat);
+        // Nếu chạy trốn thất bại → đến lượt quái ngay
+        if (!result.combatEnd) {
+          this.nextTurn(combat);
+          if (combat.currentTurn === 'monster') {
+            await this.updateCombatUI(combat, this.createCombatUI(combat), interaction);
+            await this.performMonsterTurn(combat);
+            return;
+          }
+        }
         break;
     }
 
@@ -1372,9 +1402,9 @@ class CombatSystem {
       };
     }
 
-    const finalDamage = Math.max(1, dmgObj.damage);
+    const finalDamage = isNaN(dmgObj.damage) ? 1 : Math.max(1, dmgObj.damage);
 
-    defender.currentHp = Math.max(0, defender.currentHp - finalDamage);
+    defender.currentHp = Math.max(0, (defender.currentHp || 0) - finalDamage);
 
     const critText = dmgObj.isCritical ? ' **CRITICAL!**' : '';
     const message = `⚔️ ${attacker.name} tấn công gây **${finalDamage.toFixed(1)}** sát thương${critText}!`;
@@ -1522,7 +1552,10 @@ class CombatSystem {
     const elementMultiplier = this.getElementDamageMultiplier(attackerElement, defenderElement);
     baseDamage *= elementMultiplier;
 
-    return { hit: true, damage: baseDamage, isCritical: !!doCrit, elementMultiplier };
+    // Validate final damage to prevent NaN
+    const finalDamage = isNaN(baseDamage) ? 1 : Math.max(1, baseDamage);
+
+    return { hit: true, damage: finalDamage, isCritical: !!doCrit, elementMultiplier };
   }
 
   // Bảng hệ số sát thương ngũ hành (attacker -> defender)
@@ -1786,10 +1819,12 @@ class CombatSystem {
       if (!dmgObj.hit) {
         message += ` ⚠️ Đòn đánh trượt!`;
       } else {
-        const damage = dmgObj.damage * skill.damage;
-        target.currentHp = Math.max(0, target.currentHp - damage);
+        const damage = (dmgObj.damage || 0) * (skill.damage || 0);
+        // Validate damage to prevent NaN
+        const finalDamage = isNaN(damage) ? 1 : Math.max(1, damage);
+        target.currentHp = Math.max(0, (target.currentHp || 0) - finalDamage);
         const critTag = dmgObj.isCritical ? ' (CRIT)' : '';
-        message += ` Gây **${damage.toFixed(1)}** sát thương${critTag}!`;
+        message += ` Gây **${finalDamage.toFixed(1)}** sát thương${critTag}!`;
       }
     }
 
@@ -2420,9 +2455,11 @@ class CombatSystem {
       const power = skill.effects?.power || skill.effects?.damage_multiplier || 1.2;
       const target = this.getSymmetricTarget(actor, combat);
       if (target) {
-        const dmg = this.calculateDamage(actor, target, false) * power;
-        target.currentHp = Math.max(0, target.currentHp - dmg);
-        log += ` Gây **${dmg.toFixed(1)}** sát thương cho ${target.name}!`;
+        const dmgObj = this.calculateDamage(actor, target, false);
+        const dmg = (dmgObj.damage || 0) * power;
+        const finalDmg = isNaN(dmg) ? 1 : Math.max(1, dmg);
+        target.currentHp = Math.max(0, (target.currentHp || 0) - finalDmg);
+        log += ` Gây **${finalDmg.toFixed(1)}** sát thương cho ${target.name}!`;
       }
     } else if (type === 'heal') {
       const healAmount = actor.stats.hp * (skill.effects?.power || 0.3);
@@ -2478,9 +2515,11 @@ class CombatSystem {
     let log = `✨ ${player.name} dùng ${skill.name}!`;
     if (type === 'attack') {
       const power = skill.effects?.power || skill.effects?.damage_multiplier || 1.2;
-      const dmg = this.calculateDamage(player, combat.monster, false) * power;
-      combat.monster.currentHp = Math.max(0, combat.monster.currentHp - dmg);
-      log += ` Gây ${dmg.toFixed(1)} sát thương!`;
+      const dmgObj = this.calculateDamage(player, combat.monster, false);
+      const dmg = (dmgObj.damage || 0) * power;
+      const finalDmg = isNaN(dmg) ? 1 : Math.max(1, dmg);
+      combat.monster.currentHp = Math.max(0, (combat.monster.currentHp || 0) - finalDmg);
+      log += ` Gây ${finalDmg.toFixed(1)} sát thương!`;
     } else if (type === 'heal') {
       const ratio = skill.effects?.power || skill.effects?.heal_ratio || 0.25;
       const amount = player.stats.hp * ratio;

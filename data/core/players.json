@@ -3,13 +3,13 @@
     "userId": "504705413682298891",
     "username": "ired0806",
     "spiritRoot": "hoa",
-    "experience": 346180,
+    "experience": 508106,
     "realm": "nguyen_anh",
     "realmLevel": 2,
     "totalTiers": 0,
     "inventory": {
       "spiritStones": {
-        "ha_pham": 8498,
+        "ha_pham": 7503,
         "trung_pham": 0,
         "thuong_pham": 0,
         "cuc_pham": 0
@@ -29,7 +29,7 @@
         },
         {
           "id": "thanh_van_to",
-          "quantity": 318
+          "quantity": 320
         },
         {
           "id": "tu_hau_hoa",
@@ -69,7 +69,7 @@
         },
         {
           "id": "da_than_thu",
-          "quantity": 880
+          "quantity": 881
         },
         {
           "id": "tien_ha_van_to",
@@ -93,11 +93,11 @@
         },
         {
           "id": "da_thu_tho",
-          "quantity": 18
+          "quantity": 20
         },
         {
           "id": "da_linh_thu",
-          "quantity": 14
+          "quantity": 15
         },
         {
           "id": "anh_diep_thao",
@@ -105,7 +105,7 @@
         },
         {
           "id": "nguyet_anh_to",
-          "quantity": 16
+          "quantity": 19
         },
         {
           "id": "ban_do_thi_luyen",
@@ -113,15 +113,15 @@
         },
         {
           "id": "da_thien_thu",
-          "quantity": 3
+          "quantity": 4
         },
         {
           "id": "dia_ha_to",
-          "quantity": 12
+          "quantity": 16
         },
         {
           "id": "da_dia_thu",
-          "quantity": 17
+          "quantity": 19
         },
         {
           "id": "tinh_ha_to",
@@ -137,9 +137,9 @@
       "breakthroughAttempts": 0,
       "lastBreakthrough": 0,
       "lastMeditate": 0,
-      "lastHunt": 1760352346077,
+      "lastHunt": 1761718738985,
       "lastChallenge": 0,
-      "lastDomain": 1760349808964,
+      "lastDomain": 1761718551614,
       "lastDailyQuest": 0,
       "lastWeeklyQuest": 0,
       "lastDungeon": 0,
@@ -177,7 +177,7 @@
     },
     "achievements": [],
     "joinDate": 1757583527158,
-    "lastActive": 1760352346077,
+    "lastActive": 1761718738985,
     "stats": {
       "attack": 9210.2,
       "defense": 5433.6,
@@ -291,7 +291,7 @@
       "mp": 189,
       "maxMp": 189,
       "speed": 18.6,
-      "critical": 5.0,
+      "critical": 5,
       "regen": 5.9,
       "evasion": 5.2,
       "accuracy": 5.9,
@@ -408,7 +408,7 @@
       "mp": 189,
       "maxMp": 189,
       "speed": 18.6,
-      "critical": 5.0,
+      "critical": 5,
       "regen": 5.9,
       "evasion": 5.2,
       "accuracy": 5.9,
