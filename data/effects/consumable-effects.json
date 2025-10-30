@@ -1,0 +1,661 @@
+[
+  {
+    "id": "heal_hp_10p",
+    "name": "Đan Hồi 10% HP",
+    "type": "instant",
+    "tags": [
+      "heal"
+    ],
+    "triggers": {
+      "on_use": [
+        {
+          "action": "heal_percent",
+          "ratio": 0.10
+        }
+      ]
+    },
+    "ui": {
+      "icon": "❤️",
+      "log": "Hồi 10% HP"
+    }
+  },
+  {
+    "id": "heal_mp_10p",
+    "name": "Đan Hồi 10% Mana",
+    "type": "instant",
+    "tags": [
+      "mana"
+    ],
+    "triggers": {
+      "on_use": [
+        {
+          "action": "mana_percent",
+          "ratio": 0.10
+        }
+      ]
+    },
+    "ui": {
+      "icon": "🔵",
+      "log": "Hồi 10% Mana"
+    }
+  },
+  {
+    "id": "buff_str_3_10m",
+    "name": "+3 STR (10 phút)",
+    "type": "buff",
+    "apply_to": "core_post",
+    "stat": "STR",
+    "op": "add",
+    "value": 3,
+    "duration_sec": 600,
+    "ui": {
+      "icon": "🗡️"
+    }
+  },
+  {
+    "id": "buff_int_3_10m",
+    "name": "+3 INT (10 phút)",
+    "type": "buff",
+    "apply_to": "core_post",
+    "stat": "INT",
+    "op": "add",
+    "value": 3,
+    "duration_sec": 600,
+    "ui": {
+      "icon": "📘"
+    }
+  },
+  {
+    "id": "buff_dex_3_10m",
+    "name": "+3 DEX (10 phút)",
+    "type": "buff",
+    "apply_to": "core_post",
+    "stat": "DEX",
+    "op": "add",
+    "value": 3,
+    "duration_sec": 600,
+    "ui": {
+      "icon": "🏹"
+    }
+  },
+  {
+    "id": "buff_vit_3_10m",
+    "name": "+3 VIT (10 phút)",
+    "type": "buff",
+    "apply_to": "core_post",
+    "stat": "VIT",
+    "op": "add",
+    "value": 3,
+    "duration_sec": 600,
+    "ui": {
+      "icon": "🛡️"
+    }
+  },
+  {
+    "id": "buff_luk_3_10m",
+    "name": "+3 LUK (10 phút)",
+    "type": "buff",
+    "apply_to": "core_post",
+    "stat": "LUK",
+    "op": "add",
+    "value": 3,
+    "duration_sec": 600,
+    "ui": {
+      "icon": "✨"
+    }
+  },
+  {
+    "id": "break_lk_minor_5p",
+    "name": "+5% tỉ lệ đột phá bình cảnh Luyện Khí (0-2)",
+    "type": "breakthrough_bonus",
+    "tags": [
+      "realm",
+      "luyen_khi"
+    ],
+    "conditions": {
+      "realm": "luyen_khi",
+      "stages": [
+        0,
+        1,
+        2
+      ]
+    },
+    "triggers": {
+      "on_use": [
+        {
+          "action": "breakthrough_rate_bonus",
+          "ratio": 0.05
+        }
+      ]
+    }
+  },
+  {
+    "id": "heal_hp_20p",
+    "name": "Đan Hồi 20% HP",
+    "type": "instant",
+    "tags": [
+      "heal"
+    ],
+    "triggers": {
+      "on_use": [
+        {
+          "action": "heal_percent",
+          "ratio": 0.20
+        }
+      ]
+    },
+    "ui": {
+      "icon": "❤️",
+      "log": "Hồi 20% HP"
+    }
+  },
+  {
+    "id": "heal_mp_20p",
+    "name": "Đan Hồi 20% Mana",
+    "type": "instant",
+    "tags": [
+      "mana"
+    ],
+    "triggers": {
+      "on_use": [
+        {
+          "action": "mana_percent",
+          "ratio": 0.20
+        }
+      ]
+    },
+    "ui": {
+      "icon": "🔵",
+      "log": "Hồi 20% Mana"
+    }
+  },
+  {
+    "id": "buff_str_8_20m",
+    "name": "+8 STR (20 phút)",
+    "type": "buff",
+    "apply_to": "core_post",
+    "stat": "STR",
+    "op": "add",
+    "value": 8,
+    "duration_sec": 1200
+  },
+  {
+    "id": "buff_int_8_20m",
+    "name": "+8 INT (20 phút)",
+    "type": "buff",
+    "apply_to": "core_post",
+    "stat": "INT",
+    "op": "add",
+    "value": 8,
+    "duration_sec": 1200
+  },
+  {
+    "id": "buff_dex_8_20m",
+    "name": "+8 DEX (20 phút)",
+    "type": "buff",
+    "apply_to": "core_post",
+    "stat": "DEX",
+    "op": "add",
+    "value": 8,
+    "duration_sec": 1200
+  },
+  {
+    "id": "buff_vit_8_20m",
+    "name": "+8 VIT (20 phút)",
+    "type": "buff",
+    "apply_to": "core_post",
+    "stat": "VIT",
+    "op": "add",
+    "value": 8,
+    "duration_sec": 1200
+  },
+  {
+    "id": "buff_luk_8_20m",
+    "name": "+8 LUK (20 phút)",
+    "type": "buff",
+    "apply_to": "core_post",
+    "stat": "LUK",
+    "op": "add",
+    "value": 8,
+    "duration_sec": 1200
+  },
+  {
+    "id": "cleanse_random_1",
+    "name": "Giải 1 debuff ngẫu nhiên",
+    "type": "cleanse",
+    "triggers": {
+      "on_use": [
+        {
+          "action": "cleanse_random",
+          "count": 1
+        }
+      ]
+    },
+    "ui": {
+      "icon": "✨"
+    }
+  },
+  {
+    "id": "break_lk_to_tc_8p",
+    "name": "+8% tỉ lệ đột phá Luyện Khí → Trúc Cơ",
+    "type": "breakthrough_bonus",
+    "conditions": {
+      "from": "luyen_khi",
+      "to": "truc_co",
+      "stages": [
+        3
+      ]
+    },
+    "triggers": {
+      "on_use": [
+        {
+          "action": "breakthrough_rate_bonus",
+          "ratio": 0.08
+        }
+      ]
+    }
+  },
+  {
+    "id": "break_tc_minor_8p",
+    "name": "+8% tỉ lệ đột phá bình cảnh Trúc Cơ (0-2)",
+    "type": "breakthrough_bonus",
+    "conditions": {
+      "realm": "truc_co",
+      "stages": [
+        0,
+        1,
+        2
+      ]
+    },
+    "triggers": {
+      "on_use": [
+        {
+          "action": "breakthrough_rate_bonus",
+          "ratio": 0.08
+        }
+      ]
+    }
+  },
+  {
+    "id": "heal_hp_30p",
+    "name": "Đan Hồi 30% HP",
+    "type": "instant",
+    "tags": [
+      "heal"
+    ],
+    "triggers": {
+      "on_use": [
+        {
+          "action": "heal_percent",
+          "ratio": 0.30
+        }
+      ]
+    },
+    "ui": {
+      "icon": "❤️",
+      "log": "Hồi 30% HP"
+    }
+  },
+  {
+    "id": "heal_mp_30p",
+    "name": "Đan Hồi 30% Mana",
+    "type": "instant",
+    "tags": [
+      "mana"
+    ],
+    "triggers": {
+      "on_use": [
+        {
+          "action": "mana_percent",
+          "ratio": 0.30
+        }
+      ]
+    },
+    "ui": {
+      "icon": "🔵",
+      "log": "Hồi 30% Mana"
+    }
+  },
+  {
+    "id": "buff_str_10p_30m",
+    "name": "+10% STR (30 phút)",
+    "type": "buff",
+    "apply_to": "core_post",
+    "stat": "STR",
+    "op": "mul",
+    "value": 0.10,
+    "duration_sec": 1800
+  },
+  {
+    "id": "buff_int_10p_30m",
+    "name": "+10% INT (30 phút)",
+    "type": "buff",
+    "apply_to": "core_post",
+    "stat": "INT",
+    "op": "mul",
+    "value": 0.10,
+    "duration_sec": 1800
+  },
+  {
+    "id": "buff_dex_7p_30m",
+    "name": "+7% DEX (30 phút)",
+    "type": "buff",
+    "apply_to": "core_post",
+    "stat": "DEX",
+    "op": "mul",
+    "value": 0.07,
+    "duration_sec": 1800
+  },
+  {
+    "id": "buff_vit_10p_30m",
+    "name": "+10% VIT (30 phút)",
+    "type": "buff",
+    "apply_to": "core_post",
+    "stat": "VIT",
+    "op": "mul",
+    "value": 0.10,
+    "duration_sec": 1800
+  },
+  {
+    "id": "buff_luk_7p_30m",
+    "name": "+7% LUK (30 phút)",
+    "type": "buff",
+    "apply_to": "core_post",
+    "stat": "LUK",
+    "op": "mul",
+    "value": 0.07,
+    "duration_sec": 1800
+  },
+  {
+    "id": "cleanse_random_2",
+    "name": "Giải 2 debuff ngẫu nhiên",
+    "type": "cleanse",
+    "triggers": {
+      "on_use": [
+        {
+          "action": "cleanse_random",
+          "count": 2
+        }
+      ]
+    },
+    "ui": {
+      "icon": "✨"
+    }
+  },
+  {
+    "id": "break_tc_to_kd_7p",
+    "name": "+7% tỉ lệ đột phá Trúc Cơ → Kết Đan",
+    "type": "breakthrough_bonus",
+    "conditions": {
+      "from": "truc_co",
+      "to": "ket_dan",
+      "stages": [
+        3
+      ]
+    },
+    "triggers": {
+      "on_use": [
+        {
+          "action": "breakthrough_rate_bonus",
+          "ratio": 0.07
+        }
+      ]
+    }
+  },
+  {
+    "id": "break_kd_minor_9p",
+    "name": "+9% tỉ lệ đột phá bình cảnh Kết Đan (1-2)",
+    "type": "breakthrough_bonus",
+    "conditions": {
+      "realm": "ket_dan",
+      "stages": [
+        1,
+        2
+      ]
+    },
+    "triggers": {
+      "on_use": [
+        {
+          "action": "breakthrough_rate_bonus",
+          "ratio": 0.09
+        }
+      ]
+    }
+  },
+  {
+    "id": "rare_drop_boost_20p_30m",
+    "name": "+20% tỉ lệ rơi vật phẩm hiếm (30 phút)",
+    "type": "loot_bonus",
+    "duration_sec": 1800,
+    "triggers": {
+      "on_calc": [
+        {
+          "stat": "rare_drop_rate",
+          "op": "mul",
+          "value": 0.20
+        }
+      ]
+    },
+    "ui": {
+      "icon": "💎"
+    }
+  },
+  {
+    "id": "revive_onsite_50",
+    "name": "Hồi sinh tại chỗ 50% HP/Mana",
+    "type": "revive",
+    "triggers": {
+      "on_death": [
+        {
+          "action": "revive",
+          "hp_ratio": 0.5,
+          "mp_ratio": 0.5
+        }
+      ]
+    },
+    "ui": {
+      "icon": "❤️‍🔥"
+    }
+  },
+  {
+    "id": "perm_str_2_limit5",
+    "name": "Vĩnh viễn +2 base STR (limit:5)",
+    "type": "permanent_core_bonus",
+    "effects": [
+      {
+        "stat": "STR",
+        "add": 2
+      }
+    ],
+    "limit": 5
+  },
+  {
+    "id": "perm_int_2_limit5",
+    "name": "Vĩnh viễn +2 base INT (limit:5)",
+    "type": "permanent_core_bonus",
+    "effects": [
+      {
+        "stat": "INT",
+        "add": 2
+      }
+    ],
+    "limit": 5
+  },
+  {
+    "id": "perm_dex_1_5_limit4",
+    "name": "Vĩnh viễn +1.5 base DEX (limit:4)",
+    "type": "permanent_core_bonus",
+    "effects": [
+      {
+        "stat": "DEX",
+        "add": 1.5
+      }
+    ],
+    "limit": 4
+  },
+  {
+    "id": "perm_vit_2_limit5",
+    "name": "Vĩnh viễn +2 base VIT (limit:5)",
+    "type": "permanent_core_bonus",
+    "effects": [
+      {
+        "stat": "VIT",
+        "add": 2
+      }
+    ],
+    "limit": 5
+  },
+  {
+    "id": "perm_luk_1_5_limit4",
+    "name": "Vĩnh viễn +1.5 base LUK (limit:4)",
+    "type": "permanent_core_bonus",
+    "effects": [
+      {
+        "stat": "LUK",
+        "add": 1.5
+      }
+    ],
+    "limit": 4
+  },
+  {
+    "id": "cleanse_all",
+    "name": "Xóa tất cả debuff",
+    "type": "cleanse",
+    "triggers": {
+      "on_use": [
+        {
+          "action": "cleanse_all"
+        }
+      ]
+    }
+  },
+  {
+    "id": "break_kd_to_na_7p",
+    "name": "+7% tỉ lệ đột phá Kết Đan → Nguyên Anh",
+    "type": "breakthrough_bonus",
+    "conditions": {
+      "from": "ket_dan",
+      "to": "nguyen_anh",
+      "stages": [
+        3
+      ]
+    },
+    "triggers": {
+      "on_use": [
+        {
+          "action": "breakthrough_rate_bonus",
+          "ratio": 0.07
+        }
+      ]
+    }
+  },
+  {
+    "id": "break_na_minor_10p",
+    "name": "+10% tỉ lệ đột phá bình cảnh Nguyên Anh (2-3)",
+    "type": "breakthrough_bonus",
+    "conditions": {
+      "realm": "nguyen_anh",
+      "stages": [
+        2,
+        3
+      ]
+    },
+    "triggers": {
+      "on_use": [
+        {
+          "action": "breakthrough_rate_bonus",
+          "ratio": 0.10
+        }
+      ]
+    }
+  },
+  {
+    "id": "revive_onsite_full",
+    "name": "Hồi sinh tại chỗ 100% HP/Mana",
+    "type": "revive",
+    "triggers": {
+      "on_death": [
+        {
+          "action": "revive",
+          "hp_ratio": 1.0,
+          "mp_ratio": 1.0
+        }
+      ]
+    },
+    "ui": {
+      "icon": "💖"
+    }
+  },
+  {
+    "id": "perm_all_plus2_once",
+    "name": "Vĩnh viễn +2 tất cả chỉ số (limit:1)",
+    "type": "permanent_core_bonus",
+    "effects": [
+      {
+        "stat": "STR",
+        "add": 2
+      },
+      {
+        "stat": "INT",
+        "add": 2
+      },
+      {
+        "stat": "DEX",
+        "add": 2
+      },
+      {
+        "stat": "VIT",
+        "add": 2
+      },
+      {
+        "stat": "LUK",
+        "add": 2
+      }
+    ],
+    "limit": 1
+  },
+  {
+    "id": "perm_all_plus3_once",
+    "name": "Vĩnh viễn +3 tất cả chỉ số (limit:1)",
+    "type": "permanent_core_bonus",
+    "effects": [
+      {
+        "stat": "STR",
+        "add": 3
+      },
+      {
+        "stat": "INT",
+        "add": 3
+      },
+      {
+        "stat": "DEX",
+        "add": 3
+      },
+      {
+        "stat": "VIT",
+        "add": 3
+      },
+      {
+        "stat": "LUK",
+        "add": 3
+      }
+    ],
+    "limit": 1
+  },
+  {
+    "id": "cleanse_all_immunity_2t",
+    "name": "Xóa tất cả debuff + kháng debuff 2 lượt",
+    "type": "cleanse",
+    "triggers": {
+      "on_use": [
+        {
+          "action": "cleanse_all"
+        },
+        {
+          "action": "apply_effect",
+          "effect_id": "debuff_immunity_2t"
+        }
+      ]
+    }
+  }
+]

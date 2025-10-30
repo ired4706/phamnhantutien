@@ -1,254 +1,387 @@
 {
   "ngu_nien_sam": {
-    "name": "Ngũ Niên Sâm",
+    "name": "Ngũ niên sâm",
     "emoji": "🥕",
-    "description": "Nhân sâm 5 năm tuổi, có dược tính cơ bản hỗ trợ tu luyện",
+    "description": "Loại sâm nhỏ, linh khí yếu, dùng để hồi phục sinh mệnh cho tu sĩ nhập môn",
     "rarity": "common",
-    "value": 15
-  },
-  "thanh_diep_thao": {
-    "name": "Thanh Diệp Thảo",
-    "emoji": "🍃",
-    "description": "Lá cây xanh tươi, chứa linh khí tự nhiên",
-    "rarity": "common",
-    "value": 12
-  },
-  "tieu_long_lan_qua": {
-    "name": "Tiểu Long Lân Quả",
-    "emoji": "🫐",
-    "description": "Quả nhỏ có hình dáng như vảy rồng, dược tính nhẹ",
-    "rarity": "common",
-    "value": 18
-  },
-  "huyet_diep_thao": {
-    "name": "Huyết Diệp Thảo",
-    "emoji": "🍂",
-    "description": "Lá cây có màu đỏ như máu, chứa huyết khí",
-    "rarity": "common",
-    "value": 20
-  },
-  "thanh_tam_thao": {
-    "name": "Thanh Tâm Thảo",
-    "emoji": "💚",
-    "description": "Thảo dược giúp tĩnh tâm, ổn định tinh thần",
-    "rarity": "common",
-    "value": 16
-  },
-  "thach_can_thao": {
-    "name": "Thạch Căn Thảo",
-    "emoji": "🪨",
-    "description": "Thảo dược mọc trên đá, rễ cứng cáp",
-    "rarity": "common",
-    "value": 14
-  },
-  "liet_hoa_hoa": {
-    "name": "Liệt Hỏa Hoa",
-    "emoji": "🔥",
-    "description": "Hoa có tính hỏa, chứa linh khí nóng bỏng",
-    "rarity": "common",
-    "value": 22
-  },
-  "ho_luc_qua": {
-    "name": "Hổ Lực Quả",
-    "emoji": "🍊",
-    "description": "Quả có hình dáng như móng hổ, tăng cường sức mạnh",
-    "rarity": "common",
-    "value": 25
-  },
-  "phong_linh_thao": {
-    "name": "Phong Linh Thảo",
-    "emoji": "🎐",
-    "description": "Thảo dược phát ra âm thanh như chuông gió",
-    "rarity": "common",
-    "value": 19
+    "value": 1
   },
   "sinh_mach_thao": {
-    "name": "Sinh Mạch Thảo",
+    "name": "Sinh mạch thảo",
     "emoji": "💓",
-    "description": "Thảo dược giúp khôi phục sinh lực và mạch máu",
+    "description": "Cỏ linh xanh mượt, hấp thu sương sớm, có tác dụng bồi bổ linh khí, giúp khôi phục linh lực cho người mới tu hành.",
     "rarity": "common",
-    "value": 21
+    "value": 1
+  },
+  "tieu_long_lan_qua": {
+    "name": "Tiểu long lân quả",
+    "emoji": "🫐",
+    "description": "Quả vảy rồng con, vảy mềm, long khí yếu ớt, thường mọc ở gần suối linh khí thấp.",
+    "rarity": "common",
+    "value": 1
+  },
+  "huyet_diep_thao": {
+    "name": "Huyết diệp thảo",
+    "emoji": "🍂",
+    "description": "Lá đỏ như máu, ẩn chứa tinh huyết linh thú, dùng làm nền cho đan dược tăng cường sức mạnh cơ thể.",
+    "rarity": "common",
+    "value": 1
+  },
+  "ho_luc_qua": {
+    "name": "Hổ lực quả",
+    "emoji": "🍊",
+    "description": "Quả tròn vàng, vị cay, tăng dương khí, giúp cơ thể sinh lực sung mãn như hổ.",
+    "rarity": "common",
+    "value": 1
+  },
+  "thanh_diep_thao": {
+    "name": "Thanh diệp thảo",
+    "emoji": "🍃",
+    "description": "Lá xanh nhạt, khí ôn hòa, giúp tâm thần thanh tĩnh, khai mở linh trí, thích hợp cho đan dược trợ ngộ đạo.",
+    "rarity": "common",
+    "value": 1
+  },
+  "phong_linh_thao": {
+    "name": "Phong linh thảo",
+    "emoji": "🎐",
+    "description": "Cỏ nhẹ như tơ, lay động theo gió, có thể trợ tăng tốc độ phản ứng và độ linh hoạt.",
+    "rarity": "common",
+    "value": 1
+  },
+  "thach_can_thao": {
+    "name": "Thạch căn thảo",
+    "emoji": "🪨",
+    "description": "Cỏ mọc giữa khe đá, rễ cứng và bền, dùng để bồi dưỡng khí huyết, tăng sức chịu đựng cho người tu luyện",
+    "rarity": "common",
+    "value": 1
+  },
+  "liet_hoa_hoa": {
+    "name": "Liệt hỏa hoa",
+    "emoji": "🔥",
+    "description": "Cánh hoa đỏ rực, chứa hỏa linh, giúp kích phát vận may và tinh thần chiến đấu.",
+    "rarity": "common",
+    "value": 1
   },
   "anh_diep_thao": {
-    "name": "Ảnh Diệp Thảo",
+    "name": "Ảnh diệp thảo",
     "emoji": "🪞",
-    "description": "Lá cây có khả năng phản chiếu ánh sáng",
+    "description": "Loại cỏ ẩn mình dưới bóng cây cổ, khó hái, hương thơm nhẹ, thường bán làm nguyên liệu pha trà.",
     "rarity": "common",
-    "value": 17
+    "value": 1
+  },
+  "thanh_van_diep": {
+    "name": "Thanh vân diệp",
+    "emoji": "🍃",
+    "description": "Lá cây mỏng manh ánh lam, hấp thu sương sớm linh khí, không đủ tinh thuần để luyện đan nhưng được thương nhân ưa chuộng vì hương thơm.",
+    "rarity": "common",
+    "value": 1
   },
   "thap_nien_sam": {
-    "name": "Thập Niên Sâm",
+    "name": "Thập niên sâm",
     "emoji": "🥕",
-    "description": "Nhân sâm 10 năm tuổi, dược tính cao hơn ngũ niên sâm",
+    "description": "Sâm mười năm tuổi, linh khí thuần tịnh, dùng để chế luyện đan hồi phục trung cấp, giúp tái tạo sinh cơ và ổn định chân khí.",
     "rarity": "uncommon",
-    "value": 150
+    "value": 1
   },
   "tu_van_thao": {
-    "name": "Tử Vân Thảo",
+    "name": "Tử vân thảo",
     "emoji": "☁️",
-    "description": "Thảo dược có màu tím như mây, chứa linh khí huyền bí",
+    "description": "Cỏ tím óng ánh, hấp thu linh vụ mỗi đêm, tăng mạnh khả năng hồi phục linh lực, thường dùng trong các loại linh đan bổ nguyên.",
     "rarity": "uncommon",
-    "value": 180
+    "value": 1
   },
   "thanh_lan_qua": {
-    "name": "Thanh Lân Quả",
+    "name": "Thanh lân quả",
     "emoji": "🫐",
-    "description": "Quả có vảy xanh như vảy rồng, dược tính mạnh",
+    "description": "Quả lam tỏa sáng, chứa tinh khí hiền hòa, giúp người tu hành ổn định dòng linh lực.",
     "rarity": "uncommon",
-    "value": 200
+    "value": 1
   },
   "hong_tinh_thao": {
-    "name": "Hồng Tinh Thảo",
+    "name": "Hồng tinh thảo",
     "emoji": "💎",
-    "description": "Thảo dược có tinh thể hồng, chứa linh khí tinh khiết",
+    "description": "Cỏ có lá đỏ ánh kim, chứa tinh hoa hỏa linh, giúp tăng cường thể chất và sức mạnh cánh tay, hợp với tu sĩ luyện thể.",
     "rarity": "uncommon",
-    "value": 220
+    "value": 1
+  },
+  "thanh_tam_thao": {
+    "name": "Thanh tâm thảo",
+    "emoji": "💚",
+    "description": "Thảo dược thanh mộc, giúp an thần, ổn định tâm mạch khi đột phá.",
+    "rarity": "uncommon",
+    "value": 1
+  },
+  "huyen_dieu_qua": {
+    "name": "Huyền diệu quả",
+    "emoji": "✨",
+    "description": "Quả tròn phát sáng nhẹ, linh khí ổn định, không tương thích với đan đạo nên chỉ được dùng làm cống phẩm hoặc trao đổi.",
+    "rarity": "uncommon",
+    "value": 1
+  },
+  "u_tan_thao": {
+    "name": "U tán thảo",
+    "emoji": "🖤",
+    "description": "Cỏ đen hiếm mọc nơi khe núi âm hàn, hấp thu linh khí hắc ám, không thể luyện đan nhưng quý hiếm nên giá cao trong giới thương hội.",
+    "rarity": "uncommon",
+    "value": 1
+  },
+  "thanh_lan_thao": {
+    "name": "Thanh lan thảo",
+    "emoji": "🌿",
+    "description": "Cỏ lam linh tính cao, dùng để ổn định linh lực khi dung hợp hoặc luyện hóa pháp bảo.",
+    "rarity": "uncommon",
+    "value": 1
   },
   "tu_hau_hoa": {
-    "name": "Tử Hầu Hoa",
+    "name": "Tử hầu hoa",
     "emoji": "🌸",
-    "description": "Hoa có màu tím, hình dáng như đầu khỉ",
+    "description": "Hoa tím tỏa linh quang, trợ giúp ổn định kinh mạch khi đột phá Trúc Cơ cảnh, giảm nguy cơ tẩu hỏa nhập ma",
     "rarity": "uncommon",
-    "value": 190
+    "value": 1
+  },
+  "tu_hau_qua": {
+    "name": "Tử hầu quả",
+    "emoji": "🫐",
+    "description": "Quả cùng họ với Tử hầu hoa, chứa linh dịch ngưng tụ, giúp ổn định tâm cảnh khi luyện khí.",
+    "rarity": "uncommon",
+    "value": 1
   },
   "bach_nien_sam": {
-    "name": "Bách Niên Sâm",
+    "name": "Bách niên sâm",
     "emoji": "🥕",
-    "description": "Nhân sâm 100 năm tuổi, dược tính quý hiếm",
+    "description": "Cây sâm trăm năm, thân vàng, tỏa hương thơm ngát, trợ giúp hồi phục và đột phá cảnh giới trung cấp.",
     "rarity": "rare",
-    "value": 1500
+    "value": 1
   },
   "ngoc_diep_thao": {
-    "name": "Ngọc Diệp Thảo",
+    "name": "Ngọc diệp thảo",
     "emoji": "💎",
-    "description": "Lá cây có độ trong suốt như ngọc, chứa linh khí địa cấp",
+    "description": "Lá ngọc xanh mượt, trữ linh lực lớn, dùng trong nhiều loại đan cao cấp.",
     "rarity": "rare",
-    "value": 1800
+    "value": 1
   },
   "long_lan_qua": {
-    "name": "Long Lân Quả",
+    "name": "Long lân quả",
     "emoji": "🐉",
-    "description": "Quả có vảy rồng thật sự, dược tính cực mạnh",
+    "description": "Quả long lân tỏa nhiệt, giúp tăng cường dược tính và độ tinh khiết.",
     "rarity": "rare",
-    "value": 2000
+    "value": 1
   },
-  "xich_van_thao": {
-    "name": "Xích Vân Thảo",
-    "emoji": "☁️",
-    "description": "Thảo dược có màu đỏ như mây chiều, linh khí nồng nàn",
+  "huyen_vu_diep": {
+    "name": "Huyền vũ diệp",
+    "emoji": "🖤",
+    "description": "Lá cây cổ, mang linh khí đất trời, giúp tăng hiệu quả luyện đan và bền dược tính.",
     "rarity": "rare",
-    "value": 2200
+    "value": 1
+  },
+  "tran_hon_diep": {
+    "name": "Trấn hồn diệp",
+    "emoji": "🧿",
+    "description": "Lá linh thảo mang linh khí trầm ổn, giúp trấn định tâm hồn, tránh mê hoặc",
+    "rarity": "rare",
+    "value": 1
+  },
+  "hoa_tinh_qua": {
+    "name": "Hỏa tinh quả",
+    "emoji": "🔥",
+    "description": "Quả đỏ rực chứa hỏa linh tinh hoa, giúp tăng sức mạnh và ý chí chiến đấu.",
+    "rarity": "rare",
+    "value": 1
+  },
+  "tu_diep_thao": {
+    "name": "Tử diệp thảo",
+    "emoji": "💜",
+    "description": "Lá tím chứa linh trí khí, giúp khai mở thần thức và trí tuệ.",
+    "rarity": "rare",
+    "value": 1
+  },
+  "bich_phong_thao": {
+    "name": "Bích phong thảo",
+    "emoji": "🌀",
+    "description": "Thảo mọc nơi gió xoáy, linh tính linh hoạt, giúp tăng tốc độ phản ứng.",
+    "rarity": "rare",
+    "value": 1
+  },
+  "ngoc_can_thao": {
+    "name": "Ngọc căn thảo",
+    "emoji": "🪴",
+    "description": "Rễ ngọc trắng mềm, giúp dưỡng mạch, tăng sức chịu đựng linh thể.",
+    "rarity": "rare",
+    "value": 1
+  },
+  "tinh_van_qua": {
+    "name": "Tinh vân quả",
+    "emoji": "🌌",
+    "description": "Quả chứa tinh vân linh quang, giúp tăng vận khí và cảm ứng cơ duyên.",
+    "rarity": "rare",
+    "value": 1
+  },
+  "lam_diep_thao": {
+    "name": "Lam diệp thảo",
+    "emoji": "🫐",
+    "description": "Cỏ lam ánh nhẹ, linh khí yếu, chỉ dùng để bán đổi linh thạch.",
+    "rarity": "rare",
+    "value": 1
+  },
+  "o_huyen_hoa": {
+    "name": "Ô huyền hoa",
+    "emoji": "🖤",
+    "description": "Hoa đen ánh tím, khó sử dụng trong luyện đan, thường được thu mua làm vật phẩm hiếm.",
+    "rarity": "rare",
+    "value": 1
+  },
+  "dia_can_linh_moc": {
+    "name": "Địa căn linh mộc",
+    "emoji": "🌳",
+    "description": "Rễ cổ hút linh khí trong lòng đất, giúp vật phẩm thêm linh tính và dẻo dai.",
+    "rarity": "rare",
+    "value": 1
   },
   "that_ha_lien": {
-    "name": "Thất Hà Liên",
+    "name": "Thất hà liên",
     "emoji": "🌺",
-    "description": "Hoa sen có 7 cánh, mọc ở đáy sông sâu",
+    "description": "Sen bảy cánh tỏa linh khí, nguyên liệu quan trọng để điều chế linh đan đột phá.",
     "rarity": "rare",
-    "value": 2500
+    "value": 1
+  },
+  "xich_van_thao": {
+    "name": "Xích vân thảo",
+    "emoji": "☁️",
+    "description": "Lá đỏ tươi, tỏa sương hồng, giúp vận chuyển chân khí mượt mà.",
+    "rarity": "rare",
+    "value": 1
   },
   "thien_nien_sam": {
-    "name": "Thiên Niên Sâm",
+    "name": "Thiên niên sâm",
     "emoji": "🥕",
-    "description": "Nhân sâm 1000 năm tuổi, dược tính thiên cấp",
+    "description": "Sâm ngàn năm, hình dáng gần như nhân hình, linh khí tinh thuần, hỗ trợ đột phá cảnh giới cao.",
     "rarity": "epic",
-    "value": 15000
+    "value": 1
   },
   "bich_quang_thao": {
-    "name": "Bích Quang Thảo",
+    "name": "Bích quang thảo",
     "emoji": "💚",
-    "description": "Thảo dược phát ra ánh sáng xanh như ngọc bích",
+    "description": "Lá tỏa ánh sáng nhạt, khi chạm vào tỏa ra linh khí tinh khiết, thanh lọc linh hồn.",
     "rarity": "epic",
-    "value": 18000
+    "value": 1
   },
   "thien_linh_qua": {
-    "name": "Thiên Linh Quả",
+    "name": "Thiên linh quả",
     "emoji": "🍎",
-    "description": "Quả có linh khí thiên cấp, giúp đột phá cảnh giới",
+    "description": "Quả kết tinh tinh hoa trời đất, long khí tinh thuần, có thể tăng mạnh xác suất đột phá cảnh giới cao.",
     "rarity": "epic",
-    "value": 20000
+    "value": 1
   },
   "chu_thien_huyet_diep": {
-    "name": "Chu Thiên Huyết Diệp",
+    "name": "Chu thiên huyết diệp",
     "emoji": "🍁",
-    "description": "Lá cây có màu đỏ như máu, chứa linh khí thiên cấp",
+    "description": "Lá đỏ sẫm, gân lá phát sáng như mạch máu, tăng bộc phát sức mạnh tức thời.",
     "rarity": "epic",
-    "value": 22000
+    "value": 1
   },
-  "thien_tam_lien": {
-    "name": "Thiên Tâm Liên",
-    "emoji": "🌺",
-    "description": "Hoa sen thiên cấp, giúp tĩnh tâm và tu luyện",
+  "minh_than_hoa": {
+    "name": "Minh thần hoa",
+    "emoji": "🌼",
+    "description": "Hoa nở trong màn linh quang nhạt, khí tức thuần khiết giúp thanh lọc uế khí và trừ bỏ mọi ám chướng",
     "rarity": "epic",
-    "value": 25000
-  },
-  "ngoc_huyen_chi": {
-    "name": "Ngọc Huyền Chi",
-    "emoji": "🌿",
-    "description": "Cành cây có độ trong suốt như ngọc huyền",
-    "rarity": "epic",
-    "value": 28000
+    "value": 1
   },
   "thien_van_hoa": {
-    "name": "Thiên Vận Hoa",
+    "name": "Thiên vận hoa",
     "emoji": "🌸",
-    "description": "Hoa có khả năng thay đổi vận mệnh",
+    "description": "Loài hoa nở duy nhất vào khoảnh khắc sao băng rơi, cánh hoa ánh bạc như dải ngân hà, tỏa ra linh khí dẫn dắt vận mệnh.",
     "rarity": "epic",
-    "value": 30000
+    "value": 1
+  },
+  "ngan_van_hoa": {
+    "name": "Ngân vân hoa",
+    "emoji": "☁️",
+    "description": "Hoa nở trong mây bạc, linh khí cao nhưng không ổn định, chỉ dùng làm vật phẩm sưu tầm.",
+    "rarity": "epic",
+    "value": 1
+  },
+  "hac_diep_thach_lan": {
+    "name": "Hắc diệp thạch lan",
+    "emoji": "🪨",
+    "description": "Cây lan sắc đen, hấp thu linh khí chậm, được trao đổi trong thương hội tu tiên.",
+    "rarity": "epic",
+    "value": 1
+  },
+  "thien_huyen_linh_diep": {
+    "name": "Thiên huyền linh diệp",
+    "emoji": "🍃",
+    "description": "Linh dược mọc trên đỉnh linh sơn, hút tinh quang nhật nguyệt, thường dùng để khai linh cho pháp bảo cao cấp.",
+    "rarity": "epic",
+    "value": 1
+  },
+  "thien_tam_lien": {
+    "name": "Thiên tâm liên",
+    "emoji": "🌺",
+    "description": "Đóa sen mọc giữa hồ linh khí ngàn năm, mỗi cánh hoa chứa một tầng đạo vận, giúp ổn định tâm thần và bồi dưỡng linh hồn.",
+    "rarity": "epic",
+    "value": 1
+  },
+  "ngoc_huyen_chi": {
+    "name": "Ngọc huyền chi",
+    "emoji": "🌿",
+    "description": "Cành cây ngọc xanh óng ánh, mọc ở vách núi huyền không, liên tục hấp thu tinh hoa nhật nguyệt, giúp tăng khả năng ngộ đạo và củng cố kinh mạch.",
+    "rarity": "epic",
+    "value": 1
   },
   "van_nien_sam": {
-    "name": "Vạn Niên Sâm",
+    "name": "Vạn niên sâm",
     "emoji": "🥕",
-    "description": "Nhân sâm 10000 năm tuổi, dược tính thần cấp",
+    "description": "Sâm vạn năm, đã hóa thành linh thể, mỗi củ chứa sức mạnh sánh ngang pháp bảo thượng cổ.",
     "rarity": "legendary",
-    "value": 150000
+    "value": 1
   },
   "kim_tam_thao": {
-    "name": "Kim Tâm Thảo",
+    "name": "Kim tâm thảo",
     "emoji": "💛",
-    "description": "Thảo dược có tâm màu vàng như kim, linh khí thần cấp",
+    "description": "Lá vàng kim, mỗi chiếc lá là một pháp bảo tự nhiên, có thể giải trừ hầu hết độc tố và tà niệm.",
     "rarity": "legendary",
-    "value": 180000
+    "value": 1
   },
   "long_tuy_qua": {
-    "name": "Long Tủy Quả",
+    "name": "Long tủy quả",
     "emoji": "🐉",
-    "description": "Quả chứa tủy rồng thật sự, dược tính thần thoại",
+    "description": "Chỉ xuất hiện khi rồng thần hoặc rồng tiên hóa thành, chứa khí tức áp đảo và linh lực cực thuần khiết.",
     "rarity": "legendary",
-    "value": 200000
+    "value": 1
+  },
+  "hon_nguyen_linh_chi": {
+    "name": "Hỗn nguyên linh chi",
+    "emoji": "🍄",
+    "description": "Linh chi hấp thu khí hỗn nguyên của trời đất, điều hòa năm hành trong cơ thể, tăng cường toàn diện căn cơ.",
+    "rarity": "legendary",
+    "value": 1
+  },
+  "vo_niem_tam_hoa": {
+    "name": "Vô niệm tâm hoa",
+    "emoji": "🪷",
+    "description": "Linh hoa hiếm thấy, một cánh nở ra là vạn niệm tịch diệt, ngoại tà không thể xâm nhập nửa phân",
+    "rarity": "legendary",
+    "value": 1
   },
   "thanh_huyet_linh_thao": {
-    "name": "Thánh Huyết Linh Thảo",
+    "name": "Thánh huyết linh thảo",
     "emoji": "🩸",
-    "description": "Thảo dược chứa huyết thánh, linh khí thần cấp",
+    "description": "Cây huyền diệu, mỗi lá là kết tinh sinh mệnh lực, kích hoạt toàn bộ tiềm lực cơ thể.",
     "rarity": "legendary",
-    "value": 250000
+    "value": 1
   },
   "hon_nguyen_qua": {
-    "name": "Hỗn Nguyên Quả",
+    "name": "Hỗn nguyên quả",
     "emoji": "🌌",
-    "description": "Quả chứa linh khí hỗn nguyên, giúp đột phá cảnh giới cao",
+    "description": "Trái cây ánh bạc, bên trong như vũ trụ thu nhỏ, chứa sức mạnh hỗn nguyên sơ khai, phục hồi toàn diện và cải tạo thể chất.",
     "rarity": "legendary",
-    "value": 300000
+    "value": 1
   },
   "tien_huyet_chi_lan": {
-    "name": "Tiên Huyết Chi Lan",
+    "name": "Tiên huyết chi lan",
     "emoji": "🌺",
-    "description": "Hoa lan chứa huyết tiên, vật phẩm thần thoại",
+    "description": "Lan đỏ tươi như máu, mỗi giọt sương trên cánh chứa sinh mệnh lực hùng hậu, có thể kéo người từ bờ vực cái chết trở lại.",
     "rarity": "legendary",
-    "value": 500000
-  },
-  "thien_ngoc_tam": {
-    "name": "Thiên Ngọc Tâm",
-    "emoji": "💎",
-    "description": "Tâm ngọc thiên cấp, chứa linh khí vô hạn",
-    "rarity": "legendary",
-    "value": 400000
-  },
-  "hon_co_ma_hoang": {
-    "name": "Hồn Cổ Ma Hoàng",
-    "emoji": "👻",
-    "description": "Hồn ma cổ xưa, chứa sức mạnh ma đạo",
-    "rarity": "legendary",
-    "value": 600000
+    "value": 1
   }
 }

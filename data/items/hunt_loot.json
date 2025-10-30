@@ -1,62 +1,200 @@
 {
-  "da_thu_tho": {
-    "name": "Da Thú Thô",
-    "emoji": "🦊",
-    "description": "Da thú thô, nguyên liệu cơ bản để chế tạo",
+  "thanh_da_cot": {
+    "name": "Thanh dã cốt",
+    "emoji": "🦴",
+    "description": "Xương thú vùng hoang dã, thấm chút linh khí sơ khai, chất cốt thanh nhẹ",
     "rarity": "common"
   },
-  "thanh_van_to": {
-    "name": "Thanh Vân Tơ",
-    "emoji": "☁️",
-    "description": "Tơ vân xanh, nguyên liệu nhẹ nhàng",
+  "bach_ly_gan": {
+    "name": "Bách lý gân",
+    "emoji": "🧵",
+    "description": "Gân thú dẻo dai, thường dùng làm gân nối cho pháp khí cấp thấp",
     "rarity": "common"
   },
-  "da_linh_thu": {
-    "name": "Da Linh Thú",
-    "emoji": "🐺",
-    "description": "Da linh thú, chứa linh khí huyền bí",
+  "so_da_bi": {
+    "name": "Sơ dã bì",
+    "emoji": "🐾",
+    "description": "Lớp da thô ráp, từng trải gió cát, dễ gia công",
+    "rarity": "common"
+  },
+  "thanh_da_nha": {
+    "name": "Thanh dã nha",
+    "emoji": "🦷",
+    "description": "Nanh thú nhỏ, tuy không sắc nhưng ẩn nét hung tính đặc trưng",
+    "rarity": "common"
+  },
+  "thanh_dich_tuy": {
+    "name": "Thanh dịch tủy",
+    "emoji": "🧪",
+    "description": "Tủy loãng mang chút linh vị, thường dùng để làm dẫn môi",
+    "rarity": "common"
+  },
+  "manh_cong_phap_so": {
+    "name": "Mảnh công pháp (sơ)",
+    "emoji": "📜",
+    "description": "",
+    "rarity": "common"
+  },
+  "lam_trach_cot": {
+    "name": "Lam trạch cốt",
+    "emoji": "🦴",
+    "description": "Xương hơi ánh lam, cứng tựa huyền thiết, lưu chuyển khí tức ôn hòa",
     "rarity": "uncommon"
   },
-  "nguyet_anh_to": {
-    "name": "Nguyệt Ảnh Tơ",
-    "emoji": "🌙",
-    "description": "Tơ ánh trăng, chứa linh khí âm dương",
+  "u_phach_gan": {
+    "name": "U phách gân",
+    "emoji": "🧵",
+    "description": "Gân ẩn hàn phong, khi chạm vào tựa có dòng khí quỷ mị thoát ra",
     "rarity": "uncommon"
   },
-  "da_dia_thu": {
-    "name": "Da Địa Thú",
-    "emoji": "🦁",
-    "description": "Da địa thú, chứa linh khí đất mạnh mẽ",
+  "hac_nhan_bi": {
+    "name": "Hắc nhẫn bì",
+    "emoji": "🐾",
+    "description": "Da đen tuyền, chống lực va đập tốt, từng bị coi là tài liệu của hộ giáp sư.",
+    "rarity": "uncommon"
+  },
+  "phong_trao_nha": {
+    "name": "Phong trảo nha",
+    "emoji": "🦷",
+    "description": "Nanh sắc bén, mang tàn ảnh của yêu phong khi vung chém",
+    "rarity": "uncommon"
+  },
+  "suong_trung_tuy": {
+    "name": "Sương trủng tủy",
+    "emoji": "🧪",
+    "description": "Tủy tụ hàn sương, làm ổn định linh quang trong đồ vật được luyện",
+    "rarity": "uncommon"
+  },
+  "manh_cong_phap_trung": {
+    "name": "Mảnh công pháp (trung)",
+    "emoji": "📜",
+    "description": "",
+    "rarity": "uncommon"
+  },
+  "thach_hon_cot": {
+    "name": "Thạch hồn cốt",
+    "emoji": "🦴",
+    "description": "Xương nặng tựa đá linh, từng rung động theo nhịp thở của địa mạch",
     "rarity": "rare"
   },
-  "dia_ha_to": {
-    "name": "Địa Hà Tơ",
-    "emoji": "🏔️",
-    "description": "Tơ địa hà, chứa linh khí núi non",
+  "hoang_cang_gan": {
+    "name": "Hoàng cang gân",
+    "emoji": "🧵",
+    "description": "Gân vàng kim, bền bỉ không thua thần thiết, được thợ luyện khí săn đón",
     "rarity": "rare"
   },
-  "da_thien_thu": {
-    "name": "Da Thiên Thú",
-    "emoji": "🦅",
-    "description": "Da thiên thú, chứa linh khí thiên đình",
+  "nham_hoa_lan": {
+    "name": "Nham hỏa lân",
+    "emoji": "🛡️",
+    "description": "Vảy đỏ như nham hỏa, có thể chịu linh hỏa cường độ cao",
+    "rarity": "rare"
+  },
+  "viem_linh_nha": {
+    "name": "Viêm linh nha",
+    "emoji": "🦷",
+    "description": "Nanh bốc hỏa khí nhàn nhạt, mỗi đường vạch đều mang lực bạo liệt",
+    "rarity": "rare"
+  },
+  "mach_sat_tuy": {
+    "name": "Mạch sát tủy",
+    "emoji": "🧪",
+    "description": "Tủy nhiễm khí địa mạch, đặc sệt như chất ngọc chưa thành tinh",
+    "rarity": "rare"
+  },
+  "manh_cong_phap_cao": {
+    "name": "Mảnh công pháp (cao)",
+    "emoji": "📜",
+    "description": "",
+    "rarity": "rare"
+  },
+  "chien_hon_thiet_cot": {
+    "name": "Chiến hồn thiết cốt",
+    "emoji": "⚔️",
+    "description": "Tàn dư của chiến tướng cổ, cốt thép chứa uy lực chiến đạo.",
+    "rarity": "rare"
+  },
+  "phong_anh_tinh_tu": {
+    "name": "Phong ảnh tinh tụ",
+    "emoji": "🌬️",
+    "description": "Tinh thể do linh phong ngưng tụ, nhẹ mà sắc như gió lướt.",
+    "rarity": "rare"
+  },
+  "hu_linh_tam_thach": {
+    "name": "Hư linh tâm thạch",
+    "emoji": "🔮",
+    "description": "Đá tâm linh kết tinh trong vực hư vô, chứa linh trí cổ xưa.",
+    "rarity": "rare"
+  },
+  "huyet_ngoc_linh_thai": {
+    "name": "Huyết ngọc linh thai",
+    "emoji": "🩸",
+    "description": "Tinh ngọc đỏ ẩn trong huyết mạch linh thú, ấm áp và bền vững.",
+    "rarity": "rare"
+  },
+  "mong_ao_hon_dien": {
+    "name": "Mộng ảo hồn diên",
+    "emoji": "💤",
+    "description": "Linh hồn trong mộng kết tinh thành hạt diên, ẩn chứa vận khí khó lường.",
+    "rarity": "rare"
+  },
+  "tinh_ha_cot": {
+    "name": "Tinh hà cốt",
+    "emoji": "🦴",
+    "description": "Xương sáng bạc như suối sao, lưu dẫn linh lực tự nhiên, tự cộng hưởng với thiên khí",
     "rarity": "epic"
   },
-  "tinh_ha_to": {
-    "name": "Tinh Hà Tơ",
-    "emoji": "⭐",
-    "description": "Tơ tinh hà, chứa linh khí ngân hà",
+  "thiem_loi_gan": {
+    "name": "Thiểm lôi gân",
+    "emoji": "🧵",
+    "description": "Gân mảnh nhưng ẩn từng tia quang điện, khi kéo căng như tiếng sấm nhỏ",
     "rarity": "epic"
   },
-  "da_than_thu": {
-    "name": "Da Thần Thú",
-    "emoji": "🐉",
-    "description": "Da thần thú, chứa linh khí thần thánh",
+  "ngan_nguyet_lan": {
+    "name": "Ngân nguyệt lân",
+    "emoji": "🛡️",
+    "description": "Vảy ánh huyền nguyệt, gặp linh quang sẽ tự phát sáng",
+    "rarity": "epic"
+  },
+  "han_tinh_nha": {
+    "name": "Hàn tinh nha",
+    "emoji": "🦷",
+    "description": "Nanh lạnh buốt, hàn khí nặng khiến sương trắng đọng quanh",
+    "rarity": "epic"
+  },
+  "tu_minh_tuy": {
+    "name": "Tử minh tủy",
+    "emoji": "🧪",
+    "description": "Tủy tím sẫm, giống như được ngậm từ ánh sáng nơi tầng trời cao",
+    "rarity": "epic"
+  },
+  "than_khi_cot": {
+    "name": "Thần khí cốt",
+    "emoji": "🦴",
+    "description": "Cốt cản quang, ẩn vũ trụ chi uyên, chỉ tồn tại trong yêu thú vượt phàm giới",
     "rarity": "legendary"
   },
-  "tien_ha_van_to": {
-    "name": "Tiên Hà Vân Tơ",
-    "emoji": "🌈",
-    "description": "Tơ tiên hà vân, chứa linh khí tiên giới",
+  "hon_nguyen_gan": {
+    "name": "Hỗn nguyên gân",
+    "emoji": "🧵",
+    "description": "Gân xoắn nhẹ như hút vào hư không, mang lực lượng thuần nguyên thủy",
+    "rarity": "legendary"
+  },
+  "than_viem_lan": {
+    "name": "Thần viêm lân",
+    "emoji": "🛡️",
+    "description": "Lân giáp mang thần viêm tử kim, không ngọn lửa nào có thể làm tổn hại",
+    "rarity": "legendary"
+  },
+  "thanh_duong_nha": {
+    "name": "Thánh dương nha",
+    "emoji": "🦷",
+    "description": "Nanh sáng như nhật nguyệt giao thoa, một vết cắt có thể bổ toái linh vực",
+    "rarity": "legendary"
+  },
+  "gioi_uyen_tuy": {
+    "name": "Giới uyên tủy",
+    "emoji": "🧪",
+    "description": "Tủy trầm nặng, chứa đạo vận như giếng cổ nối liền giới vực",
     "rarity": "legendary"
   }
 }

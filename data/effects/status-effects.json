@@ -1,0 +1,146 @@
+[
+  {
+    "id": "burn_t1",
+    "name": "Thiêu Đốt I",
+    "type": "dot",
+    "tags": [
+      "fire",
+      "damage_over_time"
+    ],
+    "duration_turns": 3,
+    "max_stacks": 3,
+    "stacking_policy": "refresh_or_stack",
+    "potency": {
+      "flat": 20,
+      "ratio": 0.03,
+      "scale_with": "attack"
+    },
+    "element": "hoa",
+    "exclusive_group": "ignite",
+    "cleansable": true,
+    "dispel_tier": 1,
+    "triggers": {
+      "on_tick": [
+        {
+          "action": "damage",
+          "amount": "@potency"
+        }
+      ]
+    },
+    "ui": {
+      "icon": "🔥",
+      "color": "#FF6B6B",
+      "log": "Bị thiêu đốt"
+    }
+  },
+  {
+    "id": "freeze_t1",
+    "name": "Đóng Băng I",
+    "type": "cc",
+    "tags": [
+      "water",
+      "hard_cc"
+    ],
+    "duration_turns": 1,
+    "max_stacks": 1,
+    "stacking_policy": "replace",
+    "exclusive_group": "hard_cc",
+    "cleansable": true,
+    "dispel_tier": 2,
+    "triggers": {
+      "on_apply": [
+        {
+          "action": "skip_turn"
+        }
+      ]
+    },
+    "ui": {
+      "icon": "❄️",
+      "color": "#74C0FC",
+      "log": "Bị đóng băng"
+    }
+  },
+  {
+    "id": "stun_t1",
+    "name": "Choáng I",
+    "type": "cc",
+    "tags": [
+      "lightning",
+      "hard_cc"
+    ],
+    "duration_turns": 1,
+    "max_stacks": 1,
+    "stacking_policy": "replace",
+    "exclusive_group": "hard_cc",
+    "cleansable": true,
+    "dispel_tier": 2,
+    "triggers": {
+      "on_apply": [
+        {
+          "action": "skip_turn"
+        }
+      ]
+    },
+    "ui": {
+      "icon": "💫",
+      "color": "#F59F00",
+      "log": "Bị choáng"
+    }
+  },
+  {
+    "id": "atk_up_t1",
+    "name": "Cường Công I",
+    "type": "buff",
+    "tags": [
+      "offense"
+    ],
+    "duration_turns": 3,
+    "max_stacks": 1,
+    "stacking_policy": "refresh",
+    "potency": {
+      "ratio": 0.2,
+      "scale_with": "attack"
+    },
+    "triggers": {
+      "on_calc": [
+        {
+          "stat": "attack",
+          "op": "mul",
+          "value": 1.2
+        }
+      ]
+    },
+    "ui": {
+      "icon": "🗡️",
+      "color": "#51CF66",
+      "log": "Tăng công"
+    }
+  },
+  {
+    "id": "shield_t1",
+    "name": "Khiên Hộ Thể I",
+    "type": "shield",
+    "tags": [
+      "defense"
+    ],
+    "duration_turns": 3,
+    "max_stacks": 1,
+    "stacking_policy": "replace",
+    "potency": {
+      "flat": 150
+    },
+    "triggers": {
+      "on_hit": [
+        {
+          "action": "absorb",
+          "amount": "@potency"
+        }
+      ]
+    },
+    "ui": {
+      "icon": "🛡️",
+      "color": "#748FFC",
+      "log": "Được che chắn"
+    }
+  }
+]

@@ -1,0 +1,16 @@
+{
+  "base_caps": {
+    "min": -0.5,
+    "max": 0.75
+  },
+  "stats": [
+    "resist_fire",
+    "resist_water",
+    "resist_wood",
+    "resist_metal",
+    "resist_earth",
+    "resist_wind",
+    "resist_lightning",
+    "resist_void"
+  ]
+}

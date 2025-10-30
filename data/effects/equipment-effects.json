@@ -1,0 +1,55 @@
+[
+  {
+    "id": "resist_fire_10",
+    "name": "Kháng Hỏa +10%",
+    "type": "passive",
+    "tags": [
+      "resist",
+      "fire"
+    ],
+    "triggers": {
+      "on_calc": [
+        {
+          "stat": "resist_fire",
+          "op": "add",
+          "value": 0.1
+        }
+      ]
+    }
+  },
+  {
+    "id": "pen_armor_5",
+    "name": "Xuyên Giáp +5%",
+    "type": "passive",
+    "tags": [
+      "offense"
+    ],
+    "triggers": {
+      "on_calc": [
+        {
+          "stat": "penetration",
+          "op": "add",
+          "value": 5
+        }
+      ]
+    }
+  },
+  {
+    "id": "proc_burn_10",
+    "name": "Đánh Gây Thiêu Đốt 10%",
+    "type": "proc",
+    "tags": [
+      "on_hit",
+      "fire"
+    ],
+    "triggers": {
+      "on_hit": [
+        {
+          "chance": 0.1,
+          "action": "apply_effect",
+          "effect_id": "burn_t1"
+        }
+      ]
+    }
+  }
+]

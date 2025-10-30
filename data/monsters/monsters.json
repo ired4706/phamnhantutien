@@ -55,321 +55,321 @@
     "nhat_cap": [
       {
         "id": "spirit_monkey_1",
-        "name": "Linh Hầu Nhi",
+        "name": "Lục nhĩ bạch hầu",
         "emoji": "🐒",
-        "description": "Khỉ nhỏ nhanh nhẹn, đôi mắt loé linh quang mơ hồ. Tuy yếu ớt nhưng rất hiếu động và khó nắm bắt."
+        "description": "Yêu hầu thiên sinh quỷ dị với sáu đôi tai nghe thông Tam giới nhưng không có khả năng tu luyện. Đạo tổ Hồng Quân từng tuyên Pháp bất truyền lục nhĩ. "
       },
       {
         "id": "spirit_frog_1",
-        "name": "Thanh Thiềm Tử",
+        "name": "Chu cáp vương",
         "emoji": "🐸",
-        "description": "Cóc non da xanh, tiếng kêu rung nhẹ linh khí xung quanh. Thân thể nhỏ bé nhưng phản xạ linh hoạt."
+        "description": "Yêu vật chuyên săn độc vật làm mồi, tương truyền phục dụng có hiệu quả Bách độc bất xâm"
       },
       {
         "id": "spirit_wolf_1",
-        "name": "Sơ Lang Nha",
+        "name": "Thiết toái lang",
         "emoji": "🐺",
-        "description": "Sói con mới sinh, lông dựng theo bản năng hoang dại. Lực cắn yếu nhưng tính cảnh giác rất cao."
+        "description": "Yêu lang nổi danh với khả năng thôn kim phệ khí, tương truyền răng nanh là khắc tinh của binh khí bách gia"
       },
       {
         "id": "spirit_bird_1",
-        "name": "Lạc Tước Nhi",
+        "name": "Vũ tước linh",
         "emoji": "🐦",
-        "description": "Chim nhỏ bay nhanh, cánh vỗ tựa vệt sáng mờ. Thanh âm hót mang chút linh khí thanh khiết."
+        "description": "Linh thú có tốc độ phi phàm, bộ lông ngũ sắc, ưa thích tầm bảo"
       },
       {
         "id": "spirit_fox_1",
-        "name": "Hồ Miêu Tử",
+        "name": "Bát vĩ yêu hồ",
         "emoji": "🦊",
-        "description": "Cáo con thông linh, bộ lông mềm như tơ. Bản tính hiếu kỳ, thường trêu chọc kẻ khác rồi vụt chạy."
+        "description": "Tương truyền thuộc dòng dõi Linh thú Cửu vĩ tiên hồ nhưng bị Diệp Thánh nhân phong ấn, đời đời trấn giữ hiểm địa"
       }
     ],
     "nhi_cap": [
       {
         "id": "shadow_cat_2",
-        "name": "U Dạ Miêu",
+        "name": "Vĩnh dạ miêu",
         "emoji": "🐈",
-        "description": "Mèo bóng đêm, thân ảnh mờ như ẩn như hiện. Ánh mắt sáng rực, chuyên mai phục trong tịch lặng."
+        "description": "Có huyết mạch Linh thú Hắc dạ miêu của Hắc Dạ nữ thần, khắc tinh của cương thi quỷ quái"
       },
       {
         "id": "iron_boar_2",
-        "name": "Cương Trư Lâm",
+        "name": "Hắc tử tà trư",
         "emoji": "🐗",
-        "description": "Heo rừng da cứng như vảy giáp tự nhiên. Thích lấy thân lao thẳng, sức bật mạnh mẽ bất ngờ."
+        "description": "Yêu vật cương thi thích thôn phệ tử khí, được lưu truyền là Vận rủi chi thú"
       },
       {
         "id": "jade_serpent_2",
-        "name": "Lục Vảy Xà",
+        "name": "Linh oa xà",
         "emoji": "🐍",
-        "description": "Xà lục thân mềm, di chuyển uyển chuyển lạ thường. Đôi mắt lạnh lẽo như đoán biết tâm ý đối thủ."
+        "description": "Linh thú được cho là mang huyết mạch mỏng manh của Nữ Oa, thường mang theo điềm lành"
       },
       {
         "id": "wind_owl_2",
-        "name": "Lãnh Nhật Điểu",
+        "name": "Thần phong ưng",
         "emoji": "🦉",
-        "__description": "Cú lớn cánh rộng, thân ảnh lướt qua tựa lưỡi dao bén. Tiếng kêu trầm khàn làm kẻ yếu run rẩy."
+        "__description": "Linh thú có huyết mạch Kim sí đại bằng hiếm thấy, thường ẩn mình trong gió"
       },
       {
         "id": "rock_turtle_2",
-        "name": "Thạch Giáp Quy",
+        "name": "Huyền hoàng thạch quy",
         "emoji": "🐢",
-        "description": "Rùa giáp đá, mai cứng tựa khối cổ thạch. Di chuyển chậm rãi nhưng cực kỳ bền bỉ."
+        "description": "Mang huyết mạch Linh thú Huyền Vũ, tính cách hiền lành, thích trú tại linh mạch, linh sơn"
       }
     ],
     "tam_cap": [
       {
         "id": "ghost_hound_3",
-        "name": "U Hồn Khuyển",
+        "name": "Hỏa lân thú",
         "emoji": "🐕",
-        "description": "Khuyển săn mang khí âm nhẹ, tiếng sủa vọng như tiếng hồn gào. Chạy rất nhanh và khó truy vết."
+        "description": "Khuyển yêu có huyết mạch Thụy thú Kỳ Lân, thường tụ tập tại nơi có hỏa linh khí nồng đậm"
       },
       {
         "id": "frost_bear_3",
-        "name": "Hàn Sương Hùng",
+        "name": "Hàn băng thú",
         "emoji": "🐻",
-        "description": "Gấu lông trắng, hơi thở phả ra khí lạnh rét buốt. Một cú vỗ có thể làm rung lắc mặt đất."
+        "description": "Yêu vật thích lạnh sợ nóng, tương truyền là Hộ tộc thần thú của Bắc Hải thần cung"
       },
       {
         "id": "flame_leopard_3",
-        "name": "Xích Văn Báo",
+        "name": "Hắc sơn báo",
         "emoji": "🐆",
-        "description": "Báo thân đỏ, tốc độ lao nhanh như đường sáng đỏ. Mỗi cú vồ là một nhát cắt chí mạng."
+        "description": "Yêu vật nổi danh với âm ba nhất kích, Hắc Sơn Pháo, có thể di sơn đảo hải"
       },
       {
         "id": "storm_crane_3",
-        "name": "Lôi Vũ Hạc",
+        "name": "Thiên kiếm vũ hạc",
         "emoji": "🦩",
-        "description": "Hạc cao ngạo, cánh vỗ tạo nên tiếng oanh rung trời. Thân hình mảnh mai nhưng khí thế kinh người."
+        "description": "Tương truyền là tọa kỵ của các đời Chưởng môn Kiếm tiên Thục Sơn, trong khi bay lượn tự mang vô hình kiếm khí"
       },
       {
         "id": "venom_spider_3",
-        "name": "Tử Chu Nhện",
+        "name": "Độc Quả Phụ",
         "emoji": "🕷️",
-        "description": "Nhện lớn, ánh mắt tím lập lòe như độc diễm. Tơ nó tiết ra có thể ăn mòn linh thạch cấp thấp."
+        "description": "Yêu thú thích hóa thân làm nữ nhân xinh đẹp để dụ dỗ hút linh khí tán tu, thân giỏi biến hóa ẩn nấp"
       }
     ],
     "tu_cap": [
       {
         "id": "spirit_tiger_4",
-        "name": "Hắc Ảnh Hổ",
+        "name": "Thanh phong hồ",
         "emoji": "🐅",
-        "description": "Hổ đen thân lớn, từng bước đi như nuốt bóng đêm. Khi lao lên, bóng ảnh của nó chồng lớp khó nhìn rõ."
+        "description": "Yêu vật thích dùng câu đố để thử thách, trả lời sai cho qua, trả lời đúng sẽ truyền bí kíp Tam tấc thanh phong"
       },
       {
         "id": "spirit_stag_4",
-        "name": "Bạch Sương Lộc",
+        "name": "Bạch sương lộc",
         "emoji": "🦌",
-        "description": "Hươu thân trắng, khí tức thuần hoá đến tĩnh lặng. Mỗi bước chạy như vệt sáng mờ lướt qua rừng."
+        "description": "Thân mang huyết mạch Thụy thú Bạch Trạch, hàn khí bức người, thường tiếp cận người có đại khí vận"
       },
       {
         "id": "spirit_crow_4",
-        "name": "Huyết Ô Tước",
+        "name": "Nhất túc Kim Ô",
         "emoji": "🐦",
-        "description": "Quạ đen lông ánh đỏ, tiếng kêu khàn ám muội. Cánh chim vỗ mạnh, để lại vệt khí mờ đỏ sau lưng."
+        "description": "Dòng dõi Hỏa Yêu thần Tam túc Kim Ô, thường xuất hiện ở nơi có hỏa linh khí tụ tập"
       },
       {
         "id": "spirit_snake_4",
-        "name": "U Thần Mãng",
+        "name": "Thôn thiên xà",
         "emoji": "🐍",
-        "description": "Mãng xà to lớn, mỗi lần trườn đi đều rung cả mặt đất. Khí tức hung bạo khiến kẻ yếu run sợ."
+        "description": "Yêu xà có Huyết mạch Ma thú Thao Thiết, mỗi lần ăn thôn phệ vạn vật trong bán kính ngàn trượng"
       },
       {
         "id": "spirit_fish_4",
-        "name": "Lam Quang Ngư",
+        "name": "Kim du ngư",
         "emoji": "🐟",
-        "description": "Cá dài thân lam, vảy phát sáng như lưu tinh dưới nước. Bơi nhanh dị thường, thoắt ẩn thoắt hiện."
+        "description": "Linh ngư có chất thịt mềm mịn, giàu linh khí, tương truyền có thể giúp tu sĩ cải thiện ngộ tính"
       }
     ],
     "ngu_cap": [
       {
         "id": "dragonling_5",
-        "name": "Thiếu Long Tượng",
+        "name": "Vạn tượng thú",
         "emoji": "🐉",
-        "description": "Long thú non, vảy chưa cứng nhưng khí tức đã uy mãnh. Tiếng gầm nhỏ thôi đã khiến linh thú cấp thấp khiếp sợ."
+        "description": "Yêu thú có huyết mạch Bàn Long, tương truyền cực nặng, mỗi bước đi xao sơn chấn hải"
       },
       {
         "id": "phoenixling_5",
-        "name": "Viêm Minh Tước",
+        "name": "Viêm long tước",
         "emoji": "🔥",
-        "description": "Điểu linh thân sáng rực, lông chim lập lòe quang huy. Dù còn nhỏ nhưng sự sống lực của nó rất đáng sợ."
+        "description": "Thần điểu có huyết mạch Chu Tước, tương truyền lấy rồng lửa làm thức ăn"
       },
       {
         "id": "kirinling_5",
-        "name": "Thiếu Lân Giác",
+        "name": "Địa kỳ lân",
         "emoji": "🦄",
-        "description": "Lân thú non, sừng chưa dài nhưng khí thế kỳ dị. Mỗi bước đi như làm linh khí chấn động nhẹ."
+        "description": "Là một chi thuộc Kỳ lân tộc, sau Long phượng chi chiến đã ẩn cư, tương truyền canh giữ Phúc linh chi địa"
       },
       {
         "id": "spirit_tortoise_5",
-        "name": "Cổ Văn Quy",
+        "name": "Phệ linh trùng",
         "emoji": "🐢",
-        "description": "Quy cổ tuổi trẻ, mai mang hoa văn thần bí. Sức phòng ngự vượt xa linh thú cùng cấp."
+        "description": "Yêu thú lấy linh khí, linh thú làm thức ăn, sức phòng ngự phi phàm, dưới Thánh nhân không thể phá phòng"
       },
       {
         "id": "giant_eagle_5",
-        "name": "Thiên Sải Ưng",
+        "name": "Phong lôi ưng",
         "emoji": "🦅",
-        "description": "Ưng lớn cánh dài, bay một lần vượt ngàn mét. Ánh mắt sắc lẻm như xuyên thủng đối thủ."
+        "description": "Yêu thú sải cánh dài ngàn trượng, mỗi lần vỗ cánh âm ba như sấm sét"
       }
     ],
     "luc_cap": [
       {
         "id": "dragon_elder_6",
-        "name": "Cổ Minh Long",
+        "name": "Thiên không thần long",
         "emoji": "🐉",
-        "description": "Long tộc thời cổ, vảy tối như đêm sâu. Khi nó thở, khí thế đã khiến không khí vặn vẹo."
+        "description": "Thần thú cai quản bầu trời, tương truyền thông hiểu vạn sự, thường phò tá chân mệnh thiên tử"
       },
       {
         "id": "phoenix_elder_6",
-        "name": "Minh Quang Hoàng",
+        "name": "Toái mộng phượng hoàng",
         "emoji": "🔥",
-        "description": "Điểu linh huy hoàng, đôi cánh sáng rực như nhật luân. Mỗi nhịp vỗ đều thả ra quang trọc lóa mắt."
+        "description": "Thần điểu với năng lực dịch chuyển thời không, tương truyền là hậu duệ của Khổng tước Đại minh vương"
       },
       {
         "id": "kirin_elder_6",
-        "name": "Hạo Thiên Lân",
+        "name": "U minh Lân",
         "emoji": "🦄",
-        "description": "Lân thú oai nghi, sừng sáng như bảo thạch ngàn năm. Khí tức của nó khiến đất trời dao động."
+        "description": "Một nhánh của Kỳ lân tộc được Hậu Thổ nương nương điểm hóa, tương truyền canh giữ Tiên thiên pháp khí Luân hồi bàn"
       },
       {
         "id": "tortoise_elder_6",
-        "name": "Cự Thể Quy",
+        "name": "Vận mệnh ô quy",
         "emoji": "🐢",
-        "description": "Quy khổng lồ, mỗi bước đi như rung cả sơn mạch. Mai quy mang lớp giáp cổ dày đặc."
+        "description": "Hậu duệ của Linh thú Huyền Vũ, tương truyền trên mai khắc ấn vận mệnh chi lưu, có thể giúp nghịch thiên cải mệnh"
       },
       {
         "id": "roc_elder_6",
-        "name": "Thương Hải Bằng",
+        "name": "Vô ảnh tằm",
         "emoji": "🦅",
-        "description": "Điểu hoang cổ, sải cánh che khuất cả bầu trời. Một tiếng hót vang xa hàng chục dặm."
+        "description": "Hậu duệ của Thụy thú Thanh Loan, tốc độ xuyên toa vạn giới, tới vô ảnh đi vô hình"
       }
     ],
     "that_cap": [
       {
         "id": "dragon_scarlet_7",
-        "name": "Huyết U Long",
+        "name": "Thanh long quy",
         "emoji": "🐉",
-        "description": "Long thân đỏ thẫm, mỗi vảy như thấm huyết thù xưa. Khí tức bạo liệt khiến trời đất biến sắc."
+        "description": "Hậu duệ của Linh thú Thanh Long và Huyền Vũ, tương truyền canh giữ Phúc địa Huyền Vũ Đảo."
       },
       {
         "id": "phoenix_scarlet_7",
-        "name": "Hồng Minh Hoàng",
+        "name": "Lãnh nhật thú",
         "emoji": "🔥",
-        "description": "Điểu hoàng đỏ rực, thân ảnh bay lên để lại quang vũ dài vô tận. Khí chất cao ngạo, tựa vương giả trời sinh."
+        "description": "Yêu thú ký sinh trên Phượng hoàng sào, có khả năng phụ thân, đoạt xá trong vô hình"
       },
       {
         "id": "kirin_scarlet_7",
-        "name": "Huyền Tâm Lân",
+        "name": "Nguyệt nha lân",
         "emoji": "🦄",
-        "description": "Lân thú huyền ảo, cơ thể phát quang như sương mờ. Từng bước của nó mang theo uy áp tinh thần."
+        "description": "Linh thú tương truyền hấp thụ tinh hoa ánh trăng từ thời khai thiên lập địa, uy năng biến ảo khôn lường"
       },
       {
         "id": "tortoise_scarlet_7",
-        "name": "Chu Nguyên Quy",
+        "name": "Hình thiên quy",
         "emoji": "🐢",
-        "description": "Quy đỏ cổ đại, lớp mai cứng như trụ đá thiên thu. Khi thu mình lại, tám phần công kích đều vô hiệu."
+        "description": "Yêu thú đản sinh từ tàn hồn của Chiến thần Hình Thiên và hậu duệ của Huyền Vũ, vô cùng tàn nhẫn hiếu sát"
       },
       {
         "id": "roc_scarlet_7",
-        "name": "Xích Nguyệt Bằng",
+        "name": "Vô diện yêu bằng",
         "emoji": "🦅",
-        "description": "Đại bằng đỏ, mỗi cú sải cánh là trận cuồng phong bạo liệt. Ánh mắt lạnh như lưỡi đao chém xuống."
+        "description": "Yêu thú hậu duệ của Côn Bằng, biến hóa đa đoan, dưới Thánh nhân không cách nào phân biệt"
       }
     ],
     "bat_cap": [
       {
         "id": "dragon_shadow_8",
-        "name": "Hắc Vân Long",
+        "name": "Thủy vân long",
         "emoji": "🐉",
-        "description": "Long thân đen chìm trong hắc vụ, hình dạng mơ hồ. Chỉ cần tiếp cận đã cảm thấy sức ép khủng khiếp."
+        "description": "Thần long hô phong hoán vũ, tương truyền trong vùng biển vô địch dưới thánh nhân"
       },
       {
         "id": "phoenix_shadow_8",
-        "name": "U Huyễn Phượng",
+        "name": "Lam hỏa phượng",
         "emoji": "🔥",
-        "description": "Phượng tối thân ảnh méo mó như ảo ảnh. Mỗi lần vỗ cánh đều để lại tàn ảnh khó phân thật giả."
+        "description": "Thần thú ngự hàn hỏa thôn thiên, từng dùng hàn băng lam hỏa đóng băng tam phương thiên địa"
       },
       {
         "id": "kirin_shadow_8",
-        "name": "Ảnh Tuyệt Lân",
+        "name": "Thánh kim lân",
         "emoji": "🦄",
-        "description": "Lân thú bóng tối, mỗi bước đi khiến đất đá tan vụn. Hơi thở của nó mang theo lực lượng hủy diệt."
+        "description": "Kỳ lân hệ Canh Kim được hun đúc bởi hồn hỏa của Vô danh Thánh nhân sa ngã, thân mang duệ khí sắc bén phần thiên diệt địa."
       },
       {
         "id": "tortoise_shadow_8",
-        "name": "Huyền Khải Quy",
+        "name": "Huyền hỏa thú",
         "emoji": "🐢",
-        "description": "Quy bóng đêm, mai đen phủ bóng như vực sâu. Phòng ngự gần như không thể xuyên thủng."
+        "description": "Yêu thú thiên sinh tự mang Tam muội chân hỏa, đốt tâm, đốt thể, đốt linh, vạn vật tận thiêu."
       },
       {
         "id": "roc_shadow_8",
-        "name": "U Minh Dực",
+        "name": "Cửu thiên phượng",
         "emoji": "🦅",
-        "description": "Điểu lớn như bóng ma, bay lướt không phát ra tiếng. Mỗi cú bổ nhào đều là tử vong bất ngờ."
+        "description": "Dòng dõi duy nhất của Nguyên Phượng tái sinh được thần kỹ Phượng vũ cửu thiên, đã từng phá nát Lăng tiêu điện."
       }
     ],
     "cuu_cap": [
       {
         "id": "dragon_gold_9",
-        "name": "Thần Uy Long",
+        "name": "Không tưởng chi long",
         "emoji": "🐉",
-        "description": "Long vương khí tức ngút trời, vảy sáng như bảo châu cổ. Một tiếng gầm làm mây trời cuộn động."
+        "description": "Thần long sáng tạo ra Long quốc bằng một cái chớp mắt, hủy diệt Long quốc bằng một giấc mơ."
       },
       {
         "id": "phoenix_gold_9",
-        "name": "Quang Diễm Hoàng",
+        "name": "Hoán cốt vũ linh",
         "emoji": "🔥",
-        "description": "Điểu hoàng uy nghi, thân thể như kết thành từ ánh sáng. Lửa tràn ngập mỗi sải cánh của nó."
+        "description": "Thụy thú có năng lực hoán đổi căn cốt của hai người bất kỳ."
       },
       {
         "id": "kirin_gold_9",
-        "name": "Lân Tượng Vương",
+        "name": "Tạo hóa thanh lân",
         "emoji": "🦄",
-        "description": "Kỳ lân vương giả, khí thế đủ nghiền nát tu sĩ cường giả. Đôi mắt nó nhìn thấu bản ngã vạn vật."
+        "description": "Thụy thú trong truyền thuyết có thể đáp ứng một nguyện vọng của bất kì ai tìm thấy nó."
       },
       {
         "id": "tortoise_gold_9",
-        "name": "Thần Giáp Quy",
+        "name": "Hỗn nguyên thú",
         "emoji": "🐢",
-        "description": "Quy thần mai sáng như thiên kim cổ thạch. Chỉ cần đứng im đã như một ngọn núi bất động."
+        "description": "Yêu thú có năng lực đảo điên trời đất, hóa vạn vật quy về hỗn nguyên, kể cả bản thân nó."
       },
       {
         "id": "roc_gold_9",
-        "name": "Hoàng Thiên Dực",
+        "name": "Diệt thế côn bằng",
         "emoji": "🦅",
-        "description": "Điểu hoang cực phẩm, cánh chim sải dài che phủ trời xanh. Một cú bổ xuống có thể hủy diệt cả sơn cốc."
+        "description": "Thân xác của Yêu sư Côn Bằng bị nhiễm một tia ma khí của Tiên thiên pháp bảo Diệt thế hắc liên, vừa thần bí vừa quỷ dị, Thánh nhân phải nể ba phần."
       }
     ],
     "thap_cap": [
       {
         "id": "dragon_supreme_10",
-        "name": "Thái Hư Long",
+        "name": "Giác tổ ma long",
         "emoji": "🐉",
-        "description": "Thần long sinh từ Thái Hư, thân thể dài tựa dải ngân hà cổ xưa. Mỗi lần vẫy đuôi, thiên địa run rẩy như sắp sụp đổ."
+        "description": "Một sợi tàn hồn của Tổ Long kết hợp với Tiên thiên pháp bảo Đỉnh thiên thần giác, không phải Thánh nhân không thể phòng."
       },
       {
         "id": "phoenix_supreme_10",
-        "name": "Vạn Diễm Hoàng",
+        "name": "Vạn tiên trùng",
         "emoji": "🔥",
-        "description": "Thần điểu huy hoàng, lông vũ sáng rực như nhật nguyệt hợp nhất. Một tiếng hót cũng đủ khiến linh khí trong trời đất bùng nổ điên cuồng."
+        "description": "Thần trùng với tiên thiên kỹ năng Thâu đạo vạn giới, tương truyền từng lấy trộm hơn vạn món pháp bảo tu tiên."
       },
       {
         "id": "kirin_supreme_10",
-        "name": "Hoang Thần Lân",
+        "name": "Thập tam quỷ lân",
         "emoji": "🦄",
-        "description": "Kỳ thú từ thời đại Hoang Thần, mỗi bước đi kéo theo rung động của càn khôn. Hơi thở nó tỏa ra mang theo uy áp ép nát mọi sinh linh yếu kém."
+        "description": "Từng là Thụy thú song thất bại khảo thí Thập nhị Hoàng đạo giáp, bị ma tâm thôn phệ trở thành quỷ tu."
       },
       {
         "id": "tortoise_supreme_10",
-        "name": "Thiên Uy Quy",
+        "name": "Thất sắc bảo quy",
         "emoji": "🐢",
-        "description": "Cự quy đội trời đạp đất, mai lớn như một phương thế giới thu nhỏ. Khi nó chuyển mình, thời gian như ngưng đọng trong khoảnh khắc."
+        "description": "Thụy thú trường sinh cùng bốn phương thiên địa, tương truyền trên mai nó chứa vô cùng vô tận cơ duyên."
       },
       {
         "id": "roc_supreme_10",
-        "name": "Chân Vũ Bằng",
+        "name": "Huyết vũ hoàng",
         "emoji": "🦅",
-        "description": "Đại bằng cổ thế, cánh vỗ tạo thành cuồng phong xuyên phá hư không. Tốc độ của nó nhanh đến mức để lại bóng mờ kéo dài hàng vạn trượng."
+        "description": "Yêu thú đản sinh từ một giọt Phượng hoàng chân huyết rơi trong Huyết vực của Tu La chi vương Minh Hà lão tổ, thân mang vô biên huyết khí phệ thiên diệt địa."
       }
     ]
   }
