@@ -1,0 +1,223 @@
+{
+  "thanh_moc": {
+    "name": "Set Thanh Mộc",
+    "pieces": [
+      "thanh_moc_giap",
+      "thanh_moc_ha",
+      "thanh_moc_ly"
+    ],
+    "bonuses": {
+      "3": [
+        {
+          "type": "stat_pct",
+          "stat": "VIT",
+          "value": 5
+        }
+      ]
+    },
+    "tags": [
+      "vit",
+      "earth",
+      "common"
+    ],
+    "description": "Bộ thanh mộc, dẻo dai sinh cơ."
+  },
+  "tran_nguyet": {
+    "name": "Set Trấn Nguyệt",
+    "pieces": [
+      "tran_nguyet_giap",
+      "tran_nguyet_ha",
+      "tran_nguyet_ly"
+    ],
+    "bonuses": {
+      "3": [
+        {
+          "type": "stat_pct",
+          "stat": "VIT",
+          "value": 10
+        }
+      ]
+    },
+    "tags": [
+      "vit",
+      "uncommon"
+    ],
+    "description": "Ánh trăng trấn định, thân thể bền bỉ."
+  },
+  "huyen_tho": {
+    "name": "Set Huyền Thổ",
+    "pieces": [
+      "huyen_tho_giap",
+      "huyen_tho_ha",
+      "huyen_tho_ly"
+    ],
+    "bonuses": {
+      "3": [
+        {
+          "type": "stat_pct",
+          "stat": "VIT",
+          "value": 15
+        }
+      ]
+    },
+    "tags": [
+      "vit",
+      "rare"
+    ],
+    "description": "Địa mạch hộ thân, vững như núi."
+  },
+  "tran_son": {
+    "name": "Set Trấn Sơn",
+    "pieces": [
+      "tran_son_thien_giap",
+      "tran_son_thien_ha",
+      "tran_son_thien_ly"
+    ],
+    "bonuses": {
+      "3": [
+        {
+          "type": "stat_pct",
+          "stat": "VIT",
+          "value": 20
+        }
+      ]
+    },
+    "tags": [
+      "vit",
+      "epic"
+    ],
+    "description": "Thiên cương trấn sơn, thân như thành lũy."
+  },
+  "huyen_thien": {
+    "name": "Set Huyền Thiên",
+    "pieces": [
+      "huyen_thien_bat_giap",
+      "huyen_thien_bat_ha",
+      "huyen_thien_bat_ly"
+    ],
+    "bonuses": {
+      "3": [
+        {
+          "type": "stat_pct",
+          "stat": "VIT",
+          "value": 25
+        }
+      ]
+    },
+    "tags": [
+      "vit",
+      "legendary"
+    ],
+    "description": "Bất hoại huyền thiên, sinh mệnh vô tận."
+  },
+  "du_phong": {
+    "name": "Set Du Phong",
+    "pieces": [
+      "du_phong_y",
+      "du_phong_kho",
+      "du_phong_hai"
+    ],
+    "bonuses": {
+      "3": [
+        {
+          "type": "stat_pct",
+          "stat": "DEX",
+          "value": 2
+        }
+      ]
+    },
+    "tags": [
+      "dex",
+      "common"
+    ],
+    "description": "Thuận phong mà đi, thân ảnh nhẹ nhàng."
+  },
+  "phi_anh": {
+    "name": "Set Phi Ảnh",
+    "pieces": [
+      "phi_anh_y",
+      "phi_anh_ha",
+      "phi_anh_hai"
+    ],
+    "bonuses": {
+      "3": [
+        {
+          "type": "stat_pct",
+          "stat": "DEX",
+          "value": 4
+        }
+      ]
+    },
+    "tags": [
+      "dex",
+      "uncommon"
+    ],
+    "description": "Phi ảnh qua vách, hành tẩu như gió."
+  },
+  "anh_van": {
+    "name": "Set Ảnh Vân",
+    "pieces": [
+      "anh_van_y",
+      "anh_van_ha",
+      "anh_van_hai"
+    ],
+    "bonuses": {
+      "3": [
+        {
+          "type": "stat_pct",
+          "stat": "DEX",
+          "value": 6
+        }
+      ]
+    },
+    "tags": [
+      "dex",
+      "rare"
+    ],
+    "description": "Ẩn hiện mây mù, thân pháp linh hoạt."
+  },
+  "van_hanh": {
+    "name": "Set Vân Hành",
+    "pieces": [
+      "van_hanh_anh_y",
+      "van_hanh_anh_ha",
+      "van_hanh_anh_hai"
+    ],
+    "bonuses": {
+      "3": [
+        {
+          "type": "stat_pct",
+          "stat": "DEX",
+          "value": 8
+        }
+      ]
+    },
+    "tags": [
+      "dex",
+      "epic"
+    ],
+    "description": "Vân hành thiên hạ, bộ pháp như mây."
+  },
+  "thai_hu": {
+    "name": "Set Thái Hư",
+    "pieces": [
+      "thai_hu_anh_y",
+      "thai_hu_anh_ha",
+      "thai_hu_anh_hai"
+    ],
+    "bonuses": {
+      "3": [
+        {
+          "type": "stat_pct",
+          "stat": "DEX",
+          "value": 10
+        }
+      ]
+    },
+    "tags": [
+      "dex",
+      "legendary"
+    ],
+    "description": "Hành tẩu thái hư, vô tung vô ảnh."
+  }
+}

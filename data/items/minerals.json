@@ -48,6 +48,20 @@
     "rarity": "common",
     "value": 1
   },
+  "hac_thach_tho": {
+    "name": "Hắc thạch thô",
+    "emoji": "🪨",
+    "description": "Khoáng thạch phổ thông đào ở sườn núi, giá trị thấp nhưng dễ thu thập.",
+    "rarity": "common",
+    "value": 1
+  },
+  "thanh_sa_khoang": {
+    "name": "Thanh sa khoáng",
+    "emoji": "🪨",
+    "description": "Đá cát xanh nhạt, đôi khi có lẫn linh khí mỏng, thường được phàm nhân thu mua",
+    "rarity": "common",
+    "value": 1
+  },
   "tho_linh_thach": {
     "name": "Thổ linh thạch",
     "emoji": "🪨",
@@ -76,346 +90,360 @@
     "rarity": "uncommon",
     "value": 1
   },
-  "huyet_viem_tuy_ket": {
-    "name": "Huyết viêm tủy kết",
-    "emoji": "🩸",
-    "description": "Tủy lửa đỏ sẫm, chứa hỏa dược mạnh.",
+  "huyen_thach_phien": {
+    "name": "Huyền thạch phiến",
+    "emoji": "🪨",
+    "description": "Thạch phiến ánh sáng nhạt, có giá trị trang trí nên được thương hội ưa chuộng.",
     "rarity": "uncommon",
     "value": 1
   },
-  "ho_linh_tam_ket": {
-    "name": "Hộ linh tâm kết",
-    "emoji": "🛡️",
-    "description": "Hạt tâm kết bảo hộ linh hồn, giảm sát thương tâm linh.",
-    "rarity": "uncommon",
-    "value": 1
-  },
-  "hu_anh_linh_ket": {
-    "name": "Hư ảnh linh kết",
-    "emoji": "👻",
-    "description": "Linh kết mờ ảo, tăng khả năng ẩn thân.",
-    "rarity": "uncommon",
-    "value": 1
-  },
-  "van_khi_linh_ket": {
-    "name": "Vận khí linh kết",
-    "emoji": "✨",
-    "description": "Linh kết chứa khí vận biến hóa, người sở hữu dễ gặp cát tường",
+  "linh_sa_tinh": {
+    "name": "Linh sa tinh",
+    "emoji": "🪨",
+    "description": "Hạt khoáng lấp lánh như bụi sao, hiếm nhưng không đủ tinh thuần để luyện khí.",
     "rarity": "uncommon",
     "value": 1
   },
   "kien_cot_thach": {
     "name": "Kiến cốt thạch",
     "emoji": "🪨",
-    "description": "Linh thạch hình thành ở nơi linh mạch giao hòa, giúp tăng độ bền công trình",
+    "description": "Tần hoàng Đại đế Tần Thủy Hoàng năm xưa dùng mười vạn địch nhân xương cốt để trấn áp Vạn lý trường thành, tương truyền đản sinh Kiến cốt thạch, có tác dụng gia trì công trình trận pháp ngoài ngàn năm bất diệt. Về sau để giảm bớt sát lục, có thể dùng xương yêu thú, yêu vật thay thế.",
     "rarity": "uncommon",
     "value": 1
   },
   "huyen_tinh_dia_tam": {
     "name": "Huyền tinh địa tâm",
     "emoji": "🟣",
-    "description": "Tinh thể sinh ra từ áp lực nghìn năm dưới lòng đất.",
+    "description": "Lôi Chấn Tử trong Phong thần chiến 2 lần bị kích vỡ Lôi binh, tàn phiến rơi xuống bị địa tâm hỏa hun đúc tạo thành Huyền tinh địa tâm. Khoáng thạch khảm vào pháp bảo gia tăng sát thương, có xác suất kích phát Lôi hệ pháp chỉ Huyền lôi chú.",
     "rarity": "rare",
     "value": 1
   },
   "tran_nguyen_thach": {
     "name": "Trấn nguyên thạch",
     "emoji": "🪨",
-    "description": "Đá linh kết tinh từ mạch đất sâu, cứng rắn vững chắc.",
+    "description": "Tương truyền Địa Tiên chi tổ Trấn Nguyên Tử năm xưa trồng Đệ thất Tiên thiên Linh căn Nhân sâm quả, khai phát 1 mảnh địa vực bán kính vạn trượng đản sinh khoáng thạch tên Trấn Nguyên thạch. Khoáng thạch dày nặng vô cùng, ẩn chứa sinh sôi chi khí, khảm vào pháp bảo tăng cường sinh khí, phòng ngự không ngừng tự phục hồi.",
     "rarity": "rare",
     "value": 1
   },
   "lam_thach_bang_tam": {
     "name": "Lam thạch băng tâm",
     "emoji": "❄️",
-    "description": "Đá xanh mát lạnh, lưu giữ hàn khí.",
+    "description": "Khoáng thạch màu sương lam ẩn hiện hàn khí, chỉ xuất hiện ở núi Lam Nguyên, được nữ tu ưa chuộng làm trang sức.",
     "rarity": "rare",
     "value": 1
   },
   "tinh_hon_thach": {
     "name": "Tinh hồn thạch",
     "emoji": "💫",
-    "description": "Thạch chứa mảnh hồn cổ xưa, tăng sức mạnh pháp bảo.",
+    "description": "Tinh linh chi lâm độc môn khoáng thạch, tương truyền có Tinh linh chúc phúc, khi khảm vào pháp bảo sẽ kích phát Tinh linh chi quang, tăng cường hiệu ứng pháp bảo.",
     "rarity": "rare",
     "value": 1
   },
   "huyen_thiet_tinh_phach": {
     "name": "Huyền thiết tinh phách",
     "emoji": "⚫",
-    "description": "Kim loại đen tuyền cứng hơn cả sắt thép thường, dùng rèn binh khí và giáp trụ.",
+    "description": "Vực ngoại dị khoáng, màu huyền hắc, phi thường trầm trọng, một khắc nặng trên ngàn cân, khi khảm vào pháp bảo có thể tăng cường Kim chi thuộc tính.",
     "rarity": "rare",
     "value": 1
   },
   "ngoc_moc_linh_tuy": {
     "name": "Ngọc mộc linh tủy",
     "emoji": "🟢",
-    "description": "Linh dịch kết trong thân gỗ cổ thụ trăm năm, chứa sinh khí thuần hậu.",
+    "description": "Ngàn năm Ngọc thụ linh mộc nhựa cây kết tinh, màu như hổ phách, khi khảm vào pháp bảo có thể tăng cường Mộc chi thuộc tính.",
     "rarity": "rare",
     "value": 1
   },
   "lam_thuy_minh_chau": {
     "name": "Lam thủy minh châu",
     "emoji": "🔵",
-    "description": "Ngọc châu ngưng tụ từ dòng suối linh mạch dưới lòng đất, tỏa quang mang trong suốt.",
+    "description": "Khoáng thạch kết tinh như ngọc trai, thường xuất hiện tại hải vực có linh mạch ngầm, khi khảm vào pháp bảo có thể tăng cường Thủy chi thuộc tính.",
     "rarity": "rare",
     "value": 1
   },
   "xich_viem_tam_hoa": {
     "name": "Xích viêm tâm hỏa",
     "emoji": "🔴",
-    "description": "Kết tinh từ tâm hỏa cháy ngàn năm dưới lòng đất, nhiệt lực bạo liệt.",
+    "description": " Khoáng thạch kết tinh tại địa vực có ngàn năm địa tâm hỏa, khi khảm vào pháp bảo có thể tăng cường Hỏa chi thuộc tính.",
     "rarity": "rare",
     "value": 1
   },
   "huyen_tho_linh_ket": {
     "name": "Huyền thổ linh kết",
     "emoji": "🟡",
-    "description": "Thổ tinh thể hóa từ linh khí ngàn năm, rắn chắc vô song.",
+    "description": "Khoáng thạch đản sinh trong Cấm địa Tịnh lân thổ, do Huyền hoàng khí kết hợp với Kỳ lân tàn phiến tạo thành, khi khảm vào pháp bảo có thể tăng cường Thổ chi thuộc tính.",
     "rarity": "rare",
     "value": 1
   },
   "hong_ngoc_dia": {
     "name": "Hồng ngọc địa",
     "emoji": "🔴",
-    "description": "Ngọc đỏ của vùng núi lửa cổ.",
+    "description": "Khoáng thạch đản sinh từ xác của Vực ngoại Yêu trùng Hồng độc vĩ trâm, ẩn chứa cường liệt hỏa độc khí, sau khi nghiền nhỏ thành bột phấn phục dụng nửa thang có thể vĩnh viễn gia tăng cường lực, tăng cường độ thân thể.",
     "rarity": "rare",
     "value": 1
   },
   "luc_ngoc_dia": {
     "name": "Lục ngọc địa",
     "emoji": "🟢",
-    "description": "Ngọc xanh lục tràn đầy sinh khí.",
+    "description": "Khoáng thạch sinh trưởng tại giao giới Mỹ nhân ngư đảo, tương truyền khoáng thạch ẩn chứa Ngư nhân cầm ca, có tác dụng tạo ảo cảnh khai phá tâm trí, rèn luyện thần hồn, gia tăng tốc độ phản xạ thi pháp.",
     "rarity": "rare",
     "value": 1
   },
   "hoang_thach_dia": {
     "name": "Hoàng thạch địa",
     "emoji": "🟡",
-    "description": "Đá vàng kiên cố, gia tăng sức phòng ngự.",
+    "description": "Thiên Hoàng lão tổ ở Lưỡng Cư thần khư độc môn khoáng thạch, tựa như mảnh long lân, mang theo lực phòng ngự vạn cân, dưới tinh kim không thể phá phòng.",
     "rarity": "rare",
     "value": 1
   },
   "lam_thach_dia": {
     "name": "Lam thạch địa",
     "emoji": "🔵",
-    "description": "Đá lam mang hơi thở của biển sâu.",
+    "description": "Khoáng thạch tới từ Vũ Xà tinh linh tộc hùng cứ Ngũ hải, tương truyền có ẩn hiện Hải thần chi lực, có thể dẫn phát Yếu quyết Hải thần dương ca, gia tăng thể ngộ cùng tốc độ ngộ đạo.",
     "rarity": "rare",
     "value": 1
   },
   "hac_thach_dia": {
     "name": "Hắc thạch địa",
     "emoji": "⚫",
-    "description": "Đá đen hấp thụ ánh sáng, tăng khả năng chống phép.",
+    "description": "Khoáng thạch màu huyền hắc, nặng nề như huyền thiết, có khả năng hấp thụ chuyển hóa đủ loại linh khí, khi khảm vào pháp bảo có thể kích phát kỹ năng .",
+    "rarity": "rare",
+    "value": 1
+  },
+  "dia_hoang_tinh": {
+    "name": "Địa hoàng tinh",
+    "emoji": "🪨",
+    "description": "Tinh khoáng ngưng tụ từ địa mạch, đẹp nhưng không tương thích pháp lực, nên chỉ dùng giao dịch.",
+    "rarity": "rare",
+    "value": 1
+  },
+  "u_lam_khoang": {
+    "name": "Tụ nguyên thạch",
+    "emoji": "🪨",
+    "description": "Khoáng thạch thần kỳ nguồn gốc không rõ, có thể tụ linh, tụ khí, tụ thiên cơ, thường được sử dụng làm Trấn Tông thạch trong Tông môn.",
     "rarity": "rare",
     "value": 1
   },
   "tu_nguyen_thach": {
     "name": "Tụ nguyên thạch",
     "emoji": "🪨",
-    "description": "Kết tinh linh lực của địa mạch sâu, có thể ổn định linh khí toàn khu vực",
+    "description": "Khoáng thạch thần kỳ nguồn gốc không rõ, có thể tụ linh, tụ khí, tụ thiên cơ, thường được sử dụng làm Trấn Tông thạch trong Tông môn.",
     "rarity": "rare",
     "value": 1
   },
   "dia_linh_ngoc_tuy": {
     "name": "Địa linh ngọc tủy",
     "emoji": "💎",
-    "description": "Khoáng tinh được ngưng tụ từ địa mạch sâu, ẩn chứa linh khí tuần hoàn",
+    "description": "Đại địa chi linh dựng dục lên khoáng thạch, ẩn hiện Địa chi linh khí, khi khảm vào pháp bảo có thể khai phát hiệu quả khôn lường.",
     "rarity": "rare",
     "value": 1
   },
   "ngan_tinh_thien_khoi": {
     "name": "Ngân tinh thiên khôi",
     "emoji": "✨",
-    "description": "Kim loại sáng bạc, nhẹ nhưng cực cứng.",
+    "description": "Hắc Vân thần sát lúc ngộ được Bá kiếm lưu tinh chém rơi một mảng sao trời, rơi xuống tạo thành một mảnh ngân tinh khoáng thạch. Khảm vào pháp bảo khai phát bá khí vô biên, bổ sung thêm tinh thần chi lực cho chiêu thức.",
     "rarity": "epic",
     "value": 1
   },
   "thien_cuong_ngoc_thach": {
     "name": "Thiên cương ngọc thạch",
     "emoji": "💎",
-    "description": "Khoáng thạch hấp thụ lôi cương chi khí, tạo giáp cứng như kim.",
+    "description": "Thiên đình Tam thập lục Thiên Cương Tinh Ngọc kỳ lân Lư Tuấn Nghĩa lúc xóa phàm thai lên Phong thần đài đản sinh một mảnh tinh cương địa vực, khoáng thạch lấp lánh như toản thạch, độ cứng vô ngần, khảm vào pháp bảo tăng mạnh phòng ngự, tự mang Tiểu thiên tinh trận mang ánh sao hộ thân.",
     "rarity": "epic",
     "value": 1
   },
   "huyet_thach_thien_tam": {
     "name": "Huyết thạch thiên tâm",
     "emoji": "🩸",
-    "description": "Đá đỏ thẫm, hút máu kẻ địch để hồi sức.",
+    "description": "Vạn thế ma đầu Đế Thích Ma Thiên bị Hoài Không Đại đế trảm sát, huyết châu văng xuống Ma hàn tuyết vực kết tinh tạo thành khoáng thạch, màu châu đỏ lấp lánh, ẩn chướng Phượng hoàng huyết lực, rất được nữ tu ưa chuộng làm trang sức.",
     "rarity": "epic",
     "value": 1
   },
   "huyet_chau_linh": {
     "name": "Huyết châu linh",
     "emoji": "💎",
-    "description": "Châu đỏ phát ra khí tức áp đảo.",
+    "description": "Khoáng thạch mọc bên bờ Vô tận Huyết hải của Minh hà lão tổ, ẩn chứa sinh sôi tà khí mãnh liệt, khi khảm vào pháp bảo xác suất lớn biến dị tạo thành phệ nhân ma khí, uy lực tăng cường nhưng ma khí ám chủ.",
     "rarity": "epic",
     "value": 1
   },
   "hong_ngoc_thanh": {
     "name": "Hồng ngọc thánh",
     "emoji": "🔴",
-    "description": "Ngọc đỏ tinh khiết, cháy rực trong tay người mạnh.",
+    "description": "Bán thánh Hồng vân lão tổ năm xưa bị Phật môn nhị thánh trấn áp suy vong, tại chỗ dâng lên Hồng vân chi khí, bao trùm mười tầng địa vực, tạo nên Hồng ngọc thánh khu. Khoáng thạch tại đây gọi Hồng thánh ngọc ẩn chứa phẫn nộ chi ý của Bán thánh nhân, tu sĩ mang theo sẽ tạm thời gia tăng nộ khí, tăng cường sát thương.",
     "rarity": "epic",
     "value": 1
   },
   "luc_ngoc_thanh": {
     "name": "Lục ngọc thánh",
     "emoji": "🟢",
-    "description": "Ngọc xanh sáng rực, hồi phục nhanh hơn.",
+    "description": "Năm xưa Thánh nhân Hậu Thổ nương nương Lập luân hồi chứng Thánh đạo tạo thành địa vực phong phú khoáng thạch. Mảnh khoáng thạch lớn nhất được lập làm Tam sinh thạch, có thể trong 1 thời thần chiếu ra tam thế luân hồi. Mang theo ẩn chứa pháp tắc luân hồi, gia tăng tốc độ tu luyện thi pháp.",
     "rarity": "epic",
     "value": 1
   },
   "hoang_thach_thanh": {
     "name": "Hoàng thạch thánh",
     "emoji": "🟡",
-    "description": "Đá vàng thiêng, bảo vệ chống sát thương chí mạng.",
+    "description": "Tương truyền do năm xưa Thánh Hoàng Độc cô tăng điểm hóa phúc địa, mọc lên ngàn vạn thủy tinh hoàng khoáng thạch, mang theo có pháp thể Bất động như sơn, miễn nhiễm các loại tà tu ma pháp.",
     "rarity": "epic",
     "value": 1
   },
   "lam_thach_thanh": {
     "name": "Lam thạch thánh",
     "emoji": "🔵",
-    "description": "Đá lam trong suốt, tăng khả năng điều khiển pháp lực.",
+    "description": "Bất diệt Lam môn khai phá độc môn khoáng thạch, có tác dụng ngưng thần tĩnh khí, có cơ hội lĩnh ngộ Thánh đạo pháp môn Lam dương bất tận hải, giúp tu sĩ gia tăng gấp mười lần giới hạn pháp lực.",
     "rarity": "epic",
     "value": 1
   },
   "hac_thach_thanh": {
     "name": "Hắc thạch thánh",
     "emoji": "⚫",
-    "description": "Đá đen hấp hồn, giảm sát thương phép nhận vào.",
+    "description": "Đệ thập lục ma thần Hắc Thiên Ma thần trong số 3000 Khai thiên ma thần lạc bại chân thân tạo thành, tương truyền có thể tỏa ra tinh quang trong vô tận hắc dạ, khi mang theo có thể chuyển vận khởi tử hồi sinh, càn khôn điên đảo.",
     "rarity": "epic",
     "value": 1
   },
   "tinh_van_thach": {
     "name": "Tinh vân thạch",
     "emoji": "☁️",
-    "description": "Thạch chứa sương mây, mang lại vận may.",
+    "description": "Vực ngoại Tinh thiết xuyên qua Tam thập tam thiên linh vân trong 49 ngày tạo thành, ẩn chứa nồng đậm Thiên đạo ý chí, mang theo có thể gia tăng cảm ngộ đại đạo vận mệnh trường hà.",
+    "rarity": "epic",
+    "value": 1
+  },
+  "thien_tan_thach": {
+    "name": "Thiên tán thạch",
+    "emoji": "🔮",
+    "description": "Khoáng thạch hiếm gặp trong thiên khí, giá cao nhưng không ổn định để chế tác pháp bảo.",
+    "rarity": "epic",
+    "value": 1
+  },
+  "tinh_ha_khoang": {
+    "name": "Tinh hà khoáng",
+    "emoji": "🔮",
+    "description": "Mang ánh sáng như dòng tinh hà, được tu sĩ giàu có thu mua làm vật sưu tầm.",
     "rarity": "epic",
     "value": 1
   },
   "thien_van_minh_thach": {
     "name": "Thiên vận minh thạch",
     "emoji": "🔮",
-    "description": "Tinh thạch hiếm sinh ra khi thiên kiếp giáng xuống linh mạch, có thể hấp thu thiên lôi và linh lực trời đất",
+    "description": "Tương truyền là thần thạch có khí linh, chỉ đản sinh khi có khí vận chi tử giáng thế, đồng thời tự hóa thân thành bản mệnh pháp bảo.",
     "rarity": "epic",
     "value": 1
   },
   "thien_tinh_than_khi": {
     "name": "Thiên tinh thần khí",
     "emoji": "🌟",
-    "description": "Tinh thể hiếm từ vực ngoài, bền hơn kim cương.",
+    "description": "Khoáng thạch vô cùng bền bỉ, do Thập Nhị Tổ Vu dùng bản mệnh luyện thành, là nguyên liệu chế tạo Trục Nhật tiễn, Trục Nhật cung của Hậu Nghệ năm xưa.",
     "rarity": "legendary",
     "value": 1
   },
   "bich_quang_tinh_thach": {
     "name": "Bích quang tinh thạch",
     "emoji": "💎",
-    "description": "Khoáng thạch kết tinh trong thiên vân, phát ra ánh lam như ánh sao.",
+    "description": "Dị vực Bích lục phong câu độc môn khoáng thạch, tỏa ra u lam quầng sáng, hàn quang bức người, tương truyền năm xưa Đỉnh Thiên Đại đế dùng để rèn luyện 1 bộ Đỉnh Thiên Thần giáp chiến Tam Túc Kim Ô, tuy bại nhưng Thần giáp bất diệt, về sau trở thành Ô Thước Sào.",
     "rarity": "legendary",
     "value": 1
   },
   "than_ngoc_tinh_tam": {
     "name": "Thần ngọc tịnh tâm",
     "emoji": "💎",
-    "description": "Ngọc trắng rực sáng, tịnh hóa tà khí.",
+    "description": "Là nguyên liệu Tiểu Thiện Quan Âm Bồ Tát dung luyện nên Ngọc tịnh bình, tự mang thánh khiết linh khí, vạn tà tránh lui, có tác dụng hồi hồn dưỡng nhan.",
     "rarity": "legendary",
     "value": 1
   },
   "hon_thach_nguyen": {
     "name": "Hỗn thạch nguyên",
     "emoji": "🌌",
-    "description": "Thạch hợp nhất ngũ hành, cực khó tìm.",
+    "description": "Thần thạch do Thiên đạo mỗi lần mở Vô lượng lượng kiếp tạo thành để tìm kiếm Cứu thế chủ, số lượng cửu thập cửu, ẩn chứa vô thượng tạo hóa, khảm vào pháp bảo tự động tạo thành Thiên đạo khí linh.",
     "rarity": "legendary",
     "value": 1
   },
   "ngoc_thanh_hon": {
     "name": "Ngọc thánh hồn",
     "emoji": "💎",
-    "description": "Ngọc chứa linh hồn thượng cổ, tăng sức mạnh vượt bậc.",
+    "description": "Tương truyền Hạo thiên Ngọc Đế trải ngàn vạn kiếp luân hồi ngộ đạo luyện hóa tam thiên thế giới tạo thành, ẩn chứa ngàn vạn luân hồi kiếp cảm ngộ, khảm vào pháp bảo diệu dụng vô tận.",
     "rarity": "legendary",
     "value": 1
   },
   "than_kim_thanh_thiet": {
     "name": "Thần kim thánh thiết",
     "emoji": "🟠",
-    "description": "Kim loại huyền bí từ thiên ngoại, cứng không gì phá nổi, tỏa thần quang.",
+    "description": "Vực ngoại tinh không dị bảo, tập trung nhiều nhất tại Vạn giới chiến trường, khảm vào pháp bảo có thể cường hóa mạnh mẽ Kim pháp chỉ, pháp kỹ.",
     "rarity": "legendary",
     "value": 1
   },
   "tien_moc_thanh_tuy": {
     "name": "Tiên mộc thánh tủy",
     "emoji": "🟢",
-    "description": "Linh dịch vạn năm từ Thần thụ, uống một giọt có thể trường sinh.",
+    "description": "Tương truyền là một nhánh Thế giới thụ xuyên phá Tam giới tạo thành, khảm vào pháp bảo có thể cường hóa mạnh mẽ Mộc pháp chỉ, pháp kỹ.",
     "rarity": "legendary",
     "value": 1
   },
   "than_thuy_tinh_ngoc": {
     "name": "Thần thủy tinh ngọc",
     "emoji": "💎",
-    "description": "Ngọc linh ngưng từ chân thủy của vạn hải, huyền diệu khó dò.",
+    "description": "Tương truyền do Thượng thiện nhược thủy kết tinh tạo thành tại Cực địa cấm khu, khảm vào pháp bảo có thể cường hóa mạnh mẽ Thủy pháp chỉ, pháp kỹ.",
     "rarity": "legendary",
     "value": 1
   },
   "thanh_viem_chan_hoa": {
     "name": "Thánh viêm chân hỏa",
     "emoji": "🔥",
-    "description": "Hỏa diễm do thiên đạo ban, có thể thiêu đốt vạn vật, tinh luyện chí bảo.",
+    "description": "Là cội nguồn của Bách địa bách dị hỏa, dị hỏa thiêu đi linh tính đều tụ hợp về, ẩn chứa phong phú Hỏa chi pháp tắc, khảm vào pháp bảo có thể cường hóa mạnh mẽ Hỏa pháp chỉ, pháp kỹ.",
     "rarity": "legendary",
     "value": 1
   },
   "than_tho_chi_tinh": {
     "name": "Thần thổ chí tinh",
     "emoji": "🟡",
-    "description": "Tinh hoa của đại địa ngưng tụ thành, chấn động thiên địa khi xuất thế.",
+    "description": "Do Ngũ phương Thổ địa chi linh tọa hóa tạo thành, ẩn chứa phong phú Địa chi pháp tắc, khảm vào pháp bảo có thể cường hóa mạnh mẽ Địa pháp chỉ, pháp kỹ.",
     "rarity": "legendary",
     "value": 1
   },
   "hong_ngoc_than": {
     "name": "Hồng ngọc thần",
     "emoji": "🔴",
-    "description": "Ngọc đỏ thần thánh, cộng hưởng sức mạnh nguyên tố Hỏa.",
+    "description": "Nữ Oa năm xưa vá trời dùng 1 trong năm loại nguyên liệu để luyện chế Ngũ sắc thạch, do Phượng Hoàng chi huyết kết hợp với hạt Ngô đồng tạo thành, thường chỉ có ở Cấm địa Phượng Hoàng Sào, ẩn chứa phong phú Liệt hỏa linh khí, mang theo có thể giữ ấm khu hàn, có tác dụng bị động luyện thể.",
     "rarity": "legendary",
     "value": 1
   },
   "luc_ngoc_than": {
     "name": "Lục ngọc thần",
     "emoji": "🟢",
-    "description": "Ngọc xanh lục thần lực, tái tạo sinh mệnh.",
+    "description": "Nữ Oa năm xưa vá trời dùng 1 trong năm loại nguyên liệu để luyện chế Ngũ sắc thạch, tương truyền do vảy Linh thú Thanh Long mỗi lần thoát thai hoán cốt rơi ra, bản thân ẩn chứa Thanh Long phá không chi pháp, mang theo có thể gia tăng tốc độ cùng cảm ngộ không gian pháp tắc.",
     "rarity": "legendary",
     "value": 1
   },
   "hoang_thach_than": {
     "name": "Hoàng thạch thần",
     "emoji": "🟡",
-    "description": "Đá vàng thần cấp, bảo hộ như giáp trời.",
+    "description": "Nữ Oa năm xưa vá trời dùng 1 trong năm loại nguyên liệu để luyện chế Ngũ sắc thạch, tương truyền được Cửu chuyển lão thử yêu dùng Tam muội thần phong dung luyện 49 năm tại Cấm địa Hoàng phong cốc dựng nên Thần phong trận, dưới Thánh nhân nhập trận thần hồn tiêu tán. Mang theo bên thân có thể tạo tiểu Phong trận gia tăng phòng ngự, bị động miễn trừ sát thương.",
     "rarity": "legendary",
     "value": 1
   },
   "lam_thach_than": {
     "name": "Lam thạch thần",
     "emoji": "🔵",
-    "description": "Đá lam thần khí, tăng pháp lực đến cực hạn.",
+    "description": "Nữ Oa năm xưa vá trời dùng 1 trong năm loại nguyên liệu để luyện chế Ngũ sắc thạch, tương truyền Lam Nguyệt tông Thánh chủ khi xưa vận dụng để rèn Vô hình bán nguyệt cung, vũ khí tự mang linh trí, cung phát ngoài vạn dặm tiêu diệt địch nhân, lệ vô hư phát. Nếu mang theo bên thân có tác dụng uẩn dưỡng linh khí, pháp lực gia thân tuần hoàn bất diệt.",
     "rarity": "legendary",
     "value": 1
   },
   "hac_thach_than": {
     "name": "Hắc thạch thần",
     "emoji": "⚫",
-    "description": "Đá đen cổ đại, nuốt chửng mọi phép thuật yếu.",
+    "description": "Nữ Oa năm xưa vá trời dùng 1 trong năm loại nguyên liệu để luyện chế Ngũ sắc thạch, tương truyền bản thân có thể dung nạp, chứa đựng khí vận, điềm lành.",
     "rarity": "legendary",
     "value": 1
   },
   "than_ngoc_tam": {
     "name": "Thần ngọc tâm",
     "emoji": "💎",
-    "description": "Ngọc tâm thần cấp, khai mở tiềm năng linh hồn.",
+    "description": "Hậu thiên pháp bảo Thánh ngọc diệu tâm phá toái mảnh vỡ, ẩn chứa vận mệnh phép môn Cửu diệu chuyển sinh của Ngọc Diệu đạo nhân, tương truyền có thể sinh tạo hóa đoạt thiên cơ.",
     "rarity": "legendary",
     "value": 1
   },
   "than_huyet_hon_khoang": {
     "name": "Thần huyết hồn khoáng",
     "emoji": "🩸",
-    "description": "Khoáng thạch huyền bí tương truyền được hình thành từ máu của cổ thần hoá thạch",
+    "description": "Vương tộc Bá đại khả hãn hùng cứ Bắc phương độc môn khoáng thạch, tương truyền ẩn chứa 1 tia Tổ vu huyết mạch, khi khảm vào pháp bảo sẽ đản sinh hiệu quả dị thường ngẫu nhiên, đặc biệt tăng cường sát lục chi khí.",
     "rarity": "legendary",
     "value": 1
   }
