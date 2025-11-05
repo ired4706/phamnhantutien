@@ -164,7 +164,17 @@ module.exports = {
       const mainStats = [];
       const resistanceStats = [];
 
+      // Xử lý main stats lưu theo bonuses.__main_stats
+      if (item.bonuses.__main_stats && typeof item.bonuses.__main_stats === 'object') {
+        Object.entries(item.bonuses.__main_stats).forEach(([k, v]) => {
+          // Hiển thị dạng: ⭐ Chỉ Số Chính: STR +<value>
+          mainStats.push(`Chỉ Số Chính: ${k} **+${v}**`);
+        });
+      }
+
+      // Các stat còn lại (bỏ qua key nội bộ bắt đầu bằng __)
       Object.entries(item.bonuses).forEach(([stat, value]) => {
+        if (stat.startsWith('__')) return; // skip internal keys
         const displayName = this.getStatDisplayName(stat);
         const formattedValue = this.formatStatValue(stat, value);
 
@@ -204,6 +214,48 @@ module.exports = {
       embed.addFields({
         name: '📊 **Chỉ Số**',
         value: 'Không có chỉ số đặc biệt',
+        inline: false
+      });
+    }
+
+    // Hiển thị passive nếu có (đối với weapon)
+    if (Array.isArray(item.passives) && item.passives.length > 0) {
+      const toNameDesc = (p) => {
+        switch (p.id) {
+          case 'passive_thien_kim_thuong_phong':
+            return { name: 'Thường phong', desc: `+${Math.round((p.value || 0) * 100)}% xuyên giáp (penetration).` };
+          case 'passive_thien_moc_sinh_diep':
+            return { name: 'Sinh diệp', desc: `Mỗi ${p.every || 2} lượt hồi ${Math.round((p.value || 0) * 100)}% HP (hồi theo lượt), hồi lại sau ${p.cooldown || 2} lượt.` };
+          case 'passive_thien_thuy_luu_anh':
+            return { name: 'Lưu ảnh', desc: `+${Math.round((p.value || 0) * 100)}% Né Tránh (EVA).` };
+          case 'passive_thien_hoa_viem_ho':
+            return { name: 'Viêm hộ', desc: `Phản ${Math.round((p.value || 0) * 100)}% sát thương, hồi lại sau ${p.cooldown || 2} lượt.` };
+          case 'passive_thien_tho_tram_uy':
+            return { name: 'Trầm uy', desc: `Giảm ${Math.round((p.value || 0) * 100)}% sát thương cuối cùng nhận vào, hồi lại sau ${p.cooldown || 2} lượt.` };
+          case 'passive_than_kim_hon_doan_sat':
+            return { name: 'Kim Hồn Đoạn Sát', desc: `Sau khi hồi ${p.cooldown || 5} lượt, đòn tấn công kế tiếp là chí mạng đảm bảo, +${Math.round((p.crit_damage_bonus_pct || 0) * 100)}% sát thương chí mạng.` };
+          case 'passive_than_moc_van_diep_sinh_chuyen':
+            return { name: 'Vạn Diệp Sinh Chuyển', desc: `Khi dưới ${Math.round((p.threshold || 0.3) * 100)}% HP, tăng gấp đôi regen trong ${p.duration || 2} lượt (hồi lại sau ${p.cooldown || 4} lượt).` };
+          case 'passive_than_thuy_thuy_anh_song_than':
+            return { name: 'Thủy Ảnh Song Thân', desc: `${Math.round((p.value || 0.1) * 100)}% cơ hội né hoàn toàn (không cộng dồn với skill), hồi lại sau ${p.cooldown || 2} lượt.` };
+          case 'passive_than_hoa_kiem_soat_viem_tam':
+            return { name: 'Viêm Tâm Dẫn Lực', desc: `Mỗi khi chí mạng, +${Math.round((p.value || 0.04) * 100)}% ATK trong ${p.duration || 2} lượt, tối đa ${p.max_stacks || 3} cộng dồn.` };
+          case 'passive_than_tho_cu_luc_ho_son':
+            return { name: 'Cự Lực Hộ Sơn', desc: `Khi dùng kỹ năng phòng thủ, hiệu quả tăng thêm ${Math.round((p.value || 0.1) * 100)}%, hồi lại sau ${p.cooldown || 2} lượt.` };
+        }
+        // Fallback theo type
+        const pretty = (p.id || p.type || 'passive').replace(/_/g, ' ');
+        return { name: pretty, desc: 'Hiệu ứng bị động của vũ khí.' };
+      };
+
+      const blocks = item.passives.map(p => {
+        const nd = toNameDesc(p);
+        return `• ${nd.name}\n  ${nd.desc}`;
+      }).join('\n');
+
+      embed.addFields({
+        name: '✨ **Kĩ Năng Passive**',
+        value: blocks || '—',
         inline: false
       });
     }

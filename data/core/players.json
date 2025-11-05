@@ -81,7 +81,7 @@
         },
         {
           "id": "thien_tinh_than_khi",
-          "quantity": 880
+          "quantity": 875
         },
         {
           "id": "than_kim_thanh_thiet",
@@ -133,11 +133,11 @@
         },
         {
           "id": "thanh_duong_nha",
-          "quantity": 95
+          "quantity": 90
         },
         {
           "id": "thanh_viem_chan_hoa",
-          "quantity": 95
+          "quantity": 90
         },
         {
           "id": "suong_trung_tuy",
@@ -158,15 +158,18 @@
       ],
       "weapons": [
         {
-          "uid": "ihc8e278",
+          "uid": "xm75skkv",
           "id": "diet_the_ma_dao",
-          "createdAt": 1762332911432,
+          "createdAt": 1762333617569,
           "bonuses": {
-            "STR": 152,
-            "INT": 22,
-            "DEX": 18,
-            "VIT": 23,
-            "LUK": 25
+            "__main_stats": {
+              "STR": 123
+            },
+            "VIT": 19,
+            "LUK": 30,
+            "STR": 21,
+            "INT": 21,
+            "DEX": 20
           },
           "passives": [
             {
@@ -188,18 +191,33 @@
             1,
             2,
             3
-          ]
+          ],
+          "_appliedCombatBonuses": {
+            "attack": 280.8,
+            "defense": 110,
+            "hp": 1100,
+            "mp": 405,
+            "speed": 45,
+            "regen": 12.200000000000001,
+            "critical": 16,
+            "evasion": 15,
+            "accuracy": 12,
+            "penetration": 61.800000000000004
+          }
         },
         {
-          "uid": "ihc82msk",
+          "uid": "xm76vzmq",
           "id": "diet_the_ma_dao",
-          "createdAt": 1762332911432,
+          "createdAt": 1762333617570,
           "bonuses": {
-            "STR": 136,
-            "LUK": 20,
-            "INT": 28,
-            "DEX": 22,
-            "VIT": 26
+            "__main_stats": {
+              "STR": 126
+            },
+            "DEX": 24,
+            "INT": 21,
+            "VIT": 27,
+            "STR": 22,
+            "LUK": 23
           },
           "passives": [
             {
@@ -265,27 +283,27 @@
     },
     "forge": {
       "forgeLevel": 1,
-      "totalCrafted": 5,
-      "successCount": 2,
-      "failureCount": 3,
-      "lastForge": 1762332911432
+      "totalCrafted": 10,
+      "successCount": 4,
+      "failureCount": 6,
+      "lastForge": 1762333617571
     },
     "achievements": [],
     "joinDate": 1757583527158,
-    "lastActive": 1762332920708,
+    "lastActive": 1762337588593,
     "stats": {
-      "attack": 9210.2,
-      "defense": 5433.6,
-      "hp": 54336,
-      "maxHp": 54336,
-      "mp": 40694.4,
-      "maxMp": 40694.4,
-      "speed": 5808,
-      "critical": 1632,
-      "regen": 1225,
-      "evasion": 1676.2,
-      "accuracy": 1808.6,
-      "penetration": 2021.8,
+      "attack": 9771.8,
+      "defense": 5653.6,
+      "hp": 56536,
+      "maxHp": 56536,
+      "mp": 41504.4,
+      "maxMp": 41504.4,
+      "speed": 5898,
+      "critical": 1664,
+      "regen": 1249.4,
+      "evasion": 1706.2,
+      "accuracy": 1832.6,
+      "penetration": 2145.4,
       "reputation": 0,
       "karma": 0
     },
@@ -294,7 +312,54 @@
     "tierMultiplier": 1.5,
     "id": "504705413682298891",
     "equipment": {
-      "weapon": null,
+      "weapon": {
+        "uid": "xm75skkv",
+        "id": "diet_the_ma_dao",
+        "createdAt": 1762333617569,
+        "bonuses": {
+          "__main_stats": {
+            "STR": 123
+          },
+          "VIT": 19,
+          "LUK": 30,
+          "STR": 21,
+          "INT": 21,
+          "DEX": 20
+        },
+        "passives": [
+          {
+            "id": "passive_thien_hoa_viem_ho",
+            "type": "reflect_pct",
+            "value": 0.04,
+            "cooldown": 2
+          },
+          {
+            "id": "passive_than_hoa_kiem_soat_viem_tam",
+            "type": "on_crit_atk_buff",
+            "value": 0.04,
+            "duration": 2,
+            "max_stacks": 3
+          }
+        ],
+        "weaponSkillTier": 3,
+        "unlockedSkillTiers": [
+          1,
+          2,
+          3
+        ],
+        "_appliedCombatBonuses": {
+          "attack": 280.8,
+          "defense": 110,
+          "hp": 1100,
+          "mp": 405,
+          "speed": 45,
+          "regen": 12.200000000000001,
+          "critical": 16,
+          "evasion": 15,
+          "accuracy": 12,
+          "penetration": 61.800000000000004
+        }
+      },
       "armor": null,
       "accessory": null,
       "shoes": null,

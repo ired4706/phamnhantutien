@@ -56,9 +56,9 @@ module.exports = {
 
     const cfg = rarityConfig[rarity] || rarityConfig['common'];
 
-    // Roll main STR
+    // Roll main STR (lưu riêng để hiển thị tách biệt)
     const mainSTR = this.randBetween(cfg.mainStrMin, cfg.mainStrMax);
-    stats['STR'] = (stats['STR'] || 0) + mainSTR;
+    stats['__main_stats'] = { STR: mainSTR };
 
     // Roll sub-stats
     const shuffled = [...coreStatPool].sort(() => Math.random() - 0.5);

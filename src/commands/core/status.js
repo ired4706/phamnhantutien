@@ -118,6 +118,7 @@ module.exports = {
 
       // Tính core stats hiện tại (STR/INT/DEX/VIT/LUK) theo cảnh giới + tầng
       const baseStats = await StatsCalculator.calculateBaseStats(player.spiritRoot, player.realm, player.realmLevel);
+      const equipCoreDelta = this.getEquipmentCoreDelta(player);
 
       // Tạo embed thứ hai cho stats chi tiết (bố cục 3xN đối xứng)
       const statsEmbed = new EmbedBuilder()
@@ -128,7 +129,7 @@ module.exports = {
       const zws = '\u200B';
       const fields = [
         // Core hiện tại
-        { name: '🧬 **Core (Hiện Tại)**', value: this.formatCoreCurrent(baseStats), inline: false },
+        { name: '🧬 **Core (Hiện Tại)**', value: this.formatCoreWithEquip(baseStats, equipCoreDelta), inline: false },
         // Row 1
         { name: '❤️ **Sinh Mệnh**', value: `${player.stats.hp.toLocaleString()}/${player.stats.maxHp.toLocaleString()}`, inline: true },
         { name: '🔮 **Linh Lực**', value: `${player.stats.mp.toLocaleString()}/${player.stats.maxMp.toLocaleString()}`, inline: true },
@@ -219,16 +220,16 @@ module.exports = {
   },
 
   // Format core stats hiện tại (từ StatsCalculator)
-  formatCoreCurrent(baseStats) {
+  formatCoreWithEquip(baseStats, equipDelta) {
     if (!baseStats) return 'Không có dữ liệu';
-    // Tính ngược ước lượng core theo tỉ lệ quy đổi là không khả thi chính xác;
-    // hiển thị trực tiếp 5 chỉ số core đã tính trong StatsCalculator (STR/INT/DEX/VIT/LUK)
-    const STR = Math.round(baseStats.STR * 10) / 10;
-    const INT = Math.round(baseStats.INT * 10) / 10;
-    const DEX = Math.round(baseStats.DEX * 10) / 10;
-    const VIT = Math.round(baseStats.VIT * 10) / 10;
-    const LUK = Math.round(baseStats.LUK * 10) / 10;
-    return `**STR**: ${STR}\n**INT**: ${INT}\n**DEX**: ${DEX}\n**VIT**: ${VIT}\n**LUK**: ${LUK}`;
+    const add = equipDelta || { STR:0, INT:0, DEX:0, VIT:0, LUK:0 };
+    const fmt = (val) => Math.round(val * 10) / 10;
+    const STRb = fmt(baseStats.STR), STRa = fmt(baseStats.STR + (add.STR||0));
+    const INTb = fmt(baseStats.INT), INTa = fmt(baseStats.INT + (add.INT||0));
+    const DEXb = fmt(baseStats.DEX), DEXa = fmt(baseStats.DEX + (add.DEX||0));
+    const VITb = fmt(baseStats.VIT), VITa = fmt(baseStats.VIT + (add.VIT||0));
+    const LUKb = fmt(baseStats.LUK), LUKa = fmt(baseStats.LUK + (add.LUK||0));
+    return `**STR**: ${STRa} (base: ${STRb})\n**INT**: ${INTa} (base: ${INTb})\n**DEX**: ${DEXa} (base: ${DEXb})\n**VIT**: ${VITa} (base: ${VITb})\n**LUK**: ${LUKa} (base: ${LUKb})`;
   },
 
   // Format growth rates (STR/INT/DEX/VIT/LUK)
@@ -240,5 +241,21 @@ module.exports = {
   // Format hiển thị linh thạch
   formatSpiritStones(spiritStones) {
     return SharedUtils.formatSpiritStones(spiritStones);
+  }
+  ,
+
+  // Tính tổng core từ trang bị (hiện tại lấy từ vũ khí: __main_stats + sub core)
+  getEquipmentCoreDelta(player) {
+    const delta = { STR: 0, INT: 0, DEX: 0, VIT: 0, LUK: 0 };
+    if (!player || !player.equipment) return delta;
+    const addFromItem = (it) => {
+      if (!it || !it.bonuses) return;
+      const b = it.bonuses;
+      if (b.__main_stats && typeof b.__main_stats.STR === 'number') delta.STR += b.__main_stats.STR;
+      ['STR','INT','DEX','VIT','LUK'].forEach(k => { if (typeof b[k] === 'number') delta[k] += b[k]; });
+    };
+    addFromItem(player.equipment.weapon);
+    // Nếu sau này core đến từ các slot khác, addFromItem cho các slot tương ứng
+    return delta;
   }
 }; 

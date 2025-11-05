@@ -635,11 +635,14 @@ async function handleButtonInteraction(interaction) {
 
 
   // Xử lý equipment buttons
-  if (customId === 'equip_item') {
-    await interaction.reply({
-      content: '🔧 **Tính năng trang bị sẽ được cập nhật trong phiên bản tiếp theo!**\n\nHiện tại bạn có thể:\n• Xem trang bị hiện tại\n• Kiểm tra chỉ số\n• Quản lý inventory',
-      ephemeral: true
-    });
+  if (customId === 'equip_item' || customId.startsWith('equip_weapon_select:')) {
+    try {
+      const equipmentCommand = require('./src/commands/crafting/equipment.js');
+      await equipmentCommand.handleButton(interaction);
+    } catch (e) {
+      console.error('equipment button route error:', e);
+      await interaction.reply({ content: '❌ Lỗi xử lý trang bị!', ephemeral: true });
+    }
     return;
   }
 
@@ -660,10 +663,20 @@ async function handleButtonInteraction(interaction) {
   }
 
   if (customId === 'equipment_info') {
-    await interaction.reply({
-      content: 'ℹ️ **Thông tin trang bị:**\n\n• **Vũ khí**: Tăng ATK, CRIT\n• **Áo giáp**: Tăng DEF, HP\n• **Trang sức**: Tăng MP, REGEN\n• **Giày**: Tăng SPD, EVASION\n• **Pháp bảo**: Tăng DEF, MP, REP\n• **Slot đặc biệt**: Tăng tất cả chỉ số',
-      ephemeral: true
-    });
+    const info = [
+      'ℹ️ **Thông tin trang bị**',
+      '',
+      '**Chỉ số chính**',
+      '• **Vũ khí**: tăng STR',
+      '• **Áo giáp, quần, giày (set)**: tăng VIT, DEX',
+      '• **Nhẫn**: tăng INT',
+      '• **Ngọc bội**: tăng LUK',
+      '• **Pháp bảo**: ???',
+      '• **Slot đặc biệt**: ???',
+      '',
+      'Sử dụng: `fequip <uid>` để trang bị và `funequip <uid>` để tháo trang bị'
+    ].join('\n');
+    await interaction.reply({ content: info, ephemeral: true });
     return;
   }
 
