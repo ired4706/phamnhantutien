@@ -42,80 +42,97 @@ module.exports = {
   randomizeWeaponStats(rarity, weaponName, weaponElement) {
     const stats = {};
 
-    // Define stat pools for each rarity
-    const statPools = {
-      'common': ['attack', 'defense', 'hp', 'mana'],
-      'uncommon': ['attack', 'defense', 'hp', 'mana', 'critical', 'regen', 'evasion', 'speed'],
-      'rare': ['attack', 'defense', 'hp', 'mana', 'critical', 'regen', 'evasion', 'speed'],
-      'epic': ['attack', 'defense', 'hp', 'mana', 'critical', 'regen', 'evasion', 'speed'],
-      'legendary': ['attack', 'defense', 'hp', 'mana', 'critical', 'regen', 'evasion', 'speed']
-    };
+    // New stat pool: only core base stats
+    const coreStatPool = ['STR', 'INT', 'DEX', 'VIT', 'LUK'];
 
-    // Define number of stat lines and value ranges
+    // New rarity config: sub-stat lines and min-max values
     const rarityConfig = {
-      'common': { lines: 2, minValue: 1, maxValue: 4 },
-      'uncommon': { lines: 3, minValue: 3, maxValue: 6 },
-      'rare': { lines: 4, minValue: 5, maxValue: 8 },
-      'epic': { lines: 5, minValue: 7, maxValue: 10 },
-      'legendary': { lines: 6, minValue: 9, maxValue: 12 }
+      'common': { lines: 1, minValue: 1, maxValue: 3, mainStrMin: 3, mainStrMax: 5, tier: 1 },
+      'uncommon': { lines: 2, minValue: 3, maxValue: 7, mainStrMin: 15, mainStrMax: 25, tier: 2 },
+      'rare': { lines: 3, minValue: 6, maxValue: 12, mainStrMin: 40, mainStrMax: 60, tier: 3 },
+      'epic': { lines: 4, minValue: 10, maxValue: 20, mainStrMin: 70, mainStrMax: 95, tier: 3 },
+      'legendary': { lines: 5, minValue: 16, maxValue: 30, mainStrMin: 110, mainStrMax: 140, tier: 3 }
     };
 
-    const config = rarityConfig[rarity] || rarityConfig['common'];
-    const availableStats = statPools[rarity] || statPools['common'];
+    const cfg = rarityConfig[rarity] || rarityConfig['common'];
 
-    // Randomly select stats to roll
-    const selectedStats = [];
-    const shuffledStats = [...availableStats].sort(() => Math.random() - 0.5);
+    // Roll main STR
+    const mainSTR = this.randBetween(cfg.mainStrMin, cfg.mainStrMax);
+    stats['STR'] = (stats['STR'] || 0) + mainSTR;
 
-    for (let i = 0; i < Math.min(config.lines, shuffledStats.length); i++) {
-      selectedStats.push(shuffledStats[i]);
+    // Roll sub-stats
+    const shuffled = [...coreStatPool].sort(() => Math.random() - 0.5);
+    const pickCount = Math.min(cfg.lines, shuffled.length);
+    for (let i = 0; i < pickCount; i++) {
+      const key = shuffled[i];
+      const val = this.randBetween(cfg.minValue, cfg.maxValue);
+      stats[key] = (stats[key] || 0) + val;
     }
 
-    // Roll values for selected stats (always positive)
-    selectedStats.forEach(stat => {
-      const value = Math.floor(Math.random() * (config.maxValue - config.minValue + 1)) + config.minValue;
-      stats[stat] = value; // Always positive
-    });
-
-    // Add main ATK bonus for all rarities
-    const mainAtkBonus = this.getMainAtkBonus(rarity);
-    if (mainAtkBonus > 0) {
-      stats['main_attack'] = mainAtkBonus;
+    // Add passives based on rarity and element (cumulative: higher rarity includes lower tier passives)
+    const passives = this.buildWeaponPassives(rarity, weaponElement);
+    if (passives.length > 0) {
+      stats['__passives'] = passives; // store alongside bonuses; consumer can move to instance.passives if needed
     }
 
-    // Add elemental resistance reduction for epic+ weapons (as negative resistance)
-    if (['epic', 'legendary'].includes(rarity)) {
-      const resistanceReduction = this.getResistanceReduction(rarity);
-      if (resistanceReduction > 0) {
-        stats[`${weaponElement}_res`] = -resistanceReduction; // Negative value
-      }
-    }
+    // Add weapon skill tier unlock info
+    // Note: weaponSkillTier = max tier, but weapon has all skills from tier 1 to max tier
+    stats['__weapon_skill_tier'] = cfg.tier;
+    // Also store unlocked skill tiers array (cumulative)
+    stats['__unlocked_skill_tiers'] = this.getUnlockedSkillTiers(rarity);
 
     return stats;
   },
 
-  // Get main ATK bonus based on rarity
-  getMainAtkBonus(rarity) {
-    const bonuses = {
-      'common': 10,
-      'uncommon': 25,
-      'rare': 50,
-      'epic': 80,
-      'legendary': 120
-    };
-    return bonuses[rarity] || 0;
+  // Utility random int inclusive
+  randBetween(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
   },
 
-  // Get elemental resistance reduction based on rarity
-  getResistanceReduction(rarity) {
-    if (rarity === 'epic') {
-      // Thiên: 5-10%
-      return Math.floor(Math.random() * 6) + 5; // 5-10%
-    } else if (rarity === 'legendary') {
-      // Thần: 15-20%
-      return Math.floor(Math.random() * 6) + 15; // 15-20%
+  // Get unlocked skill tiers array (cumulative: higher rarity includes lower tiers)
+  getUnlockedSkillTiers(rarity) {
+    const tierMap = {
+      'common': [1],           // Phàm: tier 1
+      'uncommon': [1, 2],      // Huyền: tier 1 + 2
+      'rare': [1, 2, 3],       // Địa: tier 1 + 2 + 3
+      'epic': [1, 2, 3],       // Thiên: tier 1 + 2 + 3 (same as Địa for skills)
+      'legendary': [1, 2, 3]   // Thần: tier 1 + 2 + 3 (same as Địa for skills)
+    };
+    return tierMap[rarity] || [1];
+  },
+
+  // Build passives for Epic (Thiên) and Legendary (Thần)
+  // Note: Epic includes Thiên passive, Legendary includes both Thiên + Thần passives
+  buildWeaponPassives(rarity, element) {
+    const passives = [];
+
+    // Epic (Thiên): includes Thiên passive
+    if (rarity === 'epic' || rarity === 'legendary') {
+      const thienMap = {
+        kim: { id: 'passive_thien_kim_thuong_phong', type: 'penetration_bonus_pct', value: 0.03 },
+        moc: { id: 'passive_thien_moc_sinh_diep', type: 'heal_every_n_turns_pct', value: 0.03, every: 2, cooldown: 2 },
+        thuy: { id: 'passive_thien_thuy_luu_anh', type: 'evasion_bonus_pct', value: 0.05 },
+        hoa: { id: 'passive_thien_hoa_viem_ho', type: 'reflect_pct', value: 0.04, cooldown: 2 },
+        tho: { id: 'passive_thien_tho_tram_uy', type: 'final_damage_reduction_pct', value: 0.05, cooldown: 2 }
+      };
+      const thienPassive = thienMap[element];
+      if (thienPassive) passives.push(thienPassive);
     }
-    return 0;
+
+    // Legendary (Thần): includes both Thiên + Thần passives
+    if (rarity === 'legendary') {
+      const thanMap = {
+        kim: { id: 'passive_than_kim_hon_doan_sat', type: 'guaranteed_crit_next', crit_damage_bonus_pct: 0.5, cooldown: 5 },
+        moc: { id: 'passive_than_moc_van_diep_sinh_chuyen', type: 'low_hp_regen_double', threshold: 0.3, duration: 2, cooldown: 4 },
+        thuy: { id: 'passive_than_thuy_thuy_anh_song_than', type: 'perfect_dodge_chance', value: 0.10, cooldown: 2 },
+        hoa: { id: 'passive_than_hoa_kiem_soat_viem_tam', type: 'on_crit_atk_buff', value: 0.04, duration: 2, max_stacks: 3 },
+        tho: { id: 'passive_than_tho_cu_luc_ho_son', type: 'defend_skill_bonus_pct', value: 0.10, cooldown: 2 }
+      };
+      const thanPassive = thanMap[element];
+      if (thanPassive) passives.push(thanPassive);
+    }
+
+    return passives;
   },
 
   // Lấy emoji theo ngũ hành
@@ -684,6 +701,19 @@ module.exports = {
         createdAt: Date.now(),
         bonuses: this.randomizeWeaponStats(weaponInfo.rarity, weaponInfo.name, weaponInfo.element)
       };
+      // Extract passives and skill tier info from bonuses if present and attach to instance
+      if (weaponInstance.bonuses && weaponInstance.bonuses.__passives) {
+        weaponInstance.passives = weaponInstance.bonuses.__passives;
+        delete weaponInstance.bonuses.__passives;
+      }
+      if (weaponInstance.bonuses && typeof weaponInstance.bonuses.__weapon_skill_tier !== 'undefined') {
+        weaponInstance.weaponSkillTier = weaponInstance.bonuses.__weapon_skill_tier; // Max tier
+        delete weaponInstance.bonuses.__weapon_skill_tier;
+      }
+      if (weaponInstance.bonuses && Array.isArray(weaponInstance.bonuses.__unlocked_skill_tiers)) {
+        weaponInstance.unlockedSkillTiers = weaponInstance.bonuses.__unlocked_skill_tiers; // All unlocked tiers [1, 2, 3]
+        delete weaponInstance.bonuses.__unlocked_skill_tiers;
+      }
       player.inventory.weapons = player.inventory.weapons || [];
       player.inventory.weapons.push(weaponInstance);
 
@@ -859,6 +889,19 @@ module.exports = {
         createdAt: Date.now(),
         bonuses: this.randomizeWeaponStats(weaponInfo.rarity, weaponInfo.name, weaponInfo.element)
       };
+      // Extract passives and skill tier info from bonuses if present and attach to instance
+      if (weaponInstance.bonuses && weaponInstance.bonuses.__passives) {
+        weaponInstance.passives = weaponInstance.bonuses.__passives;
+        delete weaponInstance.bonuses.__passives;
+      }
+      if (weaponInstance.bonuses && typeof weaponInstance.bonuses.__weapon_skill_tier !== 'undefined') {
+        weaponInstance.weaponSkillTier = weaponInstance.bonuses.__weapon_skill_tier; // Max tier
+        delete weaponInstance.bonuses.__weapon_skill_tier;
+      }
+      if (weaponInstance.bonuses && Array.isArray(weaponInstance.bonuses.__unlocked_skill_tiers)) {
+        weaponInstance.unlockedSkillTiers = weaponInstance.bonuses.__unlocked_skill_tiers; // All unlocked tiers [1, 2, 3]
+        delete weaponInstance.bonuses.__unlocked_skill_tiers;
+      }
       player.inventory.weapons = player.inventory.weapons || [];
       player.inventory.weapons.push(weaponInstance);
 
@@ -978,6 +1021,19 @@ module.exports = {
           createdAt: Date.now(),
           bonuses: this.randomizeWeaponStats(weapon.rarity, weapon.name, weapon.element)
         };
+        // Extract passives and skill tier info from bonuses if present and attach to instance
+        if (weaponInstance.bonuses && weaponInstance.bonuses.__passives) {
+          weaponInstance.passives = weaponInstance.bonuses.__passives;
+          delete weaponInstance.bonuses.__passives;
+        }
+        if (weaponInstance.bonuses && typeof weaponInstance.bonuses.__weapon_skill_tier !== 'undefined') {
+          weaponInstance.weaponSkillTier = weaponInstance.bonuses.__weapon_skill_tier; // Max tier
+          delete weaponInstance.bonuses.__weapon_skill_tier;
+        }
+        if (weaponInstance.bonuses && Array.isArray(weaponInstance.bonuses.__unlocked_skill_tiers)) {
+          weaponInstance.unlockedSkillTiers = weaponInstance.bonuses.__unlocked_skill_tiers; // All unlocked tiers [1, 2, 3]
+          delete weaponInstance.bonuses.__unlocked_skill_tiers;
+        }
         player.inventory.weapons = player.inventory.weapons || [];
         player.inventory.weapons.push(weaponInstance);
         successCount++;

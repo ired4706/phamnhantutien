@@ -2,199 +2,199 @@
   "thanh_da_cot": {
     "name": "Thanh dã cốt",
     "emoji": "🦴",
-    "description": "Xương thú vùng hoang dã, thấm chút linh khí sơ khai, chất cốt thanh nhẹ",
+    "description": "Xương cốt của yêu thú hạ cấp, ẩn chứa linh khí thô sơ. Khi kích phát có thể hóa thành Thú Linh Hộ Thể Giáp giúp giảm sát thương mọi hệ, thích hợp dùng làm vật hộ thân.",
     "rarity": "common"
   },
   "bach_ly_gan": {
     "name": "Bách lý gân",
     "emoji": "🧵",
-    "description": "Gân thú dẻo dai, thường dùng làm gân nối cho pháp khí cấp thấp",
+    "description": "GGân chân của yêu thú hạ cấp, tương truyền khi dẫn động có thể bước một bước trăm dặm, ngày đi vạn dặm. Thường dùng để chế tạo vật hộ thân gia tăng thân pháp.",
     "rarity": "common"
   },
   "so_da_bi": {
     "name": "Sơ dã bì",
     "emoji": "🐾",
-    "description": "Lớp da thô ráp, từng trải gió cát, dễ gia công",
+    "description": "Bì mao của yêu thú hạ cấp, mềm dẻo bền chắc, tự mang linh lực kháng tính. Phòng ngự tương đương kim cang giáp nhưng nhẹ hơn rất nhiều.",
     "rarity": "common"
   },
   "thanh_da_nha": {
     "name": "Thanh dã nha",
     "emoji": "🦷",
-    "description": "Nanh thú nhỏ, tuy không sắc nhưng ẩn nét hung tính đặc trưng",
+    "description": "Răng nanh sắc bén của yêu thú hạ cấp, bén nhọn như tinh thiết, có thể dễ dàng xuyên phá lớp giáp kim cương.",
     "rarity": "common"
   },
   "thanh_dich_tuy": {
     "name": "Thanh dịch tủy",
     "emoji": "🧪",
-    "description": "Tủy loãng mang chút linh vị, thường dùng để làm dẫn môi",
+    "description": "Phụ phẩm sinh ra khi luyện đan, dáng tựa đan hoàn nhưng linh khí mỏng manh. Nhiều màu sắc, được tu sĩ ưa chuộng dùng làm vật trang sức.",
     "rarity": "common"
   },
   "manh_cong_phap_so": {
     "name": "Mảnh công pháp (sơ)",
     "emoji": "📜",
-    "description": "",
+    "description": "Mảnh trúc phiến cổ xưa đã tàn phá. Thu thập đủ số lượng có thể ngưng tụ thành một bản công pháp sơ cấp.",
     "rarity": "common"
   },
   "lam_trach_cot": {
     "name": "Lam trạch cốt",
     "emoji": "🦴",
-    "description": "Xương hơi ánh lam, cứng tựa huyền thiết, lưu chuyển khí tức ôn hòa",
+    "description": "Xương cốt yêu thú ngâm ủ trong Ngũ Hải nhiều năm mà thành, cứng rắn dị thường. Tự mang Lam Hải Tụ Vân Tiểu Trận, khi kích phát trong hải vực, lực lượng tăng gấp bội.",
     "rarity": "uncommon"
   },
   "u_phach_gan": {
     "name": "U phách gân",
     "emoji": "🧵",
-    "description": "Gân ẩn hàn phong, khi chạm vào tựa có dòng khí quỷ mị thoát ra",
+    "description": "Gân chân Phách Thiên Ma Hầu, dẻo dai tột cùng. Kích phát sẽ tạo ra “Ma Hầu Bộ Thiên Âm”, làm nhiễu loạn tinh thần đối thủ.",
     "rarity": "uncommon"
   },
   "hac_nhan_bi": {
     "name": "Hắc nhẫn bì",
     "emoji": "🐾",
-    "description": "Da đen tuyền, chống lực va đập tốt, từng bị coi là tài liệu của hộ giáp sư.",
+    "description": "Lớp bì mao trước cổ của yêu thú, dai chắc và có khả năng hấp thu linh lực cùng chấn động từ chiêu thức, sau đó phản chấn ngược lại.",
     "rarity": "uncommon"
   },
   "phong_trao_nha": {
     "name": "Phong trảo nha",
     "emoji": "🦷",
-    "description": "Nanh sắc bén, mang tàn ảnh của yêu phong khi vung chém",
+    "description": "Cặp nanh chính của Liệp Hồn Lang, chứa đựng nồng đậm Phong chi khí. Một kích có thể đoạt mệnh, xuyên qua hầu hết hộ giáp.",
     "rarity": "uncommon"
   },
   "suong_trung_tuy": {
     "name": "Sương trủng tủy",
     "emoji": "🧪",
-    "description": "Tủy tụ hàn sương, làm ổn định linh quang trong đồ vật được luyện",
+    "description": "Hạt sương khoáng ngưng tụ trong cực hàn rừng sâu Dã Bắc, lấp lánh như tinh hoa trời đất, được tu sĩ đặc biệt yêu thích.",
     "rarity": "uncommon"
   },
   "manh_cong_phap_trung": {
     "name": "Mảnh công pháp (trung)",
     "emoji": "📜",
-    "description": "",
+    "description": "Mảnh thạch phiến cổ mang văn tự kỳ dị, lưu lạc từ Đệ Tứ Hải Dương khi linh khí triều đại khởi. Thu thập đủ có thể hợp thành công pháp trung cấp.",
     "rarity": "uncommon"
   },
   "thach_hon_cot": {
     "name": "Thạch hồn cốt",
     "emoji": "🦴",
-    "description": "Xương nặng tựa đá linh, từng rung động theo nhịp thở của địa mạch",
+    "description": "Do thổ khí ngàn năm ngưng kết mà thành cốt thạch, cứng rắn vô song. Có tác dụng trấn hồn an thần, ngăn chặn tà khí xâm nhập.",
     "rarity": "rare"
   },
   "hoang_cang_gan": {
     "name": "Hoàng cang gân",
     "emoji": "🧵",
-    "description": "Gân vàng kim, bền bỉ không thua thần thiết, được thợ luyện khí săn đón",
+    "description": "Gân chân của Song Đầu Phá Hoàng Thú, khi kích phát sinh ra Phá Hoàng Chi Khí, giúp thân pháp biến ảo khó lường như hoán vị liên tục.",
     "rarity": "rare"
   },
   "nham_hoa_lan": {
     "name": "Nham hỏa lân",
     "emoji": "🛡️",
-    "description": "Vảy đỏ như nham hỏa, có thể chịu linh hỏa cường độ cao",
+    "description": "Miếng nghịch lân của Toản Thạch Kim Cang Long, sắc như kim cương vàng. Có thể tự hấp thu linh lực bên ngoài, hóa thành “Vẫn Thạch Lưu Tinh Giáp” tăng mạnh phòng ngự.",
     "rarity": "rare"
   },
   "viem_linh_nha": {
     "name": "Viêm linh nha",
     "emoji": "🦷",
-    "description": "Nanh bốc hỏa khí nhàn nhạt, mỗi đường vạch đều mang lực bạo liệt",
+    "description": "Cặp nanh chính của Viêm Long Phá Thần Thú, mang hỏa độc cực mạnh, chuyên thiêu đốt và ăn mòn pháp bảo. Tương truyền từng thiêu cháy nửa phương thế giới.",
     "rarity": "rare"
   },
   "mach_sat_tuy": {
     "name": "Mạch sát tủy",
     "emoji": "🧪",
-    "description": "Tủy nhiễm khí địa mạch, đặc sệt như chất ngọc chưa thành tinh",
+    "description": "Ngưng kết từ sát địa và linh mạch giao hòa. Tỏa ra khí tức Sát Thần Vô Lượng, có khả năng hấp thu sát lục chi khí trời đất.",
     "rarity": "rare"
   },
   "manh_cong_phap_cao": {
     "name": "Mảnh công pháp (cao)",
     "emoji": "📜",
-    "description": "",
+    "description": "Mảnh lưu ly phiến kỳ bí khắc cổ tự không rõ. Thu gom đầy đủ có thể hợp thành công pháp cao cấp.",
     "rarity": "rare"
   },
   "chien_hon_thiet_cot": {
     "name": "Chiến hồn thiết cốt",
     "emoji": "⚔️",
-    "description": "Tàn dư của chiến tướng cổ, cốt thép chứa uy lực chiến đạo.",
+    "description": "Tài liệu tạo nên Chiến Thần Khôi Lỗi của Quỷ Cốc Môn. Mỗi lần bị công kích sẽ tiến hóa theo cường độ đòn đánh. Sau 49 lần sử dụng sẽ phá toái, nhưng khi khảm vào pháp bảo sẽ tự tái sinh và tăng mạnh lực công kích.",
     "rarity": "rare"
   },
   "phong_anh_tinh_tu": {
     "name": "Phong ảnh tinh tụ",
     "emoji": "🌬️",
-    "description": "Tinh thể do linh phong ngưng tụ, nhẹ mà sắc như gió lướt.",
+    "description": "Tinh thể vô sắc vô hình, ẩn trong Cuồng Bạo Hải Vực. Khảm vào pháp bảo giúp tốc độ thi triển pháp kỹ tăng vượt bậc, mỗi chiêu đều mang “Phong Hành Chi Thế”, càng đánh càng mạnh.",
     "rarity": "rare"
   },
   "hu_linh_tam_thach": {
     "name": "Hư linh tâm thạch",
     "emoji": "🔮",
-    "description": "Đá tâm linh kết tinh trong vực hư vô, chứa linh trí cổ xưa.",
+    "description": "Bảo vật ban thưởng khi tiêu diệt Tam Kiếp Phệ Tâm Ma. Giúp tăng mạnh tốc độ tu luyện và lĩnh ngộ, tiến cảnh ngàn dặm chỉ trong một ngày.",
     "rarity": "rare"
   },
   "huyet_ngoc_linh_thai": {
     "name": "Huyết ngọc linh thai",
     "emoji": "🩸",
-    "description": "Tinh ngọc đỏ ẩn trong huyết mạch linh thú, ấm áp và bền vững.",
+    "description": "Tinh thạch đỏ hồng như trăng câu, chỉ hiện khi Huyết Nguyệt giáng lâm. Khảm vào pháp bảo giúp sinh lực tăng trưởng, thể phách cuồng bạo mười phần.",
     "rarity": "rare"
   },
   "mong_ao_hon_dien": {
     "name": "Mộng ảo hồn diên",
     "emoji": "💤",
-    "description": "Linh hồn trong mộng kết tinh thành hạt diên, ẩn chứa vận khí khó lường.",
+    "description": "Bảo vật độc môn trong Hỗn Diên Thần Lăng. Thu được khi phá giải thập bát tiểu trận đồ, có khả năng tích trữ vận may và hóa giải tam tai.",
     "rarity": "rare"
   },
   "tinh_ha_cot": {
     "name": "Tinh hà cốt",
     "emoji": "🦴",
-    "description": "Xương sáng bạc như suối sao, lưu dẫn linh lực tự nhiên, tự cộng hưởng với thiên khí",
+    "description": "Mảnh xương đuôi của Vực Ngoại Thiên Ma Tinh Không Vĩ Thú. Tương truyền chỉ một lần vẫy đuôi có thể bạo liệt cả một tinh hệ.",
     "rarity": "epic"
   },
   "thiem_loi_gan": {
     "name": "Thiểm lôi gân",
     "emoji": "🧵",
-    "description": "Gân mảnh nhưng ẩn từng tia quang điện, khi kéo căng như tiếng sấm nhỏ",
+    "description": "Gân chân Vô Ảnh Phong Lôi Thú, một bước xuyên ngàn vạn dặm. Có truyền thuyết tổ thú của nó từng chỉ một bước đã vượt ngang một tu chân đại lục.",
     "rarity": "epic"
   },
   "ngan_nguyet_lan": {
     "name": "Ngân nguyệt lân",
     "emoji": "🛡️",
-    "description": "Vảy ánh huyền nguyệt, gặp linh quang sẽ tự phát sáng",
+    "description": "Lân giáp của Nguyệt Nha Thú Thần, có khả năng ẩn thân và miễn nhiễm pháp thương. Dưới ánh trăng, uy lực tăng mạnh gấp bội.",
     "rarity": "epic"
   },
   "han_tinh_nha": {
     "name": "Hàn tinh nha",
     "emoji": "🦷",
-    "description": "Nanh lạnh buốt, hàn khí nặng khiến sương trắng đọng quanh",
+    "description": "Cặp nanh chính của Bắc Cực Phệ Linh Hùng, tự mang cực hàn độc, chuyên phá cương giáp. Xếp thứ sáu trong Thập Đại Thánh Nguyên Khí.",
     "rarity": "epic"
   },
   "tu_minh_tuy": {
     "name": "Tử minh tủy",
     "emoji": "🧪",
-    "description": "Tủy tím sẫm, giống như được ngậm từ ánh sáng nơi tầng trời cao",
+    "description": "Thánh vật mang sắc tím huyền hoàng, do thiên đạo cảm ứng mà sinh. Khi kích phát, dị tượng vạn dặm hiện thế, tỏa hào quang rực rỡ.",
     "rarity": "epic"
   },
   "than_khi_cot": {
     "name": "Thần khí cốt",
     "emoji": "🦴",
-    "description": "Cốt cản quang, ẩn vũ trụ chi uyên, chỉ tồn tại trong yêu thú vượt phàm giới",
+    "description": "Tàn cốt của cường giả Tu Thể cấp Vũ Trụ Đế Quyền. Một quyền có thể phá vạn giới mà chưa tổn hại được nó. Do Vạn Cốt Vương dùng ba nghìn yêu thú mang huyết mạch ma thần luyện thành, tự sinh linh tính và thích ẩn cư tại phàm giới.",
     "rarity": "legendary"
   },
   "hon_nguyen_gan": {
     "name": "Hỗn nguyên gân",
     "emoji": "🧵",
-    "description": "Gân xoắn nhẹ như hút vào hư không, mang lực lượng thuần nguyên thủy",
+    "description": "Sợi gân của Lãnh Nhật Càn Khôn Ma, dẻo dai đến mức có thể xoắn nát một tiểu tinh hà. Dưới Thánh Khí cũng khó lòng tổn hại.",
     "rarity": "legendary"
   },
   "than_viem_lan": {
     "name": "Thần viêm lân",
     "emoji": "🛡️",
-    "description": "Lân giáp mang thần viêm tử kim, không ngọn lửa nào có thể làm tổn hại",
+    "description": "Miếng nghịch lân duy nhất của Vạn Thú Tử Viêm Thần. Ẩn chứa pháp tắc “Thiên Địa Đồng Thọ”, mặc vào miễn nhiễm mọi pháp chỉ dưới Thánh Nhân, có xác suất phản sát thương gấp ngàn lần.",
     "rarity": "legendary"
   },
   "thanh_duong_nha": {
     "name": "Thánh dương nha",
     "emoji": "🦷",
-    "description": "Nanh sáng như nhật nguyệt giao thoa, một vết cắt có thể bổ toái linh vực",
+    "description": "Hai cặp nanh chính của Thái Sơ Bát Bộ Lang, sắc bén vô biên. Tương truyền từng cắn nát vô số pháp bảo và làm tàn pháp thân của Liệt Hỏa Viêm Đế.",
     "rarity": "legendary"
   },
   "gioi_uyen_tuy": {
     "name": "Giới uyên tủy",
     "emoji": "🧪",
-    "description": "Tủy trầm nặng, chứa đạo vận như giếng cổ nối liền giới vực",
+    "description": "Phát sinh từ mười hai đại Giới Vực nơi Vực Ngoại Yêu Ma hoành hành. Màu bạc trong suốt, khí tức thần bí có thể che giấu tu vi, dưới Thánh Nhân không thể dò ra.",
     "rarity": "legendary"
   }
 }

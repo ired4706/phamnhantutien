@@ -3,13 +3,13 @@
     "userId": "504705413682298891",
     "username": "ired0806",
     "spiritRoot": "hoa",
-    "experience": 508106,
+    "experience": 541366,
     "realm": "nguyen_anh",
     "realmLevel": 2,
     "totalTiers": 0,
     "inventory": {
       "spiritStones": {
-        "ha_pham": 7503,
+        "ha_pham": 11,
         "trung_pham": 0,
         "thuong_pham": 0,
         "cuc_pham": 0
@@ -81,7 +81,7 @@
         },
         {
           "id": "thien_tinh_than_khi",
-          "quantity": 885
+          "quantity": 880
         },
         {
           "id": "than_kim_thanh_thiet",
@@ -126,9 +126,104 @@
         {
           "id": "tinh_ha_to",
           "quantity": 6
+        },
+        {
+          "id": "thien_tinh_than_khi",
+          "quantity": 100
+        },
+        {
+          "id": "thanh_duong_nha",
+          "quantity": 95
+        },
+        {
+          "id": "thanh_viem_chan_hoa",
+          "quantity": 95
+        },
+        {
+          "id": "suong_trung_tuy",
+          "quantity": 1
+        },
+        {
+          "id": "u_phach_gan",
+          "quantity": 1
+        },
+        {
+          "id": "hac_nhan_bi",
+          "quantity": 1
+        },
+        {
+          "id": "lam_trach_cot",
+          "quantity": 1
         }
       ],
-      "weapons": [],
+      "weapons": [
+        {
+          "uid": "ihc8e278",
+          "id": "diet_the_ma_dao",
+          "createdAt": 1762332911432,
+          "bonuses": {
+            "STR": 152,
+            "INT": 22,
+            "DEX": 18,
+            "VIT": 23,
+            "LUK": 25
+          },
+          "passives": [
+            {
+              "id": "passive_thien_hoa_viem_ho",
+              "type": "reflect_pct",
+              "value": 0.04,
+              "cooldown": 2
+            },
+            {
+              "id": "passive_than_hoa_kiem_soat_viem_tam",
+              "type": "on_crit_atk_buff",
+              "value": 0.04,
+              "duration": 2,
+              "max_stacks": 3
+            }
+          ],
+          "weaponSkillTier": 3,
+          "unlockedSkillTiers": [
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "uid": "ihc82msk",
+          "id": "diet_the_ma_dao",
+          "createdAt": 1762332911432,
+          "bonuses": {
+            "STR": 136,
+            "LUK": 20,
+            "INT": 28,
+            "DEX": 22,
+            "VIT": 26
+          },
+          "passives": [
+            {
+              "id": "passive_thien_hoa_viem_ho",
+              "type": "reflect_pct",
+              "value": 0.04,
+              "cooldown": 2
+            },
+            {
+              "id": "passive_than_hoa_kiem_soat_viem_tam",
+              "type": "on_crit_atk_buff",
+              "value": 0.04,
+              "duration": 2,
+              "max_stacks": 3
+            }
+          ],
+          "weaponSkillTier": 3,
+          "unlockedSkillTiers": [
+            1,
+            2,
+            3
+          ]
+        }
+      ],
       "armors": []
     },
     "cultivation": {
@@ -137,7 +232,7 @@
       "breakthroughAttempts": 0,
       "lastBreakthrough": 0,
       "lastMeditate": 0,
-      "lastHunt": 1761718738985,
+      "lastHunt": 1762332451254,
       "lastChallenge": 0,
       "lastDomain": 1761718551614,
       "lastDailyQuest": 0,
@@ -145,16 +240,16 @@
       "lastDungeon": 0,
       "lastMine": 0,
       "lastPick": 0,
-      "lastExplore": 0
+      "lastExplore": 1762332920707
     },
     "skills": {
       "hoa_diem_dan": {
-        "learned_at": "2025-09-11T09:38:47.161Z"
-      },
-      "liet_diem_bo_phat": {
         "learned_at": "2025-10-10T07:30:00.000Z"
       },
-      "hoa_anh_dich": {
+      "bao_liet_tam_hoa": {
+        "learned_at": "2025-10-10T07:30:00.000Z"
+      },
+      "liet_diem_ho_than": {
         "learned_at": "2025-10-10T07:30:00.000Z"
       },
       "liet_hoa_diet_the": {
@@ -170,14 +265,14 @@
     },
     "forge": {
       "forgeLevel": 1,
-      "totalCrafted": 0,
-      "successCount": 0,
-      "failureCount": 0,
-      "lastForge": 0
+      "totalCrafted": 5,
+      "successCount": 2,
+      "failureCount": 3,
+      "lastForge": 1762332911432
     },
     "achievements": [],
     "joinDate": 1757583527158,
-    "lastActive": 1761718738985,
+    "lastActive": 1762332920708,
     "stats": {
       "attack": 9210.2,
       "defense": 5433.6,
@@ -197,7 +292,15 @@
     "luyenKhiTiers": 13,
     "stageMultiplier": 64,
     "tierMultiplier": 1.5,
-    "id": "504705413682298891"
+    "id": "504705413682298891",
+    "equipment": {
+      "weapon": null,
+      "armor": null,
+      "accessory": null,
+      "shoes": null,
+      "artifact": null,
+      "special": null
+    }
   },
   "558528163244802089": {
     "userId": "558528163244802089",

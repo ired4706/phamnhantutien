@@ -25,6 +25,15 @@ class CombatSystem {
       ErrorHandler.handle(e, 'CombatSystem.constructor.loadSkills');
       this.skillsData = {};
     }
+    // Load weapon skills data once
+    try {
+      const weaponSkillsPath = path.join(__dirname, '../../data/core/weapon-skills.json');
+      const weaponSkillsData = fs.readFileSync(weaponSkillsPath, 'utf8');
+      this.weaponSkillsData = JSON.parse(weaponSkillsData);
+    } catch (e) {
+      ErrorHandler.handle(e, 'CombatSystem.constructor.loadWeaponSkills');
+      this.weaponSkillsData = {};
+    }
   }
 
   // Realm-based config for crit and penetration baselines
@@ -359,16 +368,55 @@ class CombatSystem {
       player.defended = false;
     });
 
-    // Cập nhật AP cho tất cả người chơi dựa trên speed advantage
+    // Tính lại initiative cho tất cả entities với effective speed (đã tính slow)
+    const allEffectiveSpeeds = [];
+    combat.party.forEach(player => {
+      if (player.currentHp > 0) {
+        allEffectiveSpeeds.push(this.getEffectiveSpeed(player));
+      }
+    });
+    combat.monsters.forEach(monster => {
+      if (monster.currentHp > 0) {
+        allEffectiveSpeeds.push(this.getEffectiveSpeed(monster));
+      }
+    });
+    const minSpeed = allEffectiveSpeeds.length > 0 ? Math.min(...allEffectiveSpeeds) : 1;
+
+    // Cập nhật AP cho tất cả người chơi dựa trên effective speed
     combat.party.forEach((player, index) => {
       if (player.currentHp > 0) {
+        const effectiveSpeed = this.getEffectiveSpeed(player);
+        const speedRatio = effectiveSpeed / minSpeed;
+
+        // Tính lại AP bonus dựa trên effective speed
+        let apBonus = 0;
+        if (speedRatio >= 5) {
+          apBonus = 4;
+        } else if (speedRatio >= 4) {
+          apBonus = 3;
+        } else if (speedRatio >= 3) {
+          apBonus = 2;
+        } else if (speedRatio >= 2) {
+          apBonus = 1;
+        }
+
         const baseAp = this.getApForRealm(player.realm);
-        const apBonus = player.apBonus || 0;
+        player.apBonus = apBonus;
         player.apMax = baseAp + apBonus;
         player.ap = player.apMax;
 
+        // Log nếu bị slow
+        const slowEffect = (player.statusEffects || []).find(e => e.type === 'slow');
+        if (slowEffect && slowEffect.value) {
+          const baseSpeed = parseFloat(player.stats.speed || 0);
+          const reducedSpeed = baseSpeed * (1 - slowEffect.value);
+          combat.battleLog.push(`🐌 ${player.name} bị làm chậm! Speed: ${baseSpeed.toFixed(0)} → ${reducedSpeed.toFixed(0)} (AP bonus: ${apBonus})`);
+        }
+
         Logger.info('Player AP updated for new round', {
           playerName: player.name || player.username,
+          baseSpeed: parseFloat(player.stats.speed || 0),
+          effectiveSpeed,
           baseAp,
           apBonus,
           totalAp: player.apMax
@@ -428,10 +476,21 @@ class CombatSystem {
     return true;
   }
 
+  // Tính effective speed (base speed - slow effects)
+  getEffectiveSpeed(entity) {
+    const baseSpeed = parseFloat(entity.stats?.speed || 0);
+    const slowEffect = (entity.statusEffects || []).find(e => e.type === 'slow');
+    if (slowEffect && slowEffect.value) {
+      return Math.max(1, baseSpeed * (1 - slowEffect.value));
+    }
+    return baseSpeed;
+  }
+
   // Tính initiative dựa trên speed (hệ thống mới)
   calculateInitiative(combat) {
-    const playerSpeed = parseFloat(combat.player.stats.speed);
-    const monsterSpeed = parseFloat(combat.monster.stats.speed);
+    // Dùng effective speed (đã tính slow)
+    const playerSpeed = this.getEffectiveSpeed(combat.player);
+    const monsterSpeed = this.getEffectiveSpeed(combat.monster);
 
     // Tìm speed thấp nhất để làm mốc
     const minSpeed = Math.min(playerSpeed, monsterSpeed);
@@ -500,26 +559,26 @@ class CombatSystem {
   buildRaidInitiative(combat) {
     const allEntities = [];
 
-    // Thêm tất cả người chơi
+    // Thêm tất cả người chơi (dùng effective speed)
     combat.party.forEach((player, index) => {
       allEntities.push({
         type: 'player',
         index: index,
         id: player.userId || player.id,
         name: player.name || player.username,
-        speed: parseFloat(player.stats.speed),
+        speed: this.getEffectiveSpeed(player),
         entity: player
       });
     });
 
-    // Thêm tất cả quái vật
+    // Thêm tất cả quái vật (dùng effective speed)
     combat.monsters.forEach((monster, index) => {
       allEntities.push({
         type: 'monster',
         index: index,
         id: monster.id,
         name: monster.name,
-        speed: parseFloat(monster.stats.speed),
+        speed: this.getEffectiveSpeed(monster),
         entity: monster
       });
     });
@@ -782,13 +841,23 @@ class CombatSystem {
       .setFooter({ text: 'Chọn hành động để tiếp tục' })
       .setTimestamp();
 
+    // Determine weapon equipped (simple heuristic: has any weapon instance)
+    const hasWeapon = Array.isArray(p?.inventory?.weapons) && p.inventory.weapons.length > 0;
+    const attackButton = hasWeapon
+      ? new ButtonBuilder()
+        .setCustomId(`combat_weapon_${combat.id}`)
+        .setLabel('🗡️ Vũ Khí')
+        .setStyle(ButtonStyle.Danger)
+        .setDisabled(combat.currentTurn !== 'player' || (combat.playerAp || 0) <= 0)
+      : new ButtonBuilder()
+        .setCustomId(`combat_attack_${combat.id}`)
+        .setLabel('⚔️ Tấn Công')
+        .setStyle(ButtonStyle.Danger)
+        .setDisabled(combat.currentTurn !== 'player' || (combat.playerAp || 0) <= 0);
+
     const row = new ActionRowBuilder()
       .addComponents(
-        new ButtonBuilder()
-          .setCustomId(`combat_attack_${combat.id}`)
-          .setLabel('⚔️ Tấn Công')
-          .setStyle(ButtonStyle.Danger)
-          .setDisabled(combat.currentTurn !== 'player' || (combat.playerAp || 0) <= 0),
+        attackButton,
         new ButtonBuilder()
           .setCustomId(`combat_defend_${combat.id}`)
           .setLabel('🛡️ Phòng Thủ')
@@ -885,14 +954,22 @@ class CombatSystem {
     return aliveMonsters[targetIndex];
   }
 
-  // Lấy mục tiêu đối xứng cho quái vật
+  // Lấy mục tiêu đối xứng cho quái vật (ưu tiên taunt)
   getSymmetricTargetForMonster(monster, monsterIndex, combat) {
     const aliveParty = combat.party.filter(p => p.currentHp > 0);
     const aliveMonsters = combat.monsters.filter(m => m.currentHp > 0);
 
     if (aliveParty.length === 0) return null;
 
-    // Tìm vị trí của monster trong danh sách quái còn sống
+    // Ưu tiên tấn công mục tiêu có taunt
+    const tauntTarget = aliveParty.find(p => {
+      return (p.statusEffects || []).some(e => e.type === 'taunt' && e.duration > 0);
+    });
+    if (tauntTarget) {
+      return tauntTarget;
+    }
+
+    // Nếu không có taunt, dùng logic đối xứng như cũ
     const monsterAliveIndex = aliveMonsters.findIndex(m => m === monster);
     if (monsterAliveIndex === -1) return null;
 
@@ -1300,6 +1377,25 @@ class CombatSystem {
         }
         result = await this.showSkillMenu(combat, interaction);
         break;
+      case 'weapon': {
+        if ((combat.playerAp || 0) <= 0) {
+          await this.updateCombatUI(combat, { content: '⚠️ Bạn đã hết Action Point!', components: [] }, interaction);
+          return;
+        }
+        if (combat.actionLock) {
+          await this.updateCombatUI(combat, { content: '⚠️ Đang xử lý hành động, vui lòng chờ...', components: [] }, interaction);
+          return;
+        }
+        result = await this.showWeaponMenu(combat, interaction);
+        break;
+      }
+      case 'weaponuse': {
+        // customId: combat_weaponuse_<combat.id>_<choice>
+        const parts = interaction.customId.split('_');
+        const choice = parts.slice(3).join('_');
+        result = await this.useWeaponAction(combat, choice, interaction);
+        break;
+      }
       case 'skilluse': {
         const parts = interaction.customId.split('_');
         // combat_skilluse_<userId>_<ts>_<skillId..>
@@ -1392,6 +1488,17 @@ class CombatSystem {
 
   // Thực hiện tấn công
   performAttack(attacker, defender, combat) {
+    // Evade-next: tiêu thụ để né đòn kế tiếp
+    const evadeIdx = (defender.statusEffects || []).findIndex(e => e.type === 'evade_next');
+    if (evadeIdx !== -1) {
+      try { defender.statusEffects.splice(evadeIdx, 1); } catch { }
+      return {
+        action: 'attack',
+        message: `💨 ${defender.name} né tránh hoàn toàn đòn đánh!`,
+        damage: 0
+      };
+    }
+
     // Dùng ACC/EVA mới trong calculateDamage, nên bỏ hitChance cũ
     const dmgObj = this.calculateDamage(attacker, defender, undefined);
     if (!dmgObj.hit) {
@@ -2000,10 +2107,46 @@ class CombatSystem {
   nextTurn(combat) {
     combat.currentTurn = combat.currentTurn === 'player' ? 'monster' : 'player';
 
+    // Kiểm tra hiệu ứng gây skip/DoT/Per-turn ngay đầu lượt
+    this.processTurnStartEffects(combat);
+    // Nếu processTurnStartEffects đã tự chuyển lượt lần nữa thì dừng
+    // (tránh thực hiện logic refill/bUFF sai lượt)
+    // Không thể dễ dàng detect ở đây, nhưng log sẽ phản ánh và flow tiếp
+
     if (combat.currentTurn === 'player') {
       combat.turn++;
-      // refill Action Points mỗi khi đến lượt người chơi (bao gồm bonus)
+
+      // Tính lại initiative với effective speed (đã tính slow) để tính AP bonus mới
+      const playerEffectiveSpeed = this.getEffectiveSpeed(combat.player);
+      const monsterEffectiveSpeed = this.getEffectiveSpeed(combat.monster);
+      const minSpeed = Math.min(playerEffectiveSpeed, monsterEffectiveSpeed);
+      const speedRatio = playerEffectiveSpeed / minSpeed;
+
+      // Tính lại AP bonus dựa trên effective speed
+      let apBonus = 0;
+      if (speedRatio >= 5) {
+        apBonus = 4;
+      } else if (speedRatio >= 4) {
+        apBonus = 3;
+      } else if (speedRatio >= 3) {
+        apBonus = 2;
+      } else if (speedRatio >= 2) {
+        apBonus = 1;
+      }
+
+      // Cập nhật AP với bonus mới
+      combat.playerApBonus = apBonus;
+      combat.playerApMax = this.getApForRealm(combat.player.realm) + apBonus;
       combat.playerAp = combat.playerApMax;
+
+      // Log nếu bị slow
+      const slowEffect = (combat.player.statusEffects || []).find(e => e.type === 'slow');
+      if (slowEffect && slowEffect.value) {
+        const baseSpeed = parseFloat(combat.player.stats.speed || 0);
+        const reducedSpeed = baseSpeed * (1 - slowEffect.value);
+        combat.battleLog.push(`🐌 ${combat.player.name} bị làm chậm! Speed: ${baseSpeed.toFixed(0)} → ${reducedSpeed.toFixed(0)} (AP bonus: ${apBonus})`);
+      }
+
       // reset quota hành động mỗi lượt cho người chơi
       combat.turnActions = { attacked: false, usedSkill: false, usedWeaponSkill: false, defended: false };
       // Reset defended flag cho player trong solo combat
@@ -2065,7 +2208,20 @@ class CombatSystem {
     const isMutated = entity.variant === 'mutated' || entity.variant === 'super_mutated';
     if (!isPlayer && !(isBoss || isMutated)) return;
 
-    const regen = parseFloat(entity.stats?.regen) || 0;
+    // Tính regen với bonus
+    let regen = parseFloat(entity.stats?.regen) || 0;
+    const regenBonus = (entity.statusEffects || []).filter(e => e.type === 'regen_bonus').reduce((s, e) => s + (e.value || 0), 0);
+    if (regenBonus) regen *= (1 + regenBonus);
+
+    // Áp DOT (burn/poison) trước khi hồi
+    const dotSum = (entity.statusEffects || []).reduce((sum, e) => {
+      if (e.type === 'burn' || e.type === 'poison') return sum + (e.dot || 0);
+      return sum;
+    }, 0);
+    if (dotSum > 0) {
+      entity.currentHp = Math.max(0, (entity.currentHp || 0) - dotSum);
+    }
+
     const maxHp = parseFloat(entity.stats?.hp) || 0;
     const maxMp = parseFloat(entity.stats?.mp) || 0;
     entity.currentHp = Math.min(maxHp, (entity.currentHp || 0) + regen);
@@ -2414,6 +2570,107 @@ class CombatSystem {
     return { action: 'menu', message: 'skill menu' };
   }
 
+  // Hiển thị menu vũ khí: đánh thường hoặc dùng skill theo tiers
+  async showWeaponMenu(combat, interaction) {
+    combat.uiLock = 'weapon_menu';
+    const player = combat.player;
+    const weapons = Array.isArray(player?.inventory?.weapons) ? player.inventory.weapons : [];
+    if (weapons.length === 0) {
+      await this.updateCombatUI(combat, { content: '❌ Bạn chưa trang bị vũ khí!', components: [] }, interaction);
+      return { action: 'menu', message: 'no weapon' };
+    }
+    // Tạm thời coi vũ khí đầu tiên là đang dùng
+    const weaponInstance = weapons[0];
+    const itemLoader = require('../utils/data/item-loader');
+    const weaponInfo = itemLoader.getItemInfo(weaponInstance.id);
+    if (!weaponInfo) {
+      await this.updateCombatUI(combat, { content: '❌ Không tìm thấy thông tin vũ khí!', components: [] }, interaction);
+      return { action: 'menu', message: 'no weapon info' };
+    }
+
+    const embed = new EmbedBuilder()
+      .setColor('#F39C12')
+      .setTitle(`🗡️ Vũ Khí: ${weaponInfo.name}`)
+      .setDescription('Chọn hành động vũ khí: đánh thường hoặc kĩ năng vũ khí');
+
+    // Buttons: Normal Attack + Tier skill buttons
+    const row = new ActionRowBuilder();
+    row.addComponents(
+      new ButtonBuilder()
+        .setCustomId(`combat_weaponuse_${combat.id}_normal`)
+        .setLabel('Đánh thường (100%)')
+        .setStyle(ButtonStyle.Danger)
+    );
+
+    // Unlocked tiers
+    const unlocked = weaponInstance.unlockedSkillTiers || [1];
+    unlocked.forEach(tier => {
+      row.addComponents(
+        new ButtonBuilder()
+          .setCustomId(`combat_weaponuse_${combat.id}_tier_${tier}`)
+          .setLabel(`Skill Tier ${tier}`)
+          .setStyle(ButtonStyle.Primary)
+      );
+    });
+
+    // back
+    row.addComponents(
+      new ButtonBuilder()
+        .setCustomId(`combat_back_${combat.id}`)
+        .setLabel('Quay lại')
+        .setStyle(ButtonStyle.Secondary)
+    );
+
+    await this.updateCombatUI(combat, { embeds: [embed], components: [row] }, interaction);
+    return { action: 'menu', message: 'weapon menu' };
+  }
+
+  // Xử lý dùng vũ khí: normal hoặc skill tier
+  async useWeaponAction(combat, choice, interaction) {
+    const player = combat.player;
+    const weapons = Array.isArray(player?.inventory?.weapons) ? player.inventory.weapons : [];
+    if (weapons.length === 0) {
+      await this.updateCombatUI(combat, { content: '❌ Bạn chưa trang bị vũ khí!', components: [] }, interaction);
+      return { action: 'weapon', message: 'no weapon' };
+    }
+
+    const weaponInstance = weapons[0];
+    const itemLoader = require('../utils/data/item-loader');
+    const weaponInfo = itemLoader.getItemInfo(weaponInstance.id);
+    if (!weaponInfo) {
+      await this.updateCombatUI(combat, { content: '❌ Không tìm thấy thông tin vũ khí!', components: [] }, interaction);
+      return { action: 'weapon', message: 'no info' };
+    }
+
+    let log = `🗡️ ${player.name} dùng vũ khí ${weaponInfo.name}: `;
+    if (choice === 'normal') {
+      const dmg = Math.max(1, (parseFloat(player.stats?.attack || 0)) * 1 * 1 * 1 - (parseFloat(combat.monster.stats?.defense || 0)));
+      combat.monster.currentHp = Math.max(0, (combat.monster.currentHp || 0) - dmg);
+      log += `Gây ${dmg.toFixed(1)} sát thương thường.`;
+    } else if (choice.startsWith('tier_')) {
+      const tier = Number(choice.split('_')[1]);
+      const skill = this.getWeaponSkill(weaponInfo.type, tier);
+      if (!skill) {
+        await this.updateCombatUI(combat, { content: '❌ Không tìm thấy kĩ năng vũ khí!', components: [] }, interaction);
+        return { action: 'weapon', message: 'no weapon skill' };
+      }
+      const dmg = this.calculateWeaponSkillDamage(player, combat.monster, skill, weaponInstance, combat);
+      combat.monster.currentHp = Math.max(0, (combat.monster.currentHp || 0) - dmg);
+      log += `Dùng "${skill.name}" gây ${dmg.toFixed(1)} sát thương.`;
+      // Apply simple effects (crit bonus, slow, stun, etc.) via existing helpers
+      this.applyDebuffsFromSkill(player, combat.monster, { effects: skill.effects });
+      this.applyBuffsFromSkill(player, { effects: skill.effects });
+    }
+
+    // consume AP
+    combat.playerAp = Math.max(0, (combat.playerAp || 0) - 1);
+    combat.battleLog.push(log);
+    combat.uiLock = null;
+    await this.updateCombatUI(combat, this.createCombatUI(combat), interaction);
+    await this.maybeAdvanceTurn(combat, interaction);
+    return { action: 'weapon', message: log };
+  }
+
   // Hiển thị menu vật phẩm
   async showItemMenu(combat, interaction) {
     // TODO: Implement item menu
@@ -2452,27 +2709,49 @@ class CombatSystem {
     let log = `✨ ${actor.name} dùng ${skill.name}!`;
 
     if (type === 'attack') {
-      const power = skill.effects?.power || skill.effects?.damage_multiplier || 1.2;
-      const target = this.getSymmetricTarget(actor, combat);
-      if (target) {
-        const dmgObj = this.calculateDamage(actor, target, false);
-        const dmg = (dmgObj.damage || 0) * power;
-        const finalDmg = isNaN(dmg) ? 1 : Math.max(1, dmg);
-        target.currentHp = Math.max(0, (target.currentHp || 0) - finalDmg);
-        log += ` Gây **${finalDmg.toFixed(1)}** sát thương cho ${target.name}!`;
+      const effects = skill.effects || {};
+      if (effects.aoe && Array.isArray(combat.monsters)) {
+        let total = 0;
+        combat.monsters.filter(t => t.currentHp > 0).forEach(t => {
+          const dealt = this.computeAndApplySkillDamage(actor, t, skill, combat);
+          total += dealt;
+        });
+        log += ` Gây **${total.toFixed(1)}** sát thương AoE!`;
+      } else {
+        const target = this.getSymmetricTarget(actor, combat);
+        if (target) {
+          const dealt = this.computeAndApplySkillDamage(actor, target, skill, combat);
+          log += ` Gây **${dealt.toFixed(1)}** sát thương cho ${target.name}!`;
+        }
       }
     } else if (type === 'heal') {
-      const healAmount = actor.stats.hp * (skill.effects?.power || 0.3);
+      const ratio = skill.effects?.power || skill.effects?.heal_ratio || 0.3;
+      const flatFromRegen = skill.effects?.heal_flat_regen_multiplier
+        ? (actor.stats.regen || 0) * skill.effects.heal_flat_regen_multiplier
+        : 0;
+      const healAmount = actor.stats.hp * ratio + flatFromRegen;
       actor.currentHp = Math.min(actor.stats.hp, actor.currentHp + healAmount);
       log += ` Hồi phục **${healAmount.toFixed(1)}** HP!`;
     } else if (type === 'buff') {
-      const buffValue = skill.effects?.power || 1.2;
-      actor.statusEffects.push({
-        type: 'attack_boost',
-        duration: 3,
-        value: buffValue
-      });
-      log += ` Tăng sát thương **${((buffValue - 1) * 100).toFixed(0)}%** trong 3 lượt!`;
+      log += this.applyBuffsFromSkill(actor, skill);
+    }
+
+    // debuff/aoe helpers for raid (hỗ trợ skill kiểu support/debuff)
+    if (type === 'debuff') {
+      const target = this.getSymmetricTarget(actor, combat);
+      if (target) log += this.applyDebuffsFromSkill(actor, target, skill);
+    } else if (type === 'support') {
+      // team heal/regens if provided
+      if (skill.effects?.team_heal_ratio && Array.isArray(combat.party)) {
+        const ratio = skill.effects.team_heal_ratio;
+        const regenBonus = skill.effects.team_regen_bonus || 0;
+        combat.party.forEach(p => {
+          const heal = (p.stats.hp || 0) * ratio;
+          p.currentHp = Math.min(p.stats.hp, (p.currentHp || 0) + heal);
+          if (regenBonus > 0) p.statusEffects.push({ type: 'regen_bonus', duration: skill.effects.duration || 2, value: regenBonus });
+        });
+        log += ` Toàn đội hồi máu và tăng hồi phục!`;
+      }
     }
 
     // apply cooldown
@@ -2514,39 +2793,27 @@ class CombatSystem {
     const type = skill.type || skill.effects?.type || 'attack';
     let log = `✨ ${player.name} dùng ${skill.name}!`;
     if (type === 'attack') {
-      const power = skill.effects?.power || skill.effects?.damage_multiplier || 1.2;
-      const dmgObj = this.calculateDamage(player, combat.monster, false);
-      const dmg = (dmgObj.damage || 0) * power;
-      const finalDmg = isNaN(dmg) ? 1 : Math.max(1, dmg);
-      combat.monster.currentHp = Math.max(0, (combat.monster.currentHp || 0) - finalDmg);
-      log += ` Gây ${finalDmg.toFixed(1)} sát thương!`;
+      const effects = skill.effects || {};
+      // Kiểm tra AoE
+      if (effects.aoe) {
+        const totalDmg = this.applyAoEDamageToMonsters(player, skill, combat);
+        log += ` Gây **${totalDmg.toFixed(1)}** sát thương AoE!`;
+      } else {
+        const finalDmg = this.computeAndApplySkillDamage(player, combat.monster, skill, combat);
+        log += ` Gây ${finalDmg.toFixed(1)} sát thương!`;
+      }
     } else if (type === 'heal') {
       const ratio = skill.effects?.power || skill.effects?.heal_ratio || 0.25;
-      const amount = player.stats.hp * ratio;
+      const flatFromRegen = skill.effects?.heal_flat_regen_multiplier
+        ? (player.stats.regen || 0) * skill.effects.heal_flat_regen_multiplier
+        : 0;
+      const amount = player.stats.hp * ratio + flatFromRegen;
       player.currentHp = Math.min(player.stats.hp, player.currentHp + amount);
       log += ` Hồi ${amount.toFixed(1)} HP!`;
     } else if (type === 'buff') {
-      const val = skill.effects?.power || skill.effects?.defense_bonus || skill.effects?.attack_bonus || 0.3;
-      const duration = skill.effects?.duration || 3;
-      // Ưu tiên defense_bonus nếu có, ngược lại coi là attack_boost
-      if (skill.effects?.defense_bonus) {
-        player.statusEffects.push({ type: 'defense_bonus', duration, value: skill.effects.defense_bonus });
-        log += ` Tăng phòng thủ ${Math.round((skill.effects.defense_bonus) * 100)}% trong ${duration} lượt!`;
-      } else {
-        player.statusEffects.push({ type: 'attack_boost', duration, value: val });
-        log += ` Tăng công ${Math.round(val * 100)}% trong ${duration} lượt!`;
-      }
+      log += this.applyBuffsFromSkill(player, skill);
     } else if (type === 'debuff') {
-      const val = skill.effects?.power || skill.effects?.damage_reduction || 0.3;
-      const duration = skill.effects?.duration || 2;
-      // Nếu skill có damage_reduction, áp vào địch
-      if (skill.effects?.damage_reduction) {
-        combat.monster.statusEffects.push({ type: 'damage_reduction', duration, value: skill.effects.damage_reduction });
-        log += ` Giảm sát thương địch ${Math.round((skill.effects.damage_reduction) * 100)}% trong ${duration} lượt!`;
-      } else {
-        combat.monster.statusEffects.push({ type: 'attack_debuff', duration, value: val });
-        log += ` Giảm công địch ${Math.round(val * 100)}% trong ${duration} lượt!`;
-      }
+      log += this.applyDebuffsFromSkill(player, combat.monster, skill);
     }
 
     // mark cooldown theo lượt (bắt đầu từ lượt tiếp theo)
@@ -2572,6 +2839,409 @@ class CombatSystem {
       }
     }
     return null;
+  }
+
+  // === WEAPON SKILL SYSTEM ===
+
+  // Get weapon skill by type and tier
+  getWeaponSkill(weaponType, tier) {
+    if (!this.weaponSkillsData || !weaponType) return null;
+    const typeSkills = this.weaponSkillsData[weaponType];
+    if (!typeSkills) return null;
+    const tierKey = `tier_${tier}`;
+    return typeSkills[tierKey] || null;
+  }
+
+  // Get tier multiplier based on rarity
+  getTierMultiplier(rarity) {
+    const multipliers = {
+      'common': 1.0,      // Phàm
+      'uncommon': 1.2,    // Huyền
+      'rare': 1.44,       // Địa
+      'epic': 1.75,       // Thiên
+      'legendary': 2.0    // Thần
+    };
+    return multipliers[rarity] || 1.0;
+  }
+
+  // Calculate affinity multiplier between spirit root and weapon element
+  // Ngũ hành tương sinh: Mộc → Hỏa → Thổ → Kim → Thủy → Mộc
+  // Ngũ hành tương khắc: Mộc → Thổ → Thủy → Hỏa → Kim → Mộc
+  getAffinityMultiplier(spiritRoot, weaponElement) {
+    if (!spiritRoot || !weaponElement) return 1.0;
+
+    // Same element (bản mệnh)
+    if (spiritRoot === weaponElement) {
+      return 1.10; // 110%
+    }
+
+    // Tương sinh: vũ khí sinh linh căn (weapon element generates spirit root)
+    // Mộc sinh Hỏa, Hỏa sinh Thổ, Thổ sinh Kim, Kim sinh Thủy, Thủy sinh Mộc
+    const generates = {
+      'moc': 'hoa',   // Mộc sinh Hỏa
+      'hoa': 'tho',    // Hỏa sinh Thổ
+      'tho': 'kim',    // Thổ sinh Kim
+      'kim': 'thuy',   // Kim sinh Thủy
+      'thuy': 'moc'    // Thủy sinh Mộc
+    };
+
+    if (generates[weaponElement] === spiritRoot) {
+      return 1.15; // 115% - vũ khí tương sinh
+    }
+
+    // Tương khắc 1: vũ khí khắc linh căn (weapon element overcomes spirit root)
+    // Mộc khắc Thổ, Thổ khắc Thủy, Thủy khắc Hỏa, Hỏa khắc Kim, Kim khắc Mộc
+    const overcomes = {
+      'moc': 'tho',   // Mộc khắc Thổ
+      'tho': 'thuy',   // Thổ khắc Thủy
+      'thuy': 'hoa',   // Thủy khắc Hỏa
+      'hoa': 'kim',    // Hỏa khắc Kim
+      'kim': 'moc'     // Kim khắc Mộc
+    };
+
+    if (overcomes[weaponElement] === spiritRoot) {
+      return 0.85; // 85% - vũ khí tương khắc (bất lợi)
+    }
+
+    // Tương khắc 2: linh căn khắc vũ khí (spirit root overcomes weapon element)
+    // Ngược lại: Hỏa khắc Kim, Kim khắc Mộc, Mộc khắc Thổ, Thổ khắc Thủy, Thủy khắc Hỏa
+    if (overcomes[spiritRoot] === weaponElement) {
+      return 0.90; // 90% - linh căn khắc vũ khí (bất lợi nhẹ)
+    }
+
+    // Tương sinh ngược: linh căn sinh vũ khí (spirit root generates weapon element)
+    if (generates[spiritRoot] === weaponElement) {
+      return 1.05; // 105% - linh căn sinh vũ khí (lợi nhẹ)
+    }
+
+    // Default: không có tương tác đặc biệt
+    return 1.0;
+  }
+
+  // Calculate weapon skill damage using new formula
+  // FinalDamage = ATK × Multiplier × TierMultiplier × Affinity
+  // Note: This calculates raw damage, then applies defense reduction
+  calculateWeaponSkillDamage(attacker, defender, weaponSkill, weaponInstance, combat) {
+    if (!weaponSkill || !weaponInstance) return 0;
+
+    const attackerAtk = parseFloat(attacker.stats?.attack || 0);
+    const skillMultiplier = parseFloat(weaponSkill.multiplier || 1.0);
+
+    // Get weapon rarity from weaponInstance (need to look up weapon info)
+    const itemLoader = require('../utils/data/item-loader');
+    const weaponInfo = itemLoader.getItemInfo(weaponInstance.id);
+    if (!weaponInfo) return 0;
+
+    const weaponRarity = weaponInfo.rarity || 'common';
+    const tierMultiplier = this.getTierMultiplier(weaponRarity);
+
+    // Get affinity multiplier
+    const spiritRoot = attacker.spiritRoot || 'vo';
+    const weaponElement = weaponInfo.element || 'vo_he';
+    const affinityMultiplier = this.getAffinityMultiplier(spiritRoot, weaponElement);
+
+    // Calculate raw damage: ATK × Multiplier × TierMultiplier × Affinity
+    let rawDamage = attackerAtk * skillMultiplier * tierMultiplier * affinityMultiplier;
+
+    // Apply status effects bonuses/debuffs to ATK before calculation
+    attacker.statusEffects?.forEach(effect => {
+      if (effect.type === 'attack_boost') rawDamage *= (1 + effect.value);
+      if (effect.type === 'attack_debuff') rawDamage *= Math.max(0, 1 - effect.value);
+    });
+
+    // Apply effects from skill (penetration, etc.)
+    const effects = weaponSkill.effects || {};
+
+    // Calculate defense with penetration
+    let defenderDef = parseFloat(defender.stats?.defense || 0);
+
+    // Apply defender status effects to defense
+    defender.statusEffects?.forEach(effect => {
+      if (effect.type === 'defense_bonus') defenderDef *= (1 + effect.value);
+      if (effect.type === 'defend') defenderDef *= (1 + (effect.defenseBonus || 0));
+    });
+
+    // Apply penetration if skill has it
+    let effectiveDef = defenderDef;
+    if (effects.skill_penetration_pct) {
+      const penReduction = effects.skill_penetration_pct;
+      effectiveDef = defenderDef * (1 - penReduction);
+    }
+
+    // Calculate final damage: rawDamage - effectiveDef
+    let finalDamage = Math.max(1, rawDamage - effectiveDef);
+
+    // Apply damage reduction (final damage reduction)
+    defender.statusEffects?.forEach(effect => {
+      if (effect.type === 'damage_reduction') {
+        finalDamage *= Math.max(0, 1 - effect.value);
+      }
+    });
+
+    // Apply element multiplier (attacker element vs defender element)
+    const attackerElement = attacker.element || weaponElement;
+    const defenderElement = defender.element || 'vo_he';
+    const elementMultiplier = this.getElementDamageMultiplier(attackerElement, defenderElement);
+    finalDamage *= elementMultiplier;
+
+    // Validate final damage
+    finalDamage = isNaN(finalDamage) ? 1 : Math.max(1, finalDamage);
+
+    return finalDamage;
+  }
+
+  // === HELPER: Tính sát thương kỹ năng với các hiệu ứng mở rộng ===
+  computeAndApplySkillDamage(attacker, defender, skill, combat) {
+    const effects = skill.effects || {};
+    // Cơ sở theo hệ thống vật lý
+    const baseObj = this.calculateDamage(attacker, defender, false);
+    let damage = baseObj.hit ? (baseObj.damage || 0) : 0;
+
+    // Chọn multiplier theo ATK hay MP
+    const atkMul = effects.damage_multiplier || 0;
+    const mpMul = effects.mp_damage_multiplier || 0;
+    let power = atkMul || mpMul || 1.2;
+
+    // Bonus nhỏ nếu là MP dmg (cho cảm giác khác biệt)
+    if (mpMul > 0) {
+      damage += (attacker.stats.mp || 0) * 0.05;
+    }
+
+    // Xuyên giáp theo skill (xấp xỉ): khuếch đại sát thương theo % xuyên thêm
+    if (effects.skill_penetration_pct) {
+      power *= (1 + 0.5 * effects.skill_penetration_pct);
+    }
+
+    // Bonus nếu caster đang có DEF buff
+    if (effects.bonus_on_def_buff_multiplier) {
+      const hasDefBuff = (attacker.statusEffects || []).some(e => e.type === 'defense_bonus');
+      if (hasDefBuff) power *= (1 + effects.bonus_on_def_buff_multiplier);
+    }
+
+    // Bonus nếu mục tiêu đang bị đốt
+    if (effects.bonus_vs_burning_atk_ratio) {
+      const isBurning = (defender.statusEffects || []).some(e => e.type === 'burn');
+      if (isBurning) {
+        // nhân thêm theo tỉ lệ để thể hiện cộng dồn
+        power *= (1 + effects.bonus_vs_burning_atk_ratio);
+      }
+    }
+
+    let finalDmg = damage * power;
+    finalDmg = isNaN(finalDmg) ? 1 : Math.max(1, finalDmg);
+
+    // Áp dụng sát thương đơn hoặc AoE (solo: vẫn chỉ 1 mục tiêu)
+    defender.currentHp = Math.max(0, (defender.currentHp || 0) - finalDmg);
+
+    // Áp dụng các hiệu ứng trạng thái đi kèm
+    this.applyOnHitStatus(attacker, defender, skill, combat);
+
+    return finalDmg;
+  }
+
+  // === HELPER: Áp dụng AoE damage cho solo combat ===
+  applyAoEDamageToMonsters(attacker, skill, combat) {
+    const effects = skill.effects || {};
+    if (!effects.aoe) return 0;
+
+    let totalDamage = 0;
+    const logMessages = [];
+
+    // Trong solo combat, có thể có waves hoặc chỉ 1 monster
+    const targets = [];
+    if (combat.monster && combat.monster.currentHp > 0) {
+      targets.push(combat.monster);
+    }
+    // Nếu có waves, có thể thêm logic để gây damage lên các monster trong wave hiện tại
+    if (Array.isArray(combat.waves) && combat.currentWaveIndex !== undefined) {
+      const currentWave = combat.waves[combat.currentWaveIndex] || [];
+      currentWave.forEach(m => {
+        if (m.currentHp > 0 && !targets.find(t => t === m)) {
+          targets.push(m);
+        }
+      });
+    }
+
+    // Gây damage lên tất cả mục tiêu
+    targets.forEach(target => {
+      const dealt = this.computeAndApplySkillDamage(attacker, target, skill, combat);
+      totalDamage += dealt;
+      logMessages.push(`  → ${target.name}: ${dealt.toFixed(1)} sát thương`);
+    });
+
+    // Thêm log AoE vào battle log
+    if (logMessages.length > 0 && combat.battleLog) {
+      combat.battleLog.push(`💥 **AoE**: ${logMessages.join(' | ')}`);
+    }
+
+    return totalDamage;
+  }
+
+  // Áp dụng buff cho bản thân từ skill (trả về text log)
+  applyBuffsFromSkill(caster, skill) {
+    const e = skill.effects || {};
+    const duration = e.duration || 2;
+    let log = '';
+
+    if (e.defense_bonus) {
+      caster.statusEffects.push({ type: 'defense_bonus', duration, value: e.defense_bonus });
+      log += ` Tăng phòng thủ ${Math.round(e.defense_bonus * 100)}% trong ${duration} lượt!`;
+    }
+    if (e.attack_bonus) {
+      caster.statusEffects.push({ type: 'attack_boost', duration, value: e.attack_bonus });
+      log += ` Tăng công ${Math.round(e.attack_bonus * 100)}% trong ${duration} lượt!`;
+    }
+    if (e.critical_bonus) {
+      caster.statusEffects.push({ type: 'crit_boost', duration, value: e.critical_bonus });
+      log += ` Tăng chí mạng ${Math.round(e.critical_bonus * 100)}% trong ${duration} lượt!`;
+    }
+    if (e.speed_bonus) {
+      caster.statusEffects.push({ type: 'speed_bonus', duration, value: e.speed_bonus });
+      log += ` Tăng tốc độ ${Math.round(e.speed_bonus * 100)}% trong ${duration} lượt!`;
+    }
+    if (e.evade_next) {
+      caster.statusEffects.push({ type: 'evade_next', duration: 1 });
+      log += ` Sẽ né đòn kế tiếp!`;
+    }
+    if (e.status_immunity_next) {
+      caster.statusEffects.push({ type: 'status_immunity_next', duration: 1 });
+      log += ` Miễn nhiễm hiệu ứng xấu kế tiếp!`;
+    }
+    if (e.instant_heal_ratio) {
+      const heal = (caster.stats.hp || 0) * e.instant_heal_ratio;
+      caster.currentHp = Math.min(caster.stats.hp, (caster.currentHp || 0) + heal);
+      log += ` Hồi ngay ${heal.toFixed(1)} HP!`;
+    }
+    if (e.per_turn_aoe_atk_ratio) {
+      caster.statusEffects.push({ type: 'per_turn_aoe_atk_ratio', duration, value: e.per_turn_aoe_atk_ratio });
+      log += ` Kích hoạt sát thương AoE theo lượt (${Math.round(e.per_turn_aoe_atk_ratio * 100)}% ATK trong ${duration} lượt)!`;
+    }
+    if (e.regen_bonus) {
+      caster.statusEffects.push({ type: 'regen_bonus', duration, value: e.regen_bonus });
+      log += ` Tăng hồi phục ${Math.round(e.regen_bonus * 100)}% trong ${duration} lượt!`;
+    }
+    if (e.taunt) {
+      caster.statusEffects.push({ type: 'taunt', duration: e.taunt });
+      log += ` Khiêu khích kẻ địch trong ${e.taunt} lượt!`;
+    }
+    return log;
+  }
+
+  // Áp dụng debuff lên mục tiêu (trả về text log)
+  applyDebuffsFromSkill(caster, target, skill) {
+    const e = skill.effects || {};
+    let log = '';
+    const duration = e.duration || e.enemy_slow_duration || 2;
+
+    // Nếu mục tiêu có miễn nhiễm hiệu ứng → chặn 1 lần
+    const immIdx = (target.statusEffects || []).findIndex(x => x.type === 'status_immunity_next');
+    const guard = () => { if (immIdx !== -1) { try { target.statusEffects.splice(immIdx, 1); } catch { }; return true; } return false; };
+
+    if (e.enemy_attack_down) {
+      if (!guard()) {
+        target.statusEffects.push({ type: 'attack_debuff', duration, value: e.enemy_attack_down });
+        log += ` Giảm công địch ${Math.round(e.enemy_attack_down * 100)}% trong ${duration} lượt!`;
+      } else {
+        log += ` (Địch miễn nhiễm hiệu ứng xấu!)`;
+      }
+    }
+    if (e.team_damage_reduction && caster.party) {
+      // Áp lên cả team caster trong raid
+      (caster.party || []).forEach(p => p.statusEffects.push({ type: 'damage_reduction', duration, value: e.team_damage_reduction }));
+      log += ` Toàn đội giảm sát thương ${Math.round(e.team_damage_reduction * 100)}% trong ${duration} lượt!`;
+    }
+    if (e.enemy_slow_pct) {
+      if (!guard()) {
+        target.statusEffects.push({ type: 'slow', duration: e.enemy_slow_duration || duration, value: e.enemy_slow_pct });
+        log += ` Giảm tốc địch ${Math.round(e.enemy_slow_pct * 100)}% trong ${e.enemy_slow_duration || duration} lượt!`;
+      } else {
+        log += ` (Địch miễn nhiễm hiệu ứng xấu!)`;
+      }
+    }
+    if (e.stun_chance) {
+      if (!guard()) {
+        if (Math.random() < (e.stun_chance || 0)) {
+          target.statusEffects.push({ type: 'stun', duration: e.stun_duration || 1 });
+          log += ` Gây choáng ${e.stun_duration || 1} lượt!`;
+        }
+      } else {
+        log += ` (Địch miễn nhiễm choáng!)`;
+      }
+    }
+    if (e.poison_regen_ratio) {
+      // Ghi sẵn sát thương mỗi lượt dựa theo regen hiện tại của caster
+      const dot = (caster.stats.regen || 0) * e.poison_regen_ratio;
+      if (!guard()) {
+        target.statusEffects.push({ type: 'poison', duration, dot });
+        log += ` Gây độc trong ${duration} lượt!`;
+      } else {
+        log += ` (Địch miễn nhiễm độc!)`;
+      }
+    }
+    if (e.burn_ratio_of_atk) {
+      const dot = (caster.stats.attack || 0) * e.burn_ratio_of_atk;
+      if (!guard()) {
+        target.statusEffects.push({ type: 'burn', duration: e.burn_duration || duration, dot });
+        log += ` Thiêu đốt trong ${e.burn_duration || duration} lượt!`;
+      } else {
+        log += ` (Địch miễn nhiễm thiêu đốt!)`;
+      }
+    }
+    if (e.damage_reduction) {
+      target.statusEffects.push({ type: 'damage_reduction', duration, value: e.damage_reduction });
+      log += ` Giảm sát thương địch ${Math.round(e.damage_reduction * 100)}% trong ${duration} lượt!`;
+    }
+    return log;
+  }
+
+  // Áp dụng các hiệu ứng on-hit đơn giản (stun/slow/...) khi gây damage
+  applyOnHitStatus(attacker, defender, skill, combat) {
+    const e = skill.effects || {};
+    // đã xử lý trong applyDebuffsFromSkill ở nhánh debuff; với attack skill, áp trực tiếp một số hiệu ứng
+    if (e.stun_chance && Math.random() < e.stun_chance) {
+      const immIdx = (defender.statusEffects || []).findIndex(x => x.type === 'status_immunity_next');
+      if (immIdx === -1) {
+        defender.statusEffects.push({ type: 'stun', duration: e.stun_duration || 1 });
+        if (combat?.battleLog) combat.battleLog.push(`🔒 ${defender.name} bị choáng ${e.stun_duration || 1} lượt!`);
+      } else {
+        try { defender.statusEffects.splice(immIdx, 1); } catch { }
+      }
+    }
+  }
+
+  // Xử lý DoT/HoT, AoE theo lượt, và choáng skip lượt tại điểm chuyển lượt
+  processTurnStartEffects(combat) {
+    // Skip lượt nếu entity bị stun
+    if (combat.currentTurn === 'player') {
+      const p = combat.player;
+      const stunIdx = (p.statusEffects || []).findIndex(e => e.type === 'stun');
+      if (stunIdx !== -1) {
+        // Giảm 1 lượt stun và chuyển lượt cho quái
+        p.statusEffects[stunIdx].duration -= 1;
+        if (p.statusEffects[stunIdx].duration <= 0) p.statusEffects.splice(stunIdx, 1);
+        combat.battleLog.push(`⛔ ${p.name} bị choáng và bỏ lượt!`);
+        this.nextTurn(combat);
+        return;
+      }
+
+      // Per-turn AoE buff từ caster (solo combat)
+      const aoe = (p.statusEffects || []).find(e => e.type === 'per_turn_aoe_atk_ratio');
+      if (aoe && combat.monster && combat.monster.currentHp > 0) {
+        const dmg = Math.max(1, (p.stats.attack || 0) * (aoe.value || 0));
+        combat.monster.currentHp = Math.max(0, (combat.monster.currentHp || 0) - dmg);
+        combat.battleLog.push(`🔥 Hiệu ứng bộc phát gây ${dmg.toFixed(1)} sát thương lan!`);
+      }
+    } else if (combat.currentTurn === 'monster') {
+      const m = combat.monster;
+      const stunIdx = (m.statusEffects || []).findIndex(e => e.type === 'stun');
+      if (stunIdx !== -1) {
+        m.statusEffects[stunIdx].duration -= 1;
+        if (m.statusEffects[stunIdx].duration <= 0) m.statusEffects.splice(stunIdx, 1);
+        combat.battleLog.push(`⛔ ${m.name} bị choáng và bỏ lượt!`);
+        this.nextTurn(combat);
+        return;
+      }
+    }
   }
 }
 

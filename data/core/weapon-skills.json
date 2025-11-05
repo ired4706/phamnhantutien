@@ -1,0 +1,361 @@
+{
+  "sword": {
+    "tier_1": {
+      "id": "weapon_sword_tier_1",
+      "name": "Kim mang nhất trảm",
+      "description": "Gây 120% dmg",
+      "cooldown": 2,
+      "multiplier": 1.2,
+      "effects": {
+        "damage_multiplier": 1.2
+      }
+    },
+    "tier_2": {
+      "id": "weapon_sword_tier_2",
+      "name": "Kim phong liên ảnh",
+      "description": "Gây 130% dmg + 15% CR lượt kế tiếp",
+      "cooldown": 4,
+      "multiplier": 1.75,
+      "effects": {
+        "damage_multiplier": 1.3,
+        "critical_bonus": 0.15,
+        "duration": 1
+      }
+    },
+    "tier_3": {
+      "id": "weapon_sword_tier_3",
+      "name": "Hoàng kim phá thiên",
+      "description": "Gây 240% dmg + xuyên 25% DEF",
+      "cooldown": 6,
+      "multiplier": 2.5,
+      "effects": {
+        "damage_multiplier": 2.4,
+        "skill_penetration_pct": 0.25
+      }
+    }
+  },
+  "spear": {
+    "tier_1": {
+      "id": "weapon_spear_tier_1",
+      "name": "Thiết tường thích",
+      "description": "Gây 125% dmg",
+      "cooldown": 2,
+      "multiplier": 1.25,
+      "effects": {
+        "damage_multiplier": 1.25
+      }
+    },
+    "tier_2": {
+      "id": "weapon_spear_tier_2",
+      "name": "Long tường xung kích",
+      "description": "Gây 170% dmg + giảm 10% DEF (2 lượt)",
+      "cooldown": 4,
+      "multiplier": 1.8,
+      "effects": {
+        "damage_multiplier": 1.7,
+        "enemy_defense_down": 0.10,
+        "duration": 2
+      }
+    },
+    "tier_3": {
+      "id": "weapon_spear_tier_3",
+      "name": "Thiên kích liệt vân",
+      "description": "Gây 260% + xuyên 40% DEF",
+      "cooldown": 6,
+      "multiplier": 2.6,
+      "effects": {
+        "damage_multiplier": 2.6,
+        "skill_penetration_pct": 0.40
+      }
+    }
+  },
+  "staff": {
+    "tier_1": {
+      "id": "weapon_staff_tier_1",
+      "name": "Mộc linh kích",
+      "description": "Gây 110% dmg",
+      "cooldown": 2,
+      "multiplier": 1.1,
+      "effects": {
+        "damage_multiplier": 1.1
+      }
+    },
+    "tier_2": {
+      "id": "weapon_staff_tier_2",
+      "name": "Sinh mệnh chi khôi",
+      "description": "Hồi 10% HP + 80% REGEN",
+      "cooldown": 4,
+      "multiplier": 1.0,
+      "effects": {
+        "heal_ratio": 0.10,
+        "heal_flat_regen_multiplier": 0.80
+      }
+    },
+    "tier_3": {
+      "id": "weapon_staff_tier_3",
+      "name": "Vạn thụ sinh hoa",
+      "description": "Gây 240% dmg + trói 1 lượt",
+      "cooldown": 6,
+      "multiplier": 2.2,
+      "effects": {
+        "damage_multiplier": 2.4,
+        "stun_chance": 1.0,
+        "stun_duration": 1
+      }
+    }
+  },
+  "fan": {
+    "tier_1": {
+      "id": "weapon_fan_tier_1",
+      "name": "Phong diệp phi vũ",
+      "description": "Gây 110% dmg + giảm 10% SPD (1t)",
+      "cooldown": 2,
+      "multiplier": 1.15,
+      "effects": {
+        "damage_multiplier": 1.1,
+        "enemy_slow_pct": 0.10,
+        "enemy_slow_duration": 1
+      }
+    },
+    "tier_2": {
+      "id": "weapon_fan_tier_2",
+      "name": "Thu phong miên miên",
+      "description": "Gây 140% dmg + giảm 25% SPD (2t)",
+      "cooldown": 4,
+      "multiplier": 1.65,
+      "effects": {
+        "damage_multiplier": 1.4,
+        "enemy_slow_pct": 0.25,
+        "enemy_slow_duration": 2
+      }
+    },
+    "tier_3": {
+      "id": "weapon_fan_tier_3",
+      "name": "Mộc tinh bạo vũ",
+      "description": "Gây 280% dmg + 15% EVA (2t)",
+      "cooldown": 6,
+      "multiplier": 2.4,
+      "effects": {
+        "damage_multiplier": 2.8,
+        "evasion_bonus_pct": 0.15,
+        "duration": 2
+      }
+    }
+  },
+  "mace": {
+    "tier_1": {
+      "id": "weapon_mace_tier_1",
+      "name": "Thạch lực trầm trảo",
+      "description": "Gây 140% dmg",
+      "cooldown": 2,
+      "multiplier": 1.35,
+      "effects": {
+        "damage_multiplier": 1.4
+      }
+    },
+    "tier_2": {
+      "id": "weapon_mace_tier_2",
+      "name": "Sơn nhạc chấn sóng",
+      "description": "Gây 160% dmg + giảm 12% ATK (2t)",
+      "cooldown": 4,
+      "multiplier": 1.85,
+      "effects": {
+        "damage_multiplier": 1.6,
+        "enemy_attack_down": 0.12,
+        "duration": 2
+      }
+    },
+    "tier_3": {
+      "id": "weapon_mace_tier_3",
+      "name": "Thái sơn hạ đỉnh",
+      "description": "Gây 240% + stun (1t)",
+      "cooldown": 6,
+      "multiplier": 2.4,
+      "effects": {
+        "damage_multiplier": 2.4,
+        "stun_chance": 1.0,
+        "stun_duration": 1
+      }
+    }
+  },
+  "axe": {
+    "tier_1": {
+      "id": "weapon_axe_tier_1",
+      "name": "Thổ trượng phạt",
+      "description": "Gây 135% dmg",
+      "cooldown": 2,
+      "multiplier": 1.3,
+      "effects": {
+        "damage_multiplier": 1.35
+      }
+    },
+    "tier_2": {
+      "id": "weapon_axe_tier_2",
+      "name": "Hoang sơn phá",
+      "description": "Gây 170% dmg + giảm 15% DEF (2t)",
+      "cooldown": 4,
+      "multiplier": 1.8,
+      "effects": {
+        "damage_multiplier": 1.7,
+        "enemy_defense_down": 0.15,
+        "duration": 2
+      }
+    },
+    "tier_3": {
+      "id": "weapon_axe_tier_3",
+      "name": "Địa nguyên liệt trảm",
+      "description": "Gây 260% dmg + giảm 20% SPD (2t)",
+      "cooldown": 6,
+      "multiplier": 2.5,
+      "effects": {
+        "damage_multiplier": 2.6,
+        "enemy_slow_pct": 0.20,
+        "enemy_slow_duration": 2
+      }
+    }
+  },
+  "bow": {
+    "tier_1": {
+      "id": "weapon_bow_tier_1",
+      "name": "Lưu quang xạ",
+      "description": "Gây 120% dmg",
+      "cooldown": 2,
+      "multiplier": 1.2,
+      "effects": {
+        "damage_multiplier": 1.2
+      }
+    },
+    "tier_2": {
+      "id": "weapon_bow_tier_2",
+      "name": "Hàn băng tiễn",
+      "description": "Gây 150% dmg + 20% stun (1t)",
+      "cooldown": 4,
+      "multiplier": 1.7,
+      "effects": {
+        "damage_multiplier": 1.5,
+        "stun_chance": 0.20,
+        "stun_duration": 1
+      }
+    },
+    "tier_3": {
+      "id": "weapon_bow_tier_3",
+      "name": "Băng tâm liệt vũ",
+      "description": "Gây 280% dmg + 10% ACC (1t)",
+      "cooldown": 6,
+      "multiplier": 2.5,
+      "effects": {
+        "damage_multiplier": 2.8,
+        "accuracy_bonus_pct": 0.10,
+        "duration": 1
+      }
+    }
+  },
+  "double_sword": {
+    "tier_1": {
+      "id": "weapon_double_sword_tier_1",
+      "name": "Thủy ảnh song trảm",
+      "description": "Gây 120% dmg",
+      "cooldown": 2,
+      "multiplier": 1.2,
+      "effects": {
+        "damage_multiplier": 1.2
+      }
+    },
+    "tier_2": {
+      "id": "weapon_double_sword_tier_2",
+      "name": "Băng ảnh phi lưu",
+      "description": "Gây 140% dmg + 20% EVA (1t)",
+      "cooldown": 4,
+      "multiplier": 1.65,
+      "effects": {
+        "damage_multiplier": 1.4,
+        "evasion_bonus_pct": 0.20,
+        "duration": 1
+      }
+    },
+    "tier_3": {
+      "id": "weapon_double_sword_tier_3",
+      "name": "Hàn băng tâm ảnh",
+      "description": "Gây 240% dmg + giảm 25% SPD (2t)",
+      "cooldown": 6,
+      "multiplier": 2.4,
+      "effects": {
+        "damage_multiplier": 2.4,
+        "enemy_slow_pct": 0.25,
+        "enemy_slow_duration": 2
+      }
+    }
+  },
+  "broadsword": {
+    "tier_1": {
+      "id": "weapon_broadsword_tier_1",
+      "name": "Liệt diễm trảm",
+      "description": "Gây 130% dmg",
+      "cooldown": 2,
+      "multiplier": 1.3,
+      "effects": {
+        "damage_multiplier": 1.3
+      }
+    },
+    "tier_2": {
+      "id": "weapon_broadsword_tier_2",
+      "name": "Viêm ảnh truy hồn",
+      "description": "Gây 150% dmg + đốt 5% HP (2 lượt)",
+      "cooldown": 4,
+      "multiplier": 1.75,
+      "effects": {
+        "damage_multiplier": 1.5,
+        "burn_ratio_of_atk": 0.05,
+        "burn_duration": 2
+      }
+    },
+    "tier_3": {
+      "id": "weapon_broadsword_tier_3",
+      "name": "Hỏa vân diệt thế",
+      "description": "Gây 260% dmg + 20% Ignite Chance",
+      "cooldown": 6,
+      "multiplier": 2.6,
+      "effects": {
+        "damage_multiplier": 2.6,
+        "burn_chance": 0.20
+      }
+    }
+  },
+  "fist": {
+    "tier_1": {
+      "id": "weapon_fist_tier_1",
+      "name": "Liệt hỏa quyền",
+      "description": "Gây 135% dmg",
+      "cooldown": 2,
+      "multiplier": 1.3,
+      "effects": {
+        "damage_multiplier": 1.35
+      }
+    },
+    "tier_2": {
+      "id": "weapon_fist_tier_2",
+      "name": "Hỏa tức song quyền",
+      "description": "Gây 160% dmg + 15% stun (1t)",
+      "cooldown": 4,
+      "multiplier": 1.85,
+      "effects": {
+        "damage_multiplier": 1.6,
+        "stun_chance": 0.15,
+        "stun_duration": 1
+      }
+    },
+    "tier_3": {
+      "id": "weapon_fist_tier_3",
+      "name": "Xích viêm bạo thể",
+      "description": "Gây 270% dmg + 15% SPD (2t)",
+      "cooldown": 6,
+      "multiplier": 2.7,
+      "effects": {
+        "damage_multiplier": 2.7,
+        "speed_bonus": 0.15,
+        "duration": 2
+      }
+    }
+  }
+}
+
