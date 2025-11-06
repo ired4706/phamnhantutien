@@ -221,7 +221,14 @@ module.exports = {
     // Hiển thị passive nếu có (đối với weapon)
     if (Array.isArray(item.passives) && item.passives.length > 0) {
       const toNameDesc = (p) => {
+        // Ưu tiên sử dụng name và description từ passive object (cho passive mới)
+        if (p.name && p.description) {
+          return { name: p.name, desc: p.description };
+        }
+        
+        // Fallback về switch case cho passive cũ (nếu có)
         switch (p.id) {
+          // Thiên (Epic) - passive cũ (đã bị xóa, nhưng giữ lại để tương thích)
           case 'passive_thien_kim_thuong_phong':
             return { name: 'Thường phong', desc: `+${Math.round((p.value || 0) * 100)}% xuyên giáp (penetration).` };
           case 'passive_thien_moc_sinh_diep':
@@ -232,6 +239,7 @@ module.exports = {
             return { name: 'Viêm hộ', desc: `Phản ${Math.round((p.value || 0) * 100)}% sát thương, hồi lại sau ${p.cooldown || 2} lượt.` };
           case 'passive_thien_tho_tram_uy':
             return { name: 'Trầm uy', desc: `Giảm ${Math.round((p.value || 0) * 100)}% sát thương cuối cùng nhận vào, hồi lại sau ${p.cooldown || 2} lượt.` };
+          // Thần (Legendary) - passive cũ (đã bị xóa, nhưng giữ lại để tương thích)
           case 'passive_than_kim_hon_doan_sat':
             return { name: 'Kim Hồn Đoạn Sát', desc: `Sau khi hồi ${p.cooldown || 5} lượt, đòn tấn công kế tiếp là chí mạng đảm bảo, +${Math.round((p.crit_damage_bonus_pct || 0) * 100)}% sát thương chí mạng.` };
           case 'passive_than_moc_van_diep_sinh_chuyen':
@@ -243,7 +251,7 @@ module.exports = {
           case 'passive_than_tho_cu_luc_ho_son':
             return { name: 'Cự Lực Hộ Sơn', desc: `Khi dùng kỹ năng phòng thủ, hiệu quả tăng thêm ${Math.round((p.value || 0.1) * 100)}%, hồi lại sau ${p.cooldown || 2} lượt.` };
         }
-        // Fallback theo type
+        // Fallback cuối cùng
         const pretty = (p.id || p.type || 'passive').replace(/_/g, ' ');
         return { name: pretty, desc: 'Hiệu ứng bị động của vũ khí.' };
       };

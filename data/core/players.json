@@ -3,13 +3,13 @@
     "userId": "504705413682298891",
     "username": "ired0806",
     "spiritRoot": "hoa",
-    "experience": 541366,
+    "experience": 623743,
     "realm": "nguyen_anh",
     "realmLevel": 2,
     "totalTiers": 0,
     "inventory": {
       "spiritStones": {
-        "ha_pham": 11,
+        "ha_pham": 20594,
         "trung_pham": 0,
         "thuong_pham": 0,
         "cuc_pham": 0
@@ -149,10 +149,22 @@
         },
         {
           "id": "hac_nhan_bi",
-          "quantity": 1
+          "quantity": 2
         },
         {
           "id": "lam_trach_cot",
+          "quantity": 1
+        },
+        {
+          "id": "thanh_da_cot",
+          "quantity": 1
+        },
+        {
+          "id": "manh_cong_phap_trung",
+          "quantity": 1
+        },
+        {
+          "id": "chien_hon_thiet_cot",
           "quantity": 1
         }
       ],
@@ -250,7 +262,7 @@
       "breakthroughAttempts": 0,
       "lastBreakthrough": 0,
       "lastMeditate": 0,
-      "lastHunt": 1762332451254,
+      "lastHunt": 1762402631734,
       "lastChallenge": 0,
       "lastDomain": 1761718551614,
       "lastDailyQuest": 0,
@@ -290,20 +302,20 @@
     },
     "achievements": [],
     "joinDate": 1757583527158,
-    "lastActive": 1762337588593,
+    "lastActive": 1762402631734,
     "stats": {
-      "attack": 9771.8,
-      "defense": 5653.6,
-      "hp": 56536,
-      "maxHp": 56536,
-      "mp": 41504.4,
-      "maxMp": 41504.4,
-      "speed": 5898,
-      "critical": 1664,
-      "regen": 1249.4,
-      "evasion": 1706.2,
-      "accuracy": 1832.6,
-      "penetration": 2145.4,
+      "attack": 9210.2,
+      "defense": 5433.6,
+      "hp": 54336,
+      "maxHp": 54336,
+      "mp": 40694.4,
+      "maxMp": 40694.4,
+      "speed": 5808,
+      "critical": 1632,
+      "regen": 1225,
+      "evasion": 1676.2,
+      "accuracy": 1808.6,
+      "penetration": 2021.8,
       "reputation": 0,
       "karma": 0
     },

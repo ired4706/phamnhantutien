@@ -109,11 +109,50 @@ module.exports = {
     // Epic (Thiên): includes Thiên passive
     if (rarity === 'epic' || rarity === 'legendary') {
       const thienMap = {
-        kim: { id: 'passive_thien_kim_thuong_phong', type: 'penetration_bonus_pct', value: 0.03 },
-        moc: { id: 'passive_thien_moc_sinh_diep', type: 'heal_every_n_turns_pct', value: 0.03, every: 2, cooldown: 2 },
-        thuy: { id: 'passive_thien_thuy_luu_anh', type: 'evasion_bonus_pct', value: 0.05 },
-        hoa: { id: 'passive_thien_hoa_viem_ho', type: 'reflect_pct', value: 0.04, cooldown: 2 },
-        tho: { id: 'passive_thien_tho_tram_uy', type: 'final_damage_reduction_pct', value: 0.05, cooldown: 2 }
+        kim: {
+          id: 'passive_thien_kim_kim_tram',
+          name: 'Kim Trảm',
+          description: 'Sát thương vũ khí có luôn xuyên 6% DEF, 15% xuyên thêm 3% DEF trong lượt',
+          type: 'weapon_damage_always_pen_pct',
+          always_pen_pct: 0.06,
+          chance_extra_pen_pct: 0.15,
+          extra_pen_pct: 0.03
+        },
+        moc: {
+          id: 'passive_thien_moc_lac_diep',
+          name: 'Lạc Diệp',
+          description: 'Mỗi 3 lượt gây sát thương 6% sát thương vũ khí',
+          type: 'weapon_damage_every_n_turns_pct',
+          every: 3,
+          value: 0.06
+        },
+        thuy: {
+          id: 'passive_thien_thuy_luu_anh',
+          name: 'Lưu Ảnh',
+          description: 'Sát thương vũ khí có 12% giảm 10% SPD địch trong lượt kế tiếp',
+          type: 'weapon_damage_chance_slow_pct',
+          chance: 0.12,
+          slow_pct: 0.10
+        },
+        hoa: {
+          id: 'passive_thien_hoa_huyet_viem',
+          name: 'Huyết Viêm',
+          description: 'Khi tấn công bằng vũ khí, gây thêm 4% sát thương dưới dạng đốt trong 2 lượt',
+          type: 'weapon_damage_add_burn_pct',
+          value: 0.04,
+          duration: 2,
+          cooldown: 2
+        },
+        tho: {
+          id: 'passive_thien_tho_son_tram',
+          name: 'Sơn Trấn',
+          description: 'Mỗi 4 lượt sát thương vũ khí có 25% giảm 8% DEF địch trong 2 lượt',
+          type: 'weapon_damage_every_n_turns_chance_def_reduction',
+          every: 4,
+          chance: 0.25,
+          def_reduction_pct: 0.08,
+          duration: 2
+        }
       };
       const thienPassive = thienMap[element];
       if (thienPassive) passives.push(thienPassive);
@@ -122,11 +161,52 @@ module.exports = {
     // Legendary (Thần): includes both Thiên + Thần passives
     if (rarity === 'legendary') {
       const thanMap = {
-        kim: { id: 'passive_than_kim_hon_doan_sat', type: 'guaranteed_crit_next', crit_damage_bonus_pct: 0.5, cooldown: 5 },
-        moc: { id: 'passive_than_moc_van_diep_sinh_chuyen', type: 'low_hp_regen_double', threshold: 0.3, duration: 2, cooldown: 4 },
-        thuy: { id: 'passive_than_thuy_thuy_anh_song_than', type: 'perfect_dodge_chance', value: 0.10, cooldown: 2 },
-        hoa: { id: 'passive_than_hoa_kiem_soat_viem_tam', type: 'on_crit_atk_buff', value: 0.04, duration: 2, max_stacks: 3 },
-        tho: { id: 'passive_than_tho_cu_luc_ho_son', type: 'defend_skill_bonus_pct', value: 0.10, cooldown: 2 }
+        kim: {
+          id: 'passive_than_kim_kim_hon_doan_sat',
+          name: 'Kim Hồn Đoạn Sát',
+          description: 'Bắt đầu sẽ cd 5 lượt; khi đủ, bảo đảm lần tấn công vũ khí tiếp theo là guaranteed crit and deals +40% Crit Damage',
+          type: 'guaranteed_crit_next_weapon',
+          crit_damage_bonus_pct: 0.40,
+          cooldown: 5
+        },
+        moc: {
+          id: 'passive_than_moc_van_diep_hoa_chuyen',
+          name: 'Vạn Diệp Hóa Chuyển',
+          description: 'Khi tấn công bằng vũ khí mục tiêu trên 70% HP, gây thêm sát thương bằng 6% sát thương vũ khí + 2% HP mục tiêu',
+          type: 'weapon_damage_bonus_vs_high_hp',
+          hp_threshold: 0.70,
+          weapon_dmg_bonus_pct: 0.06,
+          target_hp_bonus_pct: 0.02,
+          cooldown: 4
+        },
+        thuy: {
+          id: 'passive_than_thuy_thuy_anh_song_than',
+          name: 'Thủy Ảnh Song Thân',
+          description: '15% gây thêm 35% sát thương vũ khí',
+          type: 'weapon_damage_chance_bonus_pct',
+          chance: 0.15,
+          damage_bonus_pct: 0.35,
+          cooldown: 2
+        },
+        hoa: {
+          id: 'passive_than_hoa_liet_tam_huyet_tram',
+          name: 'Liệt Tâm Huyết Trảm',
+          description: 'Khi tấn công bằng vũ khí, gây 6% sát thương vũ khí dưới dạng đốt trong 2 lượt',
+          type: 'weapon_damage_add_burn_pct',
+          value: 0.06,
+          duration: 2,
+          cooldown: 2
+        },
+        tho: {
+          id: 'passive_than_tho_cuu_thach_chan_uy',
+          name: 'Cửu Thạch Chấn Uy',
+          description: 'Mỗi 5 lượt, đòn đánh vũ khí kế tiếp gây thêm 15% sát thương và 25% stun 1 lượt',
+          type: 'weapon_damage_every_n_turns_next_bonus',
+          every: 5,
+          damage_bonus_pct: 0.15,
+          stun_chance: 0.25,
+          stun_duration: 1
+        }
       };
       const thanPassive = thanMap[element];
       if (thanPassive) passives.push(thanPassive);
