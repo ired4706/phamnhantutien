@@ -154,6 +154,16 @@ module.exports = {
 
       statsEmbed.addFields(...fields);
 
+      // Hiển thị set bonus nếu có
+      const setBonusInfo = this.getActiveSetBonus(player);
+      if (setBonusInfo) {
+        statsEmbed.addFields({
+          name: '🎯 **Set Bonus Đang Kích Hoạt**',
+          value: `*${setBonusInfo.description}*`,
+          inline: false
+        });
+      }
+
       // Tạo embed thứ ba cho linh căn chi tiết
       const spiritRootEmbed = new EmbedBuilder()
         .setColor(this.getSpiritRootColor(player.spiritRoot))
@@ -241,21 +251,54 @@ module.exports = {
   // Format hiển thị linh thạch
   formatSpiritStones(spiritStones) {
     return SharedUtils.formatSpiritStones(spiritStones);
-  }
-  ,
+  },
 
-  // Tính tổng core từ trang bị (hiện tại lấy từ vũ khí: __main_stats + sub core)
+  // Lấy thông tin set bonus đang active
+  getActiveSetBonus(player) {
+    if (!player._activeSetBonus || !player._activeSetBonus.config) {
+      return null;
+    }
+    return {
+      description: player._activeSetBonus.config.description
+    };
+  },
+
+  // Tính tổng core từ trang bị (weapon: __main_stats.STR + sub core, ring/pendant: __main_stats.INT + sub core, armor/pants/shoes: sub core)
   getEquipmentCoreDelta(player) {
     const delta = { STR: 0, INT: 0, DEX: 0, VIT: 0, LUK: 0 };
     if (!player || !player.equipment) return delta;
     const addFromItem = (it) => {
       if (!it || !it.bonuses) return;
       const b = it.bonuses;
-      if (b.__main_stats && typeof b.__main_stats.STR === 'number') delta.STR += b.__main_stats.STR;
-      ['STR','INT','DEX','VIT','LUK'].forEach(k => { if (typeof b[k] === 'number') delta[k] += b[k]; });
+      // Weapon có __main_stats.STR (main STR)
+      if (b.__main_stats && typeof b.__main_stats.STR === 'number') {
+        delta.STR += b.__main_stats.STR;
+      }
+      // Ring và Pendant có __main_stats.INT (main INT)
+      if (b.__main_stats && typeof b.__main_stats.INT === 'number') {
+        delta.INT += b.__main_stats.INT;
+      }
+      // Tất cả equipment đều có sub-stats (STR, INT, DEX, VIT, LUK)
+      ['STR','INT','DEX','VIT','LUK'].forEach(k => { 
+        if (typeof b[k] === 'number') delta[k] += b[k]; 
+      });
     };
+    // Tính từ tất cả các slot
     addFromItem(player.equipment.weapon);
-    // Nếu sau này core đến từ các slot khác, addFromItem cho các slot tương ứng
+    addFromItem(player.equipment.armor);
+    addFromItem(player.equipment.pants);
+    addFromItem(player.equipment.shoes);
+    addFromItem(player.equipment.ring);
+    addFromItem(player.equipment.pendant);
+    // Set bonus cũng có thể có core stats (VIT hoặc DEX)
+    if (player._activeSetBonus && player._activeSetBonus.config) {
+      const config = player._activeSetBonus.config;
+      if (config.stat === 'VIT' && typeof config.value === 'number') {
+        delta.VIT += config.value;
+      } else if (config.stat === 'DEX' && typeof config.value === 'number') {
+        delta.DEX += config.value;
+      }
+    }
     return delta;
   }
 }; 

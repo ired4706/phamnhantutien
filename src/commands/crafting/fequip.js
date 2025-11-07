@@ -18,14 +18,46 @@ module.exports = {
       await interaction.reply({ content: '❌ Vui lòng cung cấp UID: fequip <uid>', ephemeral: true });
       return;
     }
-    // Trang bị vũ khí nếu UID nằm trong weapons; nếu thuộc armors thì TODO: trang bị theo slot
+    // Trang bị vũ khí nếu UID nằm trong weapons
     const inWeapons = Array.isArray(player.inventory?.weapons) && player.inventory.weapons.find(w => w.uid === uid);
     if (inWeapons) {
       await equipment.equipWeaponByUid(interaction, player, uid);
       return;
     }
 
-    await interaction.reply({ content: '⚠️ UID không thuộc vũ khí. Trang bị các slot khác sẽ hỗ trợ sau.', ephemeral: true });
+    // Trang bị armor/pants/shoes nếu UID nằm trong armors
+    const inArmors = Array.isArray(player.inventory?.armors) && player.inventory.armors.find(a => a.uid === uid);
+    if (inArmors) {
+      const itemLoader = require('../../utils/data/item-loader.js');
+      await itemLoader.loadAllItems();
+      const itemInfo = itemLoader.getItemInfo(inArmors.id);
+      
+      if (!itemInfo) {
+        await interaction.reply({ content: '❌ Không tìm thấy thông tin trang bị!', ephemeral: true });
+        return;
+      }
+
+      // Xác định slot dựa trên type
+      let slotType = null;
+      if (itemInfo.type === 'armor') {
+        slotType = 'armor';
+      } else if (itemInfo.type === 'pants') {
+        slotType = 'pants';
+      } else if (itemInfo.type === 'shoes' || itemInfo.type === 'boots') {
+        slotType = 'shoes';
+      } else if (itemInfo.type === 'ring') {
+        slotType = 'ring';
+      } else if (itemInfo.type === 'pendant') {
+        slotType = 'pendant';
+      }
+
+      if (slotType) {
+        await equipment.equipEquipmentByUid(interaction, player, uid, slotType);
+        return;
+      }
+    }
+
+    await interaction.reply({ content: '❌ Không tìm thấy item với UID này hoặc item không thể trang bị!', ephemeral: true });
   }
 };
 

@@ -218,8 +218,11 @@ module.exports = {
       });
     }
 
-    // Hiển thị passive nếu có (đối với weapon)
-    if (Array.isArray(item.passives) && item.passives.length > 0) {
+    // Hiển thị passive nếu có (đối với weapon hoặc equipment)
+    // Kiểm tra passives từ bonuses.__passives (cho equipment) hoặc item.passives (cho weapon)
+    const passives = item.bonuses?.__passives || item.passives || [];
+    
+    if (Array.isArray(passives) && passives.length > 0) {
       const toNameDesc = (p) => {
         // Ưu tiên sử dụng name và description từ passive object (cho passive mới)
         if (p.name && p.description) {
@@ -256,7 +259,7 @@ module.exports = {
         return { name: pretty, desc: 'Hiệu ứng bị động của vũ khí.' };
       };
 
-      const blocks = item.passives.map(p => {
+      const blocks = passives.map(p => {
         const nd = toNameDesc(p);
         return `• ${nd.name}\n  ${nd.desc}`;
       }).join('\n');
@@ -266,6 +269,25 @@ module.exports = {
         value: blocks || '—',
         inline: false
       });
+    }
+
+    // Hiển thị set bonus nếu có (cho equipment)
+    if (item.bonuses?.__set_id && item.bonuses?.__set_type) {
+      const craftModule = require('../crafting/craft.js');
+      const setType = item.bonuses.__set_type;
+      const rarity = itemInfo.rarity;
+      const setBonusConfig = craftModule.getSetBonusConfig(setType, rarity);
+      
+      if (setBonusConfig) {
+        // Format set bonus với italic để làm mờ
+        const setBonusText = `*${setBonusConfig.description}*`;
+        
+        embed.addFields({
+          name: '🎯 **Set Bonus**',
+          value: setBonusText,
+          inline: false
+        });
+      }
     }
 
     // Hiển thị crafting info nếu có
