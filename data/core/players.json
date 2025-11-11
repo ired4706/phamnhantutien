@@ -3,13 +3,13 @@
     "userId": "504705413682298891",
     "username": "ired0806",
     "spiritRoot": "hoa",
-    "experience": 623743,
+    "experience": 757553,
     "realm": "nguyen_anh",
     "realmLevel": 2,
     "totalTiers": 0,
     "inventory": {
       "spiritStones": {
-        "ha_pham": 20594,
+        "ha_pham": 7578,
         "trung_pham": 0,
         "thuong_pham": 0,
         "cuc_pham": 0
@@ -149,11 +149,11 @@
         },
         {
           "id": "hac_nhan_bi",
-          "quantity": 2
+          "quantity": 3
         },
         {
           "id": "lam_trach_cot",
-          "quantity": 1000
+          "quantity": 1001
         },
         {
           "id": "thanh_da_cot",
@@ -161,7 +161,7 @@
         },
         {
           "id": "manh_cong_phap_trung",
-          "quantity": 1000
+          "quantity": 1003
         },
         {
           "id": "chien_hon_thiet_cot",
@@ -186,6 +186,22 @@
         {
           "id": "hon_thach_nguyen",
           "quantity": 10000
+        },
+        {
+          "id": "phong_anh_tinh_tu",
+          "quantity": 2
+        },
+        {
+          "id": "manh_cong_phap_so",
+          "quantity": 1
+        },
+        {
+          "id": "mach_sat_tuy",
+          "quantity": 1
+        },
+        {
+          "id": "phong_trao_nha",
+          "quantity": 2
         }
       ],
       "weapons": [
@@ -707,7 +723,7 @@
       "breakthroughAttempts": 0,
       "lastBreakthrough": 0,
       "lastMeditate": 0,
-      "lastHunt": 1762402631734,
+      "lastHunt": 1762860713512,
       "lastChallenge": 0,
       "lastDomain": 1761718551614,
       "lastDailyQuest": 0,
@@ -747,20 +763,20 @@
     },
     "achievements": [],
     "joinDate": 1757583527158,
-    "lastActive": 1762486171032,
+    "lastActive": 1762860713513,
     "stats": {
-      "attack": 9338.300000000001,
-      "defense": 5542.1,
-      "hp": 59224.520000000004,
-      "maxHp": 59224.520000000004,
-      "mp": 41480.4,
-      "maxMp": 41480.4,
-      "speed": 5906.5,
-      "critical": 1660.8,
-      "regen": 1250.6000000000001,
-      "evasion": 1705.3,
-      "accuracy": 1838.6,
-      "penetration": 2050,
+      "attack": 9210.2,
+      "defense": 5433.6,
+      "hp": 54336,
+      "maxHp": 54336,
+      "mp": 40694.4,
+      "maxMp": 40694.4,
+      "speed": 5808,
+      "critical": 1632,
+      "regen": 1225,
+      "evasion": 1676.2,
+      "accuracy": 1808.6,
+      "penetration": 2021.8,
       "reputation": 0,
       "karma": 0
     },
@@ -1036,13 +1052,13 @@
     "userId": "397226790709624834",
     "username": "i_am_tsyu",
     "spiritRoot": "thuy",
-    "experience": 36801,
+    "experience": 54321,
     "realm": "luyen_khi",
     "realmLevel": 1,
     "totalTiers": 0,
     "inventory": {
       "spiritStones": {
-        "ha_pham": 25,
+        "ha_pham": 4,
         "trung_pham": 0,
         "thuong_pham": 0,
         "cuc_pham": 0
@@ -1050,7 +1066,7 @@
       "items": [
         {
           "id": "ngu_nien_sam",
-          "quantity": 4
+          "quantity": 5
         },
         {
           "id": "thanh_diep_thao",
@@ -1058,7 +1074,7 @@
         },
         {
           "id": "tieu_long_lan_qua",
-          "quantity": 3
+          "quantity": 4
         },
         {
           "id": "tu_hau_hoa",
@@ -1083,9 +1099,107 @@
         {
           "id": "nguyet_anh_to",
           "quantity": 1
+        },
+        {
+          "id": "so_da_bi",
+          "quantity": 1
+        },
+        {
+          "id": "tu_hau_qua",
+          "quantity": 1
+        },
+        {
+          "id": "anh_diep_thao",
+          "quantity": 1
+        },
+        {
+          "id": "manh_cong_phap_so",
+          "quantity": 1
+        },
+        {
+          "id": "bach_ly_gan",
+          "quantity": 2
+        },
+        {
+          "id": "thiet_tinh_tho",
+          "quantity": 994
+        },
+        {
+          "id": "thanh_da_nha",
+          "quantity": 994
+        },
+        {
+          "id": "kim_thiet_thuong",
+          "quantity": 994
+        },
+        {
+          "id": "tran_hon_diep",
+          "quantity": 1
+        },
+        {
+          "id": "liet_hoa_hoa",
+          "quantity": 1
         }
       ],
-      "weapons": [],
+      "weapons": [
+        {
+          "uid": "jgnq7c4c",
+          "id": "han_nguyet_thuong",
+          "createdAt": 1762856997398,
+          "bonuses": {
+            "__main_stats": {
+              "STR": 3
+            },
+            "DEX": 1
+          },
+          "weaponSkillTier": 1,
+          "unlockedSkillTiers": [
+            1
+          ],
+          "_appliedCombatBonuses": {
+            "attack": 5.4,
+            "defense": 1.5,
+            "hp": 15,
+            "mp": 0,
+            "speed": 1.5,
+            "regen": 0,
+            "critical": 0.2,
+            "evasion": 0.3,
+            "accuracy": 0.6,
+            "penetration": 1.2000000000000002
+          }
+        },
+        {
+          "uid": "jgnqxquz",
+          "id": "han_nguyet_thuong",
+          "createdAt": 1762856997398,
+          "bonuses": {
+            "__main_stats": {
+              "STR": 5
+            },
+            "INT": 3
+          },
+          "weaponSkillTier": 1,
+          "unlockedSkillTiers": [
+            1
+          ]
+        },
+        {
+          "uid": "jgnq2wmk",
+          "id": "han_nguyet_thuong",
+          "createdAt": 1762856997398,
+          "bonuses": {
+            "__main_stats": {
+              "STR": 4
+            },
+            "DEX": 1
+          },
+          "weaponSkillTier": 1,
+          "unlockedSkillTiers": [
+            1
+          ]
+        }
+      ],
       "armors": []
     },
     "cultivation": {
@@ -1093,18 +1207,18 @@
       "cultivateCooldown": 300000,
       "breakthroughAttempts": 0,
       "lastBreakthrough": 0,
-      "lastMeditate": 1757587712992,
-      "lastHunt": 1760002287668,
+      "lastMeditate": 1762856760252,
+      "lastHunt": 1762857161841,
       "lastChallenge": 1757587721265,
       "lastDomain": 1760065573130,
       "lastDailyQuest": 0,
       "lastWeeklyQuest": 0,
       "lastDungeon": 1757587687402,
       "lastMine": 1757587748710,
-      "lastPick": 1757587604706,
-      "lastExplore": 1757587753393,
-      "lastDaily": 1757587663016,
-      "lastWeekly": 1757587669354
+      "lastPick": 1762857177281,
+      "lastExplore": 1762856492488,
+      "lastDaily": 1762856411578,
+      "lastWeekly": 1762856418381
     },
     "skills": {
       "thuy_luu_tien": {
@@ -1120,14 +1234,14 @@
     },
     "forge": {
       "forgeLevel": 1,
-      "totalCrafted": 0,
-      "successCount": 0,
-      "failureCount": 0,
-      "lastForge": 0
+      "totalCrafted": 6,
+      "successCount": 3,
+      "failureCount": 3,
+      "lastForge": 1762856997398
     },
     "achievements": [],
     "joinDate": 1757587591503,
-    "lastActive": 1760065573130,
+    "lastActive": 1762857177284,
     "stats": {
       "attack": 17.9,
       "defense": 17.1,
@@ -1147,6 +1261,40 @@
     "luyenKhiTiers": 1,
     "stageMultiplier": 1,
     "tierMultiplier": 1,
-    "id": "397226790709624834"
+    "id": "397226790709624834",
+    "equipment": {
+      "weapon": {
+        "uid": "jgnq7c4c",
+        "id": "han_nguyet_thuong",
+        "createdAt": 1762856997398,
+        "bonuses": {
+          "__main_stats": {
+            "STR": 3
+          },
+          "DEX": 1
+        },
+        "weaponSkillTier": 1,
+        "unlockedSkillTiers": [
+          1
+        ],
+        "_appliedCombatBonuses": {
+          "attack": 5.4,
+          "defense": 1.5,
+          "hp": 15,
+          "mp": 0,
+          "speed": 1.5,
+          "regen": 0,
+          "critical": 0.2,
+          "evasion": 0.3,
+          "accuracy": 0.6,
+          "penetration": 1.2000000000000002
+        }
+      },
+      "armor": null,
+      "accessory": null,
+      "shoes": null,
+      "artifact": null,
+      "special": null
+    }
   }
 }

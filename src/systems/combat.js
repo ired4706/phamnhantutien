@@ -261,6 +261,22 @@ class CombatSystem {
     // Reset AP cho người chơi mới (chỉ khi chuyển sang người chơi khác)
     combat.playerAp = combat.playerApMax;
     console.log(`[RAID] nextRaidActor: Reset AP to ${combat.playerAp}/${combat.playerApMax} for ${combat.party[combat.currentActorIndex]?.name}`);
+
+    // Kiểm tra stun cho actor mới - nếu bị stun thì skip và chuyển tiếp
+    const currentActor = combat.party[combat.currentActorIndex];
+    if (currentActor && currentActor.currentHp > 0) {
+      const stunIdx = (currentActor.statusEffects || []).findIndex(e => e.type === 'stun');
+      if (stunIdx !== -1) {
+        // Giảm 1 lượt stun
+        currentActor.statusEffects[stunIdx].duration -= 1;
+        if (currentActor.statusEffects[stunIdx].duration <= 0) {
+          currentActor.statusEffects.splice(stunIdx, 1);
+        }
+        combat.battleLog.push(`⛔ ${currentActor.name} bị choáng và bỏ lượt!`);
+        // Chuyển sang actor tiếp theo (không end turn, chỉ skip actor này)
+        return this.nextRaidActor(combat);
+      }
+    }
   }
 
   // Lượt quái tấn công cả nhóm
@@ -358,6 +374,22 @@ class CombatSystem {
     const firstAliveIdx = combat.party.findIndex(p => p.currentHp > 0);
     combat.currentActorIndex = Math.max(0, firstAliveIdx);
     combat.currentActorUserId = combat.party[combat.currentActorIndex]?.userId;
+
+    // Kiểm tra stun cho actor đầu tiên - nếu bị stun thì skip và chuyển tiếp
+    const firstActor = combat.party[combat.currentActorIndex];
+    if (firstActor && firstActor.currentHp > 0) {
+      const stunIdx = (firstActor.statusEffects || []).findIndex(e => e.type === 'stun');
+      if (stunIdx !== -1) {
+        // Giảm 1 lượt stun
+        firstActor.statusEffects[stunIdx].duration -= 1;
+        if (firstActor.statusEffects[stunIdx].duration <= 0) {
+          firstActor.statusEffects.splice(stunIdx, 1);
+        }
+        combat.battleLog.push(`⛔ ${firstActor.name} bị choáng và bỏ lượt!`);
+        // Chuyển sang actor tiếp theo (không end turn, chỉ skip actor này)
+        this.nextRaidActor(combat);
+      }
+    }
 
     // Reset AP cho lượt mới (bao gồm bonus từ speed advantage)
     combat.playerAp = combat.playerApMax;
@@ -810,74 +842,198 @@ class CombatSystem {
     const m = combat.monster;
     const icons = this.getStatIcons();
     const fmtBar = (cur, max) => this.renderTextBar(cur, max, 16);
-    const fmt = (e) => {
-      const s = e.stats || {};
-      // Fix NaN display issues by ensuring valid numbers
-      const currentHp = isNaN(e.currentHp) ? 0 : Math.max(0, Math.round(e.currentHp));
-      const currentMp = isNaN(e.currentMp) ? 0 : Math.max(0, Math.round(e.currentMp));
-      const maxHp = isNaN(s.hp) ? 0 : s.hp || 0;
-      const maxMp = isNaN(s.mp) ? 0 : s.mp || 0;
+    const fmtNum = (n) => {
+      const num = parseFloat(n) || 0;
+      return num.toLocaleString('vi-VN', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+    };
+    const fmtNumWithDec = (n) => {
+      const num = parseFloat(n) || 0;
+      return num.toLocaleString('vi-VN', { minimumFractionDigits: 0, maximumFractionDigits: 1 });
+    };
 
-      return `${e.emoji || ''} **${e.name}**\n` +
-        `${icons.hp} ${fmtBar(currentHp, maxHp)} ${currentHp}/${maxHp}\n` +
-        `${icons.mp} ${fmtBar(currentMp, maxMp)} ${currentMp}/${maxMp}\n` +
-        `${icons.atk} ${s.attack || 0}  • ${icons.def} ${s.defense || 0}  • ${icons.spd} ${s.speed || 0}\n` +
-        `${icons.crit} ${s.critical || 0}% • ${icons.eva} ${s.evasion || 0}% • ${icons.regen} ${s.regen || 0}`;
+    // Get element emoji
+    const getElementEmoji = (element) => {
+      const map = {
+        'kim': '⚪', 'moc': '🟢', 'thuy': '🔵', 'hoa': '🔥', 'tho': '🟤',
+        'phong': '💨', 'loi': '⚡', 'vo_he': '⚫'
+      };
+      return map[element] || '⚫';
+    };
+
+    // Format entity với layout cải thiện
+    const fmt = (e, isPlayer = false) => {
+      const s = e.stats || {};
+      const currentHp = isNaN(e.currentHp) ? 0 : Math.max(0, e.currentHp);
+      const currentMp = isNaN(e.currentMp) ? 0 : Math.max(0, e.currentMp);
+      const maxHp = isNaN(s.hp) ? 0 : (s.hp || 0);
+      const maxMp = isNaN(s.mp) ? 0 : (s.mp || 0);
+      const elem = e.spiritRoot || e.element || 'vo_he';
+      const elemName = this.getElementViNameOrNone(elem);
+      const elemEmoji = getElementEmoji(elem);
+      const hpPercent = maxHp > 0 ? Math.round((currentHp / maxHp) * 100) : 0;
+      const mpPercent = maxMp > 0 ? Math.round((currentMp / maxMp) * 100) : 0;
+
+      // Format số với dấu phẩy cho phần nghìn và dấu chấm cho phần thập phân
+      const fmtNumWithComma = (n) => {
+        const num = parseFloat(n) || 0;
+        const parts = num.toFixed(1).split('.');
+        const intPart = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        return `${intPart}.${parts[1]}`;
+      };
+
+      // Format stats mỗi chỉ số 1 dòng (không dùng code block)
+      const statsText =
+        `${icons.atk} ATK: ${fmtNum(s.attack || 0)}\n` +
+        `\n` +
+        `${icons.def} DEF: ${fmtNum(s.defense || 0)}\n` +
+        `\n` +
+        `${icons.spd} SPD: ${fmtNum(s.speed || 0)}\n` +
+        `\n` +
+        `${icons.regen} Regen: ${fmtNum(s.regen || 0)}\n` +
+        `\n` +
+        `🎯 ACC: ${fmtNum(s.accuracy || 0)}%\n` +
+        `\n` +
+        `${icons.eva} EVA: ${fmtNum(s.evasion || 0)}%\n` +
+        `\n` +
+        `${icons.crit} Crit: ${fmtNum(s.critical || 0)}%\n` +
+        `\n` +
+        `🔪 PEN: ${fmtNum(s.penetration || 0)}`;
+
+      // Progress bar cho HP/MP
+      const hpBar = fmtBar(Math.round(currentHp), Math.round(maxHp));
+      const mpBar = fmtBar(Math.round(currentMp), Math.round(maxMp));
+
+      return `${elemEmoji} **${e.name}**\n` +
+        `\n` +
+        `${icons.hp} ${hpBar}\n` +
+        `     ${fmtNumWithComma(currentHp)} / ${fmtNumWithComma(maxHp)} (${hpPercent}%)\n` +
+        `\n` +
+        `${icons.mp} ${mpBar}\n` +
+        `     ${fmtNumWithComma(currentMp)} / ${fmtNumWithComma(maxMp)} (${mpPercent}%)\n` +
+        `\n` +
+        `${statsText}`;
     };
 
     const apText = combat.playerApBonus > 0
-      ? `${icons.ap} ${combat.playerAp}/${combat.playerApMax} ${icons.apBonus}+${combat.playerApBonus}`
-      : `${icons.ap} ${combat.playerAp}/${combat.playerApMax}`;
+      ? `${icons.ap} AP: ${combat.playerAp}/${combat.playerApMax} (+${combat.playerApBonus})`
+      : `${icons.ap} AP: ${combat.playerAp}/${combat.playerApMax}`;
+
+    // Get variant color indicator (Discord không hỗ trợ màu text, dùng emoji nhỏ)
+    const getVariantIndicator = (variant) => {
+      if (!variant) return '';
+      if (variant === 'mutated') return '🟡'; // Biến Dị - vàng
+      if (variant === 'super_mutated') return '🔴'; // Siêu Biến Dị - đỏ
+      return ''; // Thường - không có indicator
+    };
+
+    // Format combat log với bullet points và format mới
+    const formatLogEntry = (entry) => {
+      if (!entry) return '';
+
+      let formatted = entry;
+
+      // Loại bỏ các bold hiện có (trừ khi là tên)
+      formatted = formatted.replace(/\*\*/g, '');
+
+      // Bỏ emoji variant trước tên quái (⭐⭐, ⭐⭐⭐, etc.)
+      formatted = formatted.replace(/⭐+/g, '').trim();
+
+      // Tên người chơi in đậm
+      formatted = formatted.replace(new RegExp(`\\b${p.name}\\b`, 'g'), `**${p.name}**`);
+
+      // Tên quái in đậm với màu theo variant
+      const variantIndicator = getVariantIndicator(m.variant);
+      const monsterNamePattern = new RegExp(`\\b${m.name}\\b`, 'g');
+      if (variantIndicator) {
+        formatted = formatted.replace(monsterNamePattern, `${variantIndicator} **${m.name}**`);
+      } else {
+        formatted = formatted.replace(monsterNamePattern, `**${m.name}**`);
+      }
+
+      // Critical -> **CRITICAL** (bold + caps)
+      formatted = formatted.replace(/CRITICAL/gi, '**CRITICAL**');
+
+      // Format damage: "gây X sát thương" -> "→ **X** sát thương"
+      formatted = formatted.replace(/(?:gây|Gây)\s+(\d+\.?\d*)\s+sát thương/gi, '→ **$1** sát thương');
+
+      // Format initiative và các message đặc biệt
+      if (formatted.includes('Initiative') || formatted.includes('đi trước')) {
+        formatted = formatted.replace(/Initiative:?\s*/i, '').replace(/Bạn đi trước/i, 'Bạn đi trước');
+      }
+
+      // Loại bỏ emoji thừa, chỉ giữ lại những emoji quan trọng
+      // Giữ: ⚔️ 🛡️ ✨ ⛔ 🔥 ☠️ 🐌 (nhưng hạn chế)
+      formatted = formatted.replace(/⚔️|🗡️/g, '').trim();
+
+      return `• ${formatted}`;
+    };
+
+    const logEntries = combat.battleLog.slice(-6).map(formatLogEntry);
+    const formattedLog = logEntries.length > 0
+      ? logEntries.join('\n')
+      : '• _Chưa có hành động_';
+
+    // Title gộp turn và lượt
+    const waveInfo = Array.isArray(combat.waves) ? ` • Ải ${(combat.currentWaveIndex || 0) + 1}/${combat.waves.length}` : '';
+    const turnText = combat.currentTurn === 'player'
+      ? `Turn ${combat.turn}${waveInfo} – Lượt của bạn`
+      : `Turn ${combat.turn}${waveInfo} – Lượt: ${m.name}`;
 
     const embed = new EmbedBuilder()
-      .setColor('#FF6B6B')
-      .setTitle('⚔️ Combat')
-      .setDescription(`Turn ${combat.turn}` + (Array.isArray(combat.waves) ? ` • Ải ${(combat.currentWaveIndex || 0) + 1}/${combat.waves.length}` : '') + ` • Lượt: ${combat.currentTurn === 'player' ? 'Bạn' : m.name}`)
+      .setColor(combat.currentTurn === 'player' ? '#4CAF50' : '#F44336')
+      .setTitle(`⚔️ ${turnText}`)
       .addFields(
-        { name: '👤 Player', value: `${fmt(p)}\n${apText}`, inline: true },
-        { name: `${m.emoji || '👹'} Enemy`, value: fmt(m), inline: true },
-        { name: '📜 Log', value: combat.battleLog.slice(-8).join('\n') || '—', inline: false }
+        { name: '👤 **Người Chơi**', value: `${fmt(p, true)}\n${apText}`, inline: true },
+        { name: `${m.emoji || '👹'} **Đối Thủ**`, value: fmt(m), inline: true },
+        { name: '📜 **Nhật Ký Chiến Đấu**', value: formattedLog, inline: false }
       )
       .setFooter({ text: 'Chọn hành động để tiếp tục' })
       .setTimestamp();
 
-    // Determine weapon equipped (simple heuristic: has any weapon instance)
-    const hasWeapon = Array.isArray(p?.inventory?.weapons) && p.inventory.weapons.length > 0;
+    // Determine weapon equipped - check if player has weapon equipped, not just in inventory
+    const hasWeapon = p?.equipment?.weapon && p.equipment.weapon !== null;
+    const canAct = combat.currentTurn === 'player' && (combat.playerAp || 0) > 0;
+
+    // Tất cả nút dùng Primary style khi có thể bấm, Secondary khi disabled
     const attackButton = hasWeapon
       ? new ButtonBuilder()
         .setCustomId(`combat_weapon_${combat.id}`)
-        .setLabel('🗡️ Vũ Khí')
-        .setStyle(ButtonStyle.Danger)
-        .setDisabled(combat.currentTurn !== 'player' || (combat.playerAp || 0) <= 0)
+        .setLabel('Vũ Khí')
+        .setStyle(canAct ? ButtonStyle.Primary : ButtonStyle.Secondary)
+        .setDisabled(!canAct)
       : new ButtonBuilder()
         .setCustomId(`combat_attack_${combat.id}`)
-        .setLabel('⚔️ Tấn Công')
-        .setStyle(ButtonStyle.Danger)
-        .setDisabled(combat.currentTurn !== 'player' || (combat.playerAp || 0) <= 0);
+        .setLabel('Tấn Công')
+        .setStyle(canAct ? ButtonStyle.Primary : ButtonStyle.Secondary)
+        .setDisabled(!canAct);
+
+    const canDefend = combat.currentTurn === 'player' && !combat.turnActions?.defended && combat.playerAp >= 1;
+    const canUseSkill = combat.currentTurn === 'player' && (combat.playerAp || 0) > 0;
+    const canUseItem = combat.currentTurn === 'player';
 
     const row = new ActionRowBuilder()
       .addComponents(
         attackButton,
         new ButtonBuilder()
           .setCustomId(`combat_defend_${combat.id}`)
-          .setLabel('🛡️ Phòng Thủ')
-          .setStyle(ButtonStyle.Secondary)
-          .setDisabled(combat.currentTurn !== 'player' || combat.turnActions?.defended || combat.playerAp < 1),
+          .setLabel('Phòng Thủ')
+          .setStyle(canDefend ? ButtonStyle.Primary : ButtonStyle.Secondary)
+          .setDisabled(!canDefend),
         new ButtonBuilder()
           .setCustomId(`combat_skill_${combat.id}`)
-          .setLabel('✨ Kỹ Năng')
-          .setStyle(ButtonStyle.Primary)
-          .setDisabled(combat.currentTurn !== 'player' || (combat.playerAp || 0) <= 0),
+          .setLabel('Kỹ Năng')
+          .setStyle(canUseSkill ? ButtonStyle.Primary : ButtonStyle.Secondary)
+          .setDisabled(!canUseSkill),
         new ButtonBuilder()
           .setCustomId(`combat_item_${combat.id}`)
-          .setLabel('🧪 Vật Phẩm')
-          .setStyle(ButtonStyle.Success)
-          .setDisabled(combat.currentTurn !== 'player'),
+          .setLabel('Vật Phẩm')
+          .setStyle(canUseItem ? ButtonStyle.Primary : ButtonStyle.Secondary)
+          .setDisabled(!canUseItem),
         new ButtonBuilder()
           .setCustomId(`combat_flee_${combat.id}`)
-          .setLabel('🏃 Chạy Trốn')
-          .setStyle(ButtonStyle.Danger)
-          .setDisabled(combat.currentTurn !== 'player')
+          .setLabel('Chạy Trốn')
+          .setStyle(canUseItem ? ButtonStyle.Primary : ButtonStyle.Secondary)
+          .setDisabled(!canUseItem)
       );
 
     // set thumbnail avatar nếu có
@@ -1391,9 +1547,28 @@ class CombatSystem {
       }
       case 'weaponuse': {
         // customId: combat_weaponuse_<combat.id>_<choice>
-        const parts = interaction.customId.split('_');
-        const choice = parts.slice(3).join('_');
+        // combat.id có '_' nên không thể split đơn thuần; dùng prefix chuẩn để cắt choice
+        // Guard: require correct UI state and prevent double execution
+        if ((combat.playerAp || 0) <= 0) {
+          await this.updateCombatUI(combat, { content: '⚠️ Bạn đã hết Action Point!', components: [] }, interaction);
+          return;
+        }
+        if (combat.actionLock || combat.uiLock !== 'weapon_menu') {
+          await this.updateCombatUI(combat, { content: '⚠️ Không thể dùng vũ khí lúc này!', components: [] }, interaction);
+          return;
+        }
+        combat.actionLock = true;
+        const expectedPrefix = `combat_weaponuse_${combat.id}_`;
+        let choice = '';
+        if (interaction.customId && interaction.customId.startsWith(expectedPrefix)) {
+          choice = interaction.customId.slice(expectedPrefix.length);
+        } else {
+          // Fallback: lấy phần sau cùng
+          const parts = interaction.customId.split('_');
+          choice = parts[parts.length - 1];
+        }
         result = await this.useWeaponAction(combat, choice, interaction);
+        combat.actionLock = false;
         break;
       }
       case 'skilluse': {
@@ -1509,7 +1684,18 @@ class CombatSystem {
       };
     }
 
-    const finalDamage = isNaN(dmgObj.damage) ? 1 : Math.max(1, dmgObj.damage);
+    // Nếu là người chơi và không trang bị vũ khí: áp dụng multiplier ngũ hành theo linh căn như skill
+    let adjustedDamage = dmgObj.damage;
+    if (attacker.userId && !(attacker.equipment && attacker.equipment.weapon)) {
+      const newAttElm = attacker.spiritRoot || attacker.element || 'vo_he';
+      const newDefElm = defender.spiritRoot || defender.element || 'vo_he';
+      const newMul = this.getElementDamageMultiplier(newAttElm, newDefElm);
+      const oldMul = Number.isFinite(dmgObj.elementMultiplier) ? dmgObj.elementMultiplier : 1;
+      const ratio = (newMul > 0 && oldMul > 0) ? (newMul / oldMul) : 1;
+      adjustedDamage *= ratio;
+    }
+
+    const finalDamage = isNaN(adjustedDamage) ? 1 : Math.max(1, adjustedDamage);
 
     defender.currentHp = Math.max(0, (defender.currentHp || 0) - finalDamage);
 
@@ -1627,7 +1813,11 @@ class CombatSystem {
     });
 
     // Hit check ACC vs EVA
-    const hitChance = Math.min(Math.max(0.05 + 0.95 * (acc / (acc + Math.max(1, eva))), 0.05), 0.95);
+    // Base hit chance 70% (instead of 5%) for low-level play
+    // Range 25% (instead of 95%) to allow variation based on ACC/EVA ratio
+    // Add 10 to denominator to prevent extreme values when both are very low
+    const accEvaRatio = acc / (acc + eva + 10);
+    const hitChance = Math.min(Math.max(0.70 + 0.25 * accEvaRatio, 0.05), 0.95);
     if (Math.random() > hitChance) {
       return { hit: false, damage: 0, isCritical: false, elementMultiplier: 1 };
     }
@@ -2109,9 +2299,11 @@ class CombatSystem {
 
     // Kiểm tra hiệu ứng gây skip/DoT/Per-turn ngay đầu lượt
     this.processTurnStartEffects(combat);
-    // Nếu processTurnStartEffects đã tự chuyển lượt lần nữa thì dừng
-    // (tránh thực hiện logic refill/bUFF sai lượt)
-    // Không thể dễ dàng detect ở đây, nhưng log sẽ phản ánh và flow tiếp
+    // Nếu có đánh dấu skip từ stun → chuyển tiếp sang lượt kế tiếp ngay
+    if (combat._skipTurn) {
+      combat._skipTurn = false;
+      return this.nextTurn(combat);
+    }
 
     if (combat.currentTurn === 'player') {
       combat.turn++;
@@ -2574,14 +2766,13 @@ class CombatSystem {
   async showWeaponMenu(combat, interaction) {
     combat.uiLock = 'weapon_menu';
     const player = combat.player;
-    const weapons = Array.isArray(player?.inventory?.weapons) ? player.inventory.weapons : [];
-    if (weapons.length === 0) {
+    const weaponInstance = player?.equipment?.weapon || null;
+    if (!weaponInstance) {
       await this.updateCombatUI(combat, { content: '❌ Bạn chưa trang bị vũ khí!', components: [] }, interaction);
       return { action: 'menu', message: 'no weapon' };
     }
-    // Tạm thời coi vũ khí đầu tiên là đang dùng
-    const weaponInstance = weapons[0];
     const itemLoader = require('../utils/data/item-loader');
+    try { await itemLoader.loadAllItems(); } catch { }
     const weaponInfo = itemLoader.getItemInfo(weaponInstance.id);
     if (!weaponInfo) {
       await this.updateCombatUI(combat, { content: '❌ Không tìm thấy thông tin vũ khí!', components: [] }, interaction);
@@ -2591,25 +2782,30 @@ class CombatSystem {
     const embed = new EmbedBuilder()
       .setColor('#F39C12')
       .setTitle(`🗡️ Vũ Khí: ${weaponInfo.name}`)
-      .setDescription('Chọn hành động vũ khí: đánh thường hoặc kĩ năng vũ khí');
+      .setDescription(this.buildWeaponSkillDescription(weaponInfo, weaponInstance));
 
     // Buttons: Normal Attack + Tier skill buttons
     const row = new ActionRowBuilder();
     row.addComponents(
       new ButtonBuilder()
         .setCustomId(`combat_weaponuse_${combat.id}_normal`)
-        .setLabel('Đánh thường (100%)')
+        .setLabel('Đánh thường')
         .setStyle(ButtonStyle.Danger)
+        .setDisabled((combat.playerAp || 0) <= 0)
     );
 
     // Unlocked tiers
     const unlocked = weaponInstance.unlockedSkillTiers || [1];
     unlocked.forEach(tier => {
+      const sk = this.getWeaponSkill(weaponInfo.type, tier);
+      const skId = sk?.id;
+      const remain = skId ? (combat.playerCooldowns?.[skId] || 0) : 0;
       row.addComponents(
         new ButtonBuilder()
           .setCustomId(`combat_weaponuse_${combat.id}_tier_${tier}`)
-          .setLabel(`Skill Tier ${tier}`)
+          .setLabel(remain > 0 ? `${tier} (CD:${remain})` : String(tier))
           .setStyle(ButtonStyle.Primary)
+          .setDisabled((combat.playerAp || 0) <= 0 || remain > 0)
       );
     });
 
@@ -2628,14 +2824,14 @@ class CombatSystem {
   // Xử lý dùng vũ khí: normal hoặc skill tier
   async useWeaponAction(combat, choice, interaction) {
     const player = combat.player;
-    const weapons = Array.isArray(player?.inventory?.weapons) ? player.inventory.weapons : [];
-    if (weapons.length === 0) {
+    const weaponInstance = player?.equipment?.weapon || null;
+    if (!weaponInstance) {
       await this.updateCombatUI(combat, { content: '❌ Bạn chưa trang bị vũ khí!', components: [] }, interaction);
       return { action: 'weapon', message: 'no weapon' };
     }
 
-    const weaponInstance = weapons[0];
     const itemLoader = require('../utils/data/item-loader');
+    try { await itemLoader.loadAllItems(); } catch { }
     const weaponInfo = itemLoader.getItemInfo(weaponInstance.id);
     if (!weaponInfo) {
       await this.updateCombatUI(combat, { content: '❌ Không tìm thấy thông tin vũ khí!', components: [] }, interaction);
@@ -2643,10 +2839,26 @@ class CombatSystem {
     }
 
     let log = `🗡️ ${player.name} dùng vũ khí ${weaponInfo.name}: `;
+    let dmg = 0;
+
     if (choice === 'normal') {
-      const dmg = Math.max(1, (parseFloat(player.stats?.attack || 0)) * 1 * 1 * 1 - (parseFloat(combat.monster.stats?.defense || 0)));
-      combat.monster.currentHp = Math.max(0, (combat.monster.currentHp || 0) - dmg);
-      log += `Gây ${dmg.toFixed(1)} sát thương thường.`;
+      // Normal attack with weapon
+      const attackResult = this.calculateDamage(player, combat.monster, undefined);
+      if (attackResult.hit) {
+        dmg = attackResult.damage;
+        // Apply weapon element multiplier if player has weapon equipped
+        const weaponElement = weaponInfo.element || 'vo_he';
+        const defenderElement = combat.monster.element || 'vo_he';
+        const elementMultiplier = this.getElementDamageMultiplier(weaponElement, defenderElement);
+        dmg *= elementMultiplier;
+        dmg = Math.max(1, dmg);
+
+        combat.monster.currentHp = Math.max(0, (combat.monster.currentHp || 0) - dmg);
+        const critText = attackResult.isCritical ? ' **CRITICAL!**' : '';
+        log += `Gây **${dmg.toFixed(1)}** sát thương thường${critText}!`;
+      } else {
+        log += `**MISS!**`;
+      }
     } else if (choice.startsWith('tier_')) {
       const tier = Number(choice.split('_')[1]);
       const skill = this.getWeaponSkill(weaponInfo.type, tier);
@@ -2654,21 +2866,63 @@ class CombatSystem {
         await this.updateCombatUI(combat, { content: '❌ Không tìm thấy kĩ năng vũ khí!', components: [] }, interaction);
         return { action: 'weapon', message: 'no weapon skill' };
       }
-      const dmg = this.calculateWeaponSkillDamage(player, combat.monster, skill, weaponInstance, combat);
+      // Cooldown check for weapon skill
+      const remainTurns = (combat.playerCooldowns || {})[skill.id] || 0;
+      if (remainTurns > 0) {
+        await this.updateCombatUI(combat, { content: `⏳ Kỹ năng vũ khí đang hồi (${remainTurns} lượt)!`, components: [] }, interaction);
+        return { action: 'weapon', message: 'on cd' };
+      }
+
+      dmg = this.calculateWeaponSkillDamage(player, combat.monster, skill, weaponInstance, combat);
+      if (isNaN(dmg) || dmg <= 0) {
+        console.error('[WEAPON SKILL] Invalid damage calculated:', { dmg, skill, weaponInfo, playerAtk: player.stats?.attack });
+        dmg = 1; // Fallback to minimum damage
+      }
+
       combat.monster.currentHp = Math.max(0, (combat.monster.currentHp || 0) - dmg);
-      log += `Dùng "${skill.name}" gây ${dmg.toFixed(1)} sát thương.`;
+      log += ` **"${skill.name}"** gây **${dmg.toFixed(1)}** sát thương!`;
+
       // Apply simple effects (crit bonus, slow, stun, etc.) via existing helpers
-      this.applyDebuffsFromSkill(player, combat.monster, { effects: skill.effects });
-      this.applyBuffsFromSkill(player, { effects: skill.effects });
+      if (skill.effects) {
+        this.applyDebuffsFromSkill(player, combat.monster, { effects: skill.effects });
+        this.applyBuffsFromSkill(player, { effects: skill.effects });
+      }
+      // Apply cooldown turns
+      const cdTurns = skill.cooldown || 0;
+      if (cdTurns > 0) {
+        if (!combat.playerCooldowns) combat.playerCooldowns = {};
+        combat.playerCooldowns[skill.id] = cdTurns;
+      }
+    } else {
+      log += `Hành động không hợp lệ!`;
     }
 
     // consume AP
     combat.playerAp = Math.max(0, (combat.playerAp || 0) - 1);
-    combat.battleLog.push(log);
+    // Deduplicate consecutive identical logs
+    const last = combat.battleLog[combat.battleLog.length - 1];
+    if (last !== log) combat.battleLog.push(log);
     combat.uiLock = null;
     await this.updateCombatUI(combat, this.createCombatUI(combat), interaction);
     await this.maybeAdvanceTurn(combat, interaction);
     return { action: 'weapon', message: log };
+  }
+
+  // Mô tả trực quan các skill của vũ khí (tương tự skill người chơi)
+  buildWeaponSkillDescription(weaponInfo, weaponInstance) {
+    const lines = [];
+    lines.push('Chọn hành động vũ khí: đánh thường hoặc kỹ năng vũ khí');
+    const tiers = weaponInstance.unlockedSkillTiers || [1];
+    tiers.forEach(tier => {
+      const sk = this.getWeaponSkill(weaponInfo.type, tier);
+      if (!sk) return;
+      const cost = sk.effects?.mana_cost || 0;
+      const cd = sk.cooldown || 0;
+      const elem = weaponInfo.element ? this.getElementViName(weaponInfo.element) : 'Không';
+      const desc = sk.description || '';
+      lines.push(`• ${tier}. ${sk.name} — MP: ${cost} • CD: ${cd} • Hệ VK: ${elem}\n   ${desc}`);
+    });
+    return lines.join('\n');
   }
 
   // Hiển thị menu vật phẩm
@@ -2978,8 +3232,8 @@ class CombatSystem {
       }
     });
 
-    // Apply element multiplier (attacker element vs defender element)
-    const attackerElement = attacker.element || weaponElement;
+    // Apply element multiplier using the weapon's element (not the attacker's element)
+    const attackerElement = weaponElement;
     const defenderElement = defender.element || 'vo_he';
     const elementMultiplier = this.getElementDamageMultiplier(attackerElement, defenderElement);
     finalDamage *= elementMultiplier;
@@ -3028,6 +3282,13 @@ class CombatSystem {
     }
 
     let finalDmg = damage * power;
+    // Elemental multiplier for player skills:
+    // - Use skill's element if provided, otherwise use player's spirit root; fall back to attacker's element
+    // - Defender side prefers spiritRoot if available, else element
+    const attackerSkillElement = effects.element || attacker.spiritRoot || attacker.element || 'vo_he';
+    const defenderElementForSkill = defender.spiritRoot || defender.element || 'vo_he';
+    const skillElementMultiplier = this.getElementDamageMultiplier(attackerSkillElement, defenderElementForSkill);
+    finalDmg *= skillElementMultiplier;
     finalDmg = isNaN(finalDmg) ? 1 : Math.max(1, finalDmg);
 
     // Áp dụng sát thương đơn hoặc AoE (solo: vẫn chỉ 1 mục tiêu)
@@ -3220,16 +3481,9 @@ class CombatSystem {
         p.statusEffects[stunIdx].duration -= 1;
         if (p.statusEffects[stunIdx].duration <= 0) p.statusEffects.splice(stunIdx, 1);
         combat.battleLog.push(`⛔ ${p.name} bị choáng và bỏ lượt!`);
-        this.nextTurn(combat);
+        // Đánh dấu skip để nextTurn xử lý tiếp
+        combat._skipTurn = true;
         return;
-      }
-
-      // Per-turn AoE buff từ caster (solo combat)
-      const aoe = (p.statusEffects || []).find(e => e.type === 'per_turn_aoe_atk_ratio');
-      if (aoe && combat.monster && combat.monster.currentHp > 0) {
-        const dmg = Math.max(1, (p.stats.attack || 0) * (aoe.value || 0));
-        combat.monster.currentHp = Math.max(0, (combat.monster.currentHp || 0) - dmg);
-        combat.battleLog.push(`🔥 Hiệu ứng bộc phát gây ${dmg.toFixed(1)} sát thương lan!`);
       }
     } else if (combat.currentTurn === 'monster') {
       const m = combat.monster;
@@ -3238,7 +3492,7 @@ class CombatSystem {
         m.statusEffects[stunIdx].duration -= 1;
         if (m.statusEffects[stunIdx].duration <= 0) m.statusEffects.splice(stunIdx, 1);
         combat.battleLog.push(`⛔ ${m.name} bị choáng và bỏ lượt!`);
-        this.nextTurn(combat);
+        combat._skipTurn = true;
         return;
       }
     }

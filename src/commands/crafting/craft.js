@@ -138,15 +138,29 @@ module.exports = {
       return [];
     }
 
-    // Number of passives based on rarity
-    const passiveCount = {
-      'rare': 1,    // Địa: 1 passive
-      'epic': 2,    // Thiên: 2 passives
-      'legendary': 3 // Thần: 3 passives
-    };
+    // Number of passives based on rarity and equipment type
+    let passiveCount;
+    if (equipmentType === 'ring' || equipmentType === 'pendant') {
+      // Trang sức: Địa 1, Thiên 1-2, Thần 2
+      if (rarity === 'rare') {
+        passiveCount = 1; // Địa: 1 passive
+      } else if (rarity === 'epic') {
+        passiveCount = Math.random() < 0.5 ? 1 : 2; // Thiên: 1-2 passive (random)
+      } else if (rarity === 'legendary') {
+        passiveCount = 2; // Thần: 2 passives (chắc chắn)
+      } else {
+        passiveCount = 0;
+      }
+    } else {
+      // Armor/Pants/Shoes: Địa 1, Thiên 2, Thần 3
+      passiveCount = {
+        'rare': 1,    // Địa: 1 passive
+        'epic': 2,    // Thiên: 2 passives
+        'legendary': 3 // Thần: 3 passives
+      }[rarity] || 0;
+    }
 
-    const count = passiveCount[rarity] || 0;
-    if (count === 0) return [];
+    if (passiveCount === 0) return [];
 
     // Passive pools for each equipment type
     const armorPassives = [
@@ -447,66 +461,58 @@ module.exports = {
       {
         id: 'nhan_gian',
         name: 'Nhan Giản',
-        description: `+${rarity === 'rare' ? 3 : rarity === 'epic' ? 5 : 7}% SPD`,
+        description: `+${rarity === 'rare' ? 1.5 : rarity === 'epic' ? 3 : 4.5}% SPD`,
         type: 'passive',
         effect: 'speed_bonus_pct',
-        value: rarity === 'rare' ? 3 : rarity === 'epic' ? 5 : 7
+        value: rarity === 'rare' ? 1.5 : rarity === 'epic' ? 3 : 4.5
       },
       {
-        id: 'an_hon',
-        name: 'Ấn Hồn',
-        description: `+${rarity === 'rare' ? 2 : rarity === 'epic' ? 4 : 6}% EVA`,
+        id: 'minh_tam',
+        name: 'Minh Tâm',
+        description: `+${rarity === 'rare' ? 3 : rarity === 'epic' ? 6 : 9}% MP`,
         type: 'passive',
-        effect: 'evasion_bonus_pct',
-        value: rarity === 'rare' ? 2 : rarity === 'epic' ? 4 : 6
-      },
-      {
-        id: 'tam_co',
-        name: 'Tâm Cơ',
-        description: `+${rarity === 'rare' ? 4 : rarity === 'epic' ? 6 : 8}% ACC`,
-        type: 'passive',
-        effect: 'accuracy_bonus_pct',
-        value: rarity === 'rare' ? 4 : rarity === 'epic' ? 6 : 8
+        effect: 'mp_bonus_pct',
+        value: rarity === 'rare' ? 3 : rarity === 'epic' ? 6 : 9
       },
       {
         id: 'kim_van',
         name: 'Kim Vận',
-        description: `+${rarity === 'rare' ? 1.5 : rarity === 'epic' ? 3 : 5}% sát thương kim`,
+        description: `+${rarity === 'rare' ? 2 : rarity === 'epic' ? 4 : 6}% sát thương kim`,
         type: 'passive',
         effect: 'metal_damage_bonus_pct',
-        value: rarity === 'rare' ? 1.5 : rarity === 'epic' ? 3 : 5
+        value: rarity === 'rare' ? 2 : rarity === 'epic' ? 4 : 6
       },
       {
         id: 'moc_van',
         name: 'Mộc Vận',
-        description: `+${rarity === 'rare' ? 1.5 : rarity === 'epic' ? 3 : 5}% sát thương mộc`,
+        description: `+${rarity === 'rare' ? 2 : rarity === 'epic' ? 4 : 6}% sát thương mộc`,
         type: 'passive',
         effect: 'wood_damage_bonus_pct',
-        value: rarity === 'rare' ? 1.5 : rarity === 'epic' ? 3 : 5
+        value: rarity === 'rare' ? 2 : rarity === 'epic' ? 4 : 6
       },
       {
         id: 'tho_van',
         name: 'Thổ Vận',
-        description: `+${rarity === 'rare' ? 1.5 : rarity === 'epic' ? 3 : 5}% sát thương thổ`,
+        description: `+${rarity === 'rare' ? 2 : rarity === 'epic' ? 4 : 6}% sát thương thổ`,
         type: 'passive',
         effect: 'earth_damage_bonus_pct',
-        value: rarity === 'rare' ? 1.5 : rarity === 'epic' ? 3 : 5
+        value: rarity === 'rare' ? 2 : rarity === 'epic' ? 4 : 6
       },
       {
         id: 'thuy_van',
         name: 'Thủy Vận',
-        description: `+${rarity === 'rare' ? 1.5 : rarity === 'epic' ? 3 : 5}% sát thương thủy`,
+        description: `+${rarity === 'rare' ? 2 : rarity === 'epic' ? 4 : 6}% sát thương thủy`,
         type: 'passive',
         effect: 'water_damage_bonus_pct',
-        value: rarity === 'rare' ? 1.5 : rarity === 'epic' ? 3 : 5
+        value: rarity === 'rare' ? 2 : rarity === 'epic' ? 4 : 6
       },
       {
         id: 'hoa_van',
         name: 'Hỏa Vận',
-        description: `+${rarity === 'rare' ? 1.5 : rarity === 'epic' ? 3 : 5}% sát thương hỏa`,
+        description: `+${rarity === 'rare' ? 2 : rarity === 'epic' ? 4 : 6}% sát thương hỏa`,
         type: 'passive',
         effect: 'fire_damage_bonus_pct',
-        value: rarity === 'rare' ? 1.5 : rarity === 'epic' ? 3 : 5
+        value: rarity === 'rare' ? 2 : rarity === 'epic' ? 4 : 6
       }
     ];
 
@@ -528,7 +534,7 @@ module.exports = {
 
     // Randomly select passives (no duplicates)
     const shuffled = [...passivePool].sort(() => Math.random() - 0.5);
-    const selected = shuffled.slice(0, count);
+    const selected = shuffled.slice(0, passiveCount);
 
     return selected;
   },
@@ -727,27 +733,27 @@ module.exports = {
 
   async execute(interaction, args) {
     try {
-      const userId = interaction.user.id;
-      const username = interaction.user.username;
+    const userId = interaction.user.id;
+    const username = interaction.user.username;
 
-      if (!(await playerManager.hasStartedGame(userId))) {
-        const notStartedEmbed = playerManager.createNotStartedEmbed();
-        await interaction.reply({ embeds: [notStartedEmbed] });
-        return;
-      }
+    if (!(await playerManager.hasStartedGame(userId))) {
+      const notStartedEmbed = playerManager.createNotStartedEmbed();
+      await interaction.reply({ embeds: [notStartedEmbed] });
+      return;
+    }
 
       // Reload items to ensure fresh data
       await itemLoader.reload();
 
-      // Không có args: mở menu chọn loại trang bị
-      if (!args || args.length === 0) {
-        await this.showCraftMenu(interaction, userId);
-        return;
-      }
+    // Không có args: mở menu chọn loại trang bị
+    if (!args || args.length === 0) {
+      await this.showCraftMenu(interaction, userId);
+      return;
+    }
 
-      // Có args: chế tạo trực tiếp theo ID
-      const equipmentId = args[0];
-      await this.craftEquipment(interaction, userId, username, equipmentId);
+    // Có args: chế tạo trực tiếp theo ID
+    const equipmentId = args[0];
+    await this.craftEquipment(interaction, userId, username, equipmentId);
     } catch (error) {
       console.error('Error in craft execute:', error);
       await interaction.reply({ content: '❌ Có lỗi xảy ra khi hiển thị thông tin!', ephemeral: true });
@@ -844,77 +850,77 @@ module.exports = {
       // Reload items to ensure fresh data
       await itemLoader.reload();
 
-      const equipments = Object.values(itemLoader.items).filter(item => item.category === 'equipment' && item.type === type && item.crafting);
+    const equipments = Object.values(itemLoader.items).filter(item => item.category === 'equipment' && item.type === type && item.crafting);
 
-      if (equipments.length === 0) {
-        const noEmbed = new EmbedBuilder()
-          .setColor('#FFA500')
-          .setTitle('⚠️ Không Có Trang Bị')
-          .setDescription(`Không tìm thấy trang bị loại **${this.getEquipTypeDisplayName(type)}**!`)
-          .setFooter({ text: 'Quay lại menu chính' })
-          .setTimestamp();
-
-        const backButton = new ButtonBuilder().setCustomId('craft_back_main').setLabel('🔙 Quay Lại').setStyle(ButtonStyle.Secondary);
-        const backRow = new ActionRowBuilder().addComponents(backButton);
-        await interaction.update({ embeds: [noEmbed], components: [backRow] });
-        return;
-      }
-
-      const player = await playerManager.getPlayer(userId);
-      const byRarity = {};
-      equipments.forEach(eq => {
-        const rarity = eq.rarity || 'common';
-        if (!byRarity[rarity]) byRarity[rarity] = [];
-        byRarity[rarity].push(eq);
-      });
-
-      const embed = new EmbedBuilder()
-        .setColor(this.getRarityColor('epic'))
-        .setTitle(`🧰 Trang Bị - ${this.getEquipTypeDisplayName(type)}`)
-        .setDescription(`${this.createSeparator()}\nDanh sách trang bị có thể chế tạo\n\nSử dụng: \`fcraft <id_trang_bi>\` để chế tạo nhanh`);
-
-      const order = ['common', 'uncommon', 'rare', 'epic', 'legendary'];
-
-      order.forEach(r => {
-        if (!byRarity[r] || byRarity[r].length === 0) return;
-        const list = byRarity[r];
-        const chunks = this.chunkArray(list, 3);
-        chunks.forEach(chunk => {
-          const value = chunk.map(eq => {
-            const materials = Object.entries(eq.crafting || {}).map(([id, qty]) => {
-              const info = itemLoader.getItemInfo(id);
-              const have = player.inventory.items.find(i => i.id === id)?.quantity || 0;
-              const emoji = info?.emoji || '❓';
-              const name = info?.name || id;
-              return `${emoji} **${name}** x${qty} (còn: ${have})`;
-            }).join(', ');
-
-            const id = Object.keys(itemLoader.items).find(k => itemLoader.items[k] === eq);
-            const rarityEmoji = this.getRarityEmoji(eq.rarity || 'common');
-            return `${rarityEmoji} **${eq.name}** (ID: \`${id}\`)\n└ Nguyên liệu: ${materials}`;
-          }).join('\n\n');
-
-          embed.addFields({ name: '\u200B', value, inline: false });
-        });
-      });
-
-      const selectMenu = new StringSelectMenuBuilder()
-        .setCustomId('craft_select_equipment')
-        .setPlaceholder('Chọn trang bị để chế tạo...');
-
-      equipments.forEach(eq => {
-        const rarityEmoji = this.getRarityEmoji(eq.rarity || 'common');
-        const id = Object.keys(itemLoader.items).find(k => itemLoader.items[k] === eq);
-        if (id) {
-          selectMenu.addOptions({ label: `${rarityEmoji} ${eq.name}`, description: `ID: ${id}`, value: id });
-        }
-      });
+    if (equipments.length === 0) {
+      const noEmbed = new EmbedBuilder()
+        .setColor('#FFA500')
+        .setTitle('⚠️ Không Có Trang Bị')
+        .setDescription(`Không tìm thấy trang bị loại **${this.getEquipTypeDisplayName(type)}**!`)
+        .setFooter({ text: 'Quay lại menu chính' })
+        .setTimestamp();
 
       const backButton = new ButtonBuilder().setCustomId('craft_back_main').setLabel('🔙 Quay Lại').setStyle(ButtonStyle.Secondary);
-      const selectRow = new ActionRowBuilder().addComponents(selectMenu);
       const backRow = new ActionRowBuilder().addComponents(backButton);
+      await interaction.update({ embeds: [noEmbed], components: [backRow] });
+      return;
+    }
 
-      await interaction.update({ embeds: [embed], components: [selectRow, backRow] });
+    const player = await playerManager.getPlayer(userId);
+    const byRarity = {};
+    equipments.forEach(eq => {
+      const rarity = eq.rarity || 'common';
+      if (!byRarity[rarity]) byRarity[rarity] = [];
+      byRarity[rarity].push(eq);
+    });
+
+    const embed = new EmbedBuilder()
+      .setColor(this.getRarityColor('epic'))
+      .setTitle(`🧰 Trang Bị - ${this.getEquipTypeDisplayName(type)}`)
+      .setDescription(`${this.createSeparator()}\nDanh sách trang bị có thể chế tạo\n\nSử dụng: \`fcraft <id_trang_bi>\` để chế tạo nhanh`);
+
+    const order = ['common', 'uncommon', 'rare', 'epic', 'legendary'];
+
+    order.forEach(r => {
+      if (!byRarity[r] || byRarity[r].length === 0) return;
+      const list = byRarity[r];
+      const chunks = this.chunkArray(list, 3);
+      chunks.forEach(chunk => {
+        const value = chunk.map(eq => {
+          const materials = Object.entries(eq.crafting || {}).map(([id, qty]) => {
+            const info = itemLoader.getItemInfo(id);
+            const have = player.inventory.items.find(i => i.id === id)?.quantity || 0;
+            const emoji = info?.emoji || '❓';
+            const name = info?.name || id;
+            return `${emoji} **${name}** x${qty} (còn: ${have})`;
+          }).join(', ');
+
+          const id = Object.keys(itemLoader.items).find(k => itemLoader.items[k] === eq);
+          const rarityEmoji = this.getRarityEmoji(eq.rarity || 'common');
+          return `${rarityEmoji} **${eq.name}** (ID: \`${id}\`)\n└ Nguyên liệu: ${materials}`;
+        }).join('\n\n');
+
+        embed.addFields({ name: '\u200B', value, inline: false });
+      });
+    });
+
+    const selectMenu = new StringSelectMenuBuilder()
+      .setCustomId('craft_select_equipment')
+      .setPlaceholder('Chọn trang bị để chế tạo...');
+
+    equipments.forEach(eq => {
+      const rarityEmoji = this.getRarityEmoji(eq.rarity || 'common');
+      const id = Object.keys(itemLoader.items).find(k => itemLoader.items[k] === eq);
+      if (id) {
+        selectMenu.addOptions({ label: `${rarityEmoji} ${eq.name}`, description: `ID: ${id}`, value: id });
+      }
+    });
+
+    const backButton = new ButtonBuilder().setCustomId('craft_back_main').setLabel('🔙 Quay Lại').setStyle(ButtonStyle.Secondary);
+    const selectRow = new ActionRowBuilder().addComponents(selectMenu);
+    const backRow = new ActionRowBuilder().addComponents(backButton);
+
+    await interaction.update({ embeds: [embed], components: [selectRow, backRow] });
     } catch (error) {
       console.error('Error in showEquipmentByType:', error);
       await interaction.reply({ content: '❌ Có lỗi xảy ra khi hiển thị thông tin!', ephemeral: true });
@@ -931,98 +937,98 @@ module.exports = {
     try {
       // Reload items to ensure fresh data
       await itemLoader.reload();
-      const equipInfo = itemLoader.getItemInfo(equipmentId);
-      const player = await playerManager.getPlayer(userId);
+    const equipInfo = itemLoader.getItemInfo(equipmentId);
+    const player = await playerManager.getPlayer(userId);
 
-      if (!equipInfo || equipInfo.category !== 'equipment') {
-        const errorEmbed = new EmbedBuilder()
-          .setColor('#FF0000')
-          .setTitle('❌ Lỗi Chế Tạo Trang Bị')
-          .setDescription('Không tìm thấy trang bị cần chế tạo hoặc ID không hợp lệ!')
-          .addFields({ name: '💡 Gợi ý', value: 'Sử dụng `fcraft` để xem danh sách trang bị có thể chế tạo', inline: false });
-        await interaction.reply({ embeds: [errorEmbed] });
-        return;
-      }
+    if (!equipInfo || equipInfo.category !== 'equipment') {
+      const errorEmbed = new EmbedBuilder()
+        .setColor('#FF0000')
+        .setTitle('❌ Lỗi Chế Tạo Trang Bị')
+        .setDescription('Không tìm thấy trang bị cần chế tạo hoặc ID không hợp lệ!')
+        .addFields({ name: '💡 Gợi ý', value: 'Sử dụng `fcraft` để xem danh sách trang bị có thể chế tạo', inline: false });
+      await interaction.reply({ embeds: [errorEmbed] });
+      return;
+    }
 
       // Ensure equipment has required properties
       if (!equipInfo.rarity) equipInfo.rarity = 'common';
       if (!equipInfo.type) equipInfo.type = 'armor';
       if (!equipInfo.name) equipInfo.name = equipmentId;
 
-      const craftingMaterials = equipInfo.crafting || {};
-      const missing = [];
-      const available = [];
+    const craftingMaterials = equipInfo.crafting || {};
+    const missing = [];
+    const available = [];
 
-      for (const [materialId, requiredQty] of Object.entries(craftingMaterials)) {
-        const invItem = player.inventory.items.find(item => item.id === materialId);
-        const have = invItem ? invItem.quantity : 0;
-        const info = itemLoader.getItemInfo(materialId);
-        const name = info?.name || materialId;
-        const emoji = info?.emoji || '❓';
-        if (have < requiredQty) {
-          missing.push({ name, emoji, have, requiredQty, missing: requiredQty - have });
-        } else {
-          available.push({ name, emoji, requiredQty });
-        }
+    for (const [materialId, requiredQty] of Object.entries(craftingMaterials)) {
+      const invItem = player.inventory.items.find(item => item.id === materialId);
+      const have = invItem ? invItem.quantity : 0;
+      const info = itemLoader.getItemInfo(materialId);
+      const name = info?.name || materialId;
+      const emoji = info?.emoji || '❓';
+      if (have < requiredQty) {
+        missing.push({ name, emoji, have, requiredQty, missing: requiredQty - have });
+      } else {
+        available.push({ name, emoji, requiredQty });
       }
+    }
 
-      if (missing.length > 0) {
-        const missingEmbed = new EmbedBuilder()
-          .setColor('#FFA500')
-          .setTitle('⚠️ Thiếu Nguyên Liệu Chế Tạo')
-          .setDescription(`**${username}** không đủ nguyên liệu để chế tạo **${equipInfo.name}**!`)
-          .addFields({
-            name: '✅ Nguyên Liệu Đã Có',
-            value: available.length > 0 ? available.map(m => `${m.emoji} **${m.name}**: ${m.requiredQty}`).join('\n') : 'Không',
-            inline: false
-          })
-          .addFields({
-            name: '❌ Nguyên Liệu Thiếu',
-            value: missing.map(m => `${m.emoji} **${m.name}**: ${m.have}/${m.requiredQty} (Thiếu: ${m.missing})`).join('\n'),
-            inline: false
-          })
-          .addFields({ name: '💡 Gợi ý', value: 'Dùng `fhunt`, `fpick`, `fmine` để lấy nguyên liệu.', inline: false });
-        await interaction.reply({ embeds: [missingEmbed] });
-        return;
-      }
-
-      // Trừ nguyên liệu
-      for (const [materialId, requiredQty] of Object.entries(craftingMaterials)) {
-        const invItem = player.inventory.items.find(item => item.id === materialId);
-        if (invItem) {
-          invItem.quantity -= requiredQty;
-          if (invItem.quantity <= 0) {
-            player.inventory.items = player.inventory.items.filter(item => item.id !== materialId);
-          }
-        }
-      }
-
-      // Thêm trang bị dạng instance (không stack)
-      const equipInstance = {
-        uid: `${Date.now().toString(36).slice(-4)}${Math.random().toString(36).slice(2, 6)}`,
-        id: equipmentId,
-        createdAt: Date.now(),
-        bonuses: this.randomizeEquipmentStats(equipInfo.rarity, equipInfo.name, equipInfo.type, equipInfo.set_id)
-      };
-      player.inventory.armors = player.inventory.armors || [];
-      player.inventory.armors.push(equipInstance);
-
-      playerManager.savePlayers();
-
-      const successEmbed = new EmbedBuilder()
-        .setColor('#00C853')
-        .setTitle('🎉 Chế Tạo Trang Bị Thành Công!')
-        .setDescription(`${this.createSeparator()}\n**${username}** đã chế tạo thành công **${equipInfo.name}**!`)
-        .addFields({ name: '🧰 Trang Bị Nhận Được', value: `${equipInfo.emoji} **${equipInfo.name}** ${this.getRarityEmoji(equipInfo.rarity)}`, inline: false })
+    if (missing.length > 0) {
+      const missingEmbed = new EmbedBuilder()
+        .setColor('#FFA500')
+        .setTitle('⚠️ Thiếu Nguyên Liệu Chế Tạo')
+        .setDescription(`**${username}** không đủ nguyên liệu để chế tạo **${equipInfo.name}**!`)
         .addFields({
-          name: '🔍 Nguyên Liệu Đã Sử Dụng', value: Object.entries(craftingMaterials).map(([id, qty]) => {
-            const info = itemLoader.getItemInfo(id);
-            return `${info?.emoji || '❓'} **${info?.name || id}**: ${qty}`;
-          }).join('\n'), inline: false
+          name: '✅ Nguyên Liệu Đã Có',
+          value: available.length > 0 ? available.map(m => `${m.emoji} **${m.name}**: ${m.requiredQty}`).join('\n') : 'Không',
+          inline: false
         })
-        .setTimestamp();
+        .addFields({
+          name: '❌ Nguyên Liệu Thiếu',
+          value: missing.map(m => `${m.emoji} **${m.name}**: ${m.have}/${m.requiredQty} (Thiếu: ${m.missing})`).join('\n'),
+          inline: false
+        })
+        .addFields({ name: '💡 Gợi ý', value: 'Dùng `fhunt`, `fpick`, `fmine` để lấy nguyên liệu.', inline: false });
+      await interaction.reply({ embeds: [missingEmbed] });
+      return;
+    }
 
-      await interaction.reply({ embeds: [successEmbed] });
+    // Trừ nguyên liệu
+    for (const [materialId, requiredQty] of Object.entries(craftingMaterials)) {
+      const invItem = player.inventory.items.find(item => item.id === materialId);
+      if (invItem) {
+        invItem.quantity -= requiredQty;
+        if (invItem.quantity <= 0) {
+          player.inventory.items = player.inventory.items.filter(item => item.id !== materialId);
+        }
+      }
+    }
+
+    // Thêm trang bị dạng instance (không stack)
+    const equipInstance = {
+      uid: `${Date.now().toString(36).slice(-4)}${Math.random().toString(36).slice(2, 6)}`,
+      id: equipmentId,
+      createdAt: Date.now(),
+        bonuses: this.randomizeEquipmentStats(equipInfo.rarity, equipInfo.name, equipInfo.type, equipInfo.set_id)
+    };
+    player.inventory.armors = player.inventory.armors || [];
+    player.inventory.armors.push(equipInstance);
+
+    playerManager.savePlayers();
+
+    const successEmbed = new EmbedBuilder()
+      .setColor('#00C853')
+      .setTitle('🎉 Chế Tạo Trang Bị Thành Công!')
+      .setDescription(`${this.createSeparator()}\n**${username}** đã chế tạo thành công **${equipInfo.name}**!`)
+      .addFields({ name: '🧰 Trang Bị Nhận Được', value: `${equipInfo.emoji} **${equipInfo.name}** ${this.getRarityEmoji(equipInfo.rarity)}`, inline: false })
+      .addFields({
+        name: '🔍 Nguyên Liệu Đã Sử Dụng', value: Object.entries(craftingMaterials).map(([id, qty]) => {
+          const info = itemLoader.getItemInfo(id);
+          return `${info?.emoji || '❓'} **${info?.name || id}**: ${qty}`;
+        }).join('\n'), inline: false
+      })
+      .setTimestamp();
+
+    await interaction.reply({ embeds: [successEmbed] });
     } catch (error) {
       console.error('Error in craftEquipment:', error);
       await interaction.reply({ content: '❌ Có lỗi xảy ra khi chế tạo trang bị!', ephemeral: true });

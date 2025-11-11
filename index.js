@@ -356,6 +356,10 @@ async function handleButtonInteraction(interaction) {
     if (parts[1] === 'skilluse') {
       action = 'skilluse';
       combatId = parts[2] + (parts[3] ? '_' + parts[3] : '');
+    } else if (parts[1] === 'weaponuse') {
+      // customId: combat_weaponuse_<combatId>_<choice...>
+      action = 'weaponuse';
+      combatId = parts[2] + (parts[3] && /^\d+$/.test(parts[3]) ? '_' + parts[3] : '');
     } else if (parts[1] === 'back') {
       action = 'back';
       combatId = parts.slice(2).join('_');

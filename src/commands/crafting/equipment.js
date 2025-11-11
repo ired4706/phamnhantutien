@@ -306,10 +306,10 @@ module.exports = {
   // Tính đóng góp combat stats từ core stat bonuses của armor/pants/shoes/ring/pendant
   computeEquipmentCombatBonuses(equipment) {
     const bonuses = equipment.bonuses || {};
-    
+
     // Get main INT for ring/pendant (similar to main STR for weapons)
     const main = (bonuses.__main_stats && bonuses.__main_stats.INT) ? bonuses.__main_stats.INT : 0;
-    
+
     const sub = {
       STR: bonuses.STR || 0,
       INT: bonuses.INT || 0,
@@ -359,6 +359,8 @@ module.exports = {
     player.stats.evasion = num(s.evasion) + sign * num(delta.evasion);
     player.stats.accuracy = num(s.accuracy) + sign * num(delta.accuracy);
     player.stats.penetration = num(s.penetration) + sign * num(delta.penetration);
+    // Round combat stats to integers (keep base core stats untouched)
+    this.roundCombatStats(player);
   },
 
   // Tính base stats (không có equipment) để apply percentage bonuses
@@ -375,7 +377,7 @@ module.exports = {
   // Áp dụng (hoặc gỡ) equipment passives vào player.stats
   async applyEquipmentPassivesToPlayer(player, equipment, { remove = false } = {}) {
     if (!equipment || !equipment.bonuses) return;
-    
+
     const passives = equipment.bonuses.__passives || [];
     if (!Array.isArray(passives) || passives.length === 0) return;
 
@@ -429,6 +431,23 @@ module.exports = {
         // sẽ được xử lý trong combat system, không apply vào player.stats ở đây
       }
     }
+    // Round combat stats after applying passives (core stats unchanged)
+    this.roundCombatStats(player);
+  },
+
+  // Làm tròn các chỉ số combat của người chơi về số nguyên (không ảnh hưởng core stats)
+  roundCombatStats(player) {
+    if (!player || !player.stats) return;
+    const fields = [
+      'attack', 'defense', 'hp', 'maxHp', 'mp', 'maxMp',
+      'speed', 'regen', 'critical', 'evasion', 'accuracy', 'penetration'
+    ];
+    fields.forEach(key => {
+      const v = player.stats[key];
+      if (typeof v === 'number' && isFinite(v)) {
+        player.stats[key] = Math.round(v);
+      }
+    });
   },
 
   // Tạo embed chính hiển thị trang bị
@@ -495,15 +514,16 @@ module.exports = {
     const equipmentDetails = await this.getEquipmentDetails(player);
     if (equipmentDetails.passives.length > 0 || equipmentDetails.setBonuses.length > 0) {
       const detailsText = [];
-      
+
       if (equipmentDetails.passives.length > 0) {
         detailsText.push('**✨ Passives:**\n' + equipmentDetails.passives.join('\n'));
       }
-      
+
+      // Chỉ hiển thị set bonus nếu đã kích hoạt (1 dòng duy nhất)
       if (equipmentDetails.setBonuses.length > 0) {
-        detailsText.push('**🎯 Set Bonuses:**\n' + equipmentDetails.setBonuses.join('\n'));
+        detailsText.push('**🎯 Set Bonus:**\n' + equipmentDetails.setBonuses[0]);
       }
-      
+
       if (detailsText.length > 0) {
         embed.addFields({
           name: '💎 **Chi Tiết Trang Bị**',
@@ -524,7 +544,6 @@ module.exports = {
     const passives = [];
     const setBonuses = [];
     const itemLoader = require('../../utils/data/item-loader.js');
-    const craftModule = require('./craft.js');
 
     if (!player.equipment) return { passives, setBonuses };
 
@@ -532,7 +551,7 @@ module.exports = {
     await itemLoader.loadAllItems();
 
     const slots = ['weapon', 'armor', 'pants', 'shoes', 'ring', 'pendant', 'artifact'];
-    
+
     slots.forEach(slot => {
       const item = player.equipment[slot];
       if (!item) return;
@@ -552,19 +571,14 @@ module.exports = {
           passives.push(`• **${slotName}**: ${name} - ${desc}`);
         });
       }
-
-      // Lấy set bonus nếu có
-      if (item.bonuses?.__set_id && item.bonuses?.__set_type) {
-        const setType = item.bonuses.__set_type;
-        const rarity = itemInfo.rarity;
-        const setBonusConfig = craftModule.getSetBonusConfig(setType, rarity);
-        
-        if (setBonusConfig) {
-          const slotName = this.getSlotDisplayName(slot);
-          setBonuses.push(`• **${slotName}**: *${setBonusConfig.description}*`);
-        }
-      }
     });
+
+    // Chỉ hiển thị set bonus nếu đã kích hoạt (3 items cùng set_id và cùng rarity)
+    const activeSetBonus = this.checkSetBonus(player);
+    if (activeSetBonus && activeSetBonus.config) {
+      // Chỉ hiển thị 1 dòng duy nhất cho set bonus đang active
+      setBonuses.push(`*${activeSetBonus.config.description}*`);
+    }
 
     return { passives, setBonuses };
   },
@@ -593,7 +607,7 @@ module.exports = {
     // Với weapon passives, cần map từ id/type sang name và description
     if (slot === 'weapon') {
       const passiveId = passive.id || '';
-      
+
       // Map các passive ID sang name và description
       const passiveMap = {
         // Thiên passives
@@ -701,7 +715,8 @@ module.exports = {
       return map[rarity] || '';
     })();
 
-    return `${itemInfo.emoji} **${itemInfo.name}** ${rarityEmoji}`;
+    const uidText = item.uid ? ` — UID: \`${item.uid}\`` : '';
+    return `${itemInfo.emoji} **${itemInfo.name}** ${rarityEmoji}${uidText}`;
   },
 
   // Tính tổng chỉ số từ trang bị
