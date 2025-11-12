@@ -212,14 +212,14 @@ class MonsterManager {
     // Tạo tên variant
     const variantNames = {
       "normal": "",
-      "mutated": "Biến Dị",
-      "super_mutated": "Siêu Biến Dị"
+      "mutated": "Biến dị",
+      "super_mutated": "Siêu biến dị"
     };
 
     const variantEmojis = {
-      "normal": "",
-      "mutated": "🔴",
-      "super_mutated": "💀"
+      "normal": "✦",
+      "mutated": "✧",
+      "super_mutated": "✸"
     };
 
     // Tính loot multiplier dựa trên variant

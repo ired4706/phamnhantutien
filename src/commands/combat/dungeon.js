@@ -106,14 +106,15 @@ module.exports = {
     // Cập nhật tên variant
     const variantNames = {
       "normal": "",
-      "mutated": " Biến Dị",
-      "super_mutated": " Siêu Biến Dị"
+      "mutated": " Biến dị",
+      "super_mutated": " Siêu biến dị"
     };
 
     monster.name = monster.name + variantNames[variant];
 
     // Thêm prefix cho boss
     if (isBoss) {
+      monster.isBoss = true;
       monster.name = "👑 " + monster.name + " (BOSS)";
     }
 
