@@ -314,22 +314,22 @@ class WeaponSystem {
         dmg = Math.max(1, dmg);
 
         combat.monster.currentHp = Math.max(0, (combat.monster.currentHp || 0) - dmg);
-        const critText = attackResult.isCritical ? ' **CRITICAL**' : '';
-        log = `**${player.name}** dùng vũ khí ${weaponInfo.name} → **${dmg.toFixed(1)}** sát thương${critText}`;
+        const critText = attackResult.isCritical ? ' **CRIT**' : '';
+        log = `🗡️ ${player.name} dùng **${weaponInfo.name}** → **${dmg.toFixed(1)}** sát thương${critText}`;
       } else {
-        log = `**${player.name}** dùng vũ khí ${weaponInfo.name} **MISS**`;
+        log = `🗡️ ${player.name} dùng **${weaponInfo.name}** → **MISS**`;
       }
     } else if (choice.startsWith('tier_')) {
       const tier = Number(choice.split('_')[1]);
       const skill = this.getWeaponSkill(weaponInfo.type, tier);
       if (!skill) {
-        await updateCombatUI(combat, { content: '❌ Không tìm thấy kĩ năng vũ khí!', components: [] }, interaction);
+        await updateCombatUI(combat, { content: '❌ Không tìm thấy kĩ năng vũ khí', components: [] }, interaction);
         return { action: 'weapon', message: 'no weapon skill' };
       }
       // Cooldown check for weapon skill
       const remainTurns = (combat.playerCooldowns || {})[skill.id] || 0;
       if (remainTurns > 0) {
-        await updateCombatUI(combat, { content: `⏳ Kỹ năng vũ khí đang hồi (${remainTurns} lượt)!`, components: [] }, interaction);
+        await updateCombatUI(combat, { content: `⏳ Kỹ năng vũ khí đang hồi (${remainTurns} lượt)`, components: [] }, interaction);
         return { action: 'weapon', message: 'on cd' };
       }
 
@@ -340,7 +340,7 @@ class WeaponSystem {
       }
 
       combat.monster.currentHp = Math.max(0, (combat.monster.currentHp || 0) - dmg);
-      log = `**${player.name}** dùng **"${skill.name}"** → **${dmg.toFixed(1)}** sát thương`;
+      log = `🗡️ ${player.name} thi triển **${skill.name}** → **${dmg.toFixed(1)}** sát thương`;
 
       // Apply simple effects (crit bonus, slow, stun, etc.) via existing helpers
       if (skill.effects) {
@@ -354,7 +354,7 @@ class WeaponSystem {
         combat.playerCooldowns[skill.id] = cdTurns;
       }
     } else {
-      log = `**${player.name}** hành động không hợp lệ`;
+      log = `❌ ${player.name} hành động không hợp lệ`;
     }
 
     // consume AP

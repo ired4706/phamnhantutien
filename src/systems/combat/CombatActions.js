@@ -21,7 +21,7 @@ function performAttack(attacker, defender, combat) {
     } catch { }
     return {
       action: 'attack',
-      message: `💨 ${defender.name} né tránh hoàn toàn đòn đánh!`,
+      message: `💨 ${defender.name} né tránh hoàn toàn`,
       damage: 0
     };
   }
@@ -31,7 +31,7 @@ function performAttack(attacker, defender, combat) {
   if (!dmgObj.hit) {
     return {
       action: 'attack',
-      message: `❌ ${attacker.name} tấn công nhưng **MISS!**`,
+      message: `❌ ${attacker.name} tấn công → **MISS**`,
       damage: 0
     };
   }
@@ -51,8 +51,8 @@ function performAttack(attacker, defender, combat) {
 
   defender.currentHp = Math.max(0, (defender.currentHp || 0) - finalDamage);
 
-  const critText = dmgObj.isCritical ? ' **CRITICAL!**' : '';
-  const message = `⚔️ ${attacker.name} tấn công gây **${finalDamage.toFixed(1)}** sát thương${critText}!`;
+  const critText = dmgObj.isCritical ? ' **CRIT**' : '';
+  const message = `⚔️ ${attacker.name} tấn công → **${finalDamage.toFixed(1)}** sát thương${critText}!`;
 
   return {
     action: 'attack',
@@ -71,18 +71,18 @@ function performAttack(attacker, defender, combat) {
 function performDefend(entity, combat) {
   // Kiểm tra AP cho solo combat
   if (combat.playerAp < 1) {
-    return { success: false, message: '❌ Không đủ AP để phòng thủ!' };
+    return { success: false, message: '❌ Không đủ AP để phòng thủ' };
   }
 
   // Kiểm tra đã phòng thủ chưa trong turn này
   if (combat.turnActions && combat.turnActions.defended) {
-    return { success: false, message: '❌ Bạn đã phòng thủ trong turn này!' };
+    return { success: false, message: '❌ Đã phòng thủ lượt này' };
   }
 
   // Kiểm tra cho raid combat - mỗi actor chỉ được phòng thủ 1 lần/turn
   if (combat.party && combat.party.includes(entity)) {
     if (entity.defended) {
-      return { success: false, message: '❌ Bạn đã phòng thủ trong turn này!' };
+      return { success: false, message: '❌ Đã phòng thủ lượt này' };
     }
     entity.defended = true;
   }
@@ -102,7 +102,7 @@ function performDefend(entity, combat) {
 
   return {
     action: 'defend',
-    message: `🛡️ ${entity.name} đã phòng thủ! Defense tăng 50% cho lượt tiếp theo.`
+    message: `🛡️ ${entity.name} phòng thủ → DEF +50% (1 lượt)`
   };
 }
 
@@ -119,7 +119,7 @@ function performFlee(combat) {
     combat.isActive = false;
     return {
       action: 'flee',
-      message: `🏃 Bạn đã chạy trốn thành công!`,
+      message: `🏃 Chạy trốn thành công!`,
       combatEnd: true
     };
   } else {

@@ -16,7 +16,8 @@ const {
   SkillSystem,
   WeaponSystem,
   MonsterAI,
-  RaidSystem
+  RaidSystem,
+  CombatUI
 } = require('./combat/index');
 
 class CombatSystem {
@@ -53,6 +54,7 @@ class CombatSystem {
     this.weaponSystem = new WeaponSystem(this.weaponSkillsData);
     this.monsterAI = new MonsterAI();
     this.raidSystem = new RaidSystem();
+    this.combatUI = new CombatUI();
 
     // Expose helpers for backward compatibility
     this.REALM_CONFIG = CombatHelpers.REALM_CONFIG;
@@ -209,54 +211,6 @@ class CombatSystem {
     return combat;
   }
 
-  createRaidUI(combat) {
-    const waveInfo = `Ải ${(combat.currentWaveIndex || 0) + 1}/${combat.waves.length}`;
-    const currentActor = combat.party[combat.currentActorIndex];
-    const apInfo = combat.currentTurn === 'party' ? `AP: ${combat.playerAp || 0}/${combat.playerApMax || 1}` : '';
-
-    const icons = this.getStatIcons();
-    const fmtBar = (cur, max) => this.renderTextBar(cur, max, 14);
-    const fmt = (e) => {
-      const s = e.stats || {};
-      return `${e.emoji || ''} **${e.name}**\n` +
-        `${icons.hp} ${fmtBar(e.currentHp, s.hp || 0)} ${Math.max(0, Math.round(e.currentHp))}/${s.hp || 0}\n` +
-        `${icons.mp} ${fmtBar(e.currentMp, s.mp || 0)} ${Math.max(0, Math.round(e.currentMp))}/${s.mp || 0}\n` +
-        `${icons.atk} ${s.attack || 0}  • ${icons.def} ${s.defense || 0}  • ${icons.spd} ${s.speed || 0}\n` +
-        `${icons.crit} ${s.critical || 0}% • ${icons.eva} ${s.evasion || 0}% • ${icons.regen} ${s.regen || 0}`;
-    };
-    const partyLines = combat.party.map((p, idx) => {
-      const isCurrent = idx === combat.currentActorIndex;
-      const apBonus = p.apBonus > 0 ? ` ${icons.apBonus}+${p.apBonus}` : '';
-      const tag = isCurrent && combat.currentTurn === 'party' ? ` (Turn • ${apInfo})` : '';
-      return `• ${fmt(p)}${apBonus}${tag}`;
-    }).join('\n\n');
-    const monsterLines = combat.monsters.map((m) => `• ${fmt(m)}`).join('\n\n');
-
-    const embed = new EmbedBuilder()
-      .setColor('#F1C40F')
-      .setTitle('🏰 Domain Raid')
-      .setDescription(`Turn ${combat.turn} • ${waveInfo} • ${combat.currentTurn === 'party' ? `Lượt: ${currentActor?.name}` : 'Lượt: Quái'}`)
-      .addFields(
-        { name: '👥 Party', value: partyLines || '—', inline: true },
-        { name: '👹 Enemy Team', value: monsterLines || '—', inline: true },
-        { name: '📜 Log', value: combat.battleLog.slice(-8).join('\n') || '—', inline: false }
-      )
-      .setFooter({ text: 'Chọn hành động để tiếp tục' })
-      .setTimestamp();
-
-    const isPlayerTurn = combat.currentTurn === 'party';
-    const row = new ActionRowBuilder()
-      .addComponents(
-        new ButtonBuilder().setCustomId(`combat_attack_${combat.id}`).setLabel('⚔️ Tấn Công').setStyle(ButtonStyle.Danger).setDisabled(!isPlayerTurn || (combat.playerAp || 0) <= 0),
-        new ButtonBuilder().setCustomId(`combat_defend_${combat.id}`).setLabel('🛡️ Phòng Thủ').setStyle(ButtonStyle.Secondary).setDisabled(!isPlayerTurn || combat.playerAp < 1 || (currentActor && currentActor.defended) || (combat.turnActions?.defended === true)),
-        new ButtonBuilder().setCustomId(`combat_skill_${combat.id}`).setLabel('✨ Kỹ Năng').setStyle(ButtonStyle.Primary).setDisabled(!isPlayerTurn || (combat.playerAp || 0) <= 0),
-        new ButtonBuilder().setCustomId(`combat_item_${combat.id}`).setLabel('🧪 Vật Phẩm').setStyle(ButtonStyle.Success).setDisabled(!isPlayerTurn),
-        new ButtonBuilder().setCustomId(`combat_flee_${combat.id}`).setLabel('🏃 Rời Raid').setStyle(ButtonStyle.Danger).setDisabled(!isPlayerTurn)
-      );
-
-    return { embeds: [embed], components: [row] };
-  }
-
   // Tiến lượt RAID cho party
   nextRaidActor(combat) {
     return this.raidSystem.nextRaidActor(combat);
@@ -308,7 +262,7 @@ class CombatSystem {
     combat.monsterAp = 1;
     combat.turnActions = { attacked: false, usedSkill: false, usedWeaponSkill: false, defended: false };
 
-    combat.battleLog.push(`🚪 Sang ải ${nextIndex + 1}/${combat.waves.length}: ${nextMonster.name}`);
+    combat.battleLog.push(`🚪 Sang ải **${nextIndex + 1}/${combat.waves.length}**: Quái: **${nextMonster.name}**`);
     return true;
   }
 
@@ -334,42 +288,7 @@ class CombatSystem {
 
   // Chuyển sang actor tiếp theo trong raid
   advanceRaidInitiative(combat) {
-    if (!combat.initiative || combat.initiative.length === 0) {
-      Logger.error('No initiative found for raid combat');
-      return;
-    }
-
-    let nextIndex = (combat.initiativeIndex + 1) % combat.initiative.length;
-    let attempts = 0;
-    const maxAttempts = combat.initiative.length;
-
-    // Tìm entity tiếp theo còn sống
-    while (attempts < maxAttempts) {
-      const entity = combat.initiative[nextIndex];
-      let isAlive = false;
-
-      if (entity.type === 'player') {
-        const player = combat.party[entity.index];
-        isAlive = player && player.currentHp > 0;
-      } else {
-        const monster = combat.monsters[entity.index];
-        isAlive = monster && monster.currentHp > 0;
-      }
-
-      if (isAlive) {
-        combat.initiativeIndex = nextIndex;
-        break;
-      }
-
-      nextIndex = (nextIndex + 1) % combat.initiative.length;
-      attempts++;
-    }
-
-    Logger.info('Raid initiative advanced', {
-      from: combat.initiativeIndex,
-      to: nextIndex,
-      attempts
-    });
+    return this.raidSystem.advanceRaidInitiative(combat);
   }
 
   // Thực hiện action của quái (sử dụng AI hiện tại)
@@ -379,451 +298,29 @@ class CombatSystem {
 
   // Tạo UI cho trận chiến
   createCombatUI(combat) {
-    const p = combat.player;
-    const m = combat.monster;
-    const icons = this.getStatIcons();
-    const fmtBar = (cur, max) => this.renderTextBar(cur, max, 16);
-    const fmtNum = (n) => {
-      const num = parseFloat(n) || 0;
-      return num.toLocaleString('vi-VN', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
-    };
-    const fmtNumWithDec = (n) => {
-      const num = parseFloat(n) || 0;
-      return num.toLocaleString('vi-VN', { minimumFractionDigits: 0, maximumFractionDigits: 1 });
-    };
-
-    // Get element emoji
-    const getElementEmoji = (element) => {
-      const map = {
-        'kim': '⚔️', 'moc': '🌿', 'thuy': '💧', 'hoa': '🔥', 'tho': '🏔️',
-        'phong': '🌪️', 'loi': '⚡', 'vo_he': '🌀'
-      };
-      return map[element] || '⚫';
-    };
-
-    // Get variant rarity icon
-    const getVariantRarityIcon = (variant, isBoss = false) => {
-      if (isBoss) return '👑'; // Boss
-      if (!variant || variant === 'normal') return '✦'; // Normal
-      if (variant === 'mutated') return '✧'; // Mutated
-      if (variant === 'super_mutated') return '✸'; // Super Mutated
-      return '✦'; // Mặc định
-    };
-
-    // Format entity với layout cải thiện
-    const fmt = (e, isPlayer = false) => {
-      const s = e.stats || {};
-      const currentHp = isNaN(e.currentHp) ? 0 : Math.max(0, e.currentHp);
-      const currentMp = isNaN(e.currentMp) ? 0 : Math.max(0, e.currentMp);
-      const maxHp = isNaN(s.hp) ? 0 : (s.hp || 0);
-      const maxMp = isNaN(s.mp) ? 0 : (s.mp || 0);
-      const elem = e.spiritRoot || e.element || 'vo_he';
-      const elemName = this.getElementViNameOrNone(elem);
-      const elemEmoji = getElementEmoji(elem);
-      const hpPercent = maxHp > 0 ? Math.round((currentHp / maxHp) * 100) : 0;
-      const mpPercent = maxMp > 0 ? Math.round((currentMp / maxMp) * 100) : 0;
-
-      // Format số với dấu phẩy cho phần nghìn và dấu chấm cho phần thập phân
-      const fmtNumWithComma = (n) => {
-        const num = parseFloat(n) || 0;
-        const parts = num.toFixed(1).split('.');
-        const intPart = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-        return `${intPart}.${parts[1]}`;
-      };
-
-      // Format stats mỗi chỉ số 1 dòng (giảm khoảng cách - không có dòng trống giữa các stat)
-      const statsText =
-        `${icons.atk} ATK: ${fmtNum(s.attack || 0)}\n` +
-        `${icons.def} DEF: ${fmtNum(s.defense || 0)}\n` +
-        `${icons.spd} SPD: ${fmtNum(s.speed || 0)}\n` +
-        `${icons.regen} Regen: ${fmtNum(s.regen || 0)}\n` +
-        `🎯 ACC: ${fmtNum(s.accuracy || 0)}%\n` +
-        `${icons.eva} EVA: ${fmtNum(s.evasion || 0)}%\n` +
-        `${icons.crit} Crit: ${fmtNum(s.critical || 0)}%\n` +
-        `🔪 PEN: ${fmtNum(s.penetration || 0)}`;
-
-      // Progress bar cho HP/MP
-      const hpBar = fmtBar(Math.round(currentHp), Math.round(maxHp));
-      const mpBar = fmtBar(Math.round(currentMp), Math.round(maxMp));
-
-      // Format tên: icon nguyên tố ở đầu, icon độ hiếm ở cuối (chỉ cho quái)
-      let nameDisplay = '';
-      if (!isPlayer) {
-        // Làm sạch tên quái: loại bỏ emoji và variant name cũ
-        let cleanName = e.name;
-        // Loại bỏ emoji variant cũ (✦, ✧, ✸, 👑, 💀, 🔴)
-        cleanName = cleanName.replace(/[✦✧✸👑💀🔴]/g, '').trim();
-        // Loại bỏ variant name cũ
-        cleanName = cleanName.replace(/\s*(Biến Dị|Biến dị|Siêu Biến Dị|Siêu biến dị)\s*/gi, '').trim();
-        // Loại bỏ (BOSS)
-        cleanName = cleanName.replace(/\s*\(BOSS\)\s*/gi, '').trim();
-
-        // Lấy icon độ hiếm
-        const rarityIcon = getVariantRarityIcon(e.variant, e.isBoss);
-
-        // Format: icon nguyên tố + tên + icon độ hiếm
-        nameDisplay = `${elemEmoji} **${cleanName}** ${rarityIcon}`;
-      } else {
-        // Người chơi chỉ hiển thị icon nguyên tố
-        nameDisplay = `${elemEmoji} **${e.name}**`;
-      }
-
-      // Format với code block để tách rõ
-      return `${nameDisplay}\n` +
-        `\n` +
-        `${icons.hp} ${hpBar}\n` +
-        `     ${fmtNumWithComma(currentHp)} / ${fmtNumWithComma(maxHp)} (${hpPercent}%)\n` +
-        `\n` +
-        `${icons.mp} ${mpBar}\n` +
-        `     ${fmtNumWithComma(currentMp)} / ${fmtNumWithComma(maxMp)} (${mpPercent}%)\n` +
-        `\n` +
-        `${statsText}\n`;
-    };
-
-    const apText = combat.playerApBonus > 0
-      ? `${icons.ap} AP: ${combat.playerAp}/${combat.playerApMax} (+${combat.playerApBonus})`
-      : `${icons.ap} AP: ${combat.playerAp}/${combat.playerApMax}`;
-
-    // Format combat log với icon và format mới
-    const formatLogEntry = (entry) => {
-      if (!entry) return '';
-
-      let formatted = entry;
-      let icon = '⚔️'; // Icon mặc định
-
-      // Loại bỏ tất cả emoji thừa ở đầu dòng (🧠, ⚔️, ✨, 🎲, etc.)
-      formatted = formatted.replace(/^[🧠⚔️✨🎲🛡⛔🔄🔥🐌]+\s*/g, '').trim();
-
-      // Loại bỏ các bold hiện có (trừ khi là tên)
-      formatted = formatted.replace(/\*\*/g, '');
-
-      // Bỏ emoji variant trước tên quái (⭐⭐, ⭐⭐⭐, etc.)
-      formatted = formatted.replace(/⭐+/g, '').trim();
-
-      // Xác định icon dựa trên nội dung
-      if (formatted.includes('đi trước') || formatted.includes('Initiative')) {
-        icon = '🎲';
-      } else if (formatted.includes('phòng thủ') || formatted.includes('DEF')) {
-        icon = '🛡';
-      } else if (formatted.includes('tấn công') || formatted.includes('attack') || formatted.includes('dùng vũ khí')) {
-        icon = '⚔️';
-      } else if (formatted.includes('kỹ năng') || formatted.includes('skill') || formatted.includes('dùng') || formatted.includes('sử dụng')) {
-        icon = '✨';
-      } else if (formatted.includes('choáng') || formatted.includes('stun')) {
-        icon = '⛔';
-      } else if (formatted.includes('phản kích') || formatted.includes('counter')) {
-        icon = '🔄';
-      } else if (formatted.includes('cháy') || formatted.includes('burn')) {
-        icon = '🔥';
-      } else if (formatted.includes('chậm') || formatted.includes('slow')) {
-        icon = '🐌';
-      }
-
-      // Tên người chơi in đậm
-      formatted = formatted.replace(new RegExp(`\\b${p.name}\\b`, 'g'), `**${p.name}**`);
-
-      // Tên quái in đậm với icon độ hiếm ở sau tên (không ở đầu)
-      // Loại bỏ icon độ hiếm ở đầu dòng nếu có
-      formatted = formatted.replace(/^[✦✧✸👑]\s+/, '').trim();
-
-      // Làm sạch tên quái: loại bỏ emoji và variant name cũ
-      let cleanMonsterName = m.name;
-      cleanMonsterName = cleanMonsterName.replace(/[✦✧✸👑💀🔴]/g, '').trim();
-      cleanMonsterName = cleanMonsterName.replace(/\s*(Biến Dị|Biến dị|Siêu Biến Dị|Siêu biến dị)\s*/gi, '').trim();
-      cleanMonsterName = cleanMonsterName.replace(/\s*\(BOSS\)\s*/gi, '').trim();
-
-      const monsterNamePattern = new RegExp(`\\b${m.name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'g');
-
-      // Lấy icon độ hiếm
-      const rarityIcon = getVariantRarityIcon(m.variant, m.isBoss);
-
-      // Hiển thị tên quái với icon độ hiếm ở sau tên
-      formatted = formatted.replace(monsterNamePattern, `**${cleanMonsterName}** ${rarityIcon}`);
-
-      // Chuyển "sử dụng" thành "dùng"
-      formatted = formatted.replace(/sử dụng/gi, 'dùng');
-
-      // Format damage TRƯỚC để tránh match sai trong format skill name
-      // Format damage: "gây X sát thương" -> "-> X sát thương" (không in đậm)
-      formatted = formatted.replace(/(?:gây|Gây)\s+(\d+\.?\d*)\s+sát thương/gi, '-> $1 sát thương');
-      // Format damage có sẵn: "→ X sát thương" -> "-> X sát thương"
-      formatted = formatted.replace(/→\s+(\d+\.?\d*)\s+sát thương/gi, '-> $1 sát thương');
-
-      // In đậm tên kỹ năng và loại bỏ dấu chấm than, dấu ngoặc kép thừa
-      // Pattern: match "dùng" + tên skill (có thể có dấu ngoặc kép), dừng lại trước -> hoặc số
-      formatted = formatted.replace(/dùng\s+([^->0-9]+?)(?:\s*->|\s*!|$)/g, (match, skillPart) => {
-        // Loại bỏ dấu ngoặc kép thừa và trim
-        let cleanSkillName = skillPart.trim().replace(/^"+|"+$/g, '').trim();
-        // Nếu skillName rỗng, giữ nguyên match
-        if (!cleanSkillName) return match;
-        return `dùng **"${cleanSkillName}"**`;
-      });
-
-      // Critical -> **CRITICAL** (bold + caps)
-      formatted = formatted.replace(/CRITICAL/gi, '**CRITICAL**');
-
-      // Viết tắt stat in hoa và loại bỏ từ thừa
-      formatted = formatted.replace(/attack/gi, 'ATK');
-      formatted = formatted.replace(/defense/gi, 'DEF');
-      formatted = formatted.replace(/speed/gi, 'SPD');
-      formatted = formatted.replace(/accuracy/gi, 'ACC');
-      formatted = formatted.replace(/evasion/gi, 'EVA');
-      formatted = formatted.replace(/critical/gi, 'CRIT');
-      formatted = formatted.replace(/penetration/gi, 'PEN');
-
-      // Format initiative và các message đặc biệt
-      if (formatted.includes('Initiative') || formatted.includes('đi trước')) {
-        formatted = formatted.replace(/Initiative:?\s*/i, '').replace(/Bạn đi trước/i, 'Bạn đi trước');
-      }
-
-      // Loại bỏ dấu cuối câu
-      formatted = formatted.replace(/[.!?]+$/g, '').trim();
-
-      // Loại bỏ emoji thừa
-      formatted = formatted.replace(/⚔️|🗡️/g, '').trim();
-
-      // Format hiệu ứng: thêm "+" trước %, đổi "trong X lượt" thành "(X lượt)"
-      // Tăng/Giảm +X% (Y lượt)
-      // Pattern: "Tăng DEF 15%" -> "Tăng DEF +15%"
-      formatted = formatted.replace(/(Tăng|tăng)\s+([A-Z]+)\s+(\d+)%/gi, (match, action, stat, percent) => {
-        return `${action} ${stat} +${percent}%`;
-      });
-      // Pattern: "Giảm DEF 15%" -> "Giảm DEF -15%"
-      formatted = formatted.replace(/(Giảm|giảm)\s+([A-Z]+)\s+(\d+)%/gi, (match, action, stat, percent) => {
-        return `${action} ${stat} -${percent}%`;
-      });
-      // Pattern: "trong X lượt" -> "(X lượt)"
-      formatted = formatted.replace(/trong\s+(\d+)\s+lượt/gi, '($1 lượt)');
-
-      // Tách log thành nhiều dòng CHỈ KHI CÓ HIỆU ỨNG (buff/debuff)
-      // Kiểm tra xem có từ khóa hiệu ứng không
-      const effectKeywords = /(tăng|giảm|bị|sẽ|miễn nhiễm|kích hoạt|hồi|khiêu khích)/i;
-      const hasEffects = effectKeywords.test(formatted);
-
-      // Chỉ tách log nếu có hiệu ứng
-      if (hasEffects) {
-        const namePattern = /\*\*[^*]+\*\*/g;
-        const names = formatted.match(namePattern) || [];
-
-        if (names.length > 1) {
-          // Có nhiều phần với nhiều tên, tách thành nhiều dòng
-          const parts = [];
-          let currentIndex = 0;
-
-          // Tách dựa trên vị trí của mỗi tên
-          for (let i = 0; i < names.length; i++) {
-            const name = names[i];
-            const nameIndex = formatted.indexOf(name, currentIndex);
-
-            if (i === 0) {
-              // Phần đầu: từ đầu đến hết tên đầu tiên
-              const firstPart = formatted.substring(0, nameIndex + name.length).trim();
-              if (firstPart) {
-                parts.push(`${icon} ${firstPart}`);
-              }
-            } else {
-              // Phần tiếp theo: từ sau tên trước đến hết tên hiện tại
-              const prevName = names[i - 1];
-              const prevNameIndex = formatted.indexOf(prevName, currentIndex - prevName.length);
-              const prevNameEnd = prevNameIndex + prevName.length;
-              const segment = formatted.substring(prevNameEnd, nameIndex + name.length).trim();
-
-              if (segment) {
-                // Loại bỏ tên trùng lặp nếu cùng một tên
-                const cleanSegment = segment.replace(new RegExp(`^\\*\\*${name.replace(/\*/g, '')}\\*\\*\\s*`), '');
-                if (cleanSegment) {
-                  parts.push(`    -> ${cleanSegment}`);
-                } else {
-                  parts.push(`    -> ${segment}`);
-                }
-              }
-            }
-
-            currentIndex = nameIndex + name.length;
-          }
-
-          // Phần cuối (sau tên cuối cùng)
-          const lastName = names[names.length - 1];
-          const lastNameIndex = formatted.lastIndexOf(lastName);
-          const lastNameEnd = lastNameIndex + lastName.length;
-          const lastSegment = formatted.substring(lastNameEnd).trim();
-
-          if (lastSegment) {
-            parts.push(`    -> ${lastSegment}`);
-          }
-
-          if (parts.length > 1) {
-            return parts.join('\n');
-          }
-        } else if (names.length === 1) {
-          // Có một tên nhưng có nhiều hiệu ứng, tách dựa trên từ khóa
-          const effectPattern = /(tăng|giảm|bị|sẽ|miễn nhiễm|kích hoạt|hồi|khiêu khích)/gi;
-          const matches = [...formatted.matchAll(effectPattern)];
-
-          if (matches.length > 1) {
-            // Có nhiều hiệu ứng, tách thành nhiều dòng
-            const parts = [];
-            const name = names[0];
-            const nameIndex = formatted.indexOf(name);
-
-            // Tìm phần đầu (từ đầu đến hết phần chính, có thể có "dùng", "sử dụng", "gây sát thương")
-            // Tìm vị trí hiệu ứng đầu tiên
-            const firstEffectIndex = matches[0].index;
-            let firstPartEnd = firstEffectIndex;
-
-            // Nếu có "gây sát thương" trước hiệu ứng đầu tiên, bao gồm nó
-            const damagePattern = /->\s+[\d.]+\s+sát thương/i;
-            const damageMatch = formatted.substring(0, firstEffectIndex).match(damagePattern);
-            if (damageMatch) {
-              firstPartEnd = formatted.indexOf(damageMatch[0]) + damageMatch[0].length;
-            } else {
-              // Tìm dấu ngoặc kép cuối cùng (kết thúc tên kỹ năng) hoặc dấu chấm than
-              const lastQuoteIndex = formatted.lastIndexOf('"', firstEffectIndex);
-              const exclamationIndex = formatted.indexOf('!', nameIndex + name.length);
-
-              if (lastQuoteIndex !== -1 && lastQuoteIndex < firstEffectIndex) {
-                firstPartEnd = lastQuoteIndex + 1; // Sau dấu ngoặc kép cuối
-              } else if (exclamationIndex !== -1 && exclamationIndex < firstEffectIndex) {
-                firstPartEnd = exclamationIndex + 1;
-              }
-            }
-
-            const firstPart = formatted.substring(0, firstPartEnd).trim();
-            parts.push(`${icon} ${firstPart}`);
-
-            // Tách các hiệu ứng
-            let lastIndex = firstPartEnd;
-            for (let i = 0; i < matches.length; i++) {
-              const match = matches[i];
-              if (match.index >= lastIndex) {
-                // Tìm điểm kết thúc của hiệu ứng này (trước hiệu ứng tiếp theo hoặc cuối chuỗi)
-                let segmentEnd;
-                if (i < matches.length - 1) {
-                  segmentEnd = matches[i + 1].index;
-                } else {
-                  segmentEnd = formatted.length;
-                }
-
-                const segment = formatted.substring(lastIndex, segmentEnd).trim();
-                if (segment) {
-                  parts.push(`    -> ${segment}`);
-                }
-                lastIndex = segmentEnd;
-              }
-            }
-
-            if (parts.length > 1) {
-              return parts.join('\n');
-            }
-          }
-        }
-      }
-
-      // Không có hiệu ứng hoặc chỉ có 1 phần, giữ nguyên 1 dòng
-      return `${icon} ${formatted}`;
-    };
-
-    const logEntries = combat.battleLog.slice(-6).map(formatLogEntry);
-    const formattedLog = logEntries.length > 0
-      ? logEntries.join('\n')
-      : '⚪ _Chưa có hành động_';
-
-    // Title gộp turn và lượt
-    const waveInfo = Array.isArray(combat.waves) ? ` • Ải ${(combat.currentWaveIndex || 0) + 1}/${combat.waves.length}` : '';
-    const turnText = combat.currentTurn === 'player'
-      ? `Turn ${combat.turn}${waveInfo} – Lượt của bạn`
-      : `Turn ${combat.turn}${waveInfo} – Lượt: ${m.name}`;
-
-    const embed = new EmbedBuilder()
-      .setColor(combat.currentTurn === 'player' ? '#4CAF50' : '#F44336')
-      .setTitle(`⚔️ ${turnText}`)
-      .addFields(
-        { name: '👤 **Người Chơi**', value: fmt(p, true), inline: true },
-        { name: `${m.emoji || '👹'} **Đối Thủ**`, value: fmt(m), inline: true },
-        { name: apText, value: '', inline: false },
-        { name: '📜 **Nhật Ký Chiến Đấu**', value: formattedLog, inline: false }
-      )
-      .setFooter({ text: 'Chọn hành động để tiếp tục' })
-      .setTimestamp();
-
-    // Determine weapon equipped - check if player has weapon equipped, not just in inventory
-    const hasWeapon = p?.equipment?.weapon && p.equipment.weapon !== null;
-    const canAct = combat.currentTurn === 'player' && (combat.playerAp || 0) > 0;
-
-    // Tất cả nút dùng Primary style khi có thể bấm, Secondary khi disabled
-    const attackButton = hasWeapon
-      ? new ButtonBuilder()
-        .setCustomId(`combat_weapon_${combat.id}`)
-        .setLabel('🗡 Vũ Khí')
-        .setStyle(canAct ? ButtonStyle.Primary : ButtonStyle.Secondary)
-        .setDisabled(!canAct)
-      : new ButtonBuilder()
-        .setCustomId(`combat_attack_${combat.id}`)
-        .setLabel('🗡 Tấn Công')
-        .setStyle(canAct ? ButtonStyle.Primary : ButtonStyle.Secondary)
-        .setDisabled(!canAct);
-
-    const canDefend = combat.currentTurn === 'player' && !combat.turnActions?.defended && combat.playerAp >= 1;
-    const canUseSkill = combat.currentTurn === 'player' && (combat.playerAp || 0) > 0;
-    const canUseItem = combat.currentTurn === 'player';
-
-    const row = new ActionRowBuilder()
-      .addComponents(
-        attackButton,
-        new ButtonBuilder()
-          .setCustomId(`combat_defend_${combat.id}`)
-          .setLabel('🛡 Phòng Thủ')
-          .setStyle(canDefend ? ButtonStyle.Primary : ButtonStyle.Secondary)
-          .setDisabled(!canDefend),
-        new ButtonBuilder()
-          .setCustomId(`combat_skill_${combat.id}`)
-          .setLabel('🔥 Kỹ Năng')
-          .setStyle(canUseSkill ? ButtonStyle.Primary : ButtonStyle.Secondary)
-          .setDisabled(!canUseSkill),
-        new ButtonBuilder()
-          .setCustomId(`combat_item_${combat.id}`)
-          .setLabel('🎒 Vật Phẩm')
-          .setStyle(canUseItem ? ButtonStyle.Primary : ButtonStyle.Secondary)
-          .setDisabled(!canUseItem),
-        new ButtonBuilder()
-          .setCustomId(`combat_flee_${combat.id}`)
-          .setLabel('🚪 Chạy Trốn')
-          .setStyle(canUseItem ? ButtonStyle.Primary : ButtonStyle.Secondary)
-          .setDisabled(!canUseItem)
-      );
-
-    // set thumbnail avatar nếu có
-    try {
-      const url = combat?.interaction?.client?.users?.cache?.get?.(p.userId)?.displayAvatarURL?.({ size: 64 });
-      if (url) embed.setThumbnail(url);
-    } catch { }
-
-    return { embeds: [embed], components: [row] };
+    return this.combatUI.createCombatUI(combat);
   }
 
+  // Tạo UI cho raid
+  createRaidUI(combat) {
+    return this.combatUI.createRaidUI(combat);
+  }
+
+  // Helper methods - delegate to CombatHelpers for consistency
   getStatIcons() {
-    return { hp: '❤️', mp: '🔵', atk: '⚔️', def: '🛡️', spd: '🏃', crit: '🎯', eva: '💨', regen: '♻️', ap: '🔶', apBonus: '⚡' };
+    return CombatHelpers.getStatIcons();
   }
 
   renderTextBar(current, max, width = 14) {
-    const cur = Math.max(0, Number(current || 0));
-    const m = Math.max(1, Number(max || 1));
-    const ratio = Math.max(0, Math.min(1, cur / m));
-    const filled = Math.round(ratio * width);
-    const empty = width - filled;
-    return '▰'.repeat(filled) + '▱'.repeat(empty);
+    return CombatHelpers.renderTextBar(current, max, width);
   }
 
   getVariantName(variant) {
-    if (variant === 'mutated') return 'Biến dị';
-    if (variant === 'super_mutated') return 'Siêu biến dị';
-    return 'Thường';
+    return CombatHelpers.getVariantName(variant);
   }
 
   getDifficultyStars(variant) {
-    if (variant === 'mutated') return '⭐⭐';
-    if (variant === 'super_mutated') return '⭐⭐⭐';
-    return '⭐';
+    return CombatHelpers.getDifficultyStars(variant);
   }
 
   getApForRealm(realm) {
@@ -831,22 +328,15 @@ class CombatSystem {
   }
 
   getElementViName(code) {
-    const map = { kim: 'Kim', moc: 'Mộc', thuy: 'Thủy', hoa: 'Hỏa', tho: 'Thổ', phong: 'Phong', loi: 'Lôi', vo_he: 'Vô Hệ' };
-    return map[code] || 'Vô Hệ';
+    return CombatHelpers.getElementViName(code);
   }
 
   getElementViNameOrNone(code) {
-    if (!code || code === 'none' || code === 'vo_he') return 'Không';
-    return this.getElementViName(code);
+    return CombatHelpers.getElementViNameOrNone(code);
   }
 
   getTierViName(key) {
-    const map = {
-      nhat_cap: 'Nhất Cấp', nhi_cap: 'Nhị Cấp', tam_cap: 'Tam Cấp', tu_cap: 'Tứ Cấp',
-      ngu_cap: 'Ngũ Cấp', luc_cap: 'Lục Cấp', that_cap: 'Thất Cấp', bat_cap: 'Bát Cấp',
-      cuu_cap: 'Cửu Cấp', thap_cap: 'Thập Cấp'
-    };
-    return map[key] || (key ? key.replace(/_/g, ' ').toUpperCase() : '');
+    return CombatHelpers.getTierViName(key);
   }
 
   // Lấy mục tiêu đối xứng cho người chơi
@@ -867,7 +357,7 @@ class CombatSystem {
     const combat = this.activeCombats.get(combatId);
     if (!combat || !combat.isActive) {
       try {
-        await interaction.update({ content: '❌ Trận chiến không tồn tại hoặc đã kết thúc!', components: [] });
+        await interaction.update({ content: '❌ Trận chiến không tồn tại hoặc đã kết thúc', components: [] });
       } catch (error) {
         console.error('Error updating interaction:', error);
       }
@@ -879,7 +369,7 @@ class CombatSystem {
       const ownerId = combat.player?.userId || combat.player?.id;
       if (interaction.user?.id && ownerId && interaction.user.id !== ownerId) {
         if (!interaction.replied && !interaction.deferred) {
-          await interaction.reply({ content: '❌ Bạn không phải người tham gia trận chiến này!', flags: 64 });
+          await interaction.reply({ content: '❌ Bạn không thuộc trận này', flags: 64 });
         }
         return;
       }
@@ -901,7 +391,7 @@ class CombatSystem {
       // Chỉ cho phép actor hiện tại thao tác
       if (interaction.user?.id && combat.currentActorUserId && interaction.user.id !== combat.currentActorUserId) {
         if (!interaction.replied && !interaction.deferred) {
-          await interaction.reply({ content: '❌ Không phải lượt của bạn!', flags: 64 });
+          await interaction.reply({ content: '❌ Không phải lượt của bạn', flags: 64 });
         }
         return;
       }
@@ -919,7 +409,7 @@ class CombatSystem {
         case 'attack': {
           // Kiểm tra AP
           if ((combat.playerAp || 0) <= 0) {
-            await interaction.reply({ content: '⚠️ Bạn đã hết Action Point!', ephemeral: true });
+            await interaction.reply({ content: '⚠️ Hết AP', ephemeral: true });
             return;
           }
           // Tấn công đối xứng theo thứ tự
@@ -954,7 +444,7 @@ class CombatSystem {
         case 'skill':
           // Kiểm tra AP
           if ((combat.playerAp || 0) <= 0) {
-            await interaction.reply({ content: '⚠️ Bạn đã hết Action Point!', ephemeral: true });
+            await interaction.reply({ content: '⚠️ Hết AP', ephemeral: true });
             return;
           }
           // Hiển thị menu kỹ năng cho raid
@@ -965,7 +455,7 @@ class CombatSystem {
           const leaver = combat.party[combat.currentActorIndex];
           // Đánh dấu rời trận (coi như bị loại)
           leaver.currentHp = 0;
-          combat.battleLog.push(`🏃 ${leaver.name} đã rời RAID!`);
+          combat.battleLog.push(`🏃 ${leaver.name} đã rời RAID`);
           // Kiểm tra kết thúc RAID
           if (this.checkRaidEnd(combat)) {
             // Nếu tất cả người chơi đã rời/bị hạ hoặc tất cả quái đã chết
@@ -998,18 +488,18 @@ class CombatSystem {
 
           // Kiểm tra AP
           if ((combat.playerAp || 0) <= 0) {
-            await interaction.reply({ content: '⚠️ Bạn đã hết Action Point!', ephemeral: true });
+            await interaction.reply({ content: '⚠️ Hết AP', ephemeral: true });
             return;
           }
 
           // Kiểm tra quyền sử dụng skill
           if (interaction.user.id !== actor.id) {
-            await interaction.reply({ content: '❌ Bạn không thể sử dụng kỹ năng của người khác!', ephemeral: true });
+            await interaction.reply({ content: '❌ Hành động không hợp lệ', ephemeral: true });
             return;
           }
 
           if (combat.actionLock || combat.uiLock !== 'skill_menu') {
-            await interaction.reply({ content: '⚠️ Không thể dùng kỹ năng lúc này!', ephemeral: true });
+            await interaction.reply({ content: '❌ Không thể dùng kỹ năng lúc này', ephemeral: true });
             return;
           }
 
@@ -1049,7 +539,7 @@ class CombatSystem {
               combat.turn++;
               combat.currentTurn = 'party';
               this.nextRaidRound(combat);
-              combat.battleLog.push(`🚪 Sang ải ${nextIdx + 1}/${combat.waves.length}`);
+              combat.battleLog.push(`🚪 Sang ải **${nextIdx + 1}/${combat.waves.length}**`);
               const ui = this.createRaidUI(combat);
               await this.updateCombatUI(combat, ui, interaction);
               combat.actionLock = false;
@@ -1193,11 +683,11 @@ class CombatSystem {
     switch (action) {
       case 'attack': {
         if ((combat.playerAp || 0) <= 0) {
-          await this.updateCombatUI(combat, { content: '⚠️ Bạn đã hết Action Point!', components: [] }, interaction);
+          await this.updateCombatUI(combat, { content: '⚠️ Hết AP', components: [] }, interaction);
           return;
         }
         if (combat.actionLock) {
-          await this.updateCombatUI(combat, { content: '⚠️ Đang xử lý hành động, vui lòng chờ...', components: [] }, interaction);
+          await this.updateCombatUI(combat, { content: '⚠️ Đang xử lý hành động...', components: [] }, interaction);
           return;
         }
         combat.actionLock = true;
@@ -1249,22 +739,22 @@ class CombatSystem {
         break;
       case 'skill':
         if ((combat.playerAp || 0) <= 0) {
-          await this.updateCombatUI(combat, { content: '⚠️ Bạn đã hết Action Point!', components: [] }, interaction);
+          await this.updateCombatUI(combat, { content: '⚠️ Hết AP', components: [] }, interaction);
           return;
         }
         if (combat.actionLock) {
-          await this.updateCombatUI(combat, { content: '⚠️ Đang xử lý hành động, vui lòng chờ...', components: [] }, interaction);
+          await this.updateCombatUI(combat, { content: '⚠️ Đang xử lý hành động...', components: [] }, interaction);
           return;
         }
         result = await this.showSkillMenu(combat, interaction);
         break;
       case 'weapon': {
         if ((combat.playerAp || 0) <= 0) {
-          await this.updateCombatUI(combat, { content: '⚠️ Bạn đã hết Action Point!', components: [] }, interaction);
+          await this.updateCombatUI(combat, { content: '⚠️ Hết AP', components: [] }, interaction);
           return;
         }
         if (combat.actionLock) {
-          await this.updateCombatUI(combat, { content: '⚠️ Đang xử lý hành động, vui lòng chờ...', components: [] }, interaction);
+          await this.updateCombatUI(combat, { content: '⚠️ Đang xử lý hành động...', components: [] }, interaction);
           return;
         }
         result = await this.showWeaponMenu(combat, interaction);
@@ -1275,11 +765,11 @@ class CombatSystem {
         // combat.id có '_' nên không thể split đơn thuần; dùng prefix chuẩn để cắt choice
         // Guard: require correct UI state and prevent double execution
         if ((combat.playerAp || 0) <= 0) {
-          await this.updateCombatUI(combat, { content: '⚠️ Bạn đã hết Action Point!', components: [] }, interaction);
+          await this.updateCombatUI(combat, { content: '⚠️ Hết AP', components: [] }, interaction);
           return;
         }
         if (combat.actionLock || combat.uiLock !== 'weapon_menu') {
-          await this.updateCombatUI(combat, { content: '⚠️ Không thể dùng vũ khí lúc này!', components: [] }, interaction);
+          await this.updateCombatUI(combat, { content: '❌ Không thể dùng vũ khí lúc này', components: [] }, interaction);
           return;
         }
         combat.actionLock = true;
@@ -1303,11 +793,11 @@ class CombatSystem {
         const remainTurns = (combat.playerCooldowns || {})[skillId] || 0;
         console.log('[COMBAT] skilluse clicked skillId=', skillId, 'remainCD=', remainTurns);
         if ((combat.playerAp || 0) <= 0) {
-          await this.updateCombatUI(combat, { content: '⚠️ Bạn đã hết Action Point!', components: [] }, interaction);
+          await this.updateCombatUI(combat, { content: '⚠️ Hết AP', components: [] }, interaction);
           return;
         }
         if (combat.actionLock || combat.uiLock !== 'skill_menu') {
-          await this.updateCombatUI(combat, { content: '⚠️ Không thể dùng kỹ năng lúc này!', components: [] }, interaction);
+          await this.updateCombatUI(combat, { content: '❌ Không thể dùng kỹ năng lúc này', components: [] }, interaction);
           return;
         }
         combat.actionLock = true;
@@ -1577,7 +1067,7 @@ class CombatSystem {
     }
 
     // Thêm log về rewards
-    combat.battleLog.push(`🎁 Hoàn thành ải ${waveIndex + 1}! Nhận được EXP và vật phẩm.`);
+    combat.battleLog.push(`🎁 Hoàn thành ải ${waveIndex + 1}! Nhận EXP + vật phẩm.`);
   }
 
   // Kết thúc trận chiến
@@ -1751,7 +1241,7 @@ class CombatSystem {
       .slice(0, 4);
 
     if (available.length === 0) {
-      await this.updateCombatUI(combat, { content: '❌ Bạn chưa có kỹ năng để dùng!', components: [] }, interaction);
+      await this.updateCombatUI(combat, { content: '❌ Chưa có kỹ năng', components: [] }, interaction);
       return { action: 'menu', message: 'No skills' };
     }
 

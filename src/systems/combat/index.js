@@ -12,6 +12,7 @@ const SkillSystem = require('./SkillSystem');
 const WeaponSystem = require('./WeaponSystem');
 const MonsterAI = require('./MonsterAI');
 const RaidSystem = require('./RaidSystem');
+const CombatUI = require('./CombatUI');
 
 module.exports = {
   CombatHelpers,
@@ -22,6 +23,7 @@ module.exports = {
   SkillSystem,
   WeaponSystem,
   MonsterAI,
-  RaidSystem
+  RaidSystem,
+  CombatUI
 };
 

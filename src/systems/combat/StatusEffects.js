@@ -17,44 +17,44 @@ function applyBuffsFromSkill(caster, skill) {
 
   if (e.defense_bonus) {
     caster.statusEffects.push({ type: 'defense_bonus', duration, value: e.defense_bonus });
-    log += `**${casterName}** tăng DEF +${Math.round(e.defense_bonus * 100)}% (${duration} lượt)`;
+    log += `🔺 ${casterName} DEF **+${Math.round(e.defense_bonus * 100)}%** (${duration} lượt)`;
   }
   if (e.attack_bonus) {
     caster.statusEffects.push({ type: 'attack_boost', duration, value: e.attack_bonus });
-    log += `**${casterName}** tăng ATK +${Math.round(e.attack_bonus * 100)}% (${duration} lượt)`;
+    log += `🔺 ${casterName} ATK **+${Math.round(e.attack_bonus * 100)}%** (${duration} lượt)`;
   }
   if (e.critical_bonus) {
     caster.statusEffects.push({ type: 'crit_boost', duration, value: e.critical_bonus });
-    log += `**${casterName}** tăng CRIT +${Math.round(e.critical_bonus * 100)}% (${duration} lượt)`;
+    log += `🔺 ${casterName} CRIT **+${Math.round(e.critical_bonus * 100)}%** (${duration} lượt)`;
   }
   if (e.speed_bonus) {
     caster.statusEffects.push({ type: 'speed_bonus', duration, value: e.speed_bonus });
-    log += `**${casterName}** tăng SPD +${Math.round(e.speed_bonus * 100)}% (${duration} lượt)`;
+    log += `🔺 ${casterName} SPD **+${Math.round(e.speed_bonus * 100)}%** (${duration} lượt)`;
   }
   if (e.evade_next) {
     caster.statusEffects.push({ type: 'evade_next', duration: 1 });
-    log += `**${casterName}** sẽ né đòn kế tiếp`;
+    log += `💨 ${casterName} né đòn kế tiếp`;
   }
   if (e.status_immunity_next) {
     caster.statusEffects.push({ type: 'status_immunity_next', duration: 1 });
-    log += `**${casterName}** miễn nhiễm hiệu ứng xấu kế tiếp`;
+    log += `🛡️ ${casterName} miễn nhiễm hiệu ứng xấu kế tiếp`;
   }
   if (e.instant_heal_ratio) {
     const heal = (caster.stats.hp || 0) * e.instant_heal_ratio;
     caster.currentHp = Math.min(caster.stats.hp, (caster.currentHp || 0) + heal);
-    log += `**${casterName}** hồi **${heal.toFixed(1)}** HP`;
+    log += `🔰 ${casterName} hồi **${heal.toFixed(1)} HP**`;
   }
   if (e.per_turn_aoe_atk_ratio) {
     caster.statusEffects.push({ type: 'per_turn_aoe_atk_ratio', duration, value: e.per_turn_aoe_atk_ratio });
-    log += `**${casterName}** kích hoạt AoE ${Math.round(e.per_turn_aoe_atk_ratio * 100)}% ATK (${duration} lượt)`;
+    log += `✨ ${casterName} kích hoạt ATK (AOE) **${Math.round(e.per_turn_aoe_atk_ratio * 100)}%** (${duration} lượt)`;
   }
   if (e.regen_bonus) {
     caster.statusEffects.push({ type: 'regen_bonus', duration, value: e.regen_bonus });
-    log += `**${casterName}** tăng Regen +${Math.round(e.regen_bonus * 100)}% (${duration} lượt)`;
+    log += `🔺 ${casterName} REGEN **+${Math.round(e.regen_bonus * 100)}%** (${duration} lượt)`;
   }
   if (e.taunt) {
     caster.statusEffects.push({ type: 'taunt', duration: e.taunt });
-    log += `**${casterName}** khiêu khích (${e.taunt} lượt)`;
+    log += `🛡️ ${casterName} khiêu khích (${e.taunt} lượt)`;
   }
   return log;
 }
@@ -87,32 +87,32 @@ function applyDebuffsFromSkill(caster, target, skill) {
   if (e.enemy_attack_down) {
     if (!guard()) {
       target.statusEffects.push({ type: 'attack_debuff', duration, value: e.enemy_attack_down });
-      log += `**${targetName}** giảm ATK -${Math.round(e.enemy_attack_down * 100)}% (${duration} lượt)`;
+      log += `🔻 ${targetName} ATK **-${Math.round(e.enemy_attack_down * 100)}%** (${duration} lượt)`;
     } else {
-      log += `**${targetName}** miễn nhiễm hiệu ứng xấu`;
+      log += `🛡️ ${targetName} miễn nhiễm hiệu ứng xấu`;
     }
   }
   if (e.team_damage_reduction && caster.party) {
     // Áp lên cả team caster trong raid
     (caster.party || []).forEach(p => p.statusEffects.push({ type: 'damage_reduction', duration, value: e.team_damage_reduction }));
-    log += `Toàn đội giảm sát thương -${Math.round(e.team_damage_reduction * 100)}% (${duration} lượt)`;
+    log += `🔻 Toàn đội giảm sát thương **-${Math.round(e.team_damage_reduction * 100)}%** (${duration} lượt)`;
   }
   if (e.enemy_slow_pct) {
     if (!guard()) {
       target.statusEffects.push({ type: 'slow', duration: e.enemy_slow_duration || duration, value: e.enemy_slow_pct });
-      log += `**${targetName}** giảm SPD -${Math.round(e.enemy_slow_pct * 100)}% (${e.enemy_slow_duration || duration} lượt)`;
+      log += `🔻 ${targetName} SPD **-${Math.round(e.enemy_slow_pct * 100)}%** (${e.enemy_slow_duration || duration} lượt)`;
     } else {
-      log += `**${targetName}** miễn nhiễm hiệu ứng xấu`;
+      log += `🛡️ ${targetName} miễn nhiễm hiệu ứng xấu`;
     }
   }
   if (e.stun_chance) {
     if (!guard()) {
       if (Math.random() < (e.stun_chance || 0)) {
         target.statusEffects.push({ type: 'stun', duration: e.stun_duration || 1 });
-        log += `**${targetName}** bị choáng (${e.stun_duration || 1} lượt)`;
+        log += `⛔ ${targetName} bị choáng (${e.stun_duration || 1} lượt)`;
       }
     } else {
-      log += `**${targetName}** miễn nhiễm choáng`;
+      log += `🛡️ ${targetName} miễn nhiễm choáng`;
     }
   }
   if (e.poison_regen_ratio) {
@@ -120,23 +120,23 @@ function applyDebuffsFromSkill(caster, target, skill) {
     const dot = (caster.stats.regen || 0) * e.poison_regen_ratio;
     if (!guard()) {
       target.statusEffects.push({ type: 'poison', duration, dot });
-      log += `**${targetName}** bị độc (${duration} lượt)`;
+      log += `☠️ ${targetName} bị độc (${duration} lượt)`;
     } else {
-      log += `**${targetName}** miễn nhiễm độc`;
+      log += `🛡️ ${targetName} miễn nhiễm độc`;
     }
   }
   if (e.burn_ratio_of_atk) {
     const dot = (caster.stats.attack || 0) * e.burn_ratio_of_atk;
     if (!guard()) {
       target.statusEffects.push({ type: 'burn', duration: e.burn_duration || duration, dot });
-      log += `**${targetName}** bị thiêu đốt (${e.burn_duration || duration} lượt)`;
+      log += `🔥 ${targetName} bị thiêu đốt (${e.burn_duration || duration} lượt)`;
     } else {
-      log += `**${targetName}** miễn nhiễm thiêu đốt`;
+      log += `🛡️ ${targetName} miễn nhiễm thiêu đốt`;
     }
   }
   if (e.damage_reduction) {
     target.statusEffects.push({ type: 'damage_reduction', duration, value: e.damage_reduction });
-    log += `**${targetName}** giảm sát thương -${Math.round(e.damage_reduction * 100)}% (${duration} lượt)`;
+    log += `🔻 ${targetName} sát thương **-${Math.round(e.damage_reduction * 100)}%** (${duration} lượt)`;
   }
   return log;
 }
@@ -156,7 +156,7 @@ function applyOnHitStatus(attacker, defender, skill, combat) {
     if (immIdx === -1) {
       defender.statusEffects.push({ type: 'stun', duration: e.stun_duration || 1 });
       const defenderName = defender.name || 'Unknown';
-      if (combat?.battleLog) combat.battleLog.push(`**${defenderName}** bị choáng (${e.stun_duration || 1} lượt)`);
+      if (combat?.battleLog) combat.battleLog.push(`⛔ ${defenderName} bị choáng (${e.stun_duration || 1} lượt)`);
     } else {
       try {
         defender.statusEffects.splice(immIdx, 1);

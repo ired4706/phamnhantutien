@@ -307,25 +307,25 @@ class MonsterAI {
     if (caster.currentMp < cost) {
       return {
         action: 'skill',
-        message: `❌ ${caster.name} không đủ MP để sử dụng ${skill.name}!`
+        message: `❌ ${caster.name} không đủ MP để dùng **${skill.name}**`
       };
     }
 
     caster.currentMp = Math.max(0, caster.currentMp - cost);
-    let message = `✨ ${caster.name} sử dụng **${skill.name}**!`;
+    let message = `✨ ${caster.name} dùng **${skill.name}**`;
 
     // Xử lý damage cơ bản
     if (skill.damage > 0) {
       const dmgObj = calculateDamage(caster, target, false);
       if (!dmgObj.hit) {
-        message += ` ⚠️ Đòn đánh trượt!`;
+        message += ` → **MISS**`;
       } else {
         const damage = (dmgObj.damage || 0) * (skill.damage || 0);
         // Validate damage to prevent NaN
         const finalDamage = isNaN(damage) ? 1 : Math.max(1, damage);
         target.currentHp = Math.max(0, (target.currentHp || 0) - finalDamage);
-        const critTag = dmgObj.isCritical ? ' (CRIT)' : '';
-        message += ` Gây **${finalDamage.toFixed(1)}** sát thương${critTag}!`;
+        const critTag = dmgObj.isCritical ? ' **CRIT**' : '';
+        message += ` → **${finalDamage.toFixed(1)}** sát thương${critTag}!`;
       }
     }
 
@@ -362,7 +362,7 @@ class MonsterAI {
           damage: effect.damage,
           source: caster.name
         });
-        message += ` Gây ${effect.name} trong ${effect.duration} lượt!`;
+        message += ` → Gây hiệu ứng: ${effect.name} (${effect.duration} lượt)`;
         break;
 
       case 'buff':
@@ -372,7 +372,7 @@ class MonsterAI {
           value: effect.value,
           duration: effect.duration
         });
-        message += ` Tăng ${effect.stat} **${(effect.value * 100).toFixed(0)}%** trong ${effect.duration} lượt!`;
+        message += ` → Tăng ${effect.stat} **+${(effect.value * 100).toFixed(0)}%** (${effect.duration} lượt)`;
         break;
 
       case 'debuff':
@@ -382,13 +382,13 @@ class MonsterAI {
           value: effect.value,
           duration: effect.duration
         });
-        message += ` Giảm ${effect.stat} địch **${(effect.value * 100).toFixed(0)}%** trong ${effect.duration} lượt!`;
+        message += ` → Giảm ${effect.stat} **-${(effect.value * 100).toFixed(0)}%** (${effect.duration} lượt)`;
         break;
 
       case 'heal':
         const healAmount = caster.stats.hp * effect.value;
         caster.currentHp = Math.min(caster.stats.hp, caster.currentHp + healAmount);
-        message += ` Hồi phục **${healAmount.toFixed(1)}** HP!`;
+        message += ` → Hồi **${healAmount.toFixed(1)} HP**`;
         break;
 
       case 'stun':
@@ -398,7 +398,7 @@ class MonsterAI {
             name: effect.name,
             duration: effect.duration
           });
-          message += ` Làm choáng địch trong ${effect.duration} lượt!`;
+          message += ` → Gây choáng (${effect.duration} lượt)`;
         }
         break;
 
@@ -409,30 +409,30 @@ class MonsterAI {
           damage: effect.damage,
           trigger: effect.trigger
         });
-        message += ` Kích hoạt phản đòn!`;
+        message += ` → Kích hoạt phản đòn`;
         break;
 
       case 'multi_attack':
         const hits = Math.floor(Math.random() * (effect.max_hits - effect.min_hits + 1)) + effect.min_hits;
-        message += ` Tấn công liên tiếp **${hits}** lần!`;
+        message += ` → Tấn công liên tiếp **${hits}** lần`;
         break;
 
       case 'splash':
-        message += ` Sát thương lan sang mục tiêu khác!`;
+        message += ` → Sát thương lan sang mục tiêu khác`;
         break;
 
       case 'knockback':
         if (Math.random() < (effect.chance || 1)) {
-          message += ` Đẩy lùi địch!`;
+          message += ` → Đẩy lùi địch`;
         }
         break;
 
       case 'armor_penetration':
-        message += ` Xuyên thủng giáp!`;
+        message += ` → Xuyên giáp`;
         break;
 
       case 'turn_delay':
-        message += ` Làm chậm lượt đi của địch!`;
+        message += ` → Làm chậm lượt đi của địch`;
         break;
 
       case 'damage_boost':
@@ -441,7 +441,7 @@ class MonsterAI {
           name: effect.name,
           value: effect.value
         });
-        message += ` Tăng sát thương **${(effect.value * 100).toFixed(0)}%**!`;
+        message += ` → Tăng sát thương **+${(effect.value * 100).toFixed(0)}%**`;
         break;
 
       case 'damage_reduction':
@@ -451,7 +451,7 @@ class MonsterAI {
           value: effect.value,
           duration: effect.duration
         });
-        message += ` Giảm sát thương nhận **${(effect.value * 100).toFixed(0)}%**!`;
+        message += ` → Giảm sát thương **-${(effect.value * 100).toFixed(0)}%**`;
         break;
 
       case 'status_resistance':
@@ -460,7 +460,7 @@ class MonsterAI {
           name: effect.name,
           value: effect.value
         });
-        message += ` Tăng kháng hiệu ứng xấu!`;
+        message += ` → Tăng kháng hiệu ứng`;
         break;
 
       case 'crit_boost':
@@ -469,7 +469,7 @@ class MonsterAI {
           name: effect.name,
           value: effect.value
         });
-        message += ` Tăng tỉ lệ chí mạng!`;
+        message += ` → Tăng CR`;
         break;
 
       case 'double_attack':
@@ -478,7 +478,7 @@ class MonsterAI {
           name: effect.name,
           chance: effect.chance
         });
-        message += ` Có cơ hội tấn công 2 lần!`;
+        message += ` → Có cơ hội tấn công 2 lần`;
         break;
 
       case 'perfect_dodge':
@@ -487,7 +487,7 @@ class MonsterAI {
           name: effect.name,
           chance: effect.chance
         });
-        message += ` Có cơ hội né hoàn toàn!`;
+        message += ` → Có cơ hội né tránh hoàn toàn`;
         break;
 
       case 'revive':
@@ -497,7 +497,7 @@ class MonsterAI {
           chance: effect.chance,
           hp_percent: effect.hp_percent
         });
-        message += ` Có cơ hội hồi sinh!`;
+        message += ` → Có cơ hội hồi sinh`;
         break;
     }
 

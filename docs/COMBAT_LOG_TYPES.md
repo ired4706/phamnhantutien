@@ -1,213 +1,297 @@
-# Tóm Tắt Các Loại Log Trong Combat
+# Tổng Hợp Tất Cả Các Loại Log Trong Combat
 
-## 1. Log Khởi Đầu Combat
+Tài liệu này liệt kê tất cả các loại log có thể xuất hiện trong hệ thống combat hiện tại.
 
-### Solo Combat (Wave)
-- `📣 Bắt đầu ải 1/X: [Tên quái]`
-
-### Raid Combat
-- `📣 Bắt đầu RAID - Ải 1/X`
+## 📋 Mục Lục
+1. [Log Khởi Động Combat](#log-khởi-động-combat)
+2. [Log Initiative & Speed Advantage](#log-initiative--speed-advantage)
+3. [Log Tấn Công](#log-tấn-công)
+4. [Log Phòng Thủ](#log-phòng-thủ)
+5. [Log Kỹ Năng Người Chơi](#log-kỹ-năng-người-chơi)
+6. [Log Vũ Khí](#log-vũ-khí)
+7. [Log Kỹ Năng Quái](#log-kỹ-năng-quái)
+8. [Log Hiệu Ứng Trạng Thái (Buffs/Debuffs)](#log-hiệu-ứng-trạng-thái-buffsdebuffs)
+9. [Log Status Effects](#log-status-effects)
+10. [Log Chuyển Ải/Wave](#log-chuyển-ảiwave)
+11. [Log Raid](#log-raid)
+12. [Log Chạy Trốn](#log-chạy-trốn)
+13. [Log UI Messages (Warning/Error)](#log-ui-messages-warningerror)
 
 ---
 
-## 2. Log Initiative & Speed Advantage
+## Log Khởi Động Combat
+
+### Solo Combat
+- `📣 Bắt đầu ải 1/X: [Tên quái]` - Khi bắt đầu wave combat
+
+### Raid Combat
+- `📣 Bắt đầu RAID - Ải 1/X` - Khi bắt đầu raid combat
+
+---
+
+## Log Initiative & Speed Advantage
 
 ### Initiative
-- `🎲 **Initiative**: [Bạn/Tên quái] đi trước!`
+- `🎲 **Initiative**: Bạn đi trước!` - Người chơi đi trước
+- `🎲 **Initiative**: [Tên quái] đi trước!` - Quái đi trước
 
 ### Speed Advantage
-- `⚡ **Speed Advantage**: Bạn được +X AP do tốc độ vượt trội!`
-- `⚡ **Speed Advantage**: [Tên quái] được +X action do tốc độ vượt trội!`
+- `⚡ **Speed Advantage**: Bạn +X AP` - Bonus AP cho người chơi
+- `⚡ **Speed Advantage**: [Tên quái] +X action` - Bonus action cho quái
+
+### Slow Effect
+- `🐌 [Tên] bị làm chậm → SPD: X → Y (AP bonus: Z)` - Khi bị slow, hiển thị speed giảm và AP bonus mới
 
 ---
 
-## 3. Log Tấn Công Thường (Normal Attack)
+## Log Tấn Công
 
-### Tấn công thành công
-- `⚔️ [Tên] tấn công gây **X.X** sát thương!`
-- `⚔️ [Tên] tấn công gây **X.X** sát thương **CRITICAL!**`
+### Tấn Công Thường (Normal Attack)
+- `⚔️ [Tên] tấn công → **X** sát thương!` - Tấn công thành công
+- `⚔️ [Tên] tấn công → **X** sát thương **CRIT**` - Tấn công critical
+- `❌ [Tên] tấn công → **MISS**` - Tấn công miss
 
-### Tấn công miss
-- `❌ [Tên] tấn công nhưng **MISS!**`
-
-### Né tránh
-- `💨 [Tên] né tránh hoàn toàn đòn đánh!`
+### Evade
+- `💨 [Tên] né tránh hoàn toàn` - Khi có hiệu ứng evade_next
 
 ---
 
-## 4. Log Phòng Thủ (Defend)
+## Log Phòng Thủ
 
-- `🛡️ [Tên] đã phòng thủ! Defense tăng 50% cho lượt tiếp theo.`
-
----
-
-## 5. Log Chạy Trốn (Flee)
-
-### Thành công
-- `🏃 Bạn đã chạy trốn thành công!`
-
-### Thất bại
-- `❌ Chạy trốn thất bại!`
+### Phòng Thủ
+- `🛡️ [Tên] phòng thủ → DEF +50% (1 lượt)` - Phòng thủ thành công
 
 ---
 
-## 6. Log Kỹ Năng Người Chơi (Player Skill)
+## Log Kỹ Năng Người Chơi
 
-### Solo Combat
-- `✨ [Tên] dùng [Tên skill]!`
-  - ` Gây **X.X** sát thương AoE!` (nếu AoE)
-  - ` Gây X.X sát thương!` (nếu single target)
-  - ` Hồi X.X HP!` (nếu heal)
-  - ` [Buff/Debuff messages]` (nếu có hiệu ứng)
+### Kỹ Năng Tấn Công (Attack Skill)
+- `✨ [Tên] thi triển **[Tên skill]** → **X** sát thương` - Skill tấn công đơn
+- `✨ [Tên] thi triển **[Tên skill]** (AOE) → **X** sát thương mỗi mục tiêu` - Skill AoE
 
-### Raid Combat
-- `✨ [Tên] dùng [Tên skill]!`
-  - ` Gây **X.X** sát thương AoE!`
-  - ` Gây **X.X** sát thương cho [Tên mục tiêu]!`
-  - ` Hồi phục **X.X** HP!`
-  - ` Toàn đội hồi máu và tăng hồi phục!` (support skill)
+### Kỹ Năng Hồi Máu (Heal Skill)
+- `✨ [Tên] thi triển **[Tên skill]** → Hồi **X HP**` - Hồi máu solo
+- `✨ [Tên] thi triển **[Tên skill]** → Hồi **X HP**` - Hồi máu raid
 
----
+### Kỹ Năng Buff/Debuff
+- `✨ [Tên] thi triển **[Tên skill]** →` + [Log buff/debuff tương ứng] - Xem phần Buff/Debuff
 
-## 7. Log Kỹ Năng Vũ Khí (Weapon Skill)
-
-### Tấn công thường bằng vũ khí
-- `**[Tên]** dùng vũ khí [Tên vũ khí] → **X.X** sát thương`
-- `**[Tên]** dùng vũ khí [Tên vũ khí] → **X.X** sát thương **CRITICAL**`
-- `**[Tên]** dùng vũ khí [Tên vũ khí] **MISS**`
-
-### Kỹ năng vũ khí
-- `**[Tên]** dùng **"[Tên skill]"** → **X.X** sát thương`
-- `**[Tên]** hành động không hợp lệ` (nếu lỗi)
+### AoE Damage (Raid)
+- `💥 **AOE**: [Log 1] | [Log 2] | ...` - Tổng hợp log AoE cho nhiều mục tiêu
 
 ---
 
-## 8. Log Kỹ Năng Quái (Monster Skill)
+## Log Vũ Khí
 
-### Quái sử dụng skill
-- `✨ [Tên quái] sử dụng **[Tên skill]**!`
-  - ` ⚠️ Đòn đánh trượt!` (nếu miss)
-  - ` Gây **X.X** sát thương**CRIT**!` (nếu crit)
-  - ` Gây **X.X** sát thương!` (nếu hit)
-  - ` [Hiệu ứng khác]`
+### Tấn Công Thường Với Vũ Khí
+- `🗡️ [Tên] dùng **[Tên vũ khí]** → **X** sát thương` - Tấn công thành công
+- `🗡️ [Tên] dùng **[Tên vũ khí]** → **X** sát thương **CRIT**` - Tấn công critical
+- `🗡️ [Tên] dùng **[Tên vũ khí]** → **MISS**` - Tấn công miss
 
----
+### Kỹ Năng Vũ Khí
+- `🗡️ [Tên] thi triển **[Tên skill]** → **X** sát thương` - Skill vũ khí thành công
 
-## 9. Log Buff (Tăng Chỉ Số)
-
-### Buff từ skill
-- `**[Tên]** tăng DEF +X% (Y lượt)`
-- `**[Tên]** tăng ATK +X% (Y lượt)`
-- `**[Tên]** tăng CRIT +X% (Y lượt)`
-- `**[Tên]** tăng SPD +X% (Y lượt)`
-- `**[Tên]** tăng Regen +X% (Y lượt)`
-- `**[Tên]** sẽ né đòn kế tiếp`
-- `**[Tên]** miễn nhiễm hiệu ứng xấu kế tiếp`
-- `**[Tên]** hồi **X.X** HP` (instant heal)
-- `**[Tên]** kích hoạt AoE X% ATK (Y lượt)`
-- `**[Tên]** khiêu khích (Y lượt)`
+### Lỗi
+- `❌ [Tên] hành động không hợp lệ` - Hành động không hợp lệ
 
 ---
 
-## 10. Log Debuff (Giảm Chỉ Số)
+## Log Kỹ Năng Quái
 
-### Debuff từ skill
-- `**[Tên]** giảm ATK -X% (Y lượt)`
-- `**[Tên]** giảm SPD -X% (Y lượt)`
-- `**[Tên]** giảm sát thương -X% (Y lượt)`
-- `Toàn đội giảm sát thương -X% (Y lượt)` (raid)
+### Quái Sử Dụng Skill
+- `✨ [Tên quái] dùng **[Tên skill]**` - Bắt đầu sử dụng skill
+- `✨ [Tên quái] dùng **[Tên skill]** → **X** sát thương` - Skill gây damage thành công
+- `✨ [Tên quái] dùng **[Tên skill]** → **X** sát thương **CRIT**!` - Skill critical
+- `✨ [Tên quái] dùng **[Tên skill]** → **MISS**` - Skill miss
+- `❌ [Tên quái] không đủ MP để dùng **[Tên skill]**` - Không đủ MP
 
-### Miễn nhiễm
-- `**[Tên]** miễn nhiễm hiệu ứng xấu`
-- `**[Tên]** miễn nhiễm choáng`
-- `**[Tên]** miễn nhiễm độc`
-- `**[Tên]** miễn nhiễm thiêu đốt`
+### Quái Skill Effects (Từ applySkillEffect)
+- ` Gây hiệu ứng: [Tên effect] (X lượt)` - DoT effect
+- ` Tăng [Stat] **+X%** (Y lượt)` - Buff stat
+- ` Giảm [Stat] **-X%** (Y lượt)` - Debuff stat
+- ` Hồi **X HP**` - Heal
+- ` Gây choáng (X lượt)` - Stun
+- ` Kích hoạt phản đòn` - Counter attack
+- ` Tấn công liên tiếp **X** lần` - Multi attack
+- ` Sát thương lan sang mục tiêu khác` - Splash damage
+- ` Đẩy lùi địch` - Knockback
+- ` Xuyên giáp` - Armor penetration
+- ` Làm chậm lượt đi của địch` - Turn delay
+- ` Tăng sát thương **+X%**` - Damage boost
+- ` Giảm sát thương **-X%**` - Damage reduction
+- ` Tăng kháng hiệu ứng` - Status resistance
+- ` Tăng CR` - Crit boost
+- ` Có cơ hội tấn công 2 lần` - Double attack
+- ` Có cơ hội né tránh hoàn toàn` - Perfect dodge
+- ` Có cơ hội hồi sinh` - Revive
+
+### Quái Tấn Công/Phòng Thủ
+- Sử dụng cùng format như log tấn công/phòng thủ của người chơi
 
 ---
 
-## 11. Log Status Effects (Hiệu Ứng Trạng Thái)
+## Log Hiệu Ứng Trạng Thái (Buffs/Debuffs)
+
+### Buffs (Tăng Chỉ Số)
+- `🔺 [Tên] DEF **+X%** (Y lượt)` - Tăng defense
+- `🔺 [Tên] ATK **+X%** (Y lượt)` - Tăng attack
+- `🔺 [Tên] CRIT **+X%** (Y lượt)` - Tăng critical
+- `🔺 [Tên] SPD **+X%** (Y lượt)` - Tăng speed
+- `🔺 [Tên] REGEN **+X%** (Y lượt)` - Tăng regeneration
+- `💨 [Tên] né đòn kế tiếp` - Evade next
+- `🛡️ [Tên] miễn nhiễm hiệu ứng xấu kế tiếp` - Status immunity
+- `🔰 [Tên] hồi **X HP**` - Instant heal từ buff
+- `✨ [Tên] kích hoạt ATK (AOE) **X%** (Y lượt)` - Per-turn AoE
+- `🛡️ [Tên] khiêu khích (X lượt)` - Taunt
+
+### Debuffs (Giảm Chỉ Số)
+- `🔻 [Tên] ATK **-X%** (Y lượt)` - Giảm attack
+- `🔻 [Tên] SPD **-X%** (Y lượt)` - Giảm speed
+- `🔻 [Tên] sát thương **-X%** (Y lượt)` - Giảm damage taken
+- `🔻 Toàn đội giảm sát thương **-X%** (Y lượt)` - Team damage reduction
+
+### Status Effects (Hiệu Ứng Đặc Biệt)
+- `⛔ [Tên] bị choáng (X lượt)` - Stun
+- `☠️ [Tên] bị độc (X lượt)` - Poison
+- `🔥 [Tên] bị thiêu đốt (X lượt)` - Burn
+- `🛡️ [Tên] miễn nhiễm hiệu ứng xấu` - Status immunity triggered
+- `🛡️ [Tên] miễn nhiễm choáng` - Stun immunity
+- `🛡️ [Tên] miễn nhiễm độc` - Poison immunity
+- `🛡️ [Tên] miễn nhiễm thiêu đốt` - Burn immunity
+
+### Team Effects (Raid)
+- `🔰 Toàn đội hồi máu và tăng hồi phục` - Team heal/regen
+
+---
+
+## Log Status Effects
 
 ### Stun (Choáng)
-- `**[Tên]** bị choáng (X lượt)` (khi apply)
-- `**[Tên]** bị choáng và bỏ lượt` (khi skip turn)
+- `⛔ [Tên] bị choáng và bỏ lượt` - Solo combat
+- `⛔ [Tên] bị choáng và bỏ lượt` - Raid combat
+- `⛔ ${defenderName} bị choáng (X lượt)` - Khi apply stun
 
 ### Slow (Làm Chậm)
-- `🐌 [Tên] bị làm chậm! Speed: X → Y (AP bonus: Z)`
-
-### Poison (Độc)
-- `**[Tên]** bị độc (X lượt)`
-
-### Burn (Thiêu Đốt)
-- `**[Tên]** bị thiêu đốt (X lượt)`
+- `🐌 [Tên] bị chậm → SPD: X → Y (AP bonus: Z)` - Khi bị slow
 
 ---
 
-## 12. Log AoE Damage
-
-- `💥 **AoE**: → [Tên mục tiêu 1]: X.X sát thương | → [Tên mục tiêu 2]: Y.Y sát thương`
-
----
-
-## 13. Log Chuyển Wave/Ải
+## Log Chuyển Ải/Wave
 
 ### Solo Combat
-- `🚪 Sang ải X/Y`
-- `🚪 Sang ải X/Y: [Tên quái]`
+- `🚪 Sang ải **X/Y**: Quái: **[Tên quái]**` - Chuyển sang ải tiếp theo
 
 ### Raid Combat
-- `🚪 Sang ải X/Y`
+- `🚪 Sang ải **X/Y**` - Chuyển sang ải tiếp theo trong raid
+
+### Rewards
+- `🎁 Hoàn thành ải X! Nhận EXP + vật phẩm.` - Hoàn thành ải
 
 ---
 
-## 14. Log Hoàn Thành Wave
+## Log Raid
 
-- `🎁 Hoàn thành ải X! Nhận được EXP và vật phẩm.`
+### Raid Actions
+- `👤 [Tên]: [Log hành động]` - Hành động của từng thành viên trong raid
+- `🏃 [Tên] đã rời RAID` - Thành viên rời raid
 
----
-
-## 15. Log Raid Specific
-
-### Rời raid
-- `🏃 [Tên] đã rời RAID!`
-
----
-
-## 16. Format Log Sau Khi Xử Lý (formatLogEntry)
-
-Sau khi log được thêm vào `battleLog`, chúng được format qua hàm `formatLogEntry`:
-
-### Format chung:
-- Tên người chơi/quái được **in đậm**
-- Icon độ hiếm của quái đặt **sau tên**: `**Tên quái** ✦`
-- Tên kỹ năng được **in đậm** trong dấu ngoặc kép: `**"Tên skill"**`
-- Sát thương format: `-> X.X sát thương` (không in đậm)
-- Critical: `**CRITICAL**` hoặc `CRIT` (in đậm + caps)
-- "sử dụng" → "dùng"
-
-### Format hiệu ứng:
-- Thêm `+` trước %: `Tăng DEF +15%`
-- Đổi "trong X lượt" → "(X lượt)": `(2 lượt)`
-- Nếu có nhiều hiệu ứng, tách thành nhiều dòng với indent 4 spaces:
-  ```
-  ✨ [Tên] dùng "Skill"
-      -> Tăng DEF +15% (2 lượt)
-  ```
-
-### Ví dụ sau format:
-- `🎲 **Không tưởng chi long** ✸ đi trước`
-- `⚔️ **Không tưởng chi long** ✸ tấn công -> 17814.6 sát thương CRIT`
-- `✨ **ired0806** dùng **"Liệt diễm trảm"** -> 18730.5 sát thương`
-- `✨ **Không tưởng chi long** ✸ dùng **"Hỏa Cầu"** -> 15030.3 sát thương`
-- `✨ **Hỗn nguyên thú** ✦ dùng **"Cứng Cáp"**`
-    `    -> Tăng DEF +15% (2 lượt)`
+### Raid Skill
+- `✨ [Tên] thi triển **[Tên skill]** → **X** sát thương lên [Tên mục tiêu]` - Skill tấn công đơn mục tiêu
+- `✨ [Tên] thi triển **[Tên skill]** (AOE)→ **X** sát thương` - Skill AoE
 
 ---
 
-## Lưu Ý
+## Log Chạy Trốn
 
-1. Tất cả log được lưu vào `combat.battleLog` array
-2. Log được format qua `formatLogEntry` trước khi hiển thị trong UI
-3. Log được hiển thị 6 dòng gần nhất trong combat UI
-4. Một số log có thể bị deduplicate (loại bỏ trùng lặp liên tiếp)
-5. Log có thể được tách thành nhiều dòng nếu có nhiều hiệu ứng
+### Chạy Trốn Thành Công
+- `🏃 Chạy trốn thành công!` - Chạy trốn thành công
 
+### Chạy Trốn Thất Bại
+- `❌ Chạy trốn thất bại!` - Chạy trốn thất bại
+
+---
+
+## Log UI Messages (Warning/Error)
+
+### Combat State Errors
+- `❌ Trận chiến không tồn tại hoặc đã kết thúc` - Combat không tồn tại
+- `❌ Bạn không thuộc trận này` - Không phải người tham gia
+- `❌ Không phải lượt của bạn` - Không phải lượt của bạn (Raid)
+
+### Action Point Errors
+- `⚠️ Hết AP` - Hết AP
+- `❌ Không đủ AP để phòng thủ` - Không đủ AP để phòng thủ
+
+### Action Lock Errors
+- `⚠️ Đang xử lý hành động...` - Đang xử lý hành động khác
+- `❌ Không thể dùng kỹ năng lúc này` - Không thể dùng skill (action lock)
+- `❌ Không thể dùng vũ khí lúc này` - Không thể dùng vũ khí (action lock)
+
+### Skill Errors
+- `❌ Chưa có kỹ năng` - Chưa có skill
+- `❌ Không đủ MP` - Không đủ MP để dùng skill
+- `⏳ Kỹ năng đang hồi (X lượt)` - Skill đang cooldown
+- `❌ Hành động không hợp lệ` - Không thể dùng skill của người khác (Raid)
+
+### Weapon Errors
+- `❌ Không tìm thấy kĩ năng vũ khí` - Không tìm thấy weapon skill
+- `⏳ Kỹ năng vũ khí đang hồi (X lượt)` - Weapon skill đang cooldown
+
+### Defend Errors
+- `❌ Đã phòng thủ lượt này` - Đã phòng thủ rồi
+
+### Item Errors
+- `🧪 Sử dụng vật phẩm (đang phát triển)...` - Item system chưa hoàn thiện
+
+### Empty Log
+- `⚪ Chưa có hành động` - Chưa có log nào (hiển thị khi battleLog rỗng)
+
+---
+
+## 📝 Ghi Chú
+
+1. **Format Log**: Tất cả log đều được format qua `formatLogEntry()` trong `CombatUI.js` để:
+   - Thêm icon phù hợp (⚔️, ✨, 🛡, ⛔, 🔄, 🔥, 🐌, 🎲, etc.)
+   - In đậm tên người chơi và quái
+   - Format damage: `-> X sát thương`
+   - In đậm tên skill: `dùng **"[Tên skill]"**`
+   - Format CRITICAL: `**CRITICAL**`
+   - Viết tắt stats: ATK, DEF, SPD, ACC, EVA, CRIT, PEN
+   - Format hiệu ứng: `Tăng DEF +15% (2 lượt)`
+
+2. **Log Duplicate Prevention**: 
+   - Weapon system có cơ chế deduplicate: `if (last !== log) combat.battleLog.push(log)`
+
+3. **Log Display**:
+   - Solo combat: Hiển thị 6 log gần nhất
+   - Raid combat: Hiển thị 8 log gần nhất
+
+4. **Icon Mapping**:
+   - 🎲 - Initiative
+   - ⚔️ - Tấn công
+   - ✨ - Kỹ năng
+   - 🛡 - Phòng thủ
+   - ⛔ - Choáng/Stun
+   - 🔄 - Phản kích/Counter
+   - 🔥 - Cháy/Burn
+   - 🐌 - Chậm/Slow
+   - 💨 - Né tránh/Evade
+   - ⚡ - Speed advantage
+   - 📣 - Khởi động combat
+   - 🚪 - Chuyển ải
+   - 🎁 - Rewards
+   - 🏃 - Chạy trốn/Rời raid
+   - 💥 - AoE damage
+   - 👤 - Raid action
+   - ⚠️ - Warning/Trượt
+   - ❌ - Error/Miss/Fail
+   - ⏳ - Cooldown/Waiting
+   - 🧪 - Item
+   - ⚪ - Empty/No action
+
+---
+
+## 🔄 Cập Nhật
+
+Tài liệu này được cập nhật lần cuối: [Ngày hiện tại]
+Nếu có thêm log mới, vui lòng cập nhật tài liệu này.

@@ -124,9 +124,9 @@ class RaidSystem {
       .filter(e => e.apBonus > 0 || e.actionBonus > 0)
       .map(e => {
         if (e.apBonus > 0) {
-          return `⚡ **${e.name}** được +${e.apBonus} AP do tốc độ vượt trội!`;
+          return `⚡ **Speed Advantage**: ${e.name} +${e.apBonus} AP`;
         } else if (e.actionBonus > 0) {
-          return `⚡ **${e.name}** được +${e.actionBonus} action do tốc độ vượt trội!`;
+          return `⚡ **Speed Advantage**: ${e.name} +${e.actionBonus} action`;
         }
       })
       .filter(Boolean);
@@ -252,7 +252,7 @@ class RaidSystem {
         if (currentActor.statusEffects[stunIdx].duration <= 0) {
           currentActor.statusEffects.splice(stunIdx, 1);
         }
-        combat.battleLog.push(`⛔ ${currentActor.name} bị choáng và bỏ lượt!`);
+        combat.battleLog.push(`⛔ ${currentActor.name} bị choáng và bỏ lượt`);
         // Chuyển sang actor tiếp theo (không end turn, chỉ skip actor này)
         return this.nextRaidActor(combat);
       }
@@ -280,7 +280,7 @@ class RaidSystem {
         if (firstActor.statusEffects[stunIdx].duration <= 0) {
           firstActor.statusEffects.splice(stunIdx, 1);
         }
-        combat.battleLog.push(`⛔ ${firstActor.name} bị choáng và bỏ lượt!`);
+        combat.battleLog.push(`⛔ ${firstActor.name} bị choáng và bỏ lượt`);
         // Chuyển sang actor tiếp theo (không end turn, chỉ skip actor này)
         this.nextRaidActor(combat);
       }
@@ -337,7 +337,7 @@ class RaidSystem {
         if (slowEffect && slowEffect.value) {
           const baseSpeed = parseFloat(player.stats.speed || 0);
           const reducedSpeed = baseSpeed * (1 - slowEffect.value);
-          combat.battleLog.push(`🐌 ${player.name} bị làm chậm! Speed: ${baseSpeed.toFixed(0)} → ${reducedSpeed.toFixed(0)} (AP bonus: ${apBonus})`);
+          combat.battleLog.push(`🐌 ${player.name} bị chậm → SPD: ${baseSpeed.toFixed(0)} → ${reducedSpeed.toFixed(0)} (AP bonus: ${apBonus})`);
         }
 
         Logger.info('Player AP updated for new round', {
@@ -441,7 +441,7 @@ class RaidSystem {
         combat.turn++;
         combat.currentTurn = 'party';
         this.nextRaidRound(combat);
-        combat.battleLog.push(`🚪 Sang ải ${nextIdx + 1}/${combat.waves.length}`);
+        combat.battleLog.push(`🚪 Sang ải **${nextIdx + 1}/${combat.waves.length}**`);
         const ui = createRaidUI(combat);
         await updateCombatUI(combat, ui, combat.interaction);
         return;
@@ -472,6 +472,49 @@ class RaidSystem {
     } catch (e) {
       console.error('Error updating raid UI after monster turn:', e);
     }
+  }
+
+  /**
+   * Advance to next actor in raid initiative
+   * @param {Object} combat - Combat object
+   */
+  advanceRaidInitiative(combat) {
+    if (!combat.initiative || combat.initiative.length === 0) {
+      Logger.error('No initiative found for raid combat');
+      return;
+    }
+
+    let nextIndex = (combat.initiativeIndex + 1) % combat.initiative.length;
+    let attempts = 0;
+    const maxAttempts = combat.initiative.length;
+
+    // Tìm entity tiếp theo còn sống
+    while (attempts < maxAttempts) {
+      const entity = combat.initiative[nextIndex];
+      let isAlive = false;
+
+      if (entity.type === 'player') {
+        const player = combat.party[entity.index];
+        isAlive = player && player.currentHp > 0;
+      } else {
+        const monster = combat.monsters[entity.index];
+        isAlive = monster && monster.currentHp > 0;
+      }
+
+      if (isAlive) {
+        combat.initiativeIndex = nextIndex;
+        break;
+      }
+
+      nextIndex = (nextIndex + 1) % combat.initiative.length;
+      attempts++;
+    }
+
+    Logger.info('Raid initiative advanced', {
+      from: combat.initiativeIndex,
+      to: nextIndex,
+      attempts
+    });
   }
 }
 

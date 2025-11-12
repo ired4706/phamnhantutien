@@ -3,13 +3,13 @@
     "userId": "504705413682298891",
     "username": "ired0806",
     "spiritRoot": "hoa",
-    "experience": 824090,
+    "experience": 855084,
     "realm": "nguyen_anh",
     "realmLevel": 2,
     "totalTiers": 0,
     "inventory": {
       "spiritStones": {
-        "ha_pham": 8428,
+        "ha_pham": 7748,
         "trung_pham": 0,
         "thuong_pham": 0,
         "cuc_pham": 0
@@ -161,7 +161,7 @@
         },
         {
           "id": "manh_cong_phap_trung",
-          "quantity": 1003
+          "quantity": 1004
         },
         {
           "id": "chien_hon_thiet_cot",
@@ -201,11 +201,11 @@
         },
         {
           "id": "phong_trao_nha",
-          "quantity": 3
+          "quantity": 4
         },
         {
           "id": "hu_linh_tam_thach",
-          "quantity": 1
+          "quantity": 2
         },
         {
           "id": "nham_hoa_lan",
@@ -735,7 +735,7 @@
       "breakthroughAttempts": 0,
       "lastBreakthrough": 0,
       "lastMeditate": 0,
-      "lastHunt": 1762933681777,
+      "lastHunt": 1762942091857,
       "lastChallenge": 0,
       "lastDomain": 1761718551614,
       "lastDailyQuest": 0,
@@ -775,7 +775,7 @@
     },
     "achievements": [],
     "joinDate": 1757583527158,
-    "lastActive": 1762933681777,
+    "lastActive": 1762942091857,
     "stats": {
       "attack": 9210.2,
       "defense": 5433.6,

@@ -86,10 +86,10 @@ function calculateInitiative(combat) {
 
   combat.battleLog.push(`🎲 **Initiative**: ${combat.currentTurn === 'player' ? 'Bạn' : combat.monster.name} đi trước!`);
   if (apBonus > 0) {
-    combat.battleLog.push(`⚡ **Speed Advantage**: Bạn được +${apBonus} AP do tốc độ vượt trội!`);
+    combat.battleLog.push(`⚡ **Speed Advantage**: Bạn +${apBonus} AP`);
   }
   if (actionBonus > 0) {
-    combat.battleLog.push(`⚡ **Speed Advantage**: ${combat.monster.name} được +${actionBonus} action do tốc độ vượt trội!`);
+    combat.battleLog.push(`⚡ **Speed Advantage**: ${combat.monster.name} +${actionBonus} action`);
   }
 }
 
@@ -106,7 +106,7 @@ function processTurnStartEffects(combat) {
       // Giảm 1 lượt stun và chuyển lượt cho quái
       p.statusEffects[stunIdx].duration -= 1;
       if (p.statusEffects[stunIdx].duration <= 0) p.statusEffects.splice(stunIdx, 1);
-      combat.battleLog.push(`**${p.name}** bị choáng và bỏ lượt`);
+      combat.battleLog.push(`⛔ ${p.name} bị choáng và bỏ lượt`);
       // Đánh dấu skip để nextTurn xử lý tiếp
       combat._skipTurn = true;
       return;
@@ -117,7 +117,7 @@ function processTurnStartEffects(combat) {
     if (stunIdx !== -1) {
       m.statusEffects[stunIdx].duration -= 1;
       if (m.statusEffects[stunIdx].duration <= 0) m.statusEffects.splice(stunIdx, 1);
-      combat.battleLog.push(`**${m.name}** bị choáng và bỏ lượt`);
+      combat.battleLog.push(`⛔ ${m.name} bị choáng và bỏ lượt`);
       combat._skipTurn = true;
       return;
     }
@@ -170,7 +170,7 @@ function nextTurn(combat) {
     if (slowEffect && slowEffect.value) {
       const baseSpeed = parseFloat(combat.player.stats.speed || 0);
       const reducedSpeed = baseSpeed * (1 - slowEffect.value);
-      combat.battleLog.push(`🐌 ${combat.player.name} bị làm chậm! Speed: ${baseSpeed.toFixed(0)} → ${reducedSpeed.toFixed(0)} (AP bonus: ${apBonus})`);
+      combat.battleLog.push(`🐌 ${combat.player.name} bị chậm → SPD: ${baseSpeed.toFixed(0)} → ${reducedSpeed.toFixed(0)} (AP bonus: ${apBonus})`);
     }
 
     // reset quota hành động mỗi lượt cho người chơi

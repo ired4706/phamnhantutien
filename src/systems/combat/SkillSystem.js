@@ -161,20 +161,20 @@ class SkillSystem {
     const player = combat.player;
     const skill = this.findSkillById(skillId);
     if (!skill) {
-      await updateCombatUI(combat, { content: '❌ Kỹ năng không tồn tại!', components: [] }, interaction);
+      await updateCombatUI(combat, { content: '❌ Kỹ năng không tồn tại', components: [] }, interaction);
       return { action: 'skill', message: 'invalid skill' };
     }
     // cooldown check
     const cdTurns = skill.cooldown || 0;
     const remainTurns = combat.playerCooldowns?.[skill.id] || 0;
     if (remainTurns > 0) {
-      await updateCombatUI(combat, { content: `⏳ Kỹ năng đang hồi (${remainTurns} lượt)!`, components: [] }, interaction);
+      await updateCombatUI(combat, { content: `⏳ Kỹ năng đang hồi (${remainTurns} lượt)`, components: [] }, interaction);
       return { action: 'skill', message: 'on cd', success: false };
     }
     // mana check
     const manaCost = skill.effects?.mana_cost || 0;
     if (player.currentMp < manaCost) {
-      await updateCombatUI(combat, { content: '❌ Không đủ MP!', components: [] }, interaction);
+      await updateCombatUI(combat, { content: '❌ Không đủ MP', components: [] }, interaction);
       return { action: 'skill', message: 'no mp', success: false };
     }
 
@@ -182,16 +182,16 @@ class SkillSystem {
     player.currentMp = Math.max(0, player.currentMp - manaCost);
     // apply effect
     const type = skill.type || skill.effects?.type || 'attack';
-    let log = `✨ ${player.name} dùng ${skill.name}!`;
+    let log = `✨ ${player.name} thi triển **${skill.name}**`;
     if (type === 'attack') {
       const effects = skill.effects || {};
       // Kiểm tra AoE
       if (effects.aoe) {
         const totalDmg = this.applyAoEDamageToMonsters(player, skill, combat);
-        log += ` Gây **${totalDmg.toFixed(1)}** sát thương AoE!`;
+        log += ` (AOE) → **${totalDmg.toFixed(1)}** sát thương mỗi mục tiêu`;
       } else {
         const finalDmg = this.computeAndApplySkillDamage(player, combat.monster, skill, combat);
-        log += ` Gây ${finalDmg.toFixed(1)} sát thương!`;
+        log += ` → **${finalDmg.toFixed(1)}** sát thương`;
       }
     } else if (type === 'heal') {
       const ratio = skill.effects?.power || skill.effects?.heal_ratio || 0.25;
@@ -200,11 +200,11 @@ class SkillSystem {
         : 0;
       const amount = player.stats.hp * ratio + flatFromRegen;
       player.currentHp = Math.min(player.stats.hp, player.currentHp + amount);
-      log += ` Hồi ${amount.toFixed(1)} HP!`;
+      log += ` → Hồi **${amount.toFixed(1)} HP**`;
     } else if (type === 'buff') {
-      log += applyBuffsFromSkill(player, skill);
+      log += ` → ${applyBuffsFromSkill(player, skill)}`;
     } else if (type === 'debuff') {
-      log += applyDebuffsFromSkill(player, combat.monster, skill);
+      log += ` → ${applyDebuffsFromSkill(player, combat.monster, skill)}`;
     }
 
     // mark cooldown theo lượt (bắt đầu từ lượt tiếp theo)
@@ -229,7 +229,7 @@ class SkillSystem {
     const actor = combat.party[combat.currentActorIndex];
     const skill = this.findSkillById(skillId);
     if (!skill) {
-      await interaction.reply({ content: '❌ Kỹ năng không tồn tại!', ephemeral: true });
+      await interaction.reply({ content: '❌ Kỹ năng không tồn tại', ephemeral: true });
       return { action: 'skill', message: 'invalid skill' };
     }
 
@@ -237,14 +237,14 @@ class SkillSystem {
     const cdTurns = skill.cooldown || 0;
     const remainTurns = combat.playerCooldowns?.[skill.id] || 0;
     if (remainTurns > 0) {
-      await interaction.reply({ content: `⏳ Kỹ năng đang hồi (${remainTurns} lượt)!`, ephemeral: true });
+      await interaction.reply({ content: `⏳ Kỹ năng đang hồi (${remainTurns} lượt)`, ephemeral: true });
       return { action: 'skill', message: 'on cd', success: false };
     }
 
     // mana check
     const manaCost = skill.effects?.mana_cost || 0;
     if (actor.currentMp < manaCost) {
-      await interaction.reply({ content: '❌ Không đủ MP!', ephemeral: true });
+      await interaction.reply({ content: '❌ Không đủ MP', ephemeral: true });
       return { action: 'skill', message: 'no mp', success: false };
     }
 
@@ -253,7 +253,7 @@ class SkillSystem {
 
     // apply effect
     const type = skill.type || skill.effects?.type || 'attack';
-    let log = `✨ ${actor.name} dùng ${skill.name}!`;
+    let log = `✨ ${actor.name} thi triển **${skill.name}**`;
 
     if (type === 'attack') {
       const effects = skill.effects || {};
@@ -263,12 +263,12 @@ class SkillSystem {
           const dealt = this.computeAndApplySkillDamage(actor, t, skill, combat);
           total += dealt;
         });
-        log += ` Gây **${total.toFixed(1)}** sát thương AoE!`;
+        log += ` (AOE) → **${total.toFixed(1)}** sát thương`;
       } else {
         const target = getSymmetricTarget(actor, combat);
         if (target) {
           const dealt = this.computeAndApplySkillDamage(actor, target, skill, combat);
-          log += ` Gây **${dealt.toFixed(1)}** sát thương cho ${target.name}!`;
+          log += ` → **${dealt.toFixed(1)}** sát thương lên ${target.name}`;
         }
       }
     } else if (type === 'heal') {
@@ -278,15 +278,15 @@ class SkillSystem {
         : 0;
       const healAmount = actor.stats.hp * ratio + flatFromRegen;
       actor.currentHp = Math.min(actor.stats.hp, actor.currentHp + healAmount);
-      log += ` Hồi phục **${healAmount.toFixed(1)}** HP!`;
+      log += ` → Hồi **${healAmount.toFixed(1)} HP**`;
     } else if (type === 'buff') {
-      log += applyBuffsFromSkill(actor, skill);
+      log += ` → ${applyBuffsFromSkill(actor, skill)}`;
     }
 
     // debuff/aoe helpers for raid (hỗ trợ skill kiểu support/debuff)
     if (type === 'debuff') {
       const target = getSymmetricTarget(actor, combat);
-      if (target) log += applyDebuffsFromSkill(actor, target, skill);
+      if (target) log += ` → ${applyDebuffsFromSkill(actor, target, skill)}`;
     } else if (type === 'support') {
       // team heal/regens if provided
       if (skill.effects?.team_heal_ratio && Array.isArray(combat.party)) {
@@ -297,7 +297,7 @@ class SkillSystem {
           p.currentHp = Math.min(p.stats.hp, (p.currentHp || 0) + heal);
           if (regenBonus > 0) p.statusEffects.push({ type: 'regen_bonus', duration: skill.effects.duration || 2, value: regenBonus });
         });
-        log += ` Toàn đội hồi máu và tăng hồi phục!`;
+        log += ` → 🔰 Toàn đội hồi máu và tăng hồi phục`;
       }
     }
 
@@ -412,7 +412,7 @@ class SkillSystem {
 
     // Thêm log AoE vào battle log
     if (logMessages.length > 0 && combat.battleLog) {
-      combat.battleLog.push(`💥 **AoE**: ${logMessages.join(' | ')}`);
+      combat.battleLog.push(`💥 **AOE**: ${logMessages.join(' | ')}`);
     }
 
     return totalDamage;
