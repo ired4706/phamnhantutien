@@ -416,7 +416,7 @@ class CombatSystem {
           const target = this.getSymmetricTarget(actor, combat);
           if (!target) return;
           result = this.performAttack(actor, target, combat);
-          if (result && result.message) combat.battleLog.push(`👤 ${actor.name}: ${result.message}`);
+          if (result && result.message) combat.battleLog.push(`👤 **${actor.name}**: ${result.message}`);
           // Trừ AP
           combat.playerAp = Math.max(0, (combat.playerAp || 0) - 1);
           console.log(`[RAID] After ATTACK: AP=${combat.playerAp}/${combat.playerApMax}`);
@@ -424,7 +424,7 @@ class CombatSystem {
         }
         case 'defend':
           result = this.performDefend(actor, combat);
-          if (result && result.message) combat.battleLog.push(`👤 ${actor.name}: ${result.message}`);
+          if (result && result.message) combat.battleLog.push(`👤 **${actor.name}**: ${result.message}`);
           // Nếu hết AP sau phòng thủ → chuyển lượt ngay
           if ((combat.playerAp || 0) <= 0) {
             const prevIdx = combat.currentActorIndex;
@@ -455,7 +455,7 @@ class CombatSystem {
           const leaver = combat.party[combat.currentActorIndex];
           // Đánh dấu rời trận (coi như bị loại)
           leaver.currentHp = 0;
-          combat.battleLog.push(`🏃 ${leaver.name} đã rời RAID`);
+          combat.battleLog.push(`🏃 **${leaver.name}** đã rời RAID`);
           // Kiểm tra kết thúc RAID
           if (this.checkRaidEnd(combat)) {
             // Nếu tất cả người chơi đã rời/bị hạ hoặc tất cả quái đã chết
@@ -479,7 +479,7 @@ class CombatSystem {
         }
         case 'item':
           result = { action: 'item', message: '🧪 Sử dụng vật phẩm (đang phát triển)...' };
-          combat.battleLog.push(`👤 ${actor.name}: ${result.message}`);
+          combat.battleLog.push(`👤 **${actor.name}**: ${result.message}`);
           break;
         case 'raid_skilluse': {
           const parts = interaction.customId.split('_');
@@ -615,7 +615,7 @@ class CombatSystem {
           combat.turn++;
           combat.currentTurn = 'party';
           this.nextRaidRound(combat);
-          combat.battleLog.push(`🚪 Sang ải ${nextIdx + 1}/${combat.waves.length}`);
+          combat.battleLog.push(`🚪 Sang ải **${nextIdx + 1}/${combat.waves.length}**`);
           await this.updateCombatUI(combat, this.createRaidUI(combat), interaction);
           return;
         } else {
@@ -1067,7 +1067,7 @@ class CombatSystem {
     }
 
     // Thêm log về rewards
-    combat.battleLog.push(`🎁 Hoàn thành ải ${waveIndex + 1}! Nhận EXP + vật phẩm.`);
+    combat.battleLog.push(`🎁 Hoàn thành ải ${waveIndex + 1} Nhận EXP + vật phẩm`);
   }
 
   // Kết thúc trận chiến
@@ -1301,7 +1301,7 @@ class CombatSystem {
       this.updateCombatUI.bind(this),
       this.createCombatUI.bind(this),
       this.maybeAdvanceTurn.bind(this)
-    );
+      );
   }
 
   // Mô tả trực quan các skill của vũ khí (tương tự skill người chơi)
@@ -1323,7 +1323,7 @@ class CombatSystem {
       interaction,
       this.getSymmetricTarget.bind(this)
     );
-  }
+    }
 
   // === PLAYER SKILL EXECUTION ===
   async usePlayerSkill(combat, skillId, interaction) {
@@ -1339,7 +1339,7 @@ class CombatSystem {
   // find skill in skillsData
   findSkillById(id) {
     return this.skillSystem.findSkillById(id);
-  }
+    }
 
   // === WEAPON SKILL SYSTEM ===
 
@@ -1358,14 +1358,14 @@ class CombatSystem {
   // Ngũ hành tương khắc: Mộc → Thổ → Thủy → Hỏa → Kim → Mộc
   getAffinityMultiplier(spiritRoot, weaponElement) {
     return this.weaponSystem.getAffinityMultiplier(spiritRoot, weaponElement);
-  }
+    }
 
   // Calculate weapon skill damage using new formula
   // FinalDamage = ATK × Multiplier × TierMultiplier × Affinity
   // Note: This calculates raw damage, then applies defense reduction
   calculateWeaponSkillDamage(attacker, defender, weaponSkill, weaponInstance, combat) {
     return this.weaponSystem.calculateWeaponSkillDamage(attacker, defender, weaponSkill, weaponInstance, combat);
-  }
+    }
 
   // === HELPER: Tính sát thương kỹ năng với các hiệu ứng mở rộng ===
   computeAndApplySkillDamage(attacker, defender, skill, combat) {

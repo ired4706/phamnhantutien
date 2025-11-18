@@ -122,11 +122,86 @@ class CombatUI {
       // Loại bỏ tất cả emoji thừa ở đầu dòng (🧠, ⚔️, ✨, 🎲, etc.)
       formatted = formatted.replace(/^[🧠⚔️✨🎲🛡⛔🔄🔥🐌]+\s*/g, '').trim();
 
-      // Loại bỏ các bold hiện có (trừ khi là tên)
-      formatted = formatted.replace(/\*\*/g, '');
-
       // Bỏ emoji variant trước tên quái (⭐⭐, ⭐⭐⭐, etc.)
       formatted = formatted.replace(/⭐+/g, '').trim();
+      
+      // Lưu các phần cần giữ bold (skill name, damage) trước khi loại bỏ bold
+      // Pattern: **"skill name"** hoặc **number**
+      const boldPlaceholders = new Map();
+      let placeholderIndex = 0;
+      
+      // Lưu skill names: **"skill name"** hoặc **skill name** (không có dấu ngoặc kép)
+      formatted = formatted.replace(/\*\*"([^"]+)"\*\*/g, (match, skillName) => {
+        const placeholder = `__SKILL_${placeholderIndex}__`;
+        boldPlaceholders.set(placeholder, `**"${skillName}"**`);
+        placeholderIndex++;
+        return placeholder;
+      });
+      
+      // Lưu skill names không có dấu ngoặc kép: **skill name** (sau "thi triển" hoặc "dùng")
+      formatted = formatted.replace(/(thi triển|dùng)\s+\*\*([^*]+)\*\*/g, (match, action, skillName) => {
+        const placeholder = `__SKILL_${placeholderIndex}__`;
+        boldPlaceholders.set(placeholder, `**${skillName}**`);
+        placeholderIndex++;
+        return `${action} ${placeholder}`;
+      });
+      
+      // Lưu damage numbers: **number** (sau → hoặc ->)
+      // Escape - trong character class hoặc đặt ở cuối
+      formatted = formatted.replace(/([→>-])\s+\*\*(\d+\.?\d*)\*\*/g, (match, arrow, number) => {
+        const placeholder = `__DAMAGE_${placeholderIndex}__`;
+        boldPlaceholders.set(placeholder, `**${number}**`);
+        placeholderIndex++;
+        return `${arrow} ${placeholder}`;
+      });
+      
+      // Lưu damage numbers không có arrow: **number** (standalone)
+      formatted = formatted.replace(/\*\*(\d+\.?\d*)\*\*/g, (match, number) => {
+        // Kiểm tra xem đã có placeholder cho number này chưa
+        const existingPlaceholder = Array.from(boldPlaceholders.entries()).find(([_, value]) => value === `**${number}**`);
+        if (existingPlaceholder) {
+          return existingPlaceholder[0];
+        }
+        const placeholder = `__DAMAGE_${placeholderIndex}__`;
+        boldPlaceholders.set(placeholder, `**${number}**`);
+        placeholderIndex++;
+        return placeholder;
+      });
+      
+      // Lưu CRIT: **CRIT**
+      formatted = formatted.replace(/\*\*CRIT\*\*/gi, (match) => {
+        const placeholder = `__CRIT_${placeholderIndex}__`;
+        boldPlaceholders.set(placeholder, '**CRIT**');
+        placeholderIndex++;
+        return placeholder;
+      });
+      
+      // Lưu MISS: **MISS**
+      formatted = formatted.replace(/\*\*MISS\*\*/gi, (match) => {
+        const placeholder = `__MISS_${placeholderIndex}__`;
+        boldPlaceholders.set(placeholder, '**MISS**');
+        placeholderIndex++;
+        return placeholder;
+      });
+      
+      // Lưu tên quái với bold: **monster name** (trước khi loại bỏ bold)
+      // Làm sạch tên quái để match
+      let cleanMonsterNameForMatch = m.name;
+      cleanMonsterNameForMatch = cleanMonsterNameForMatch.replace(/[✦✧✸👑💀🔴]/g, '').trim();
+      cleanMonsterNameForMatch = cleanMonsterNameForMatch.replace(/\s*(Biến Dị|Biến dị|Siêu Biến Dị|Siêu biến dị)\s*/gi, '').trim();
+      cleanMonsterNameForMatch = cleanMonsterNameForMatch.replace(/\s*\(BOSS\)\s*/gi, '').trim();
+      
+      // Tìm và lưu tên quái với bold (có thể có emoji ở đầu)
+      const monsterNameWithBoldPattern = new RegExp(`\\*\\*${cleanMonsterNameForMatch.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\*\\*`, 'gi');
+      formatted = formatted.replace(monsterNameWithBoldPattern, (match) => {
+        const placeholder = `__MONSTER_${placeholderIndex}__`;
+        boldPlaceholders.set(placeholder, match); // Giữ nguyên format với **
+        placeholderIndex++;
+        return placeholder;
+      });
+      
+      // Bây giờ mới loại bỏ các bold còn lại (chỉ giữ lại cho tên sau này)
+      formatted = formatted.replace(/\*\*/g, '');
 
       // Xác định icon dựa trên nội dung
       if (formatted.includes('đi trước') || formatted.includes('Initiative')) {
@@ -160,28 +235,59 @@ class CombatUI {
       cleanMonsterName = cleanMonsterName.replace(/\s*(Biến Dị|Biến dị|Siêu Biến Dị|Siêu biến dị)\s*/gi, '').trim();
       cleanMonsterName = cleanMonsterName.replace(/\s*\(BOSS\)\s*/gi, '').trim();
 
-      const monsterNamePattern = new RegExp(`\\b${m.name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'g');
-
       // Lấy icon độ hiếm
       const rarityIcon = getVariantRarityIcon(m.variant, m.isBoss);
 
-      // Hiển thị tên quái với icon độ hiếm ở sau tên
-      formatted = formatted.replace(monsterNamePattern, `**${cleanMonsterName}** ${rarityIcon}`);
+      // Tìm placeholder cho tên quái và restore lại với icon
+      const monsterPlaceholder = Array.from(boldPlaceholders.entries()).find(([key, value]) => 
+        key.startsWith('__MONSTER_')
+      );
+      
+      if (monsterPlaceholder) {
+        // Đã có placeholder, restore và thêm icon
+        formatted = formatted.replace(new RegExp(monsterPlaceholder[0].replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'), `**${cleanMonsterName}** ${rarityIcon}`);
+      } else {
+        // Không có placeholder, tìm tên quái trong text và thêm bold + icon
+        // Tìm cả tên gốc và tên đã clean
+        const monsterNamePattern1 = new RegExp(`\\b${m.name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'gi');
+        const monsterNamePattern2 = new RegExp(`\\b${cleanMonsterName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'gi');
+        
+        if (monsterNamePattern1.test(formatted)) {
+          formatted = formatted.replace(monsterNamePattern1, `**${cleanMonsterName}** ${rarityIcon}`);
+        } else if (monsterNamePattern2.test(formatted)) {
+          formatted = formatted.replace(monsterNamePattern2, `**${cleanMonsterName}** ${rarityIcon}`);
+        }
+      }
 
       // Chuyển "sử dụng" thành "dùng"
       formatted = formatted.replace(/sử dụng/gi, 'dùng');
+      
+      // Format "thi triển" thành "dùng" để đồng nhất
+      formatted = formatted.replace(/thi triển/gi, 'dùng');
 
       // Format damage TRƯỚC để tránh match sai trong format skill name
-      // Format damage: "gây X sát thương" -> "-> X sát thương" (không in đậm)
-      formatted = formatted.replace(/(?:gây|Gây)\s+(\d+\.?\d*)\s+sát thương/gi, '-> $1 sát thương');
-      // Format damage có sẵn: "→ X sát thương" -> "-> X sát thương"
-      formatted = formatted.replace(/→\s+(\d+\.?\d*)\s+sát thương/gi, '-> $1 sát thương');
+      // Format damage: "gây X sát thương" -> "→ X sát thương" (giữ bold nếu có)
+      formatted = formatted.replace(/(?:gây|Gây)\s+(\*\*)?(\d+\.?\d*)(\*\*)?\s+sát thương/gi, (match, bold1, number, bold2) => {
+        const hasBold = bold1 || bold2;
+        return hasBold ? `→ **${number}** sát thương` : `→ ${number} sát thương`;
+      });
+      // Format damage có sẵn: "→ X sát thương" -> giữ nguyên format, chỉ đảm bảo có bold nếu cần
+      formatted = formatted.replace(/→\s+(\*\*)?(\d+\.?\d*)(\*\*)?\s+sát thương/gi, (match, bold1, number, bold2) => {
+        const hasBold = bold1 || bold2;
+        return hasBold ? `→ **${number}** sát thương` : `→ ${number} sát thương`;
+      });
 
       // In đậm tên kỹ năng và loại bỏ dấu chấm than, dấu ngoặc kép thừa
-      // Pattern: match "dùng" + tên skill (có thể có dấu ngoặc kép), dừng lại trước -> hoặc số
-      formatted = formatted.replace(/dùng\s+([^->0-9]+?)(?:\s*->|\s*!|$)/g, (match, skillPart) => {
+      // Pattern: match "dùng" + tên skill (có thể có dấu ngoặc kép hoặc bold), dừng lại trước ->, →, hoặc số
+      formatted = formatted.replace(/dùng\s+([^->→0-9]+?)(?:\s*[->→]|\s*!|$)/g, (match, skillPart) => {
+        // Kiểm tra xem skillPart có phải là placeholder không
+        if (skillPart.trim().startsWith('__SKILL_')) {
+          return match; // Đã là placeholder, giữ nguyên
+        }
         // Loại bỏ dấu ngoặc kép thừa và trim
         let cleanSkillName = skillPart.trim().replace(/^"+|"+$/g, '').trim();
+        // Loại bỏ ** ở đầu và cuối nếu có (từ format ban đầu)
+        cleanSkillName = cleanSkillName.replace(/^\*\*|\*\*$/g, '').trim();
         // Nếu skillName rỗng, giữ nguyên match
         if (!cleanSkillName) return match;
         return `dùng **"${cleanSkillName}"**`;
@@ -204,11 +310,16 @@ class CombatUI {
         formatted = formatted.replace(/Initiative:?\s*/i, '').replace(/Bạn đi trước/i, 'Bạn đi trước');
       }
 
-      // Loại bỏ dấu cuối câu
-      formatted = formatted.replace(/[.!?]+$/g, '').trim();
+      // Loại bỏ dấu câu dư thừa ở cuối (!, ., ...)
+      formatted = formatted.replace(/[!.]+\s*$/g, '').trim();
 
       // Loại bỏ emoji thừa
       formatted = formatted.replace(/⚔️|🗡️/g, '').trim();
+      
+      // Restore lại các phần đã lưu (skill name, damage, CRIT, MISS)
+      for (const [placeholder, boldText] of boldPlaceholders.entries()) {
+        formatted = formatted.replace(new RegExp(placeholder.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'), boldText);
+      }
 
       // Format hiệu ứng: thêm "+" trước %, đổi "trong X lượt" thành "(X lượt)"
       // Tăng/Giảm +X% (Y lượt)
@@ -299,44 +410,63 @@ class CombatUI {
             const firstEffectIndex = matches[0].index;
             let firstPartEnd = firstEffectIndex;
 
-            // Nếu có "gây sát thương" trước hiệu ứng đầu tiên, bao gồm nó
-            const damagePattern = /->\s+[\d.]+\s+sát thương/i;
+            // Tìm phần đầu: từ đầu đến hết "sát thương" (nếu có) hoặc đến hiệu ứng đầu tiên
+            // Pattern: tìm "→ X sát thương" hoặc "-> X sát thương"
+            // Escape - trong character class hoặc đặt ở cuối
+            const damagePattern = /[→>-]\s+\*\*[\d.]+\*\*\s+sát thương/i;
             const damageMatch = formatted.substring(0, firstEffectIndex).match(damagePattern);
             if (damageMatch) {
               firstPartEnd = formatted.indexOf(damageMatch[0]) + damageMatch[0].length;
             } else {
-              // Tìm dấu ngoặc kép cuối cùng (kết thúc tên kỹ năng) hoặc dấu chấm than
-              const lastQuoteIndex = formatted.lastIndexOf('"', firstEffectIndex);
-              const exclamationIndex = formatted.indexOf('!', nameIndex + name.length);
-
-              if (lastQuoteIndex !== -1 && lastQuoteIndex < firstEffectIndex) {
-                firstPartEnd = lastQuoteIndex + 1; // Sau dấu ngoặc kép cuối
-              } else if (exclamationIndex !== -1 && exclamationIndex < firstEffectIndex) {
-                firstPartEnd = exclamationIndex + 1;
+              // Tìm pattern khác: "→ X sát thương" không có bold
+              // Escape - trong character class hoặc đặt ở cuối
+              const damagePattern2 = /[→>-]\s+[\d.]+\s+sát thương/i;
+              const damageMatch2 = formatted.substring(0, firstEffectIndex).match(damagePattern2);
+              if (damageMatch2) {
+                firstPartEnd = formatted.indexOf(damageMatch2[0]) + damageMatch2[0].length;
+              } else {
+                // Tìm "sát thương" cuối cùng trước hiệu ứng
+                const satThuongIndex = formatted.lastIndexOf('sát thương', firstEffectIndex);
+                if (satThuongIndex !== -1) {
+                  firstPartEnd = satThuongIndex + 'sát thương'.length;
+                } else {
+                  // Tìm dấu ngoặc kép cuối cùng (kết thúc tên kỹ năng)
+                  const lastQuoteIndex = formatted.lastIndexOf('"', firstEffectIndex);
+                  if (lastQuoteIndex !== -1 && lastQuoteIndex < firstEffectIndex) {
+                    firstPartEnd = lastQuoteIndex + 1; // Sau dấu ngoặc kép cuối
+                  }
+                }
               }
             }
 
             const firstPart = formatted.substring(0, firstPartEnd).trim();
-            parts.push(`${icon} ${firstPart}`);
+            // Loại bỏ các "->" thừa ở đầu phần chính
+            const cleanFirstPart = firstPart.replace(/^[→>\s-]+/, '').trim();
+            parts.push(`${icon} ${cleanFirstPart}`);
 
-            // Tách các hiệu ứng
-            let lastIndex = firstPartEnd;
-            for (let i = 0; i < matches.length; i++) {
-              const match = matches[i];
-              if (match.index >= lastIndex) {
-                // Tìm điểm kết thúc của hiệu ứng này (trước hiệu ứng tiếp theo hoặc cuối chuỗi)
-                let segmentEnd;
-                if (i < matches.length - 1) {
-                  segmentEnd = matches[i + 1].index;
-                } else {
-                  segmentEnd = formatted.length;
+            // Phần còn lại (hiệu ứng) - gộp tất cả thành 1 dòng
+            const effectsPart = formatted.substring(firstPartEnd).trim();
+            if (effectsPart) {
+              // Loại bỏ các "->" thừa ở đầu và tách các hiệu ứng
+              // Escape - trong character class hoặc đặt ở cuối
+              let cleanEffects = effectsPart.replace(/^[→>\s-]+/, '').trim();
+              // Tách các hiệu ứng bằng "→" nếu có nhiều hiệu ứng
+              // Pattern: tìm các hiệu ứng được ngăn cách bởi "→" hoặc "->"
+              // Escape - trong character class hoặc đặt ở cuối
+              const effectParts = cleanEffects.split(/[→>-]\s*(?=Tăng|Giảm|bị|sẽ|miễn nhiễm|kích hoạt|hồi|khiêu khích)/i);
+              if (effectParts.length > 1) {
+                // Có nhiều hiệu ứng, mỗi hiệu ứng 1 dòng
+                effectParts.forEach((effect, idx) => {
+                  const trimmed = effect.trim();
+                  if (trimmed) {
+                    parts.push(`→ ${trimmed}`);
+                  }
+                });
+              } else {
+                // Chỉ có 1 hiệu ứng
+                if (cleanEffects) {
+                  parts.push(`→ ${cleanEffects}`);
                 }
-
-                const segment = formatted.substring(lastIndex, segmentEnd).trim();
-                if (segment) {
-                  parts.push(`    -> ${segment}`);
-                }
-                lastIndex = segmentEnd;
               }
             }
 

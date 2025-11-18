@@ -21,25 +21,49 @@ class SpiritRootService extends BaseService {
       const result = this.spiritRoots[spiritRootType];
       if (!result) {
         this.warn('Spirit root not found', { spiritRootType });
-        // Return fallback spirit root
+        // Return fallback spirit root với format mới (core_stats)
         return {
           emoji: '❓',
           name: 'Không xác định',
           description: 'Linh căn không xác định',
-          basic_stats: { attack: 10, defense: 10, hp: 100, mana: 50, speed: 5, critical: 5, regen: 2, evasion: 3 },
-          growth_rates: { attack: 1, defense: 1, hp: 10, mana: 5, speed: 0.1, critical: 0.1, regen: 0.1, evasion: 0.1 }
+          core_stats: {
+            STR: 7,
+            INT: 7,
+            DEX: 7,
+            VIT: 7,
+            LUK: 7
+          },
+          growth_rates: {
+            STR: 1.5,
+            INT: 1.5,
+            DEX: 1.5,
+            VIT: 1.5,
+            LUK: 1.5
+          }
         };
       }
       return result;
     } catch (error) {
       this.handleError(error, 'SpiritRootService.getSpiritRootInfo');
-      // Return fallback spirit root on error
+      // Return fallback spirit root on error với format mới (core_stats)
       return {
         emoji: '❓',
         name: 'Không xác định',
         description: 'Linh căn không xác định',
-        basic_stats: { attack: 10, defense: 10, hp: 100, mana: 50, speed: 5, critical: 5, regen: 2, evasion: 3 },
-        growth_rates: { attack: 1, defense: 1, hp: 10, mana: 5, speed: 0.1, critical: 0.1, regen: 0.1, evasion: 0.1 }
+        core_stats: {
+          STR: 7,
+          INT: 7,
+          DEX: 7,
+          VIT: 7,
+          LUK: 7
+        },
+        growth_rates: {
+          STR: 1.5,
+          INT: 1.5,
+          DEX: 1.5,
+          VIT: 1.5,
+          LUK: 1.5
+        }
       };
     }
   }

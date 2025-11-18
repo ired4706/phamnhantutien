@@ -307,12 +307,12 @@ class MonsterAI {
     if (caster.currentMp < cost) {
       return {
         action: 'skill',
-        message: `❌ ${caster.name} không đủ MP để dùng **${skill.name}**`
+        message: `❌ **${caster.name}** không đủ MP để dùng **${skill.name}**`
       };
     }
 
     caster.currentMp = Math.max(0, caster.currentMp - cost);
-    let message = `✨ ${caster.name} dùng **${skill.name}**`;
+    let message = `✨ **${caster.name}** dùng **${skill.name}**`;
 
     // Xử lý damage cơ bản
     if (skill.damage > 0) {
@@ -325,7 +325,7 @@ class MonsterAI {
         const finalDamage = isNaN(damage) ? 1 : Math.max(1, damage);
         target.currentHp = Math.max(0, (target.currentHp || 0) - finalDamage);
         const critTag = dmgObj.isCritical ? ' **CRIT**' : '';
-        message += ` → **${finalDamage.toFixed(1)}** sát thương${critTag}!`;
+        message += ` → **${finalDamage.toFixed(1)}** sát thương${critTag}`;
       }
     }
 

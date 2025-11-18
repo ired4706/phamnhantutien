@@ -21,7 +21,7 @@ function performAttack(attacker, defender, combat) {
     } catch { }
     return {
       action: 'attack',
-      message: `💨 ${defender.name} né tránh hoàn toàn`,
+      message: `💨 **${defender.name}** né tránh hoàn toàn`,
       damage: 0
     };
   }
@@ -31,7 +31,7 @@ function performAttack(attacker, defender, combat) {
   if (!dmgObj.hit) {
     return {
       action: 'attack',
-      message: `❌ ${attacker.name} tấn công → **MISS**`,
+      message: `❌ **${attacker.name}** tấn công → **MISS**`,
       damage: 0
     };
   }
@@ -52,7 +52,7 @@ function performAttack(attacker, defender, combat) {
   defender.currentHp = Math.max(0, (defender.currentHp || 0) - finalDamage);
 
   const critText = dmgObj.isCritical ? ' **CRIT**' : '';
-  const message = `⚔️ ${attacker.name} tấn công → **${finalDamage.toFixed(1)}** sát thương${critText}!`;
+  const message = `⚔️ **${attacker.name}** tấn công → **${finalDamage.toFixed(1)}** sát thương${critText}`;
 
   return {
     action: 'attack',
@@ -102,7 +102,7 @@ function performDefend(entity, combat) {
 
   return {
     action: 'defend',
-    message: `🛡️ ${entity.name} phòng thủ → DEF +50% (1 lượt)`
+    message: `🛡️ **${entity.name}** phòng thủ → DEF +50% (1 lượt)`
   };
 }
 
@@ -119,13 +119,13 @@ function performFlee(combat) {
     combat.isActive = false;
     return {
       action: 'flee',
-      message: `🏃 Chạy trốn thành công!`,
+      message: `🏃 Chạy trốn thành công`,
       combatEnd: true
     };
   } else {
     return {
       action: 'flee',
-      message: `❌ Chạy trốn thất bại!`
+      message: `❌ Chạy trốn thất bại`
     };
   }
 }

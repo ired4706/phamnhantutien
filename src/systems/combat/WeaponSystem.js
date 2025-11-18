@@ -315,9 +315,9 @@ class WeaponSystem {
 
         combat.monster.currentHp = Math.max(0, (combat.monster.currentHp || 0) - dmg);
         const critText = attackResult.isCritical ? ' **CRIT**' : '';
-        log = `🗡️ ${player.name} dùng **${weaponInfo.name}** → **${dmg.toFixed(1)}** sát thương${critText}`;
+        log = `🗡️ **${player.name}** dùng **${weaponInfo.name}** → **${dmg.toFixed(1)}** sát thương${critText}`;
       } else {
-        log = `🗡️ ${player.name} dùng **${weaponInfo.name}** → **MISS**`;
+        log = `🗡️ **${player.name}** dùng **${weaponInfo.name}** → **MISS**`;
       }
     } else if (choice.startsWith('tier_')) {
       const tier = Number(choice.split('_')[1]);
@@ -340,7 +340,7 @@ class WeaponSystem {
       }
 
       combat.monster.currentHp = Math.max(0, (combat.monster.currentHp || 0) - dmg);
-      log = `🗡️ ${player.name} thi triển **${skill.name}** → **${dmg.toFixed(1)}** sát thương`;
+      log = `🗡️ **${player.name}** thi triển **${skill.name}** → **${dmg.toFixed(1)}** sát thương`;
 
       // Apply simple effects (crit bonus, slow, stun, etc.) via existing helpers
       if (skill.effects) {
@@ -354,14 +354,17 @@ class WeaponSystem {
         combat.playerCooldowns[skill.id] = cdTurns;
       }
     } else {
-      log = `❌ ${player.name} hành động không hợp lệ`;
+      log = `❌ **${player.name}** hành động không hợp lệ`;
     }
 
     // consume AP
     combat.playerAp = Math.max(0, (combat.playerAp || 0) - 1);
-    // Deduplicate consecutive identical logs
+    // Deduplicate consecutive identical logs - check last 2 logs to prevent duplicates
     const last = combat.battleLog[combat.battleLog.length - 1];
-    if (last !== log) combat.battleLog.push(log);
+    const secondLast = combat.battleLog[combat.battleLog.length - 2];
+    if (last !== log && secondLast !== log) {
+      combat.battleLog.push(log);
+    }
     combat.uiLock = null;
     await updateCombatUI(combat, createCombatUI(combat), interaction);
     await maybeAdvanceTurn(combat, interaction);

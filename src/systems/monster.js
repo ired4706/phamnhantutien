@@ -60,7 +60,8 @@ class MonsterManager {
   // Tính chỉ số quái dựa trên hệ và cấp bậc
   async calculateMonsterStats(player, template, tierInfo, variant = "normal") {
     // 1. Xác định hệ của quái (ngũ hành + phong + lôi + vô)
-    const elements = ['kim', 'moc', 'thuy', 'hoa', 'tho', 'phong', 'loi', 'vo_he'];
+    // Map vo_he -> vo vì trong data file key là "vo"
+    const elements = ['kim', 'moc', 'thuy', 'hoa', 'tho', 'phong', 'loi', 'vo'];
     const randomElement = elements[Math.floor(Math.random() * elements.length)];
 
     // 2. Xác định cấp bậc của quái dựa trên tier
@@ -235,7 +236,8 @@ class MonsterManager {
     const monster = {
       id: `${template.id}_${variant}`,
       name: `${variantEmojis[variant]} ${template.name} ${variantNames[variant]}`.trim(),
-      element: monsterData.element,
+      // Map vo -> vo_he để consistent với code khác (vo_he được dùng trong combat system)
+      element: monsterData.element === 'vo' ? 'vo_he' : monsterData.element,
       emoji: template.emoji,
       description: template.description,
       tier: tierKey,

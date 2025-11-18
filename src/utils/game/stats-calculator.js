@@ -15,8 +15,11 @@ class StatsCalculator {
     const container = getContainer();
     const spiritRootService = container.get('spiritRootService');
 
+    // Map vo_he -> vo vì trong data file key là "vo"
+    const mappedSpiritRootType = spiritRootType === 'vo_he' ? 'vo' : spiritRootType;
+
     // Lấy thông tin linh căn
-    const spiritRoot = await spiritRootService.getSpiritRootInfo(spiritRootType);
+    const spiritRoot = await spiritRootService.getSpiritRootInfo(mappedSpiritRootType);
     if (!spiritRoot) {
       // Fallback về kim nếu không tìm thấy
       const kimRoot = await spiritRootService.getSpiritRootInfo('kim');

@@ -124,9 +124,9 @@ class RaidSystem {
       .filter(e => e.apBonus > 0 || e.actionBonus > 0)
       .map(e => {
         if (e.apBonus > 0) {
-          return `⚡ **Speed Advantage**: ${e.name} +${e.apBonus} AP`;
+          return `⚡ **Speed Advantage**: **${e.name}** +${e.apBonus} AP`;
         } else if (e.actionBonus > 0) {
-          return `⚡ **Speed Advantage**: ${e.name} +${e.actionBonus} action`;
+          return `⚡ **Speed Advantage**: **${e.name}** +${e.actionBonus} action`;
         }
       })
       .filter(Boolean);
@@ -252,7 +252,7 @@ class RaidSystem {
         if (currentActor.statusEffects[stunIdx].duration <= 0) {
           currentActor.statusEffects.splice(stunIdx, 1);
         }
-        combat.battleLog.push(`⛔ ${currentActor.name} bị choáng và bỏ lượt`);
+        combat.battleLog.push(`⛔ **${currentActor.name}** bị choáng và bỏ lượt`);
         // Chuyển sang actor tiếp theo (không end turn, chỉ skip actor này)
         return this.nextRaidActor(combat);
       }
@@ -280,7 +280,7 @@ class RaidSystem {
         if (firstActor.statusEffects[stunIdx].duration <= 0) {
           firstActor.statusEffects.splice(stunIdx, 1);
         }
-        combat.battleLog.push(`⛔ ${firstActor.name} bị choáng và bỏ lượt`);
+        combat.battleLog.push(`⛔ **${firstActor.name}** bị choáng và bỏ lượt`);
         // Chuyển sang actor tiếp theo (không end turn, chỉ skip actor này)
         this.nextRaidActor(combat);
       }
@@ -337,7 +337,7 @@ class RaidSystem {
         if (slowEffect && slowEffect.value) {
           const baseSpeed = parseFloat(player.stats.speed || 0);
           const reducedSpeed = baseSpeed * (1 - slowEffect.value);
-          combat.battleLog.push(`🐌 ${player.name} bị chậm → SPD: ${baseSpeed.toFixed(0)} → ${reducedSpeed.toFixed(0)} (AP bonus: ${apBonus})`);
+          combat.battleLog.push(`🐌 **${player.name}** bị chậm → SPD: ${baseSpeed.toFixed(0)} → ${reducedSpeed.toFixed(0)} (AP bonus: ${apBonus})`);
         }
 
         Logger.info('Player AP updated for new round', {

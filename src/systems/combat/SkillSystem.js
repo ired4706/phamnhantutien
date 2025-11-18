@@ -182,7 +182,7 @@ class SkillSystem {
     player.currentMp = Math.max(0, player.currentMp - manaCost);
     // apply effect
     const type = skill.type || skill.effects?.type || 'attack';
-    let log = `✨ ${player.name} thi triển **${skill.name}**`;
+    let log = `✨ **${player.name}** thi triển **${skill.name}**`;
     if (type === 'attack') {
       const effects = skill.effects || {};
       // Kiểm tra AoE
@@ -253,7 +253,7 @@ class SkillSystem {
 
     // apply effect
     const type = skill.type || skill.effects?.type || 'attack';
-    let log = `✨ ${actor.name} thi triển **${skill.name}**`;
+    let log = `✨ **${actor.name}** thi triển **${skill.name}**`;
 
     if (type === 'attack') {
       const effects = skill.effects || {};
@@ -268,7 +268,7 @@ class SkillSystem {
         const target = getSymmetricTarget(actor, combat);
         if (target) {
           const dealt = this.computeAndApplySkillDamage(actor, target, skill, combat);
-          log += ` → **${dealt.toFixed(1)}** sát thương lên ${target.name}`;
+          log += ` → **${dealt.toFixed(1)}** sát thương lên **${target.name}**`;
         }
       }
     } else if (type === 'heal') {
