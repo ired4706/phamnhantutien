@@ -265,6 +265,11 @@ class CombatUI {
       // Format "thi triển" thành "dùng" để đồng nhất
       formatted = formatted.replace(/thi triển/gi, 'dùng');
 
+      // Restore lại các phần đã lưu (skill name, damage, CRIT, MISS) TRƯỚC khi format
+      for (const [placeholder, boldText] of boldPlaceholders.entries()) {
+        formatted = formatted.replace(new RegExp(placeholder.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'), boldText);
+      }
+
       // Format damage TRƯỚC để tránh match sai trong format skill name
       // Format damage: "gây X sát thương" -> "→ X sát thương" (giữ bold nếu có)
       formatted = formatted.replace(/(?:gây|Gây)\s+(\*\*)?(\d+\.?\d*)(\*\*)?\s+sát thương/gi, (match, bold1, number, bold2) => {
@@ -279,15 +284,18 @@ class CombatUI {
 
       // In đậm tên kỹ năng và loại bỏ dấu chấm than, dấu ngoặc kép thừa
       // Pattern: match "dùng" + tên skill (có thể có dấu ngoặc kép hoặc bold), dừng lại trước ->, →, hoặc số
-      formatted = formatted.replace(/dùng\s+([^->→0-9]+?)(?:\s*[->→]|\s*!|$)/g, (match, skillPart) => {
+      // CHỈ format nếu skill name CHƯA có bold (đã được restore từ placeholder)
+      formatted = formatted.replace(/dùng\s+([^->→0-9*]+?)(?:\s*[->→]|\s*!|$)/g, (match, skillPart) => {
         // Kiểm tra xem skillPart có phải là placeholder không
         if (skillPart.trim().startsWith('__SKILL_')) {
-          return match; // Đã là placeholder, giữ nguyên
+          return match; // Đã là placeholder, giữ nguyên (sẽ được restore sau)
+        }
+        // Nếu đã có bold trong match, giữ nguyên (đã được restore)
+        if (match.includes('**')) {
+          return match;
         }
         // Loại bỏ dấu ngoặc kép thừa và trim
         let cleanSkillName = skillPart.trim().replace(/^"+|"+$/g, '').trim();
-        // Loại bỏ ** ở đầu và cuối nếu có (từ format ban đầu)
-        cleanSkillName = cleanSkillName.replace(/^\*\*|\*\*$/g, '').trim();
         // Nếu skillName rỗng, giữ nguyên match
         if (!cleanSkillName) return match;
         return `dùng **"${cleanSkillName}"**`;
@@ -315,11 +323,6 @@ class CombatUI {
 
       // Loại bỏ emoji thừa
       formatted = formatted.replace(/⚔️|🗡️/g, '').trim();
-      
-      // Restore lại các phần đã lưu (skill name, damage, CRIT, MISS)
-      for (const [placeholder, boldText] of boldPlaceholders.entries()) {
-        formatted = formatted.replace(new RegExp(placeholder.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'), boldText);
-      }
 
       // Format hiệu ứng: thêm "+" trước %, đổi "trong X lượt" thành "(X lượt)"
       // Tăng/Giảm +X% (Y lượt)

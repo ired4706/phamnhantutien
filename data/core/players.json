@@ -1072,13 +1072,13 @@
     "userId": "397226790709624834",
     "username": "i_am_tsyu",
     "spiritRoot": "thuy",
-    "experience": 54321,
+    "experience": 55073,
     "realm": "luyen_khi",
     "realmLevel": 1,
     "totalTiers": 0,
     "inventory": {
       "spiritStones": {
-        "ha_pham": 4,
+        "ha_pham": 10,
         "trung_pham": 0,
         "thuong_pham": 0,
         "cuc_pham": 0
@@ -1158,6 +1158,10 @@
         },
         {
           "id": "liet_hoa_hoa",
+          "quantity": 2
+        },
+        {
+          "id": "thanh_tam_thao",
           "quantity": 1
         }
       ],
@@ -1227,7 +1231,7 @@
       "cultivateCooldown": 300000,
       "breakthroughAttempts": 0,
       "lastBreakthrough": 0,
-      "lastMeditate": 1762856760252,
+      "lastMeditate": 1763712172611,
       "lastHunt": 1762857161841,
       "lastChallenge": 1757587721265,
       "lastDomain": 1760065573130,
@@ -1235,8 +1239,8 @@
       "lastWeeklyQuest": 0,
       "lastDungeon": 1757587687402,
       "lastMine": 1757587748710,
-      "lastPick": 1762857177281,
-      "lastExplore": 1762856492488,
+      "lastPick": 1763712166180,
+      "lastExplore": 1763712178098,
       "lastDaily": 1762856411578,
       "lastWeekly": 1762856418381
     },
@@ -1261,7 +1265,7 @@
     },
     "achievements": [],
     "joinDate": 1757587591503,
-    "lastActive": 1762857177284,
+    "lastActive": 1763712178098,
     "stats": {
       "attack": 17.9,
       "defense": 17.1,

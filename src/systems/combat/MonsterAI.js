@@ -72,6 +72,14 @@ class MonsterAI {
     // Cập nhật UI
     const ui = createCombatUI(combat);
     await updateCombatUI(combat, ui, combat.interaction);
+    
+    // Nếu sau khi chuyển lượt, lượt vẫn là monster (do player bị stun và skip turn),
+    // tiếp tục gọi lại performMonsterTurn để quái hành động tiếp
+    if (combat.isActive && combat.currentTurn === 'monster') {
+      // Đợi một chút để UI kịp update trước khi tiếp tục
+      await new Promise(resolve => setTimeout(resolve, 500));
+      return this.performMonsterTurn(combat, checkCombatEnd, endCombat, nextTurn, createCombatUI, updateCombatUI);
+    }
   }
 
   /**

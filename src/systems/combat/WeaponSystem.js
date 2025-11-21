@@ -6,7 +6,7 @@
 const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 const { calculateDamage, getElementDamageMultiplier } = require('./DamageCalculator');
 const { applyBuffsFromSkill, applyDebuffsFromSkill } = require('./StatusEffects');
-const { getElementViName } = require('./CombatHelpers');
+const { getElementViName, getElementEmoji } = require('./CombatHelpers');
 
 class WeaponSystem {
   constructor(weaponSkillsData) {
@@ -182,25 +182,166 @@ class WeaponSystem {
   }
 
   /**
-   * Build weapon skill description
+   * Format weapon skill effects into description lines
+   * @param {Object} skill - Weapon skill object
+   * @returns {Array<string>} Array of effect description lines
+   */
+  formatWeaponSkillEffects(skill) {
+    const effectLines = [];
+    const effects = skill.effects || {};
+    const duration = effects.duration || 2;
+
+    // Damage multiplier (bỏ dấu gạch đầu dòng để đồng nhất với skill menu)
+    if (effects.damage_multiplier) {
+      const dmgPercent = Math.round(effects.damage_multiplier * 100);
+      effectLines.push(`Gây ${dmgPercent}% sát thương vũ khí`);
+    }
+
+    // Heal effects
+    if (effects.heal_ratio) {
+      const healPercent = Math.round(effects.heal_ratio * 100);
+      effectLines.push(`Hồi ${healPercent}% HP`);
+    }
+    if (effects.heal_flat_regen_multiplier) {
+      const regenPercent = Math.round(effects.heal_flat_regen_multiplier * 100);
+      effectLines.push(`Tăng ${regenPercent}% hồi phục`);
+    }
+
+    // Buff effects
+    if (effects.attack_bonus) {
+      const atkPercent = Math.round(effects.attack_bonus * 100);
+      effectLines.push(`Tăng ${atkPercent}% sát thương (${duration} lượt)`);
+    }
+    if (effects.defense_bonus) {
+      const defPercent = Math.round(effects.defense_bonus * 100);
+      effectLines.push(`Tăng ${defPercent}% phòng thủ (${duration} lượt)`);
+    }
+    if (effects.critical_bonus) {
+      const critPercent = Math.round(effects.critical_bonus * 100);
+      effectLines.push(`Tăng ${critPercent}% tỉ lệ chí mạng (${duration} lượt)`);
+    }
+    if (effects.speed_bonus) {
+      const speedPercent = Math.round(effects.speed_bonus * 100);
+      effectLines.push(`Tăng ${speedPercent}% tốc độ (${duration} lượt)`);
+    }
+
+    // Debuff effects
+    if (effects.enemy_attack_down) {
+      const atkDownPercent = Math.round(effects.enemy_attack_down * 100);
+      effectLines.push(`Giảm ${atkDownPercent}% sát thương địch (${duration} lượt)`);
+    }
+    if (effects.enemy_defense_down) {
+      const defDownPercent = Math.round(effects.enemy_defense_down * 100);
+      effectLines.push(`Giảm ${defDownPercent}% phòng thủ địch (${duration} lượt)`);
+    }
+    if (effects.enemy_slow_pct) {
+      const slowPercent = Math.round(effects.enemy_slow_pct * 100);
+      const slowDuration = effects.enemy_slow_duration || duration;
+      effectLines.push(`Làm chậm ${slowPercent}% (${slowDuration} lượt)`);
+    }
+
+    // Status effects
+    if (effects.burn_chance) {
+      const burnPercent = Math.round(effects.burn_chance * 100);
+      effectLines.push(`${burnPercent}% tỉ lệ thiêu đốt`);
+    }
+    if (effects.burn_damage_ratio) {
+      const burnPercent = Math.round(effects.burn_damage_ratio * 100);
+      const burnDuration = effects.burn_duration || duration;
+      effectLines.push(`Đốt ${burnPercent}% HP (${burnDuration} lượt)`);
+    }
+    if (effects.poison_chance) {
+      const poisonPercent = Math.round(effects.poison_chance * 100);
+      effectLines.push(`${poisonPercent}% tỉ lệ độc`);
+    }
+    if (effects.stun_chance) {
+      const stunPercent = Math.round(effects.stun_chance * 100);
+      const stunDuration = effects.stun_duration || 1;
+      effectLines.push(`${stunPercent}% tỉ lệ choáng (${stunDuration} lượt)`);
+    }
+
+    // Penetration
+    if (effects.skill_penetration_pct) {
+      const penPercent = Math.round(effects.skill_penetration_pct * 100);
+      effectLines.push(`Xuyên ${penPercent}% phòng thủ`);
+    }
+
+    // Special effects
+    if (effects.evade_next) {
+      effectLines.push(`Né tránh đòn kế tiếp`);
+    }
+    if (effects.status_immunity_next) {
+      effectLines.push(`Miễn nhiễm hiệu ứng xấu kế tiếp`);
+    }
+    if (effects.counter_attack) {
+      effectLines.push(`Phản kích khi bị tấn công`);
+    }
+
+    return effectLines;
+  }
+
+  /**
+   * Build weapon skill fields for embed (similar to skill menu)
    * @param {Object} weaponInfo - Weapon info
    * @param {Object} weaponInstance - Weapon instance
-   * @returns {string} Description text
+   * @returns {Array} Array of field objects for embed
    */
-  buildWeaponSkillDescription(weaponInfo, weaponInstance) {
-    const lines = [];
-    lines.push('Chọn hành động vũ khí: đánh thường hoặc kỹ năng vũ khí');
+  buildWeaponSkillFields(weaponInfo, weaponInstance) {
+    const fields = [];
+
+    // Normal attack field (đồng nhất format với skill menu - không có dấu gạch đầu dòng)
+    fields.push({
+      name: '0. Đánh thường',
+      value: 'Gây 100% sát thương vũ khí\nMana: 0 • CD: 0 lượt',
+      inline: false
+    });
+
+    // Weapon skills
     const tiers = weaponInstance.unlockedSkillTiers || [1];
-    tiers.forEach(tier => {
+
+    tiers.forEach((tier, index) => {
       const sk = this.getWeaponSkill(weaponInfo.type, tier);
       if (!sk) return;
+
       const cost = sk.effects?.mana_cost || 0;
       const cd = sk.cooldown || 0;
-      const elem = weaponInfo.element ? getElementViName(weaponInfo.element) : 'Không';
-      const desc = sk.description || '';
-      lines.push(`• ${tier}. ${sk.name} — MP: ${cost} • CD: ${cd} • Hệ VK: ${elem}\n   ${desc}`);
+      const skillNumber = index + 1;
+
+      // Format effects
+      const effectLines = this.formatWeaponSkillEffects(sk);
+      let description = '';
+      if (effectLines.length > 0) {
+        description = effectLines.join('\n');
+      } else {
+        // Fallback to description if no effects parsed
+        let desc = sk.description || '';
+        if (desc) {
+          // Thay dấu chấm ở đầu dòng thành dấu gạch đầu dòng
+          // Giữ nguyên dấu chấm trong nội dung (như "MP: 0 • CD: 2")
+          // Pattern: tìm dấu chấm ở đầu dòng (có thể có khoảng trắng sau)
+          desc = desc.split('\n').map(line => {
+            // Nếu dòng bắt đầu bằng dấu chấm, thay thành dấu gạch đầu dòng
+            if (line.trim().startsWith('.')) {
+              return line.replace(/^(\s*)\.(\s*)/, '$1-$2');
+            }
+            return line;
+          }).join('\n');
+          // Không thêm dấu gạch đầu dòng để đồng nhất với skill menu
+          description = desc.trim();
+        }
+      }
+
+      // Add MP and CD (đồng nhất format với skill menu: "Mana" thay vì "MP")
+      description += `\nMana: ${cost} • CD: ${cd} lượt`;
+
+      fields.push({
+        name: `${skillNumber}. ${sk.name}`,
+        value: description || 'Không có mô tả',
+        inline: false
+      });
     });
-    return lines.join('\n');
+
+    return fields;
   }
 
   /**
@@ -228,37 +369,49 @@ class WeaponSystem {
       return { action: 'menu', message: 'no weapon info' };
     }
 
+    // Get element emoji for title
+    const elementEmoji = getElementEmoji(weaponInfo.element || 'vo_he');
+
     const embed = new EmbedBuilder()
       .setColor('#F39C12')
-      .setTitle(`🗡️ Vũ Khí: ${weaponInfo.name}`)
-      .setDescription(this.buildWeaponSkillDescription(weaponInfo, weaponInstance));
+      .setTitle(`✨ Chọn hành động vũ khí: ${weaponInfo.name} ${elementEmoji}`)
+      .setDescription(`MP: ${player.currentMp.toFixed(1)}/${player.stats.mp}`)
+      .addFields(this.buildWeaponSkillFields(weaponInfo, weaponInstance));
 
-    // Buttons: Normal Attack + Tier skill buttons
+    // Buttons: Normal Attack + Tier skill buttons (similar to skill menu)
     const row = new ActionRowBuilder();
+
+    // Normal attack button (button 0)
     row.addComponents(
       new ButtonBuilder()
         .setCustomId(`combat_weaponuse_${combat.id}_normal`)
-        .setLabel('Đánh thường')
-        .setStyle(ButtonStyle.Danger)
+        .setLabel('0')
+        .setStyle(ButtonStyle.Primary)
         .setDisabled((combat.playerAp || 0) <= 0)
     );
 
-    // Unlocked tiers
+    // Skill buttons (numbered 1, 2, 3...)
     const unlocked = weaponInstance.unlockedSkillTiers || [1];
-    unlocked.forEach(tier => {
+    unlocked.forEach((tier, index) => {
       const sk = this.getWeaponSkill(weaponInfo.type, tier);
-      const skId = sk?.id;
-      const remain = skId ? (combat.playerCooldowns?.[skId] || 0) : 0;
+      if (!sk) return;
+      const skId = sk.id;
+      const cost = sk.effects?.mana_cost || 0;
+      const remain = skId ? (weaponInstance.cooldowns?.[skId] || combat.playerCooldowns?.[skId] || 0) : 0;
+      const isOnCooldown = remain > 0;
+      const hasEnoughMp = player.currentMp >= cost;
+      const skillNumber = index + 1;
+
       row.addComponents(
         new ButtonBuilder()
           .setCustomId(`combat_weaponuse_${combat.id}_tier_${tier}`)
-          .setLabel(remain > 0 ? `${tier} (CD:${remain})` : String(tier))
+          .setLabel(`${skillNumber}${isOnCooldown ? ` (CD:${remain})` : ''}`)
           .setStyle(ButtonStyle.Primary)
-          .setDisabled((combat.playerAp || 0) <= 0 || remain > 0)
+          .setDisabled((combat.playerAp || 0) <= 0 || isOnCooldown || !hasEnoughMp)
       );
     });
 
-    // back
+    // Back button
     row.addComponents(
       new ButtonBuilder()
         .setCustomId(`combat_back_${combat.id}`)

@@ -6,6 +6,7 @@
 const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 const { calculateDamage, getElementDamageMultiplier } = require('./DamageCalculator');
 const { applyBuffsFromSkill, applyDebuffsFromSkill, applyOnHitStatus } = require('./StatusEffects');
+const { getElementEmoji } = require('./CombatHelpers');
 
 class SkillSystem {
   constructor(skillsData) {
@@ -51,9 +52,13 @@ class SkillSystem {
       return { action: 'menu', message: 'No skills' };
     }
 
+    // Get player element emoji
+    const playerElement = player.spiritRoot || player.element || 'vo_he';
+    const elementEmoji = getElementEmoji(playerElement);
+
     const embed = new EmbedBuilder()
       .setColor('#9B59B6')
-      .setTitle('✨ Chọn Kỹ Năng')
+      .setTitle(`✨ Chọn Kỹ Năng ${elementEmoji}`)
       .setDescription(`MP: ${player.currentMp.toFixed(1)}/${player.stats.mp}`);
 
     embed.addFields(available.map((s, idx) => ({
@@ -111,9 +116,13 @@ class SkillSystem {
       return { action: 'menu', message: 'No skills' };
     }
 
+    // Get actor element emoji
+    const actorElement = actor.spiritRoot || actor.element || 'vo_he';
+    const elementEmoji = getElementEmoji(actorElement);
+
     const embed = new EmbedBuilder()
       .setColor('#9B59B6')
-      .setTitle(`✨ Chọn Kỹ Năng - ${actor.name}`)
+      .setTitle(`✨ Chọn Kỹ Năng - ${actor.name} ${elementEmoji}`)
       .setDescription(`MP: ${actor.currentMp.toFixed(1)}/${actor.stats.mp}`);
 
     embed.addFields(available.map((s, idx) => {
