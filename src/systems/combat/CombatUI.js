@@ -348,50 +348,56 @@ class CombatUI {
         const names = formatted.match(namePattern) || [];
 
         if (names.length > 1) {
-          // Có nhiều phần với nhiều tên, tách thành nhiều dòng
-          const parts = [];
-          let currentIndex = 0;
-
-          // Tách dựa trên vị trí của mỗi tên
-          for (let i = 0; i < names.length; i++) {
-            const name = names[i];
-            const nameIndex = formatted.indexOf(name, currentIndex);
-
-            if (i === 0) {
-              // Phần đầu: từ đầu đến hết tên đầu tiên
-              const firstPart = formatted.substring(0, nameIndex + name.length).trim();
-              if (firstPart) {
-                parts.push(`${icon} ${firstPart}`);
-              }
-            } else {
-              // Phần tiếp theo: từ sau tên trước đến hết tên hiện tại
-              const prevName = names[i - 1];
-              const prevNameIndex = formatted.indexOf(prevName, currentIndex - prevName.length);
-              const prevNameEnd = prevNameIndex + prevName.length;
-              const segment = formatted.substring(prevNameEnd, nameIndex + name.length).trim();
-
-              if (segment) {
-                // Loại bỏ tên trùng lặp nếu cùng một tên
-                const cleanSegment = segment.replace(new RegExp(`^\\*\\*${name.replace(/\*/g, '')}\\*\\*\\s*`), '');
-                if (cleanSegment) {
-                  parts.push(`    -> ${cleanSegment}`);
-                } else {
-                  parts.push(`    -> ${segment}`);
-                }
-              }
+          // Có nhiều phần với nhiều tên (thường là tên quái + tên skill)
+          // Tìm vị trí của MISS hoặc damage để xác định phần đầu
+          const missPattern = /[→>-]\s+\*\*MISS\*\*/i;
+          const damagePattern = /[→>-]\s+\*\*[\d.]+\*\*\s+sát thương/i;
+          const missMatch = formatted.match(missPattern);
+          const damageMatch = formatted.match(damagePattern);
+          
+          let mainPartEnd = formatted.length;
+          if (missMatch) {
+            mainPartEnd = formatted.indexOf(missMatch[0]) + missMatch[0].length;
+          } else if (damageMatch) {
+            mainPartEnd = formatted.indexOf(damageMatch[0]) + damageMatch[0].length;
+          } else {
+            // Không có MISS hoặc damage, tìm đến hiệu ứng đầu tiên
+            const effectPattern = /(tăng|giảm|bị|sẽ|miễn nhiễm|kích hoạt|hồi|khiêu khích)/i;
+            const effectMatch = formatted.match(effectPattern);
+            if (effectMatch) {
+              mainPartEnd = effectMatch.index;
             }
-
-            currentIndex = nameIndex + name.length;
           }
 
-          // Phần cuối (sau tên cuối cùng)
-          const lastName = names[names.length - 1];
-          const lastNameIndex = formatted.lastIndexOf(lastName);
-          const lastNameEnd = lastNameIndex + lastName.length;
-          const lastSegment = formatted.substring(lastNameEnd).trim();
+          // Phần đầu: từ đầu đến hết MISS/damage hoặc đến hiệu ứng đầu tiên
+          const mainPart = formatted.substring(0, mainPartEnd).trim();
+          const parts = [];
+          if (mainPart) {
+            parts.push(`${icon} ${mainPart}`);
+          }
 
-          if (lastSegment) {
-            parts.push(`    -> ${lastSegment}`);
+          // Phần còn lại (hiệu ứng) - tách thành nhiều dòng nếu có nhiều hiệu ứng
+          const effectsPart = formatted.substring(mainPartEnd).trim();
+          if (effectsPart) {
+            // Loại bỏ các "->" thừa ở đầu
+            let cleanEffects = effectsPart.replace(/^[→>\s-]+/, '').trim();
+            // Tách các hiệu ứng bằng "→" nếu có nhiều hiệu ứng
+            // Escape - trong character class hoặc đặt ở cuối
+            const effectParts = cleanEffects.split(/[→>-]\s*(?=Tăng|Giảm|bị|sẽ|miễn nhiễm|kích hoạt|hồi|khiêu khích)/i);
+            if (effectParts.length > 1) {
+              // Có nhiều hiệu ứng, mỗi hiệu ứng 1 dòng
+              effectParts.forEach((effect) => {
+                const trimmed = effect.trim();
+                if (trimmed) {
+                  parts.push(`→ ${trimmed}`);
+                }
+              });
+            } else {
+              // Chỉ có 1 hiệu ứng
+              if (cleanEffects) {
+                parts.push(`→ ${cleanEffects}`);
+              }
+            }
           }
 
           if (parts.length > 1) {
@@ -413,30 +419,37 @@ class CombatUI {
             const firstEffectIndex = matches[0].index;
             let firstPartEnd = firstEffectIndex;
 
-            // Tìm phần đầu: từ đầu đến hết "sát thương" (nếu có) hoặc đến hiệu ứng đầu tiên
-            // Pattern: tìm "→ X sát thương" hoặc "-> X sát thương"
+            // Tìm phần đầu: từ đầu đến hết "sát thương" hoặc "MISS" (nếu có) hoặc đến hiệu ứng đầu tiên
+            // Pattern: tìm "→ X sát thương" hoặc "-> X sát thương" hoặc "→ **MISS**"
             // Escape - trong character class hoặc đặt ở cuối
             const damagePattern = /[→>-]\s+\*\*[\d.]+\*\*\s+sát thương/i;
             const damageMatch = formatted.substring(0, firstEffectIndex).match(damagePattern);
             if (damageMatch) {
               firstPartEnd = formatted.indexOf(damageMatch[0]) + damageMatch[0].length;
             } else {
-              // Tìm pattern khác: "→ X sát thương" không có bold
-              // Escape - trong character class hoặc đặt ở cuối
-              const damagePattern2 = /[→>-]\s+[\d.]+\s+sát thương/i;
-              const damageMatch2 = formatted.substring(0, firstEffectIndex).match(damagePattern2);
-              if (damageMatch2) {
-                firstPartEnd = formatted.indexOf(damageMatch2[0]) + damageMatch2[0].length;
+              // Tìm MISS pattern: "→ **MISS**" hoặc "-> **MISS**"
+              const missPattern = /[→>-]\s+\*\*MISS\*\*/i;
+              const missMatch = formatted.substring(0, firstEffectIndex).match(missPattern);
+              if (missMatch) {
+                firstPartEnd = formatted.indexOf(missMatch[0]) + missMatch[0].length;
               } else {
-                // Tìm "sát thương" cuối cùng trước hiệu ứng
-                const satThuongIndex = formatted.lastIndexOf('sát thương', firstEffectIndex);
-                if (satThuongIndex !== -1) {
-                  firstPartEnd = satThuongIndex + 'sát thương'.length;
+                // Tìm pattern khác: "→ X sát thương" không có bold
+                // Escape - trong character class hoặc đặt ở cuối
+                const damagePattern2 = /[→>-]\s+[\d.]+\s+sát thương/i;
+                const damageMatch2 = formatted.substring(0, firstEffectIndex).match(damagePattern2);
+                if (damageMatch2) {
+                  firstPartEnd = formatted.indexOf(damageMatch2[0]) + damageMatch2[0].length;
                 } else {
-                  // Tìm dấu ngoặc kép cuối cùng (kết thúc tên kỹ năng)
-                  const lastQuoteIndex = formatted.lastIndexOf('"', firstEffectIndex);
-                  if (lastQuoteIndex !== -1 && lastQuoteIndex < firstEffectIndex) {
-                    firstPartEnd = lastQuoteIndex + 1; // Sau dấu ngoặc kép cuối
+                  // Tìm "sát thương" cuối cùng trước hiệu ứng
+                  const satThuongIndex = formatted.lastIndexOf('sát thương', firstEffectIndex);
+                  if (satThuongIndex !== -1) {
+                    firstPartEnd = satThuongIndex + 'sát thương'.length;
+                  } else {
+                    // Tìm dấu ngoặc kép cuối cùng (kết thúc tên kỹ năng)
+                    const lastQuoteIndex = formatted.lastIndexOf('"', firstEffectIndex);
+                    if (lastQuoteIndex !== -1 && lastQuoteIndex < firstEffectIndex) {
+                      firstPartEnd = lastQuoteIndex + 1; // Sau dấu ngoặc kép cuối
+                    }
                   }
                 }
               }

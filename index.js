@@ -180,27 +180,11 @@ client.on('interactionCreate', async interaction => {
       return;
     }
 
-    if (customId === 'forge_select_weapon' || customId.startsWith('forge_select_qty:')) {
-      const forgeCommand = require('./src/commands/crafting/forge.js');
-      const playerManager = require('./src/systems/player.js');
-
-      const userId = interaction.user.id;
-
-      // Kiểm tra xem user đã bắt đầu game chưa
-      if (!playerManager.hasStartedGame(userId)) {
-        const notStartedEmbed = playerManager.createNotStartedEmbed();
-        await interaction.reply({ embeds: [notStartedEmbed], ephemeral: true });
-        return;
-      }
-
-      await forgeCommand.handleSelectMenu(interaction);
-      return;
-    }
-
-    if (customId === 'craft_select_equipment' || customId.startsWith('craft_select_qty:')) {
+    // Xử lý select menu craft (gộp cả weapon và equipment)
+    if (customId === 'craft_select_weapon' || customId.startsWith('craft_select_qty_weapon:') || 
+        customId === 'craft_select_equipment' || customId.startsWith('craft_select_qty:')) {
       const craftCommand = require('./src/commands/crafting/craft.js');
       const playerManager = require('./src/systems/player.js');
-
       const userId = interaction.user.id;
 
       if (!playerManager.hasStartedGame(userId)) {
@@ -538,50 +522,12 @@ async function handleButtonInteraction(interaction) {
     return;
   }
 
-  // Xử lý button forge
-  if (customId.startsWith('forge_')) {
-    try {
-      const forgeCommand = require('./src/commands/crafting/forge.js');
-      const playerManager = require('./src/systems/player.js');
 
-      const userId = interaction.user.id;
-      const username = interaction.user.username;
-
-      // Kiểm tra xem user đã bắt đầu game chưa
-      if (!playerManager.hasStartedGame(userId)) {
-        const notStartedEmbed = playerManager.createNotStartedEmbed();
-        await interaction.reply({ embeds: [notStartedEmbed], ephemeral: true });
-        return;
-      }
-
-      // Xử lý các button forge
-      if (customId === 'forge_back_main') {
-        await forgeCommand.showForgeInfo(interaction, userId);
-      } else if (customId.startsWith('forge_element_')) {
-        const element = customId.replace('forge_element_', '');
-        await forgeCommand.showWeaponsByElement(interaction, element, userId);
-      } else if (customId === 'forge_forge_info') {
-        await forgeCommand.showDetailedForgeInfo(interaction);
-      } else {
-        // Fallback: gọi handleButton của command
-        await forgeCommand.handleButton(interaction);
-      }
-    } catch (error) {
-      console.error('Error handling forge button:', error);
-      await interaction.reply({
-        content: '❌ Có lỗi xảy ra khi xử lý button forge!',
-        ephemeral: true
-      });
-    }
-    return;
-  }
-
-  // Xử lý button craft (trang bị)
+  // Xử lý button craft (gộp cả weapon và equipment)
   if (customId.startsWith('craft_')) {
     try {
       const craftCommand = require('./src/commands/crafting/craft.js');
       const playerManager = require('./src/systems/player.js');
-
       const userId = interaction.user.id;
 
       if (!playerManager.hasStartedGame(userId)) {
@@ -590,14 +536,8 @@ async function handleButtonInteraction(interaction) {
         return;
       }
 
-      if (customId === 'craft_back_main') {
-        await craftCommand.showCraftMenu(interaction, userId);
-      } else if (customId.startsWith('craft_type_')) {
-        const type = customId.replace('craft_type_', '');
-        await craftCommand.showEquipmentByType(interaction, type, userId);
-      } else {
-        await craftCommand.handleButton(interaction);
-      }
+      // Gọi handleButton của craft command (đã xử lý cả weapon và equipment)
+      await craftCommand.handleButton(interaction);
     } catch (error) {
       console.error('Error handling craft button:', error);
       await interaction.reply({

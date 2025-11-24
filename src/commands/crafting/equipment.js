@@ -307,8 +307,9 @@ module.exports = {
   computeEquipmentCombatBonuses(equipment) {
     const bonuses = equipment.bonuses || {};
 
-    // Get main INT for ring/pendant (similar to main STR for weapons)
-    const main = (bonuses.__main_stats && bonuses.__main_stats.INT) ? bonuses.__main_stats.INT : 0;
+    // Get main INT for ring, main LUK for pendant (similar to main STR for weapons)
+    const mainINT = (bonuses.__main_stats && bonuses.__main_stats.INT) ? bonuses.__main_stats.INT : 0;
+    const mainLUK = (bonuses.__main_stats && bonuses.__main_stats.LUK) ? bonuses.__main_stats.LUK : 0;
 
     const sub = {
       STR: bonuses.STR || 0,
@@ -318,12 +319,12 @@ module.exports = {
       LUK: bonuses.LUK || 0
     };
 
-    // Total core stats (main INT + sub stats for ring/pendant, or just sub stats for armor/pants/shoes)
+    // Total core stats (main INT + sub stats for ring, main LUK + sub stats for pendant, or just sub stats for armor/pants/shoes)
     const STR = sub.STR;
-    const INT = main + sub.INT; // Include main INT for ring/pendant
+    const INT = mainINT + sub.INT; // Include main INT for ring
     const DEX = sub.DEX;
     const VIT = sub.VIT;
-    const LUK = sub.LUK;
+    const LUK = mainLUK + sub.LUK; // Include main LUK for pendant
 
     const delta = {
       attack: STR * 1.8 + INT * 0.6 + LUK * 0.3,

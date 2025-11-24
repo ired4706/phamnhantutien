@@ -81,11 +81,11 @@
         },
         {
           "id": "thien_tinh_than_khi",
-          "quantity": 875
+          "quantity": 870
         },
         {
           "id": "than_kim_thanh_thiet",
-          "quantity": 945
+          "quantity": 940
         },
         {
           "id": "tong_mon_lenh_bai",
@@ -133,7 +133,7 @@
         },
         {
           "id": "thanh_duong_nha",
-          "quantity": 90
+          "quantity": 85
         },
         {
           "id": "thanh_viem_chan_hoa",
@@ -300,6 +300,46 @@
               "value": 0.04,
               "duration": 2,
               "max_stacks": 3
+            }
+          ],
+          "weaponSkillTier": 3,
+          "unlockedSkillTiers": [
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "uid": "f30g4bl7",
+          "id": "khai_thien_than_kiem",
+          "createdAt": 1763975417344,
+          "bonuses": {
+            "__main_stats": {
+              "STR": 120
+            },
+            "VIT": 29,
+            "DEX": 22,
+            "STR": 16,
+            "LUK": 18,
+            "INT": 30
+          },
+          "passives": [
+            {
+              "id": "passive_thien_kim_kim_tram",
+              "name": "Kim Trảm",
+              "description": "Sát thương vũ khí có luôn xuyên 6% DEF, 15% xuyên thêm 3% DEF trong lượt",
+              "type": "weapon_damage_always_pen_pct",
+              "always_pen_pct": 0.06,
+              "chance_extra_pen_pct": 0.15,
+              "extra_pen_pct": 0.03
+            },
+            {
+              "id": "passive_than_kim_kim_hon_doan_sat",
+              "name": "Kim Hồn Đoạn Sát",
+              "description": "Bắt đầu sẽ cd 5 lượt; khi đủ, bảo đảm lần tấn công vũ khí tiếp theo là guaranteed crit and deals +40% Crit Damage",
+              "type": "guaranteed_crit_next_weapon",
+              "crit_damage_bonus_pct": 0.4,
+              "cooldown": 5
             }
           ],
           "weaponSkillTier": 3,
@@ -776,10 +816,11 @@
     },
     "forge": {
       "forgeLevel": 1,
-      "totalCrafted": 10,
-      "successCount": 4,
-      "failureCount": 6,
-      "lastForge": 1762333617571
+      "totalCrafted": 15,
+      "successCount": 5,
+      "failureCount": 10,
+      "lastForge": 1763975417344,
+      "forgeExp": 30
     },
     "achievements": [],
     "joinDate": 1757583527158,

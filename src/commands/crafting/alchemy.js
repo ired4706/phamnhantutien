@@ -87,10 +87,22 @@ module.exports = {
   async showFurnaceInfo(interaction, userId) {
     const player = await playerManager.getPlayer(userId);
     const furnaceLevel = player.alchemy?.furnaceLevel || 1;
+    const alchemyExp = player.alchemy?.alchemyExp || 0;
     const totalCrafted = player.alchemy?.totalCrafted || 0;
     const successCount = player.alchemy?.successCount || 0;
     const failureCount = player.alchemy?.failureCount || 0;
     const successRate = totalCrafted > 0 ? Math.round((successCount / totalCrafted) * 100) : 0;
+
+    // Tính EXP cần và progress
+    const expRequired = this.getAlchemyExpRequired(furnaceLevel);
+    const expProgress = Math.min((alchemyExp / expRequired) * 100, 100);
+    const canUpgrade = alchemyExp >= expRequired;
+
+    // Tạo progress bar
+    const progressBarLength = 20;
+    const filled = Math.floor((expProgress / 100) * progressBarLength);
+    const empty = progressBarLength - filled;
+    const progressBar = '█'.repeat(filled) + '░'.repeat(empty);
 
     const embed = new EmbedBuilder()
       .setColor('#9C27B0')
@@ -99,7 +111,7 @@ module.exports = {
       .addFields(
         {
           name: '🔥 **Level Lò Đan**',
-          value: `**${furnaceLevel}** (Tỉ lệ thành công: **${60 + (furnaceLevel - 1) * 5}%**)`,
+          value: `**${furnaceLevel}** (Tỉ lệ thành công: **${55 + (furnaceLevel - 1) * 3}%**)`,
           inline: true
         },
         {
@@ -111,6 +123,11 @@ module.exports = {
           name: '📈 **Tỉ Lệ Thành Công**',
           value: `**${successRate}%** (${successCount}/${totalCrafted})`,
           inline: true
+        },
+        {
+          name: '⚡ **EXP Luyện Đan**',
+          value: `**EXP hiện tại**: ${alchemyExp} / ${expRequired}\n**Tiến độ**: ${expProgress.toFixed(1)}%\n\`${progressBar}\`\n${canUpgrade ? '✅ **Có thể nâng cấp!**' : `Cần thêm **${expRequired - alchemyExp}** EXP`}`,
+          inline: false
         }
       )
       .addFields({
@@ -166,6 +183,8 @@ module.exports = {
       await this.showFurnaceInfo(interaction, userId);
     } else if (customId === 'falchemy_furnace_info') {
       await this.showDetailedFurnaceInfo(interaction);
+    } else if (customId === 'falchemy_upgrade') {
+      await this.upgradeAlchemy(interaction, userId);
     } else if (customId.startsWith('falchemy_type_')) {
       const type = customId.replace('falchemy_type_', '');
       await this.showElixirsByType(interaction, type, userId);
@@ -405,8 +424,8 @@ module.exports = {
   },
 
   // Hiển thị thông tin chi tiết lò đan
-  async showDetailedFurnaceInfo(interaction) {
-    const userId = interaction.user.id;
+  async showDetailedFurnaceInfo(interaction, userId = null) {
+    if (!userId) userId = interaction.user.id;
     const player = await playerManager.getPlayer(userId);
     const furnaceLevel = player.alchemy?.furnaceLevel || 1;
     const totalCrafted = player.alchemy?.totalCrafted || 0;
@@ -414,9 +433,9 @@ module.exports = {
     const failureCount = player.alchemy?.failureCount || 0;
     const successRate = totalCrafted > 0 ? Math.round((successCount / totalCrafted) * 100) : 0;
 
-    const baseSuccessRate = 60;
-    const levelBonus = (furnaceLevel - 1) * 5;
-    const currentSuccessRate = Math.min(baseSuccessRate + levelBonus, 95);
+    const baseSuccessRate = 55;
+    const levelBonus = (furnaceLevel - 1) * 3;
+    const currentSuccessRate = baseSuccessRate + levelBonus; // Level 15 = 55 + 42 = 97%
 
     const embed = new EmbedBuilder()
       .setColor('#FF9800')
@@ -439,37 +458,90 @@ module.exports = {
           inline: false
         },
         {
+          name: '⚡ **EXP Luyện Đan**',
+          value: (() => {
+            const alchemyExp = player.alchemy?.alchemyExp || 0;
+            const expRequired = this.getAlchemyExpRequired(furnaceLevel);
+            const expProgress = Math.min((alchemyExp / expRequired) * 100, 100);
+            const canUpgrade = alchemyExp >= expRequired;
+            const progressBarLength = 20;
+            const filled = Math.floor((expProgress / 100) * progressBarLength);
+            const empty = progressBarLength - filled;
+            const progressBar = '█'.repeat(filled) + '░'.repeat(empty);
+            return `**EXP hiện tại**: ${alchemyExp} / ${expRequired}\n**Tiến độ**: ${expProgress.toFixed(1)}%\n\`${progressBar}\`\n${canUpgrade ? '✅ **Có thể nâng cấp!**' : `Cần thêm **${expRequired - alchemyExp}** EXP để nâng cấp`}`;
+          })(),
+          inline: false
+        },
+        {
           name: '💡 **Gợi Ý Nâng Cấp**',
-          value: 'Nâng cấp lò đan sẽ tăng tỉ lệ thành công luyện đan. Mỗi level tăng 5% tỉ lệ thành công, tối đa 95%.',
+          value: 'Nâng cấp lò đan sẽ tăng tỉ lệ thành công luyện đan. Mỗi level tăng 3% tỉ lệ thành công. EXP dựa vào độ hiếm nguyên liệu.',
           inline: false
         }
       )
       .setFooter({ text: 'Sử dụng falchemy để quay lại menu chính' })
       .setTimestamp();
 
+    // Tính canUpgrade
+    const alchemyExp = player.alchemy?.alchemyExp || 0;
+    const expRequired = this.getAlchemyExpRequired(furnaceLevel);
+    const canUpgrade = alchemyExp >= expRequired;
+
+    const upgradeButton = new ButtonBuilder()
+      .setCustomId('falchemy_upgrade')
+      .setLabel(canUpgrade ? '⬆️ Nâng Cấp Lò Đan' : '🔒 Chưa Đủ EXP')
+      .setStyle(canUpgrade ? ButtonStyle.Success : ButtonStyle.Secondary)
+      .setDisabled(!canUpgrade);
+
     const backButton = new ButtonBuilder()
       .setCustomId('falchemy_back_main')
       .setLabel('🔙 Quay Lại')
       .setStyle(ButtonStyle.Secondary);
 
-    const backRow = new ActionRowBuilder().addComponents(backButton);
+    const buttonRow = new ActionRowBuilder().addComponents([upgradeButton, backButton]);
 
     await interaction.update({
       embeds: [embed],
-      components: [backRow]
+      components: [buttonRow]
     });
   },
 
-  // Tạo bảng tỉ lệ theo level
+  // Tính EXP cần để nâng cấp lò đan
+  getAlchemyExpRequired(level) {
+    // Level 1->2: 100*1.8^0 = 100, Level 2->3: 100*1.8^1 = 180, ...
+    return Math.floor(100 * Math.pow(1.8, level - 1));
+  },
+
+  // Tính EXP dựa vào rarity của nguyên liệu
+  calculateMaterialExp(craftingMaterials) {
+    let totalExp = 0;
+    const rarityExpMap = {
+      'common': 5,
+      'uncommon': 10,
+      'rare': 20,
+      'epic': 40,
+      'legendary': 80
+    };
+
+    for (const [materialId, quantity] of Object.entries(craftingMaterials)) {
+      const materialInfo = itemLoader.getItemInfo(materialId);
+      const rarity = materialInfo?.rarity || 'common';
+      const expPerItem = rarityExpMap[rarity] || 5;
+      totalExp += expPerItem * quantity;
+    }
+
+    return totalExp;
+  },
+
+  // Tạo bảng tỉ lệ theo level (15 level)
   createFurnaceLevelTable() {
     let table = '```\n';
     table += 'Level | Tỉ Lệ | Ghi Chú\n';
     table += '------|--------|---------\n';
 
-    for (let level = 1; level <= 10; level++) {
-      const baseRate = 60;
-      const bonus = (level - 1) * 5;
-      const totalRate = Math.min(baseRate + bonus, 95);
+    for (let level = 1; level <= 15; level++) {
+      const baseRate = 55;
+      const bonus = (level - 1) * 3;
+      const totalRate = baseRate + bonus; // Không có max vì level 15 = 55 + 42 = 97%
       const note = level === 1 ? 'Mặc định' : `+${bonus}%`;
 
       table += `${level.toString().padStart(4)} | ${totalRate.toString().padStart(6)}% | ${note}\n`;
@@ -769,17 +841,32 @@ module.exports = {
 
     // Tính toán tỉ lệ thành công dựa trên level lò luyện
     const furnaceLevel = player.alchemy?.furnaceLevel || 1;
-    const baseSuccessRate = 60; // 60% cơ bản
-    const levelBonus = (furnaceLevel - 1) * 5; // Mỗi level tăng 5%
-    const maxSuccessRate = 95; // Tối đa 95%
-    const successRate = Math.min(baseSuccessRate + levelBonus, maxSuccessRate);
+    const baseSuccessRate = 55; // 55% cơ bản
+    const levelBonus = (furnaceLevel - 1) * 3; // Mỗi level tăng 3%
+    const successRate = baseSuccessRate + levelBonus; // Level 15 = 55 + 42 = 97%
+
+    // Tính EXP từ nguyên liệu
+    const totalExp = this.calculateMaterialExp(craftingMaterials);
 
     // Thực hiện luyện đan
-    const isSuccess = Math.random() * 100 < successRate;
+    const roll = Math.random() * 100;
+    const isSuccess = roll < successRate;
+
+    // Kiểm tra Critical Success
+    let criticalType = null;
+    if (isSuccess) {
+      const criticalRoll = Math.random() * 100;
+      if (criticalRoll < 0.04) {
+        criticalType = 'divine'; // 0.04% - Tất cả sub-stat max
+      } else if (criticalRoll < 0.1) {
+        criticalType = 'super'; // 0.1% - 2 dòng sub-stat max
+      } else if (criticalRoll < 0.3) {
+        criticalType = 'great'; // 0.3% - 1 dòng sub-stat max
+      }
+    }
 
     if (isSuccess) {
-      // Luyện đan thành công
-      // Trừ materials
+      // Luyện đan thành công - Mất 100% nguyên liệu
       for (const [materialId, requiredQty] of Object.entries(craftingMaterials)) {
         const playerMaterial = player.inventory.items.find(item => item.id === materialId);
         if (playerMaterial) {
@@ -802,10 +889,11 @@ module.exports = {
         });
       }
 
-      // Cập nhật thống kê luyện đan
-      if (!player.alchemy) player.alchemy = {};
+      // Cập nhật thống kê luyện đan và tích EXP (100% EXP khi thành công)
+      if (!player.alchemy) player.alchemy = { furnaceLevel: 1, alchemyExp: 0, totalCrafted: 0, successCount: 0, failureCount: 0, lastAlchemy: 0 };
       player.alchemy.totalCrafted = (player.alchemy.totalCrafted || 0) + 1;
       player.alchemy.successCount = (player.alchemy.successCount || 0) + 1;
+      player.alchemy.alchemyExp = (player.alchemy.alchemyExp || 0) + totalExp; // 100% EXP
       player.alchemy.lastAlchemy = now;
 
       // Cập nhật player
@@ -817,10 +905,28 @@ module.exports = {
       playerManager.updatePlayer(userId, updateData);
 
       // Tạo embed thông báo thành công
+      let title = '🎉 **Luyện Đan Thành Công!**';
+      let color = '#00FF00';
+      let criticalText = '';
+
+      if (criticalType === 'divine') {
+        title = '✨ **Thần Thành Công!**';
+        color = '#FFD700';
+        criticalText = '\n\n✨ **Tất cả sub-stat đạt MAX ROLL!**';
+      } else if (criticalType === 'super') {
+        title = '🌟 **Siêu Thành Công!**';
+        color = '#FF8C00';
+        criticalText = '\n\n🌟 **2 dòng sub-stat đạt MAX ROLL!**';
+      } else if (criticalType === 'great') {
+        title = '⭐ **Đại Thành Công!**';
+        color = '#4169E1';
+        criticalText = '\n\n⭐ **1 dòng sub-stat đạt MAX ROLL!**';
+      }
+
       const successEmbed = new EmbedBuilder()
-        .setColor('#00FF00')
-        .setTitle('🎉 **Luyện Đan Thành Công!**')
-        .setDescription(`${this.createSeparator()}\n**${username}** đã luyện thành công **${elixirInfo.name}**!`)
+        .setColor(color)
+        .setTitle(title)
+        .setDescription(`${this.createSeparator()}\n**${username}** đã luyện thành công **${elixirInfo.name}**!${criticalText}`)
         .addFields(
           {
             name: '🧪 **Đan Dược Thu Được**',
@@ -829,13 +935,18 @@ module.exports = {
           },
           {
             name: '🔥 **Level Lò Luyện**',
-            value: `**${furnaceLevel}** (Tỉ lệ thành công: **${successRate}%**)`,
+            value: `**${furnaceLevel}** (Tỉ lệ: **${successRate.toFixed(1)}%**)`,
+            inline: true
+          },
+          {
+            name: '⚡ **EXP Nhận Được**',
+            value: `**+${totalExp}** EXP`,
             inline: true
           },
           {
             name: '📊 **Hiệu Quả**',
             value: this.formatEffects(elixirInfo.effects),
-            inline: true
+            inline: false
           }
         )
         .addFields({
@@ -851,12 +962,12 @@ module.exports = {
       await interaction.reply({ embeds: [successEmbed] });
 
     } else {
-      // Luyện đan thất bại
-      // Vẫn trừ materials (thất bại cũng mất nguyên liệu)
+      // Luyện đan thất bại - Mất 50% nguyên liệu, nhận 30% EXP
       for (const [materialId, requiredQty] of Object.entries(craftingMaterials)) {
         const playerMaterial = player.inventory.items.find(item => item.id === materialId);
         if (playerMaterial) {
-          playerMaterial.quantity -= requiredQty;
+          const lostQty = Math.ceil(requiredQty * 0.5); // Mất 50%
+          playerMaterial.quantity -= lostQty;
           // Xóa item nếu hết
           if (playerMaterial.quantity <= 0) {
             player.inventory.items = player.inventory.items.filter(item => item.id !== materialId);
@@ -864,10 +975,11 @@ module.exports = {
         }
       }
 
-      // Cập nhật thống kê luyện đan
-      if (!player.alchemy) player.alchemy = {};
+      // Cập nhật thống kê luyện đan và tích EXP (30% EXP khi thất bại)
+      if (!player.alchemy) player.alchemy = { furnaceLevel: 1, alchemyExp: 0, totalCrafted: 0, successCount: 0, failureCount: 0, lastAlchemy: 0 };
       player.alchemy.totalCrafted = (player.alchemy.totalCrafted || 0) + 1;
       player.alchemy.failureCount = (player.alchemy.failureCount || 0) + 1;
+      player.alchemy.alchemyExp = (player.alchemy.alchemyExp || 0) + Math.floor(totalExp * 0.3); // 30% EXP
       player.alchemy.lastAlchemy = now;
 
       // Cập nhật player
@@ -886,12 +998,17 @@ module.exports = {
         .addFields(
           {
             name: '🔥 **Level Lò Luyện**',
-            value: `**${furnaceLevel}** (Tỉ lệ thành công: **${successRate}%**)`,
+            value: `**${furnaceLevel}** (Tỉ lệ: **${successRate.toFixed(1)}%**)`,
             inline: true
           },
           {
             name: '💔 **Hậu Quả**',
-            value: 'Nguyên liệu đã bị mất do luyện đan thất bại!',
+            value: 'Mất 50% nguyên liệu',
+            inline: true
+          },
+          {
+            name: '⚡ **EXP Nhận Được**',
+            value: `**+${Math.floor(totalExp * 0.3)}** EXP (30%)`,
             inline: true
           }
         )
@@ -954,24 +1071,42 @@ module.exports = {
 
     // Tính tỉ lệ thành công dựa trên level lò luyện
     const furnaceLevel = player.alchemy?.furnaceLevel || 1;
-    const baseSuccessRate = 0.6; // 60% cơ bản
-    const levelBonus = (furnaceLevel - 1) * 0.05; // +5% mỗi level
-    const successRate = Math.min(baseSuccessRate + levelBonus, 0.95); // Tối đa 95%
+    const baseSuccessRate = 55; // 55% cơ bản
+    const levelBonus = (furnaceLevel - 1) * 3; // +3% mỗi level
+    const successRate = baseSuccessRate + levelBonus; // Level 15 = 97%
+
+    // Tính EXP từ nguyên liệu
+    const totalExp = this.calculateMaterialExp(elixir.crafting || {});
 
     // Thực hiện luyện đan
-    const isSuccess = Math.random() < successRate;
+    const roll = Math.random() * 100;
+    const isSuccess = roll < successRate;
+
+    // Kiểm tra Critical Success
+    let criticalType = null;
+    if (isSuccess) {
+      const criticalRoll = Math.random() * 100;
+      if (criticalRoll < 0.04) {
+        criticalType = 'divine';
+      } else if (criticalRoll < 0.1) {
+        criticalType = 'super';
+      } else if (criticalRoll < 0.3) {
+        criticalType = 'great';
+      }
+    }
 
     if (isSuccess) {
       // Thành công: thêm đan dược vào inventory
       playerManager.addItemToInventory(player, elixirId, 1);
 
-      // Cập nhật thống kê alchemy
-      if (!player.alchemy) player.alchemy = { furnaceLevel: 1, totalCrafted: 0, successCount: 0, failureCount: 0, lastAlchemy: 0 };
+      // Cập nhật thống kê alchemy và tích EXP (100% EXP)
+      if (!player.alchemy) player.alchemy = { furnaceLevel: 1, alchemyExp: 0, totalCrafted: 0, successCount: 0, failureCount: 0, lastAlchemy: 0 };
       player.alchemy.totalCrafted++;
       player.alchemy.successCount++;
+      player.alchemy.alchemyExp = (player.alchemy.alchemyExp || 0) + totalExp; // 100% EXP
       player.alchemy.lastAlchemy = Date.now();
 
-      // Tiêu thụ nguyên liệu
+      // Tiêu thụ nguyên liệu (100%)
       for (const [materialId, requiredQty] of Object.entries(elixir.crafting || {})) {
         const playerMaterial = player.inventory.items.find(item => item.id === materialId);
         if (playerMaterial) {
@@ -986,34 +1121,55 @@ module.exports = {
       playerManager.savePlayers();
 
       // Tạo embed thông báo thành công
+      let title = '🧪 Luyện Đan Thành Công!';
+      let color = 0x00FF00;
+      let criticalText = '';
+
+      if (criticalType === 'divine') {
+        title = '✨ Thần Thành Công!';
+        color = 0xFFD700;
+        criticalText = '\n✨ Tất cả sub-stat đạt MAX ROLL!';
+      } else if (criticalType === 'super') {
+        title = '🌟 Siêu Thành Công!';
+        color = 0xFF8C00;
+        criticalText = '\n🌟 2 dòng sub-stat đạt MAX ROLL!';
+      } else if (criticalType === 'great') {
+        title = '⭐ Đại Thành Công!';
+        color = 0x4169E1;
+        criticalText = '\n⭐ 1 dòng sub-stat đạt MAX ROLL!';
+      }
+
       const successEmbed = new EmbedBuilder()
-        .setColor(0x00FF00)
-        .setTitle('🧪 Luyện Đan Thành Công!')
-        .setDescription(`**${elixir.name}** đã được luyện thành công!`)
+        .setColor(color)
+        .setTitle(title)
+        .setDescription(`**${elixir.name}** đã được luyện thành công!${criticalText}`)
         .addFields(
-          { name: '🎯 Tỉ lệ thành công', value: `${(successRate * 100).toFixed(1)}%`, inline: true },
+          { name: '🎯 Tỉ lệ thành công', value: `${successRate.toFixed(1)}%`, inline: true },
           { name: '🔥 Level lò luyện', value: `${furnaceLevel}`, inline: true },
+          { name: '⚡ EXP', value: `+${totalExp}`, inline: true },
           { name: '📊 Thống kê', value: `Tổng: ${player.alchemy.totalCrafted} | Thành công: ${player.alchemy.successCount} | Thất bại: ${player.alchemy.failureCount}`, inline: false }
         )
         .setTimestamp();
 
       await interaction.reply({ embeds: [successEmbed] });
     } else {
-      // Thất bại: mất nguyên liệu
+      // Thất bại: mất 50% nguyên liệu, nhận 30% EXP
       for (const [materialId, requiredQty] of Object.entries(elixir.crafting || {})) {
         const playerMaterial = player.inventory.items.find(item => item.id === materialId);
         if (playerMaterial) {
-          playerMaterial.quantity -= requiredQty;
+          const lostQty = Math.ceil(requiredQty * 0.5); // Mất 50%
+          playerMaterial.quantity -= lostQty;
           if (playerMaterial.quantity <= 0) {
             player.inventory.items = player.inventory.items.filter(item => item.id !== materialId);
           }
         }
       }
 
-      // Cập nhật thống kê alchemy
-      if (!player.alchemy) player.alchemy = { furnaceLevel: 1, totalCrafted: 0, successCount: 0, failureCount: 0, lastAlchemy: 0 };
+      // Cập nhật thống kê alchemy và tích EXP (30% EXP)
+      if (!player.alchemy) player.alchemy = { furnaceLevel: 1, alchemyExp: 0, totalCrafted: 0, successCount: 0, failureCount: 0, lastAlchemy: 0 };
       player.alchemy.totalCrafted++;
       player.alchemy.failureCount++;
+      player.alchemy.alchemyExp = (player.alchemy.alchemyExp || 0) + Math.floor(totalExp * 0.3); // 30% EXP
       player.alchemy.lastAlchemy = Date.now();
 
       // Lưu player data
@@ -1023,10 +1179,11 @@ module.exports = {
       const failureEmbed = new EmbedBuilder()
         .setColor(0xFF0000)
         .setTitle('💥 Luyện Đan Thất Bại!')
-        .setDescription(`**${elixir.name}** luyện thất bại! Nguyên liệu đã bị mất.`)
+        .setDescription(`**${elixir.name}** luyện thất bại! Mất 50% nguyên liệu.`)
         .addFields(
-          { name: '🎯 Tỉ lệ thành công', value: `${(successRate * 100).toFixed(1)}%`, inline: true },
+          { name: '🎯 Tỉ lệ thành công', value: `${successRate.toFixed(1)}%`, inline: true },
           { name: '🔥 Level lò luyện', value: `${furnaceLevel}`, inline: true },
+          { name: '⚡ EXP', value: `+${Math.floor(totalExp * 0.3)} (30%)`, inline: true },
           { name: '💡 Gợi ý', value: 'Nâng cấp lò luyện để tăng tỉ lệ thành công!', inline: false }
         )
         .setTimestamp();
@@ -1046,9 +1203,12 @@ module.exports = {
     }
 
     const furnaceLevel = player.alchemy?.furnaceLevel || 1;
-    const baseSuccessRate = 0.6;
-    const levelBonus = (furnaceLevel - 1) * 0.05;
-    const successRate = Math.min(baseSuccessRate + levelBonus, 0.95);
+    const baseSuccessRate = 55;
+    const levelBonus = (furnaceLevel - 1) * 3;
+    const successRate = baseSuccessRate + levelBonus; // Level 15 = 97%
+
+    // Tính EXP từ nguyên liệu (cho 1 lần)
+    const baseExp = this.calculateMaterialExp(elixir.crafting || {});
 
     let successCount = 0;
     let failureCount = 0;
@@ -1062,31 +1222,46 @@ module.exports = {
       });
       if (!canCraft) break;
 
-      // Trừ nguyên liệu cho 1 lần
-      for (const [matId, req] of Object.entries(elixir.crafting || {})) {
-        const invItem = player.inventory.items.find(it => it.id === matId);
-        if (invItem) {
-          invItem.quantity -= req;
-          if (invItem.quantity <= 0) {
-            player.inventory.items = player.inventory.items.filter(it => it.id !== matId);
+      crafted++;
+      const roll = Math.random() * 100;
+      const isSuccess = roll < successRate;
+
+      if (isSuccess) {
+        // Thành công: mất 100% nguyên liệu, nhận 100% EXP
+        for (const [matId, req] of Object.entries(elixir.crafting || {})) {
+          const invItem = player.inventory.items.find(it => it.id === matId);
+          if (invItem) {
+            invItem.quantity -= req;
+            if (invItem.quantity <= 0) {
+              player.inventory.items = player.inventory.items.filter(it => it.id !== matId);
+            }
           }
         }
-      }
-
-      crafted++;
-      if (Math.random() < successRate) {
         playerManager.addItemToInventory(player, elixirId, 1);
         successCount++;
       } else {
+        // Thất bại: mất 50% nguyên liệu, nhận 30% EXP
+        for (const [matId, req] of Object.entries(elixir.crafting || {})) {
+          const invItem = player.inventory.items.find(it => it.id === matId);
+          if (invItem) {
+            const lostQty = Math.ceil(req * 0.5);
+            invItem.quantity -= lostQty;
+            if (invItem.quantity <= 0) {
+              player.inventory.items = player.inventory.items.filter(it => it.id !== matId);
+            }
+          }
+        }
         failureCount++;
       }
     }
 
-    // Cập nhật thống kê alchemy
-    if (!player.alchemy) player.alchemy = { furnaceLevel: 1, totalCrafted: 0, successCount: 0, failureCount: 0, lastAlchemy: 0 };
+    // Cập nhật thống kê alchemy và tích EXP
+    if (!player.alchemy) player.alchemy = { furnaceLevel: 1, alchemyExp: 0, totalCrafted: 0, successCount: 0, failureCount: 0, lastAlchemy: 0 };
     player.alchemy.totalCrafted += crafted;
     player.alchemy.successCount += successCount;
     player.alchemy.failureCount += failureCount;
+    // EXP: 100% cho thành công, 30% cho thất bại
+    player.alchemy.alchemyExp = (player.alchemy.alchemyExp || 0) + (successCount * baseExp) + Math.floor(failureCount * baseExp * 0.3);
     player.alchemy.lastAlchemy = Date.now();
 
     playerManager.savePlayers();
@@ -1098,7 +1273,8 @@ module.exports = {
       .addFields(
         { name: '✅ Thành công', value: `${successCount}`, inline: true },
         { name: '❌ Thất bại', value: `${failureCount}`, inline: true },
-        { name: '🔥 Level lò luyện', value: `${furnaceLevel} (tỉ lệ: ${(successRate * 100).toFixed(1)}%)`, inline: true }
+        { name: '🔥 Level lò luyện', value: `${furnaceLevel} (${successRate.toFixed(1)}%)`, inline: true },
+        { name: '⚡ EXP nhận được', value: `${(successCount * baseExp) + Math.floor(failureCount * baseExp * 0.3)}`, inline: true }
       )
       .setTimestamp();
 

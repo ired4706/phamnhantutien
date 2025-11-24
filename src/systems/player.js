@@ -202,6 +202,7 @@ class PlayerManager {
       // Hệ thống luyện đan
       alchemy: {
         furnaceLevel: 1, // Level lò luyện (mặc định 1)
+        alchemyExp: 0, // EXP luyện đan hiện tại
         totalCrafted: 0, // Tổng số đan dược đã luyện
         successCount: 0, // Số lần luyện thành công
         failureCount: 0, // Số lần luyện thất bại
@@ -210,6 +211,7 @@ class PlayerManager {
       // Hệ thống rèn vũ khí
       forge: {
         forgeLevel: 1, // Level lò rèn (mặc định 1)
+        forgeExp: 0, // EXP rèn hiện tại
         totalCrafted: 0, // Tổng số vũ khí đã chế tạo
         successCount: 0, // Số lần chế tạo thành công
         failureCount: 0, // Số lần chế tạo thất bại
