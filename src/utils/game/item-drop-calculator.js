@@ -67,7 +67,7 @@ class ItemDropCalculator {
    * @param {Object} player - Player object
    * @returns {Array} Danh sách khoáng sản thu được
    */
-  static calculateMineItems(player) {
+  static  calculateMineItems(player) {
     // Load items nếu chưa load
     itemLoader.loadAllItems();
 

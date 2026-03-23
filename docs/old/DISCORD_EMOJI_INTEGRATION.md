@@ -27,6 +27,8 @@ Project này đã được tích hợp với hệ thống emoji Discord, cho ph�
 
 Chỉnh sửa file `config/discord-emojis.json`:
 
+Lưu ý theo code hiện tại: `src/utils/game/emoji-loader.js` đang tìm cấu hình tại `src/utils/config/discord-emojis.json`. Nếu bạn chỉ có file ở `config/discord-emojis.json` (tại root) và thấy emoji Discord không load được, hãy copy/move file sang đúng đường dẫn hoặc sửa lại logic tìm file trong `emoji-loader`.
+
 ```json
 {
   "discord_emojis": {
@@ -46,7 +48,7 @@ Chỉnh sửa file `config/discord-emojis.json`:
 ### 1. Import Emoji Loader
 
 ```javascript
-const emojiLoader = require('../utils/emoji-loader.js');
+const emojiLoader = require('../src/utils/game/emoji-loader.js');
 ```
 
 ### 2. Sử Dụng Emoji
@@ -91,9 +93,11 @@ const processedText = emojiLoader.processTextWithEmojis(text);
 
 ```
 config/
-├── discord-emojis.json          # Cấu hình emoji Discord
-utils/
-├── emoji-loader.js              # Utility load và sử dụng emoji
+├── discord-emojis.json          # Cấu hình emoji Discord (hiện có trong repo)
+src/utils/game/
+├── emoji-loader.js              # Utility load và sử dụng emoji (được require trong code)
+src/utils/config/
+├── discord-emojis.json          # (đường dẫn mà emoji-loader đang tìm theo code)
 ```
 
 ## 🎯 Danh Mục Emoji Hỗ Trợ
